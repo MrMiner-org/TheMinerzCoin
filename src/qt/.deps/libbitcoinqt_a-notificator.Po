@@ -1,0 +1,1164 @@
+qt/libbitcoinqt_a-notificator.o: qt/notificator.cpp \
+ /usr/include/stdc-predef.h qt/notificator.h config/bitcoin-config.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/QIcon \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qicon.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qtguiglobal.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qglobal.h \
+ /usr/include/c++/11/type_traits \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
+ /usr/include/features.h /usr/include/features-time64.h \
+ /usr/include/x86_64-linux-gnu/bits/wordsize.h \
+ /usr/include/x86_64-linux-gnu/bits/timesize.h \
+ /usr/include/x86_64-linux-gnu/sys/cdefs.h \
+ /usr/include/x86_64-linux-gnu/bits/long-double.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/cpu_defines.h \
+ /usr/include/c++/11/cstddef \
+ /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h \
+ /usr/include/c++/11/utility /usr/include/c++/11/bits/stl_relops.h \
+ /usr/include/c++/11/bits/stl_pair.h /usr/include/c++/11/bits/move.h \
+ /usr/include/c++/11/initializer_list /usr/include/assert.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qconfig.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qtcore-config.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qsystemdetection.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qprocessordetection.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qcompilerdetection.h \
+ /usr/include/c++/11/algorithm /usr/include/c++/11/bits/stl_algobase.h \
+ /usr/include/c++/11/bits/functexcept.h \
+ /usr/include/c++/11/bits/exception_defines.h \
+ /usr/include/c++/11/bits/cpp_type_traits.h \
+ /usr/include/c++/11/ext/type_traits.h \
+ /usr/include/c++/11/ext/numeric_traits.h \
+ /usr/include/c++/11/bits/stl_iterator_base_types.h \
+ /usr/include/c++/11/bits/stl_iterator_base_funcs.h \
+ /usr/include/c++/11/bits/concept_check.h \
+ /usr/include/c++/11/debug/assertions.h \
+ /usr/include/c++/11/bits/stl_iterator.h \
+ /usr/include/c++/11/bits/ptr_traits.h /usr/include/c++/11/debug/debug.h \
+ /usr/include/c++/11/bits/predefined_ops.h \
+ /usr/include/c++/11/bits/stl_algo.h /usr/include/c++/11/cstdlib \
+ /usr/include/stdlib.h \
+ /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
+ /usr/include/x86_64-linux-gnu/bits/waitflags.h \
+ /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
+ /usr/include/x86_64-linux-gnu/bits/floatn.h \
+ /usr/include/x86_64-linux-gnu/bits/floatn-common.h \
+ /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
+ /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
+ /usr/include/x86_64-linux-gnu/sys/types.h \
+ /usr/include/x86_64-linux-gnu/bits/types.h \
+ /usr/include/x86_64-linux-gnu/bits/typesizes.h \
+ /usr/include/x86_64-linux-gnu/bits/time64.h \
+ /usr/include/x86_64-linux-gnu/bits/types/clock_t.h \
+ /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h \
+ /usr/include/x86_64-linux-gnu/bits/types/time_t.h \
+ /usr/include/x86_64-linux-gnu/bits/types/timer_t.h \
+ /usr/include/x86_64-linux-gnu/bits/stdint-intn.h /usr/include/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/endianness.h \
+ /usr/include/x86_64-linux-gnu/bits/byteswap.h \
+ /usr/include/x86_64-linux-gnu/bits/uintn-identity.h \
+ /usr/include/x86_64-linux-gnu/sys/select.h \
+ /usr/include/x86_64-linux-gnu/bits/select.h \
+ /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h \
+ /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h \
+ /usr/include/x86_64-linux-gnu/bits/select2.h \
+ /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h \
+ /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h \
+ /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h \
+ /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h \
+ /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
+ /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h /usr/include/alloca.h \
+ /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
+ /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
+ /usr/include/x86_64-linux-gnu/bits/stdlib.h \
+ /usr/include/c++/11/bits/std_abs.h \
+ /usr/include/c++/11/bits/algorithmfwd.h \
+ /usr/include/c++/11/bits/stl_heap.h \
+ /usr/include/c++/11/bits/stl_tempbuf.h \
+ /usr/include/c++/11/bits/stl_construct.h /usr/include/c++/11/new \
+ /usr/include/c++/11/bits/exception.h \
+ /usr/include/c++/11/bits/uniform_int_dist.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qtypeinfo.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qsysinfo.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qlogging.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qflags.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qatomic.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qbasicatomic.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qatomic_cxx11.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qgenericatomic.h \
+ /usr/include/c++/11/atomic /usr/include/c++/11/bits/atomic_base.h \
+ /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h /usr/include/stdint.h \
+ /usr/include/x86_64-linux-gnu/bits/wchar.h \
+ /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
+ /usr/include/c++/11/bits/atomic_lockfree_defines.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qglobalstatic.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qnumeric.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qversiontagging.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qtgui-config.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qsize.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qnamespace.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qlist.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qalgorithms.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qiterator.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qrefcount.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qarraydata.h \
+ /usr/include/string.h /usr/include/strings.h \
+ /usr/include/x86_64-linux-gnu/bits/strings_fortified.h \
+ /usr/include/x86_64-linux-gnu/bits/string_fortified.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qhashfunctions.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qstring.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qchar.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qbytearray.h \
+ /usr/include/c++/11/stdlib.h \
+ /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h \
+ /usr/include/c++/11/string /usr/include/c++/11/bits/stringfwd.h \
+ /usr/include/c++/11/bits/memoryfwd.h \
+ /usr/include/c++/11/bits/char_traits.h \
+ /usr/include/c++/11/bits/postypes.h /usr/include/c++/11/cwchar \
+ /usr/include/wchar.h /usr/include/x86_64-linux-gnu/bits/types/wint_t.h \
+ /usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h \
+ /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h \
+ /usr/include/x86_64-linux-gnu/bits/types/__FILE.h \
+ /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
+ /usr/include/x86_64-linux-gnu/bits/wchar2.h /usr/include/c++/11/cstdint \
+ /usr/include/c++/11/bits/allocator.h \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/c++allocator.h \
+ /usr/include/c++/11/ext/new_allocator.h \
+ /usr/include/c++/11/bits/localefwd.h \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/c++locale.h \
+ /usr/include/c++/11/clocale /usr/include/locale.h \
+ /usr/include/x86_64-linux-gnu/bits/locale.h /usr/include/c++/11/iosfwd \
+ /usr/include/c++/11/cctype /usr/include/ctype.h \
+ /usr/include/c++/11/bits/ostream_insert.h \
+ /usr/include/c++/11/bits/cxxabi_forced.h \
+ /usr/include/c++/11/bits/stl_function.h \
+ /usr/include/c++/11/backward/binders.h \
+ /usr/include/c++/11/bits/range_access.h \
+ /usr/include/c++/11/bits/basic_string.h \
+ /usr/include/c++/11/ext/atomicity.h \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/gthr.h \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/gthr-default.h \
+ /usr/include/pthread.h /usr/include/sched.h \
+ /usr/include/x86_64-linux-gnu/bits/sched.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct_sched_param.h \
+ /usr/include/x86_64-linux-gnu/bits/cpu-set.h /usr/include/time.h \
+ /usr/include/x86_64-linux-gnu/bits/time.h \
+ /usr/include/x86_64-linux-gnu/bits/timex.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h \
+ /usr/include/x86_64-linux-gnu/bits/setjmp.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct___jmp_buf_tag.h \
+ /usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/atomic_word.h \
+ /usr/include/x86_64-linux-gnu/sys/single_threaded.h \
+ /usr/include/c++/11/ext/alloc_traits.h \
+ /usr/include/c++/11/bits/alloc_traits.h \
+ /usr/include/c++/11/ext/string_conversions.h /usr/include/c++/11/cstdio \
+ /usr/include/stdio.h /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h \
+ /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
+ /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio2.h /usr/include/c++/11/cerrno \
+ /usr/include/errno.h /usr/include/x86_64-linux-gnu/bits/errno.h \
+ /usr/include/linux/errno.h /usr/include/x86_64-linux-gnu/asm/errno.h \
+ /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
+ /usr/include/x86_64-linux-gnu/bits/types/error_t.h \
+ /usr/include/c++/11/bits/charconv.h \
+ /usr/include/c++/11/bits/functional_hash.h \
+ /usr/include/c++/11/bits/hash_bytes.h \
+ /usr/include/c++/11/bits/basic_string.tcc /usr/include/c++/11/iterator \
+ /usr/include/c++/11/bits/stream_iterator.h \
+ /usr/include/c++/11/bits/streambuf_iterator.h \
+ /usr/include/c++/11/streambuf /usr/include/c++/11/bits/ios_base.h \
+ /usr/include/c++/11/bits/locale_classes.h \
+ /usr/include/c++/11/bits/locale_classes.tcc \
+ /usr/include/c++/11/system_error \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/error_constants.h \
+ /usr/include/c++/11/stdexcept /usr/include/c++/11/exception \
+ /usr/include/c++/11/bits/exception_ptr.h \
+ /usr/include/c++/11/bits/cxxabi_init_exception.h \
+ /usr/include/c++/11/typeinfo /usr/include/c++/11/bits/nested_exception.h \
+ /usr/include/c++/11/bits/streambuf.tcc \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qstringliteral.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qstringalgorithms.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qstringview.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qpair.h \
+ /usr/include/c++/11/numeric /usr/include/c++/11/bits/stl_numeric.h \
+ /usr/include/c++/11/list /usr/include/c++/11/bits/stl_list.h \
+ /usr/include/c++/11/bits/allocated_ptr.h \
+ /usr/include/c++/11/ext/aligned_buffer.h \
+ /usr/include/c++/11/bits/list.tcc \
+ /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h \
+ /usr/lib/gcc/x86_64-linux-gnu/11/include/syslimits.h \
+ /usr/include/limits.h /usr/include/x86_64-linux-gnu/bits/posix1_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/local_lim.h \
+ /usr/include/linux/limits.h \
+ /usr/include/x86_64-linux-gnu/bits/posix2_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/xopen_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/uio_lim.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qbytearraylist.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qstringlist.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qregexp.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qstringmatcher.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qpixmap.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qpaintdevice.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qwindowdefs.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qobjectdefs.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qobjectdefs_impl.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qrect.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qmargins.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qpoint.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qcolor.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qrgb.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qrgba64.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qsharedpointer.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qshareddata.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qhash.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qsharedpointer_impl.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qobject.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qscopedpointer.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qmetatype.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qvarlengtharray.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qcontainerfwd.h \
+ /usr/include/c++/11/vector /usr/include/c++/11/bits/stl_uninitialized.h \
+ /usr/include/c++/11/bits/stl_vector.h \
+ /usr/include/c++/11/bits/stl_bvector.h \
+ /usr/include/c++/11/bits/vector.tcc /usr/include/c++/11/map \
+ /usr/include/c++/11/bits/stl_tree.h /usr/include/c++/11/bits/stl_map.h \
+ /usr/include/c++/11/tuple /usr/include/c++/11/array \
+ /usr/include/c++/11/bits/uses_allocator.h \
+ /usr/include/c++/11/bits/invoke.h \
+ /usr/include/c++/11/bits/stl_multimap.h \
+ /usr/include/c++/11/bits/erase_if.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qobject_impl.h \
+ /usr/include/c++/11/chrono /usr/include/c++/11/ratio \
+ /usr/include/c++/11/limits /usr/include/c++/11/ctime \
+ /usr/include/c++/11/bits/parse_numbers.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qimage.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qpixelformat.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qtransform.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qmatrix.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qpolygon.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qvector.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qregion.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qdatastream.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qiodevice.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qline.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qpainterpath.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/QObject \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qobject.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtWidgets/QApplication \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtWidgets/qapplication.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtWidgets/qtwidgetsglobal.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtWidgets/qtwidgets-config.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qcoreapplication.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qcoreevent.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qeventloop.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qcursor.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qguiapplication.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qinputmethod.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qlocale.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qvariant.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qmap.h \
+ /usr/include/c++/11/functional /usr/include/c++/11/bits/refwrap.h \
+ /usr/include/c++/11/bits/std_function.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/QByteArray \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qbytearray.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/QImageWriter \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qimagewriter.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qimageiohandler.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qplugin.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qpointer.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qjsonobject.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qjsonvalue.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qfactoryinterface.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtWidgets/QMessageBox \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtWidgets/qmessagebox.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtWidgets/qdialog.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtWidgets/qwidget.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qpalette.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qbrush.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qfont.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qfontmetrics.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qfontinfo.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtWidgets/qsizepolicy.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qkeysequence.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/QMetaType \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qmetatype.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtWidgets/QStyle \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtWidgets/qstyle.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qicon.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtWidgets/QSystemTrayIcon \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtWidgets/qsystemtrayicon.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/QTemporaryFile \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qtemporaryfile.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qfile.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qfiledevice.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/QVariant \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qvariant.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/QtDBus \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/QtDBusDepends \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/QtCore \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/QtCoreDepends \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qglobal.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qabstractanimation.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qabstracteventdispatcher.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qabstractitemmodel.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qabstractnativeeventfilter.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qabstractproxymodel.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qabstractitemmodel.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qalgorithms.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qanimationgroup.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qabstractanimation.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qarraydata.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qarraydataops.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qarraydatapointer.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qarraydataops.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qatomic.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qbasictimer.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qbitarray.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qbuffer.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qbytearraylist.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qbytearraymatcher.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qcache.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qcborarray.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qcborvalue.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qdatetime.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qcborcommon.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qdebug.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qtextstream.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qset.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qcontiguouscache.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qregularexpression.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qurl.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/quuid.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qcborcommon.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qcbormap.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qcborstream.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qfloat16.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qcborvalue.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qchar.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qcollator.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qcompilerdetection.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qcontainerfwd.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qcontiguouscache.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qcoreapplication.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qcoreevent.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qcryptographichash.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qdatastream.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qdatetime.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qdeadlinetimer.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qelapsedtimer.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qdebug.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qdir.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qfileinfo.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qdiriterator.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qdir.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qeasingcurve.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qelapsedtimer.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qendian.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qeventloop.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qexception.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qfactoryinterface.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qfile.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qfiledevice.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qfileinfo.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qfileselector.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/QObject \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/QStringList \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qstringlist.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qfilesystemwatcher.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qflags.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qfuture.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qfutureinterface.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qrunnable.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qmutex.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qexception.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qresultstore.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qfutureinterface.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qfuturesynchronizer.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qfuture.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qfuturewatcher.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qgenericatomic.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qglobalstatic.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qhash.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qhashfunctions.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qidentityproxymodel.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qabstractproxymodel.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qiodevice.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qisenum.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qitemselectionmodel.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qiterator.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qjsonarray.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qjsondocument.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qjsonobject.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qjsonvalue.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qlibrary.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qlibraryinfo.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qversionnumber.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qline.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qlinkedlist.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qlist.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qlocale.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qlockfile.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qloggingcategory.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qmap.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qmargins.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qmath.h \
+ /usr/include/c++/11/cmath /usr/include/math.h \
+ /usr/include/x86_64-linux-gnu/bits/math-vector.h \
+ /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h \
+ /usr/include/x86_64-linux-gnu/bits/flt-eval-method.h \
+ /usr/include/x86_64-linux-gnu/bits/fp-logb.h \
+ /usr/include/x86_64-linux-gnu/bits/fp-fast.h \
+ /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h \
+ /usr/include/x86_64-linux-gnu/bits/mathcalls.h \
+ /usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h \
+ /usr/include/x86_64-linux-gnu/bits/iscanonical.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qmessageauthenticationcode.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qcryptographichash.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qmetaobject.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qmimedata.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qmimedatabase.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qmimetype.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qmimetype.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qmutex.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qnamespace.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qnumeric.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qobjectcleanuphandler.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qobjectdefs.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qoperatingsystemversion.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qpair.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qparallelanimationgroup.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qanimationgroup.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qpauseanimation.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qplugin.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qpluginloader.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qlibrary.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qpoint.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qpointer.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qprocess.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qprocessordetection.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qpropertyanimation.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qvariantanimation.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qeasingcurve.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qqueue.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qrandom.h \
+ /usr/include/c++/11/random /usr/include/c++/11/bits/random.h \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/opt_random.h \
+ /usr/include/c++/11/bits/random.tcc \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qreadwritelock.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qrect.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qrefcount.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qregexp.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qregularexpression.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qresource.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qresultstore.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qrunnable.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qsavefile.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qscopedpointer.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qscopedvaluerollback.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qscopeguard.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qsemaphore.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qsequentialanimationgroup.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qset.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qsettings.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qshareddata.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qsharedmemory.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qsharedpointer.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qsignalmapper.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qsize.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qsocketnotifier.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qsortfilterproxymodel.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qstack.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qstandardpaths.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qstorageinfo.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qstring.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qstringalgorithms.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qstringbuilder.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qstringlistmodel.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qstringliteral.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qstringmatcher.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qstringview.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qsysinfo.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qsystemdetection.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qsystemsemaphore.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qtemporarydir.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qtextboundaryfinder.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qtextcodec.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qtextstream.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qthread.h \
+ /usr/include/c++/11/future /usr/include/c++/11/mutex \
+ /usr/include/c++/11/bits/std_mutex.h \
+ /usr/include/c++/11/bits/unique_lock.h \
+ /usr/include/c++/11/condition_variable \
+ /usr/include/c++/11/bits/shared_ptr.h \
+ /usr/include/c++/11/bits/shared_ptr_base.h \
+ /usr/include/c++/11/bits/unique_ptr.h \
+ /usr/include/c++/11/ext/concurrence.h \
+ /usr/include/c++/11/bits/atomic_futex.h \
+ /usr/include/c++/11/bits/std_thread.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qthreadpool.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qthread.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qthreadstorage.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qtimeline.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qtimer.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qbasictimer.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qtimezone.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qtranslator.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qtypeinfo.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qtypetraits.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qurl.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qurlquery.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/quuid.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qvariantanimation.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qvarlengtharray.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qvector.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qversionnumber.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qversiontagging.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qwaitcondition.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qwineventnotifier.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qxmlstream.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qtcoreversion.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qtdbusglobal.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbusabstractadaptor.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qtdbusglobal.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbusabstractinterface.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbusmessage.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbuserror.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbusextratypes.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbusconnection.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbusargument.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbusconnection.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbusconnectioninterface.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbusabstractinterface.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbusreply.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbuspendingreply.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbusargument.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbuspendingcall.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbuscontext.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbuserror.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbusextratypes.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbusinterface.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbusmessage.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbusmetatype.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbuspendingcall.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbuspendingreply.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbusreply.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbusserver.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbusservicewatcher.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbusunixfiledescriptor.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbusvirtualobject.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qtdbusversion.h
+/usr/include/stdc-predef.h:
+qt/notificator.h:
+config/bitcoin-config.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/QIcon:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qicon.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qtguiglobal.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qglobal.h:
+/usr/include/c++/11/type_traits:
+/usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h:
+/usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h:
+/usr/include/features.h:
+/usr/include/features-time64.h:
+/usr/include/x86_64-linux-gnu/bits/wordsize.h:
+/usr/include/x86_64-linux-gnu/bits/timesize.h:
+/usr/include/x86_64-linux-gnu/sys/cdefs.h:
+/usr/include/x86_64-linux-gnu/bits/long-double.h:
+/usr/include/x86_64-linux-gnu/gnu/stubs.h:
+/usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
+/usr/include/x86_64-linux-gnu/c++/11/bits/cpu_defines.h:
+/usr/include/c++/11/cstddef:
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h:
+/usr/include/c++/11/utility:
+/usr/include/c++/11/bits/stl_relops.h:
+/usr/include/c++/11/bits/stl_pair.h:
+/usr/include/c++/11/bits/move.h:
+/usr/include/c++/11/initializer_list:
+/usr/include/assert.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qconfig.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qtcore-config.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qsystemdetection.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qprocessordetection.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qcompilerdetection.h:
+/usr/include/c++/11/algorithm:
+/usr/include/c++/11/bits/stl_algobase.h:
+/usr/include/c++/11/bits/functexcept.h:
+/usr/include/c++/11/bits/exception_defines.h:
+/usr/include/c++/11/bits/cpp_type_traits.h:
+/usr/include/c++/11/ext/type_traits.h:
+/usr/include/c++/11/ext/numeric_traits.h:
+/usr/include/c++/11/bits/stl_iterator_base_types.h:
+/usr/include/c++/11/bits/stl_iterator_base_funcs.h:
+/usr/include/c++/11/bits/concept_check.h:
+/usr/include/c++/11/debug/assertions.h:
+/usr/include/c++/11/bits/stl_iterator.h:
+/usr/include/c++/11/bits/ptr_traits.h:
+/usr/include/c++/11/debug/debug.h:
+/usr/include/c++/11/bits/predefined_ops.h:
+/usr/include/c++/11/bits/stl_algo.h:
+/usr/include/c++/11/cstdlib:
+/usr/include/stdlib.h:
+/usr/include/x86_64-linux-gnu/bits/libc-header-start.h:
+/usr/include/x86_64-linux-gnu/bits/waitflags.h:
+/usr/include/x86_64-linux-gnu/bits/waitstatus.h:
+/usr/include/x86_64-linux-gnu/bits/floatn.h:
+/usr/include/x86_64-linux-gnu/bits/floatn-common.h:
+/usr/include/x86_64-linux-gnu/bits/types/locale_t.h:
+/usr/include/x86_64-linux-gnu/bits/types/__locale_t.h:
+/usr/include/x86_64-linux-gnu/sys/types.h:
+/usr/include/x86_64-linux-gnu/bits/types.h:
+/usr/include/x86_64-linux-gnu/bits/typesizes.h:
+/usr/include/x86_64-linux-gnu/bits/time64.h:
+/usr/include/x86_64-linux-gnu/bits/types/clock_t.h:
+/usr/include/x86_64-linux-gnu/bits/types/clockid_t.h:
+/usr/include/x86_64-linux-gnu/bits/types/time_t.h:
+/usr/include/x86_64-linux-gnu/bits/types/timer_t.h:
+/usr/include/x86_64-linux-gnu/bits/stdint-intn.h:
+/usr/include/endian.h:
+/usr/include/x86_64-linux-gnu/bits/endian.h:
+/usr/include/x86_64-linux-gnu/bits/endianness.h:
+/usr/include/x86_64-linux-gnu/bits/byteswap.h:
+/usr/include/x86_64-linux-gnu/bits/uintn-identity.h:
+/usr/include/x86_64-linux-gnu/sys/select.h:
+/usr/include/x86_64-linux-gnu/bits/select.h:
+/usr/include/x86_64-linux-gnu/bits/types/sigset_t.h:
+/usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h:
+/usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h:
+/usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h:
+/usr/include/x86_64-linux-gnu/bits/select2.h:
+/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h:
+/usr/include/x86_64-linux-gnu/bits/thread-shared-types.h:
+/usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h:
+/usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h:
+/usr/include/x86_64-linux-gnu/bits/struct_mutex.h:
+/usr/include/x86_64-linux-gnu/bits/struct_rwlock.h:
+/usr/include/alloca.h:
+/usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h:
+/usr/include/x86_64-linux-gnu/bits/stdlib-float.h:
+/usr/include/x86_64-linux-gnu/bits/stdlib.h:
+/usr/include/c++/11/bits/std_abs.h:
+/usr/include/c++/11/bits/algorithmfwd.h:
+/usr/include/c++/11/bits/stl_heap.h:
+/usr/include/c++/11/bits/stl_tempbuf.h:
+/usr/include/c++/11/bits/stl_construct.h:
+/usr/include/c++/11/new:
+/usr/include/c++/11/bits/exception.h:
+/usr/include/c++/11/bits/uniform_int_dist.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qtypeinfo.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qsysinfo.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qlogging.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qflags.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qatomic.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qbasicatomic.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qatomic_cxx11.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qgenericatomic.h:
+/usr/include/c++/11/atomic:
+/usr/include/c++/11/bits/atomic_base.h:
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h:
+/usr/include/stdint.h:
+/usr/include/x86_64-linux-gnu/bits/wchar.h:
+/usr/include/x86_64-linux-gnu/bits/stdint-uintn.h:
+/usr/include/c++/11/bits/atomic_lockfree_defines.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qglobalstatic.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qnumeric.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qversiontagging.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qtgui-config.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qsize.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qnamespace.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qlist.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qalgorithms.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qiterator.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qrefcount.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qarraydata.h:
+/usr/include/string.h:
+/usr/include/strings.h:
+/usr/include/x86_64-linux-gnu/bits/strings_fortified.h:
+/usr/include/x86_64-linux-gnu/bits/string_fortified.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qhashfunctions.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qstring.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qchar.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qbytearray.h:
+/usr/include/c++/11/stdlib.h:
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h:
+/usr/include/c++/11/string:
+/usr/include/c++/11/bits/stringfwd.h:
+/usr/include/c++/11/bits/memoryfwd.h:
+/usr/include/c++/11/bits/char_traits.h:
+/usr/include/c++/11/bits/postypes.h:
+/usr/include/c++/11/cwchar:
+/usr/include/wchar.h:
+/usr/include/x86_64-linux-gnu/bits/types/wint_t.h:
+/usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h:
+/usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h:
+/usr/include/x86_64-linux-gnu/bits/types/__FILE.h:
+/usr/include/x86_64-linux-gnu/bits/types/FILE.h:
+/usr/include/x86_64-linux-gnu/bits/wchar2.h:
+/usr/include/c++/11/cstdint:
+/usr/include/c++/11/bits/allocator.h:
+/usr/include/x86_64-linux-gnu/c++/11/bits/c++allocator.h:
+/usr/include/c++/11/ext/new_allocator.h:
+/usr/include/c++/11/bits/localefwd.h:
+/usr/include/x86_64-linux-gnu/c++/11/bits/c++locale.h:
+/usr/include/c++/11/clocale:
+/usr/include/locale.h:
+/usr/include/x86_64-linux-gnu/bits/locale.h:
+/usr/include/c++/11/iosfwd:
+/usr/include/c++/11/cctype:
+/usr/include/ctype.h:
+/usr/include/c++/11/bits/ostream_insert.h:
+/usr/include/c++/11/bits/cxxabi_forced.h:
+/usr/include/c++/11/bits/stl_function.h:
+/usr/include/c++/11/backward/binders.h:
+/usr/include/c++/11/bits/range_access.h:
+/usr/include/c++/11/bits/basic_string.h:
+/usr/include/c++/11/ext/atomicity.h:
+/usr/include/x86_64-linux-gnu/c++/11/bits/gthr.h:
+/usr/include/x86_64-linux-gnu/c++/11/bits/gthr-default.h:
+/usr/include/pthread.h:
+/usr/include/sched.h:
+/usr/include/x86_64-linux-gnu/bits/sched.h:
+/usr/include/x86_64-linux-gnu/bits/types/struct_sched_param.h:
+/usr/include/x86_64-linux-gnu/bits/cpu-set.h:
+/usr/include/time.h:
+/usr/include/x86_64-linux-gnu/bits/time.h:
+/usr/include/x86_64-linux-gnu/bits/timex.h:
+/usr/include/x86_64-linux-gnu/bits/types/struct_tm.h:
+/usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h:
+/usr/include/x86_64-linux-gnu/bits/setjmp.h:
+/usr/include/x86_64-linux-gnu/bits/types/struct___jmp_buf_tag.h:
+/usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h:
+/usr/include/x86_64-linux-gnu/c++/11/bits/atomic_word.h:
+/usr/include/x86_64-linux-gnu/sys/single_threaded.h:
+/usr/include/c++/11/ext/alloc_traits.h:
+/usr/include/c++/11/bits/alloc_traits.h:
+/usr/include/c++/11/ext/string_conversions.h:
+/usr/include/c++/11/cstdio:
+/usr/include/stdio.h:
+/usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h:
+/usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h:
+/usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h:
+/usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h:
+/usr/include/x86_64-linux-gnu/bits/stdio_lim.h:
+/usr/include/x86_64-linux-gnu/bits/stdio.h:
+/usr/include/x86_64-linux-gnu/bits/stdio2.h:
+/usr/include/c++/11/cerrno:
+/usr/include/errno.h:
+/usr/include/x86_64-linux-gnu/bits/errno.h:
+/usr/include/linux/errno.h:
+/usr/include/x86_64-linux-gnu/asm/errno.h:
+/usr/include/asm-generic/errno.h:
+/usr/include/asm-generic/errno-base.h:
+/usr/include/x86_64-linux-gnu/bits/types/error_t.h:
+/usr/include/c++/11/bits/charconv.h:
+/usr/include/c++/11/bits/functional_hash.h:
+/usr/include/c++/11/bits/hash_bytes.h:
+/usr/include/c++/11/bits/basic_string.tcc:
+/usr/include/c++/11/iterator:
+/usr/include/c++/11/bits/stream_iterator.h:
+/usr/include/c++/11/bits/streambuf_iterator.h:
+/usr/include/c++/11/streambuf:
+/usr/include/c++/11/bits/ios_base.h:
+/usr/include/c++/11/bits/locale_classes.h:
+/usr/include/c++/11/bits/locale_classes.tcc:
+/usr/include/c++/11/system_error:
+/usr/include/x86_64-linux-gnu/c++/11/bits/error_constants.h:
+/usr/include/c++/11/stdexcept:
+/usr/include/c++/11/exception:
+/usr/include/c++/11/bits/exception_ptr.h:
+/usr/include/c++/11/bits/cxxabi_init_exception.h:
+/usr/include/c++/11/typeinfo:
+/usr/include/c++/11/bits/nested_exception.h:
+/usr/include/c++/11/bits/streambuf.tcc:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qstringliteral.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qstringalgorithms.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qstringview.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qpair.h:
+/usr/include/c++/11/numeric:
+/usr/include/c++/11/bits/stl_numeric.h:
+/usr/include/c++/11/list:
+/usr/include/c++/11/bits/stl_list.h:
+/usr/include/c++/11/bits/allocated_ptr.h:
+/usr/include/c++/11/ext/aligned_buffer.h:
+/usr/include/c++/11/bits/list.tcc:
+/usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h:
+/usr/lib/gcc/x86_64-linux-gnu/11/include/syslimits.h:
+/usr/include/limits.h:
+/usr/include/x86_64-linux-gnu/bits/posix1_lim.h:
+/usr/include/x86_64-linux-gnu/bits/local_lim.h:
+/usr/include/linux/limits.h:
+/usr/include/x86_64-linux-gnu/bits/posix2_lim.h:
+/usr/include/x86_64-linux-gnu/bits/xopen_lim.h:
+/usr/include/x86_64-linux-gnu/bits/uio_lim.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qbytearraylist.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qstringlist.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qregexp.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qstringmatcher.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qpixmap.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qpaintdevice.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qwindowdefs.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qobjectdefs.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qobjectdefs_impl.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qrect.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qmargins.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qpoint.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qcolor.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qrgb.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qrgba64.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qsharedpointer.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qshareddata.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qhash.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qsharedpointer_impl.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qobject.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qscopedpointer.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qmetatype.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qvarlengtharray.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qcontainerfwd.h:
+/usr/include/c++/11/vector:
+/usr/include/c++/11/bits/stl_uninitialized.h:
+/usr/include/c++/11/bits/stl_vector.h:
+/usr/include/c++/11/bits/stl_bvector.h:
+/usr/include/c++/11/bits/vector.tcc:
+/usr/include/c++/11/map:
+/usr/include/c++/11/bits/stl_tree.h:
+/usr/include/c++/11/bits/stl_map.h:
+/usr/include/c++/11/tuple:
+/usr/include/c++/11/array:
+/usr/include/c++/11/bits/uses_allocator.h:
+/usr/include/c++/11/bits/invoke.h:
+/usr/include/c++/11/bits/stl_multimap.h:
+/usr/include/c++/11/bits/erase_if.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qobject_impl.h:
+/usr/include/c++/11/chrono:
+/usr/include/c++/11/ratio:
+/usr/include/c++/11/limits:
+/usr/include/c++/11/ctime:
+/usr/include/c++/11/bits/parse_numbers.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qimage.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qpixelformat.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qtransform.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qmatrix.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qpolygon.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qvector.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qregion.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qdatastream.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qiodevice.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qline.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qpainterpath.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/QObject:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qobject.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtWidgets/QApplication:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtWidgets/qapplication.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtWidgets/qtwidgetsglobal.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtWidgets/qtwidgets-config.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qcoreapplication.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qcoreevent.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qeventloop.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qcursor.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qguiapplication.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qinputmethod.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qlocale.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qvariant.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qmap.h:
+/usr/include/c++/11/functional:
+/usr/include/c++/11/bits/refwrap.h:
+/usr/include/c++/11/bits/std_function.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/QByteArray:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qbytearray.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/QImageWriter:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qimagewriter.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qimageiohandler.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qplugin.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qpointer.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qjsonobject.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qjsonvalue.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qfactoryinterface.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtWidgets/QMessageBox:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtWidgets/qmessagebox.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtWidgets/qdialog.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtWidgets/qwidget.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qpalette.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qbrush.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qfont.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qfontmetrics.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qfontinfo.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtWidgets/qsizepolicy.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qkeysequence.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/QMetaType:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qmetatype.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtWidgets/QStyle:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtWidgets/qstyle.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtGui/qicon.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtWidgets/QSystemTrayIcon:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtWidgets/qsystemtrayicon.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/QTemporaryFile:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qtemporaryfile.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qfile.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qfiledevice.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/QVariant:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qvariant.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/QtDBus:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/QtDBusDepends:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/QtCore:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/QtCoreDepends:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qglobal.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qabstractanimation.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qabstracteventdispatcher.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qabstractitemmodel.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qabstractnativeeventfilter.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qabstractproxymodel.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qabstractitemmodel.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qalgorithms.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qanimationgroup.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qabstractanimation.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qarraydata.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qarraydataops.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qarraydatapointer.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qarraydataops.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qatomic.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qbasictimer.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qbitarray.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qbuffer.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qbytearraylist.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qbytearraymatcher.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qcache.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qcborarray.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qcborvalue.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qdatetime.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qcborcommon.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qdebug.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qtextstream.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qset.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qcontiguouscache.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qregularexpression.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qurl.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/quuid.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qcborcommon.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qcbormap.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qcborstream.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qfloat16.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qcborvalue.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qchar.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qcollator.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qcompilerdetection.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qcontainerfwd.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qcontiguouscache.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qcoreapplication.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qcoreevent.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qcryptographichash.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qdatastream.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qdatetime.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qdeadlinetimer.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qelapsedtimer.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qdebug.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qdir.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qfileinfo.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qdiriterator.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qdir.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qeasingcurve.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qelapsedtimer.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qendian.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qeventloop.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qexception.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qfactoryinterface.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qfile.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qfiledevice.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qfileinfo.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qfileselector.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/QObject:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/QStringList:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qstringlist.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qfilesystemwatcher.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qflags.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qfuture.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qfutureinterface.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qrunnable.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qmutex.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qexception.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qresultstore.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qfutureinterface.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qfuturesynchronizer.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qfuture.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qfuturewatcher.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qgenericatomic.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qglobalstatic.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qhash.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qhashfunctions.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qidentityproxymodel.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qabstractproxymodel.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qiodevice.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qisenum.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qitemselectionmodel.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qiterator.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qjsonarray.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qjsondocument.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qjsonobject.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qjsonvalue.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qlibrary.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qlibraryinfo.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qversionnumber.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qline.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qlinkedlist.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qlist.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qlocale.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qlockfile.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qloggingcategory.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qmap.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qmargins.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qmath.h:
+/usr/include/c++/11/cmath:
+/usr/include/math.h:
+/usr/include/x86_64-linux-gnu/bits/math-vector.h:
+/usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h:
+/usr/include/x86_64-linux-gnu/bits/flt-eval-method.h:
+/usr/include/x86_64-linux-gnu/bits/fp-logb.h:
+/usr/include/x86_64-linux-gnu/bits/fp-fast.h:
+/usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h:
+/usr/include/x86_64-linux-gnu/bits/mathcalls.h:
+/usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h:
+/usr/include/x86_64-linux-gnu/bits/iscanonical.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qmessageauthenticationcode.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qcryptographichash.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qmetaobject.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qmimedata.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qmimedatabase.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qmimetype.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qmimetype.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qmutex.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qnamespace.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qnumeric.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qobjectcleanuphandler.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qobjectdefs.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qoperatingsystemversion.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qpair.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qparallelanimationgroup.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qanimationgroup.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qpauseanimation.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qplugin.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qpluginloader.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qlibrary.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qpoint.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qpointer.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qprocess.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qprocessordetection.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qpropertyanimation.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qvariantanimation.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qeasingcurve.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qqueue.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qrandom.h:
+/usr/include/c++/11/random:
+/usr/include/c++/11/bits/random.h:
+/usr/include/x86_64-linux-gnu/c++/11/bits/opt_random.h:
+/usr/include/c++/11/bits/random.tcc:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qreadwritelock.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qrect.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qrefcount.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qregexp.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qregularexpression.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qresource.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qresultstore.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qrunnable.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qsavefile.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qscopedpointer.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qscopedvaluerollback.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qscopeguard.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qsemaphore.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qsequentialanimationgroup.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qset.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qsettings.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qshareddata.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qsharedmemory.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qsharedpointer.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qsignalmapper.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qsize.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qsocketnotifier.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qsortfilterproxymodel.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qstack.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qstandardpaths.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qstorageinfo.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qstring.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qstringalgorithms.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qstringbuilder.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qstringlistmodel.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qstringliteral.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qstringmatcher.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qstringview.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qsysinfo.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qsystemdetection.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qsystemsemaphore.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qtemporarydir.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qtextboundaryfinder.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qtextcodec.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qtextstream.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qthread.h:
+/usr/include/c++/11/future:
+/usr/include/c++/11/mutex:
+/usr/include/c++/11/bits/std_mutex.h:
+/usr/include/c++/11/bits/unique_lock.h:
+/usr/include/c++/11/condition_variable:
+/usr/include/c++/11/bits/shared_ptr.h:
+/usr/include/c++/11/bits/shared_ptr_base.h:
+/usr/include/c++/11/bits/unique_ptr.h:
+/usr/include/c++/11/ext/concurrence.h:
+/usr/include/c++/11/bits/atomic_futex.h:
+/usr/include/c++/11/bits/std_thread.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qthreadpool.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qthread.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qthreadstorage.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qtimeline.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qtimer.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qbasictimer.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qtimezone.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qtranslator.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qtypeinfo.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qtypetraits.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qurl.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qurlquery.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/quuid.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qvariantanimation.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qvarlengtharray.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qvector.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qversionnumber.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qversiontagging.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qwaitcondition.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qwineventnotifier.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qxmlstream.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtCore/qtcoreversion.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qtdbusglobal.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbusabstractadaptor.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qtdbusglobal.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbusabstractinterface.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbusmessage.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbuserror.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbusextratypes.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbusconnection.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbusargument.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbusconnection.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbusconnectioninterface.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbusabstractinterface.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbusreply.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbuspendingreply.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbusargument.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbuspendingcall.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbuscontext.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbuserror.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbusextratypes.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbusinterface.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbusmessage.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbusmetatype.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbuspendingcall.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbuspendingreply.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbusreply.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbusserver.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbusservicewatcher.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbusunixfiledescriptor.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qdbusvirtualobject.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/QtDBus/qtdbusversion.h:
