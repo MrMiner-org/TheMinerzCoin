@@ -1,0 +1,2 @@
+# TheMinerzCoin
+ https://theminerzcoin.eu/
