@@ -29,7 +29,7 @@ Development Process
 -------------------
 
 The `master` branch is regularly built and tested, but is not guaranteed to be
-completely stable. [Tags](https://github.com/TheMinerzCoin/TheMinerzCoin/tags) are created
+completely stable. [Tags](https://github.com/MrMiner-org/TheMinerzCoin/tags) are created
 regularly to indicate new official, stable release versions of TheMinerzCoin.
 
 Change log can be found in [CHANGELOG.md](CHANGELOG.md).

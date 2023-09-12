@@ -494,7 +494,7 @@ std::string HelpMessage(HelpMessageMode mode)
 
 std::string LicenseInfo()
 {
-    const std::string URL_SOURCE_CODE = "<https://github.com/TheMinerzCoin/TheMinerzCoin>";
+    const std::string URL_SOURCE_CODE = "<https://github.com/MrMiner-org/TheMinerzCoin>";
     const std::string URL_WEBSITE = "<https://theminerzcoin.eu//>";
     // todo: remove urls from translations on next change
 
