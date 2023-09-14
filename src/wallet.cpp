@@ -820,7 +820,7 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
         }
     }
 
-    // TheMinerzCoin: Donate to dev fund (or not)
+    // Blackcoin: Donate to dev fund (or not)
     if (nDonationPercentage > 0) {
 
         CAmount nDevCredit = 0;
