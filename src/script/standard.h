@@ -79,7 +79,6 @@ bool Solver(const CScript& scriptPubKey, txnouttype& typeRet, std::vector<std::v
 bool ExtractDestination(const CScript& scriptPubKey, CTxDestination& addressRet);
 bool ExtractDestinations(const CScript& scriptPubKey, txnouttype& typeRet, std::vector<CTxDestination>& addressRet, int& nRequiredRet);
 
-const char *GetTxnOutputType(txnouttype t);
 bool IsValidDestination(const CTxDestination &dest);
 
 CScript GetScriptForDestination(const CTxDestination& dest);
