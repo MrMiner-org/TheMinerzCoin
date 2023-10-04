@@ -158,8 +158,10 @@ public:
         assert(consensus.hashGenesisBlock == uint256S("0x0000060b614d1629e0ada5da36d52ad994c9c994166d88b90fada164e586b9ba"));
         assert(genesis.hashMerkleRoot == uint256S("0x4a2a58ff4f0c1403fb51b65338980a0ff84e08103bd1019a868b7885562c0e1c"));
 
-        vSeeds.push_back(CDNSSeedData("theminerzcoin.eu", "node1.theminerzcoin.eu"));
-        vSeeds.push_back(CDNSSeedData("mr-miner.org", "node1.mr-miner.org"));
+        vSeeds.push_back(CDNSSeedData("149.202.81.13", "149.202.81.13"));
+        vSeeds.push_back(CDNSSeedData("193.34.77.70", "193.34.77.70"));
+		vSeeds.push_back(CDNSSeedData("23.92.30.164", "23.92.30.164"));
+        vSeeds.push_back(CDNSSeedData("85.10.148.5", "85.10.148.5"));
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,65);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,66);

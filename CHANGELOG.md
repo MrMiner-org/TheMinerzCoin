@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.0.4 (2023-10-04)
+- Added working Nodes
+
 ## v1.0.3 (2023-09-14)
 - Remove Bitcoin init files
 - Update doc/init.md

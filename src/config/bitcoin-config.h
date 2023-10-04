@@ -12,7 +12,7 @@
 /* #undef CHAR_EQUALS_INT8 */
 
 /* Version Build */
-#define CLIENT_VERSION_BUILD 3
+#define CLIENT_VERSION_BUILD 4
 
 /* Version is release */
 #define CLIENT_VERSION_IS_RELEASE true
@@ -393,7 +393,7 @@
 #define PACKAGE_NAME "TheMinerzCoin"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "TheMinerzCoin 1.0.3"
+#define PACKAGE_STRING "TheMinerzCoin 1.0.4"
 
 /* Define to the one symbol short name of this package. */
 #define PACKAGE_TARNAME "theminerzcoin"
