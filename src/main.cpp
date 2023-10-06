@@ -1762,14 +1762,28 @@ bool ReadBlockFromDisk(CBlock& block, const CBlockIndex* pindex, const Consensus
     return true;
 }
 
-CAmount GetProofOfWorkSubsidy()
+CAmount GetProofOfWorkSubsidy(unsigned int nHeight)
 {
-    return 50 * COIN;
+    const CChainParams& chainParams = Params();
+
+    if (nHeight < chainParams.GetConsensus().nForkheightRewardChange) {
+        return COIN * 50;
+    }
+    else {
+        return COIN * 10;
+    }
 }
 
-CAmount GetProofOfStakeSubsidy()
+CAmount GetProofOfStakeSubsidy(unsigned int nHeight)
 {
-    return COIN * 2;
+    const CChainParams& chainParams = Params();
+
+    if (nHeight < chainParams.GetConsensus().nForkheightRewardChange) {
+        return COIN * 2;
+    }
+    else {
+        return COIN * 25;
+    }
 }
 
 bool IsInitialBlockDownload()
@@ -2587,7 +2601,7 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     LogPrint("bench", "      - Connect %u transactions: %.2fms (%.3fms/tx, %.3fms/txin) [%.2fs]\n", (unsigned)block.vtx.size(), 0.001 * (nTime3 - nTime2), 0.001 * (nTime3 - nTime2) / block.vtx.size(), nInputs <= 1 ? 0 : 0.001 * (nTime3 - nTime2) / (nInputs-1), nTimeConnect * 0.000001);
 
     if (block.IsProofOfWork()) {
-            CAmount blockReward = nFees + GetProofOfWorkSubsidy();
+            CAmount blockReward = nFees + GetProofOfWorkSubsidy(pindex->nHeight);
             if (block.vtx[0].GetValueOut() > blockReward)
                 return state.DoS(100,
                                  error("ConnectBlock(): coinbase pays too much (actual=%d vs limit=%d)",
@@ -2596,7 +2610,7 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     }
 
     if (block.IsProofOfStake() && chainparams.GetConsensus().IsProtocolV3(block.GetBlockTime())) {
-            CAmount blockReward = nFees + GetProofOfStakeSubsidy();
+            CAmount blockReward = nFees + GetProofOfStakeSubsidy(pindex->nHeight);
             if (nActualStakeReward > blockReward)
                 return state.DoS(100,
                                  error("ConnectBlock(): coinstake pays too much (actual=%d vs limit=%d)",

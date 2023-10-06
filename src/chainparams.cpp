@@ -114,6 +114,7 @@ public:
         consensus.nProtocolV3Time = 1693994592;
         consensus.nProtocolV3_1Time = 4102437600;
         consensus.nLastPOWBlock = 360000;
+        consensus.nForkheightRewardChange = 11500;
         consensus.nStakeTimestampMask = 0xf; // 15
         consensus.nCoinbaseMaturity = 20;
 

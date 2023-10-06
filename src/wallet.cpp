@@ -828,11 +828,11 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
 
         // Calculate reward
         {
-            int64_t nReward = nFees + GetProofOfStakeSubsidy();
+            int64_t nReward = nFees + GetProofOfStakeSubsidy(pindexPrev->nHeight + 1);
             if (nReward < 0)
                 return false;
 
-            nDevCredit = (GetProofOfStakeSubsidy() * nDonationPercentage) / 100;
+            nDevCredit = (GetProofOfStakeSubsidy(pindexPrev->nHeight + 1) * nDonationPercentage) / 100;
             nMinerCredit = nReward - nDevCredit;
             nCredit += nMinerCredit;
         }
@@ -859,7 +859,7 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
     else {
         // Calculate reward
         {
-            int64_t nReward = nFees + GetProofOfStakeSubsidy();
+            int64_t nReward = nFees + GetProofOfStakeSubsidy(pindexPrev->nHeight + 1);
             if (nReward < 0)
                 return false;
 
