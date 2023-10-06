@@ -1,4 +1,5 @@
 # Changelog
+
 ## v1.1.0 (2023-10-06)
 - Added Reward change on Block 11500 [PoW 10 TMC - PoS 25 TMC]
 
