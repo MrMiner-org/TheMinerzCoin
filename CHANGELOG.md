@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.1.1 (2023-12-16)
+- Added new Logo
+- Updated DBD repo Link
+- Fixed Do not split rewards if vDevFundAddress is empty
+
 ## v1.1.0 (2023-10-06)
 - Added Reward change on Block 11500 [PoW 10 TMC - PoS 25 TMC]
 
