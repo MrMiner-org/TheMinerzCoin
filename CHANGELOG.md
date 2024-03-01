@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.1.2 (2024-03-01)
+- Set mainnet hard fork date to April 24, 2024
+- Adjusted minimum fee calculations
+- Added working Nodes
+
 ## v1.1.1 (2023-12-16)
 - Added new Logo
 - Updated DBD repo Link
