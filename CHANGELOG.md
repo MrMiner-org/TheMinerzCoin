@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.1.2 (2024-07-13)
+
+- Create V2 transactions by default
+- Disconnect from peers older than version 70015
+- Increased DEFAULT_MIN_RELAY_TX_FEE to 100000
+
 ## v1.1.2 (2024-03-01)
 - Set mainnet hard fork date to April 24, 2024
 - Adjusted minimum fee calculations

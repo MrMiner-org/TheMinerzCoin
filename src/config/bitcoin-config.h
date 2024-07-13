@@ -12,7 +12,7 @@
 /* #undef CHAR_EQUALS_INT8 */
 
 /* Version Build */
-#define CLIENT_VERSION_BUILD 1
+#define CLIENT_VERSION_BUILD 3
 
 /* Version is release */
 #define CLIENT_VERSION_IS_RELEASE true
@@ -33,7 +33,7 @@
 #define COPYRIGHT_HOLDERS_SUBSTITUTION "TheMinerzCoin"
 
 /* Copyright year */
-#define COPYRIGHT_YEAR 2023
+#define COPYRIGHT_YEAR 2024
 
 /* Define this symbol to build code that uses AVX2 intrinsics */
 #define ENABLE_AVX2 1
@@ -393,7 +393,7 @@
 #define PACKAGE_NAME "TheMinerzCoin"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "TheMinerzCoin 1.1.1"
+#define PACKAGE_STRING "TheMinerzCoin 1.1.3"
 
 /* Define to the one symbol short name of this package. */
 #define PACKAGE_TARNAME "theminerzcoin"
