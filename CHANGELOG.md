@@ -1,6 +1,6 @@
 # Changelog
 
-## v1.1.2 (2024-07-13)
+## v1.1.3 (2024-07-13)
 
 - Create V2 transactions by default
 - Disconnect from peers older than version 70015
