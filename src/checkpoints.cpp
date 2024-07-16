@@ -2,12 +2,13 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "checkpoints.h"
 
 #include "chain.h"
 #include "chainparams.h"
 #include "main.h"
+#include "checkpoints.h"
 #include "uint256.h"
+#include <map>
 
 #include <stdint.h>
 
@@ -70,3 +71,12 @@ namespace Checkpoints {
     }
 
 } // namespace Checkpoints
+
+static std::map<int, uint256> mapCheckpoints = {
+    {0, uint256("0x00000000")},
+    // Add additional checkpoints here
+};
+
+const CCheckpointData data = {
+    &mapCheckpoints,
+};

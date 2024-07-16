@@ -26,4 +26,9 @@ double GuessVerificationProgress(const CCheckpointData& data, CBlockIndex* pinde
 
 } //namespace Checkpoints
 
+struct CCheckpointData {
+    const std::map<int, uint256>* mapCheckpoints;
+};
+
+extern const CCheckpointData data;
 #endif // BITCOIN_CHECKPOINTS_H

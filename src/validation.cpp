@@ -19,3 +19,21 @@ bool CheckProofOfWork(const CBlockHeader& block, const Consensus::Params& params
     }
     return hash <= block.nBits;
 }
+bool IsLongRangeAttack(const CBlockIndex* pindexNew, const CBlockIndex* pindexFork)
+{
+    if (pindexNew->nHeight - pindexFork->nHeight > 100) {
+        return true;
+    }
+    return false;
+}
+
+bool ProcessNewBlockHeaders(const std::vector<CBlockHeader>& headers, const CChainParams& chainparams, CValidationState& state, const CBlockIndex** ppindex)
+{
+    for (const CBlockHeader& header : headers) {
+        const CBlockIndex* pindexFork = nullptr;
+        if (IsLongRangeAttack(pindexBestHeader, pindexFork)) {
+            return state.Invalid(error("Long-range attack detected"));
+        }
+    }
+    // Existing header processing logic
+}
