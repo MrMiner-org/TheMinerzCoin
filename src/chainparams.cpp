@@ -15,7 +15,8 @@
 #include <assert.h>
 
 #include <boost/assign/list_of.hpp>
-
+#include "chainparams.h"
+#include "validation.h"
 #include "chainparamsseeds.h"
 #include "arith_uint256.h"
 #include "arith_uint256.h"
