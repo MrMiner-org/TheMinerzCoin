@@ -16,19 +16,6 @@ struct CCheckpointData;
  * Block-chain checkpoints are compiled-in sanity checks.
  * They are updated every release or three.
  */
-namespace Checkpoints
-{
-
-//! Returns last CBlockIndex* in mapBlockIndex that is a checkpoint
-CBlockIndex* GetLastCheckpoint(const CCheckpointData& data);
-
-double GuessVerificationProgress(const CCheckpointData& data, CBlockIndex* pindex, bool fSigchecks = true);
-
-} //namespace Checkpoints
-
-struct CCheckpointData {
-    const std::map<int, uint256>* mapCheckpoints;
-};
 
 extern const CCheckpointData data;
 #endif // BITCOIN_CHECKPOINTS_H
