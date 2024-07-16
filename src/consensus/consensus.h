@@ -16,6 +16,9 @@ static const unsigned int MAX_BLOCK_SIGOPS = MAX_BLOCK_SIZE/50;
 static const int COINBASE_MATURITY = 20;
 /** Kernel input must have this number of confirmations (network rule) */
 static const int STAKE_MIN_CONFIRMATIONS = 20;
+// Define maximum PoW and PoS block heights
+static const int MAX_POW_BLOCKS = 36000000; // 36 million PoW blocks
+static const int MAX_POS_BLOCKS = 48000000; // 48 million PoS blocks
 
 /** Flags for nSequence and nLockTime locks */
 enum {
