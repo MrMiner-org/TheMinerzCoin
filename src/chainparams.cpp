@@ -196,6 +196,19 @@ public:
         // A vector of p2sh addresses
         vDevFundAddress = { "TMR1rKJK55doBz64c4HaKsn78uLfwzuEZH" };
     }
+	std::string algo = GetAlgoFromConfig();
+
+if (chainActive.Height() >= 72000) {
+    if (algo == "kawpow") {
+        consensus.nAlgo = ALGO_KAWPOW;
+    } else if (algo == "yescryptR8") {
+        consensus.nAlgo = ALGO_YESCRYPT_R8;
+    } else {
+        consensus.nAlgo = ALGO_SCRYPT;
+    }
+} else {
+    consensus.nAlgo = ALGO_SCRYPT; // Default before block 72000
+}
 };
 static CMainParams mainParams;
 
@@ -302,6 +315,19 @@ public:
         vDevFundAddress = { "TFvBVqJcJmn3ejnv2rhQqxJUsFwCHbNrbH" };
 
     }
+	std::string algo = GetAlgoFromConfig();
+
+if (chainActive.Height() >= 72000) {
+    if (algo == "kawpow") {
+        consensus.nAlgo = ALGO_KAWPOW;
+    } else if (algo == "yescryptR8") {
+        consensus.nAlgo = ALGO_YESCRYPT_R8;
+    } else {
+        consensus.nAlgo = ALGO_SCRYPT;
+    }
+} else {
+    consensus.nAlgo = ALGO_SCRYPT; // Default before block 72000
+}
 };
 static CTestNetParams testNetParams;
 
@@ -400,6 +426,19 @@ public:
         consensus.vDeployments[d].nStartTime = nStartTime;
         consensus.vDeployments[d].nTimeout = nTimeout;
     }
+	std::string algo = GetAlgoFromConfig();
+
+if (chainActive.Height() >= 72000) {
+    if (algo == "kawpow") {
+        consensus.nAlgo = ALGO_KAWPOW;
+    } else if (algo == "yescryptR8") {
+        consensus.nAlgo = ALGO_YESCRYPT_R8;
+    } else {
+        consensus.nAlgo = ALGO_SCRYPT;
+    }
+} else {
+    consensus.nAlgo = ALGO_SCRYPT; // Default before block 72000
+}
 };
 static CRegTestParams regTestParams;
 
