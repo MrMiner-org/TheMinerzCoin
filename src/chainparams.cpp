@@ -95,7 +95,11 @@ public:
         consensus.powLimit = uint256S("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.posLimit = uint256S("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.posLimitV2 = uint256S("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-        consensus.nTargetTimespan =  10 * 60;
+        if (chainActive.Height() >= 72000) {
+		consensus.nPowTargetSpacing = 2 * 60; // 2 minutes
+		} else {
+		consensus.nPowTargetSpacing = 10 * 60; // 10 minutes
+		}
         consensus.nTargetSpacingV1 = 5 * 60;
         consensus.nTargetSpacing = 5 * 60;
         consensus.BIP34Height = -1;
