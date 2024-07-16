@@ -15,8 +15,7 @@
 #include <assert.h>
 
 #include <boost/assign/list_of.hpp>
-#include "chainparams.h"
-#include "validation.h"
+
 #include "chainparamsseeds.h"
 #include "arith_uint256.h"
 #include "arith_uint256.h"
@@ -96,11 +95,7 @@ public:
         consensus.powLimit = uint256S("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.posLimit = uint256S("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.posLimitV2 = uint256S("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-        if (chainActive.Height() >= 72000) {
-		consensus.nPowTargetSpacing = 2 * 60; // 2 minutes
-		} else {
-		consensus.nPowTargetSpacing = 10 * 60; // 10 minutes
-		}
+        consensus.nTargetTimespan =  10 * 60;
         consensus.nTargetSpacingV1 = 5 * 60;
         consensus.nTargetSpacing = 5 * 60;
         consensus.BIP34Height = -1;
@@ -164,10 +159,14 @@ public:
         assert(consensus.hashGenesisBlock == uint256S("0x0000060b614d1629e0ada5da36d52ad994c9c994166d88b90fada164e586b9ba"));
         assert(genesis.hashMerkleRoot == uint256S("0x4a2a58ff4f0c1403fb51b65338980a0ff84e08103bd1019a868b7885562c0e1c"));
 
-        vSeeds.push_back(CDNSSeedData("184.174.34.86", "184.174.34.86"));
-        vSeeds.push_back(CDNSSeedData("161.97.132.124", "161.97.132.124"));
-		vSeeds.push_back(CDNSSeedData("84.247.184.164", "84.247.184.164"));
-        vSeeds.push_back(CDNSSeedData("75.119.136.103", "75.119.136.103"));
+        vSeeds.push_back(CDNSSeedData("101.44.83.191", "101.44.83.191"));
+        vSeeds.push_back(CDNSSeedData("108.11.247.20", "108.11.247.20"));
+		vSeeds.push_back(CDNSSeedData("118.163.141.103", "118.163.141.103"));
+        vSeeds.push_back(CDNSSeedData("141.136.251.127", "141.136.251.127"));
+        vSeeds.push_back(CDNSSeedData("143.110.149.189", "143.110.149.189"));
+        vSeeds.push_back(CDNSSeedData("144.91.107.170", "144.91.107.170"));
+		vSeeds.push_back(CDNSSeedData("154.211.13.143", "154.211.13.143"));
+        vSeeds.push_back(CDNSSeedData("203.91.85.222", "203.91.85.222"));
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,65);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,66);
@@ -196,19 +195,6 @@ public:
         // A vector of p2sh addresses
         vDevFundAddress = { "TMR1rKJK55doBz64c4HaKsn78uLfwzuEZH" };
     }
-	std::string algo = GetAlgoFromConfig();
-
-if (chainActive.Height() >= 72000) {
-    if (algo == "kawpow") {
-        consensus.nAlgo = ALGO_KAWPOW;
-    } else if (algo == "yescryptR8") {
-        consensus.nAlgo = ALGO_YESCRYPT_R8;
-    } else {
-        consensus.nAlgo = ALGO_SCRYPT;
-    }
-} else {
-    consensus.nAlgo = ALGO_SCRYPT; // Default before block 72000
-}
 };
 static CMainParams mainParams;
 
@@ -315,19 +301,6 @@ public:
         vDevFundAddress = { "TFvBVqJcJmn3ejnv2rhQqxJUsFwCHbNrbH" };
 
     }
-	std::string algo = GetAlgoFromConfig();
-
-if (chainActive.Height() >= 72000) {
-    if (algo == "kawpow") {
-        consensus.nAlgo = ALGO_KAWPOW;
-    } else if (algo == "yescryptR8") {
-        consensus.nAlgo = ALGO_YESCRYPT_R8;
-    } else {
-        consensus.nAlgo = ALGO_SCRYPT;
-    }
-} else {
-    consensus.nAlgo = ALGO_SCRYPT; // Default before block 72000
-}
 };
 static CTestNetParams testNetParams;
 
@@ -426,19 +399,6 @@ public:
         consensus.vDeployments[d].nStartTime = nStartTime;
         consensus.vDeployments[d].nTimeout = nTimeout;
     }
-	std::string algo = GetAlgoFromConfig();
-
-if (chainActive.Height() >= 72000) {
-    if (algo == "kawpow") {
-        consensus.nAlgo = ALGO_KAWPOW;
-    } else if (algo == "yescryptR8") {
-        consensus.nAlgo = ALGO_YESCRYPT_R8;
-    } else {
-        consensus.nAlgo = ALGO_SCRYPT;
-    }
-} else {
-    consensus.nAlgo = ALGO_SCRYPT; // Default before block 72000
-}
 };
 static CRegTestParams regTestParams;
 

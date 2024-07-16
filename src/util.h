@@ -250,6 +250,5 @@ template <typename Callable> void TraceThread(const char* name,  Callable func)
 }
 
 std::string CopyrightHolders(const std::string& strPrefix);
-std::string GetAlgoFromConfig();
 
 #endif // BITCOIN_UTIL_H

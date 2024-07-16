@@ -827,12 +827,3 @@ int64_t GetStartupTime()
 {
     return nStartupTime;
 }
-
-std::string GetAlgoFromConfig() {
-    std::string algo = GetArg("-algo", "scrypt"); // Default to "scrypt"
-    if (algo != "scrypt" && algo != "kawpow" && algo != "yescryptR8") {
-        throw std::runtime_error("Invalid algo specified in config file");
-    }
-    return algo;
-}
-

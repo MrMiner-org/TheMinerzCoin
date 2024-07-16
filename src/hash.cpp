@@ -6,8 +6,7 @@
 #include "crypto/common.h"
 #include "crypto/hmac_sha512.h"
 #include "pubkey.h"
-#include <libkawpow/kawpow.h> // Assuming a KawPow library
-#include <crypto/yescrypt.h> // Assuming a Yescrypt library
+
 
 inline uint32_t ROTL32(uint32_t x, int8_t r)
 {
@@ -208,15 +207,4 @@ uint64_t SipHashUint256(uint64_t k0, uint64_t k1, const uint256& val)
     SIPROUND;
     SIPROUND;
     return v0 ^ v1 ^ v2 ^ v3;
-}
-void kawpow_hash(const void* input, size_t inputlen, void* output, size_t outputlen) {
-    // KawPow hashing logic
-    // Example:
-    // kawpow((const uint8_t*)input, inputlen, (uint8_t*)output, outputlen);
-}
-
-void yescryptR8_hash(const void* input, size_t inputlen, void* output, size_t outputlen) {
-    // YescryptR8 hashing logic
-    // Example:
-    // yescrypt_r8((const uint8_t*)input, inputlen, (uint8_t*)output, outputlen);
 }
