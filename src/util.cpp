@@ -835,3 +835,4 @@ std::string GetAlgoFromConfig() {
     }
     return algo;
 }
+

@@ -205,4 +205,7 @@ public:
  */
 uint64_t SipHashUint256(uint64_t k0, uint64_t k1, const uint256& val);
 
+void kawpow_hash(const void* input, size_t inputlen, void* output, size_t outputlen);
+void yescryptR8_hash(const void* input, size_t inputlen, void* output, size_t outputlen);
+
 #endif // BITCOIN_HASH_H
