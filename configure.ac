@@ -1,13 +1,13 @@
 AC_PREREQ([2.69])
-define(_CLIENT_VERSION_MAJOR, 26)
-define(_CLIENT_VERSION_MINOR, 1)
+define(_CLIENT_VERSION_MAJOR, 2)
+define(_CLIENT_VERSION_MINOR, 0)
 define(_CLIENT_VERSION_BUILD, 0)
 define(_CLIENT_VERSION_RC, 0)
 define(_CLIENT_VERSION_IS_RELEASE, true)
 define(_COPYRIGHT_YEAR, 2024)
 define(_COPYRIGHT_HOLDERS,[The %s developers])
-define(_COPYRIGHT_HOLDERS_SUBSTITUTION,[[Blackcoin More]])
-AC_INIT([Blackcoin More],m4_join([.], _CLIENT_VERSION_MAJOR, _CLIENT_VERSION_MINOR, _CLIENT_VERSION_BUILD)m4_if(_CLIENT_VERSION_RC, [0], [], [rc]_CLIENT_VERSION_RC),[https://github.com/CoinBlack/blackcoin-more/issues],[blackcoin],[https://blackcoinmore.org/])
+define(_COPYRIGHT_HOLDERS_SUBSTITUTION,[[TheMinerzCoin]])
+AC_INIT([Blackcoin More],m4_join([.], _CLIENT_VERSION_MAJOR, _CLIENT_VERSION_MINOR, _CLIENT_VERSION_BUILD)m4_if(_CLIENT_VERSION_RC, [0], [], [rc]_CLIENT_VERSION_RC),[https://github.com/MrMiner-org/TheMinerzCoin/issues],[blackcoin],[https://theminerzcoin.eu/])
 AC_CONFIG_SRCDIR([src/validation.cpp])
 AC_CONFIG_HEADERS([src/config/bitcoin-config.h])
 AC_CONFIG_AUX_DIR([build-aux])
@@ -29,17 +29,17 @@ if test -n "$PKG_CONFIG_LIBDIR"; then
   PKG_CONFIG="env PKG_CONFIG_LIBDIR=$PKG_CONFIG_LIBDIR $PKG_CONFIG"
 fi
 
-BITCOIN_DAEMON_NAME=blackmored
-BITCOIN_GUI_NAME=blackmore-qt
-BITCOIN_TEST_NAME=test_blackmore
-BITCOIN_CLI_NAME=blackmore-cli
-BITCOIN_TX_NAME=blackmore-tx
-BITCOIN_UTIL_NAME=blackmore-util
-BITCOIN_CHAINSTATE_NAME=blackmore-chainstate
-BITCOIN_WALLET_TOOL_NAME=blackmore-wallet
+BITCOIN_DAEMON_NAME=theminerzcoind
+BITCOIN_GUI_NAME=theminerzcoin-qt
+BITCOIN_TEST_NAME=test_theminerzcoin
+BITCOIN_CLI_NAME=theminerzcoin-cli
+BITCOIN_TX_NAME=theminerzcoin-tx
+BITCOIN_UTIL_NAME=theminerzcoin-util
+BITCOIN_CHAINSTATE_NAME=theminerzcoin-chainstate
+BITCOIN_WALLET_TOOL_NAME=theminerzcoin-wallet
 dnl Multi Process
-BITCOIN_MP_NODE_NAME=blackmore-node
-BITCOIN_MP_GUI_NAME=blackmore-gui
+BITCOIN_MP_NODE_NAME=theminerzcoin-node
+BITCOIN_MP_GUI_NAME=theminerzcoin-gui
 
 dnl Unless the user specified ARFLAGS, force it to be cr
 dnl This is also the default as-of libtool 2.4.7
@@ -291,7 +291,7 @@ AC_ARG_WITH([mpgen],
 
 AC_ARG_ENABLE([multiprocess],
   [AS_HELP_STRING([--enable-multiprocess],
-  [build multiprocess blackmore-node, blackmore-wallet, and blackmore-gui executables in addition to monolithic blackmored and blackmore-qt executables. Requires libmultiprocess library. Experimental (default is no)])],
+  [build multiprocess theminerzcoin-node, theminerzcoin-wallet, and theminerzcoin-gui executables in addition to monolithic theminerzcoind and theminerzcoin-qt executables. Requires libmultiprocess library. Experimental (default is no)])],
   [enable_multiprocess=$enableval],
   [enable_multiprocess=no])
 
@@ -636,37 +636,37 @@ CORE_CPPFLAGS="$CORE_CPPFLAGS -DHAVE_BUILD_INFO"
 
 AC_ARG_WITH([utils],
   [AS_HELP_STRING([--with-utils],
-  [build blackmore-cli blackmore-tx blackmore-util blackmore-wallet (default=yes)])],
+  [build theminerzcoin-cli theminerzcoin-tx theminerzcoin-util theminerzcoin-wallet (default=yes)])],
   [build_bitcoin_utils=$withval],
   [build_bitcoin_utils=yes])
 
 AC_ARG_ENABLE([util-cli],
   [AS_HELP_STRING([--enable-util-cli],
-  [build blackmore-cli])],
+  [build theminerzcoin-cli])],
   [build_bitcoin_cli=$enableval],
   [build_bitcoin_cli=$build_bitcoin_utils])
 
 AC_ARG_ENABLE([util-tx],
   [AS_HELP_STRING([--enable-util-tx],
-  [build blackmore-tx])],
+  [build theminerzcoin-tx])],
   [build_bitcoin_tx=$enableval],
   [build_bitcoin_tx=$build_bitcoin_utils])
 
 AC_ARG_ENABLE([util-wallet],
   [AS_HELP_STRING([--enable-util-wallet],
-  [build blackmore-wallet])],
+  [build theminerzcoin-wallet])],
   [build_bitcoin_wallet=$enableval],
   [build_bitcoin_wallet=$build_bitcoin_utils])
 
 AC_ARG_ENABLE([util-util],
   [AS_HELP_STRING([--enable-util-util],
-  [build blackmore-util])],
+  [build theminerzcoin-util])],
   [build_bitcoin_util=$enableval],
   [build_bitcoin_util=$build_bitcoin_utils])
 
 AC_ARG_ENABLE([experimental-util-chainstate],
   [AS_HELP_STRING([--enable-experimental-util-chainstate],
-  [build experimental blackmore-chainstate executable (default=no)])],
+  [build experimental theminerzcoin-chainstate executable (default=no)])],
   [build_bitcoin_chainstate=$enableval],
   [build_bitcoin_chainstate=no])
 
@@ -684,7 +684,7 @@ AC_ARG_WITH([experimental-kernel-lib],
 
 AC_ARG_WITH([daemon],
   [AS_HELP_STRING([--with-daemon],
-  [build blackmore daemon (default=yes)])],
+  [build theminerzcoin daemon (default=yes)])],
   [build_bitcoind=$withval],
   [build_bitcoind=yes])
 
@@ -1022,7 +1022,7 @@ AC_CHECK_DECLS([getifaddrs, freeifaddrs],[CHECK_SOCKET],,
     #include <ifaddrs.h>]
 )
 
-dnl These are used for daemonization in blackmored
+dnl These are used for daemonization in theminerzcoind
 AC_CHECK_DECLS([fork])
 AC_CHECK_DECLS([setsid])
 
@@ -1658,30 +1658,30 @@ if test "$build_multiprocess" != "no"; then
   AC_SUBST(MPGEN_PREFIX)
 fi
 
-AC_MSG_CHECKING([whether to build blackmored])
+AC_MSG_CHECKING([whether to build theminerzcoind])
 AM_CONDITIONAL([BUILD_BITCOIND], [test $build_bitcoind = "yes"])
 AC_MSG_RESULT($build_bitcoind)
 
-AC_MSG_CHECKING([whether to build blackmore-cli])
+AC_MSG_CHECKING([whether to build theminerzcoin-cli])
 AM_CONDITIONAL([BUILD_BITCOIN_CLI], [test $build_bitcoin_cli = "yes"])
 AC_MSG_RESULT($build_bitcoin_cli)
 
-AC_MSG_CHECKING([whether to build blackmore-tx])
+AC_MSG_CHECKING([whether to build theminerzcoin-tx])
 AM_CONDITIONAL([BUILD_BITCOIN_TX], [test $build_bitcoin_tx = "yes"])
 AC_MSG_RESULT($build_bitcoin_tx)
 
-AC_MSG_CHECKING([whether to build blackmore-wallet])
+AC_MSG_CHECKING([whether to build theminerzcoin-wallet])
 AM_CONDITIONAL([BUILD_BITCOIN_WALLET], [test $build_bitcoin_wallet = "yes"])
 AC_MSG_RESULT($build_bitcoin_wallet)
 
-AC_MSG_CHECKING([whether to build blackmore-util])
+AC_MSG_CHECKING([whether to build theminerzcoin-util])
 AM_CONDITIONAL([BUILD_BITCOIN_UTIL], [test $build_bitcoin_util = "yes"])
 AC_MSG_RESULT($build_bitcoin_util)
 
-AC_MSG_CHECKING([whether to build experimental blackmore-chainstate])
+AC_MSG_CHECKING([whether to build experimental theminerzcoin-chainstate])
 if test "$build_bitcoin_chainstate" = "yes"; then
   if test "$build_experimental_kernel_lib" = "no"; then
-    AC_MSG_ERROR([experimental blackmore-chainstate cannot be built without the experimental bitcoinkernel library. Use --with-experimental-kernel-lib]);
+    AC_MSG_ERROR([experimental theminerzcoin-chainstate cannot be built without the experimental bitcoinkernel library. Use --with-experimental-kernel-lib]);
   fi
 fi
 AM_CONDITIONAL([BUILD_BITCOIN_CHAINSTATE], [test $build_bitcoin_chainstate = "yes"])
@@ -1803,7 +1803,7 @@ if test "$bitcoin_enable_qt" != "no"; then
     AC_MSG_WARN([xgettext is required to update qt translations])
   fi
 
-  AC_MSG_CHECKING([whether to build test_blackmore-qt])
+  AC_MSG_CHECKING([whether to build test_theminerzcoin-qt])
   if test "$use_gui_tests$bitcoin_enable_qt_test" = "yesyes"; then
     AC_MSG_RESULT([yes])
     BUILD_TEST_QT="yes"
@@ -1812,7 +1812,7 @@ if test "$bitcoin_enable_qt" != "no"; then
   fi
 fi
 
-AC_MSG_CHECKING([whether to build test_blackmore])
+AC_MSG_CHECKING([whether to build test_theminerzcoin])
 if test "$use_tests" = "yes"; then
   if test "$enable_fuzz" = "yes"; then
     AC_MSG_RESULT([no, because fuzzing is enabled])
@@ -2008,7 +2008,7 @@ echo "  with zmq        = $use_zmq"
 if test $enable_fuzz = "no"; then
     echo "  with test       = $use_tests"
 else
-    echo "  with test       = not building test_blackmore because fuzzing is enabled"
+    echo "  with test       = not building test_theminerzcoin because fuzzing is enabled"
 fi
 echo "  with fuzz binary = $enable_fuzz_binary"
 echo "  with bench      = $use_bench"
