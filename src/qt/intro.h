@@ -1,4 +1,4 @@
-// Copyright (c) 2011-2015 The Bitcoin Core developers
+// Copyright (c) 2011-2021 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -13,6 +13,10 @@ static const bool DEFAULT_CHOOSE_DATADIR = false;
 
 class FreespaceChecker;
 
+namespace interfaces {
+    class Node;
+}
+
 namespace Ui {
     class Intro;
 }
@@ -26,7 +30,8 @@ class Intro : public QDialog
     Q_OBJECT
 
 public:
-    explicit Intro(QWidget *parent = 0);
+    explicit Intro(QWidget *parent = nullptr,
+                   int64_t blockchain_size_gb = 0);
     ~Intro();
 
     QString getDataDirectory();
@@ -34,23 +39,18 @@ public:
 
     /**
      * Determine data directory. Let the user choose if the current one doesn't exist.
+     * Let the user configure additional preferences such as pruning.
      *
      * @returns true if a data directory was selected, false if the user cancelled the selection
      * dialog.
      *
-     * @note do NOT call global GetDataDir() before calling this function, this
+     * @note do NOT call global gArgs.GetDataDirNet() before calling this function, this
      * will cause the wrong path to be cached.
      */
-    static bool pickDataDirectory();
-
-    /**
-     * Determine default data directory for operating system.
-     */
-    static QString getDefaultDataDirectory();
+    static bool showIfNeeded(bool& did_show_intro);
 
 Q_SIGNALS:
     void requestCheck();
-    void stopThread();
 
 public Q_SLOTS:
     void setStatus(int status, const QString &message, quint64 bytesAvailable);
@@ -63,14 +63,19 @@ private Q_SLOTS:
 
 private:
     Ui::Intro *ui;
-    QThread *thread;
+    QThread* thread{nullptr};
     QMutex mutex;
-    bool signalled;
+    bool signalled{false};
     QString pathToCheck;
+    const int64_t m_blockchain_size_gb;
+    //! Total required space (in GB).
+    int64_t m_required_space_gb{0};
+    uint64_t m_bytes_available{0};
 
     void startThread();
     void checkPath(const QString &dataDir);
     QString getPathToCheck();
+    void UpdateFreeSpaceLabel();
 
     friend class FreespaceChecker;
 };

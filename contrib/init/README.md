@@ -1,11 +1,11 @@
 Sample configuration files for:
 ```
-systemd: theminerzcoind.service
-Upstart: theminerzcoind.conf
-OpenRC:  theminerzcoind.openrc
-         theminerzcoind.openrcconf
-CentOS:  theminerzcoind.init
-macOS:   org.theminerzcoin.theminerzcoind.plist
+systemd: blackmored.service
+Upstart: blackmored.conf
+OpenRC:  blackmored.openrc
+         blackmored.openrcconf
+CentOS:  blackmored.init
+macOS:   org.blackcoin.blackmored.plist
 ```
 have been made available to assist packagers in creating node packages here.
 

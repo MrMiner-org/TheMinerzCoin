@@ -1,41 +1,41 @@
-TheMinerzCoin
+Blackcoin More
 =====================================
+[![build](https://github.com/CoinBlack/blackcoin-more/actions/workflows/build.yml/badge.svg?branch=26.x)](https://github.com/CoinBlack/blackcoin-more/actions/workflows/build.yml)
 
-https://theminerzcoin.eu/
+https://blackcoinmore.org
 
-What is TheMinerzCoin?
+What is Blackcoin?
 ----------------
 
-TheMinerzCoin is a decentralised digital currency with near-instant transaction speeds and negligible transaction fees built upon Proof of Stake 3.0 (PoSV3, BPoS) as
-introduced by the TheMinerzCoin development team.
+Blackcoin is a decentralised digital currency with near-instant transaction speeds and negligible transaction fees built upon Proof of Stake 3.1 (PoSV3, BPoS) as introduced by the Blackcoin development team.
 
-For more information about TheMinerzCoin itself, see https://theminerzcoin.eu.
-
-What is TheMinerzCoin?
+What is Blackcoin More?
 ----------------
 
-TheMinerzCoin is the name of open source software which enables the use of this currency. It takes TheMinerzCoin to the next level by building upon
-Bitcoin Core 0.13.2 with some patches from newer Bitcoin Core versions to offer performance enhancements, wider compatibility with third party services and a more advanced base.
+Blackcoin More is the name of open source software which enables use of the Blackcoin protocol.
+It connects to the Blackcoin peer-to-peer network to download and fully
+validate blocks and transactions. It also includes a wallet and graphical user
+interface, which can be optionally built.
 
-For more information, as well as an immediately useable, binary version of the TheMinerzCoin software, see https://theminerzcoin.eu/.
+For more information, as well as an immediately usable, binary version of
+the Blackcoin More software, see https://blackcoinmore.org.
 
 License
 -------
 
-TheMinerzCoin is released under the terms of the MIT license. See [COPYING](COPYING) for more
+Blackcoin More is released under the terms of the MIT license. See [COPYING](COPYING) for more
 information or see https://opensource.org/licenses/MIT.
 
 Development Process
 -------------------
 
-The `master` branch is regularly built and tested, but is not guaranteed to be
-completely stable. [Tags](https://github.com/MrMiner-org/TheMinerzCoin/tags) are created
-regularly to indicate new official, stable release versions of TheMinerzCoin.
+The `master` branch is regularly built (see `doc/build-*.md` for instructions) and tested. [Tags](https://github.com/CoinBlack/blackcoin-more/tags) are created
+regularly to indicate new official, stable release versions of Blackcoin More.
 
-Change log can be found in [CHANGELOG.md](CHANGELOG.md).
+The contribution workflow is described in [CONTRIBUTING.md](CONTRIBUTING.md)
+and useful hints for developers can be found in [doc/developer-notes.md](doc/developer-notes.md).
 
-The contribution workflow is described in [CONTRIBUTING.md](CONTRIBUTING.md).
-
+The best place to get started is to join Blackcoin Discord: https://discord.blackcoin.nl
 
 Testing
 -------
@@ -46,15 +46,17 @@ lots of money.
 
 ### Automated Testing
 
-Developers are strongly encouraged to write [unit tests](/doc/unit-tests.md) for new code, and to
+Developers are strongly encouraged to write [unit tests](src/test/README.md) for new code, and to
 submit new unit tests for old code. Unit tests can be compiled and run
-(assuming they weren't disabled in configure) with: `make check`
+(assuming they weren't disabled in configure) with: `make check`. Further details on running
+and extending unit tests can be found in [/src/test/README.md](/src/test/README.md).
 
-There are also [regression and integration tests](/qa) of the RPC interface, written
-in Python, that are run automatically on the build server.
-These tests can be run (if the [test dependencies](/qa) are installed) with: `qa/pull-tester/rpc-tests.py`
+There are also [regression and integration tests](/test), written
+in Python.
+These tests can be run (if the [test dependencies](/test) are installed) with: `test/functional/test_runner.py`
 
-The Travis CI system makes sure that every pull request is built for Windows, Linux, and OS X, and that unit/sanity tests are run automatically.
+The CI (Continuous Integration) systems make sure that every pull request is built for Windows, Linux, and macOS,
+and that unit/sanity tests are run automatically.
 
 ### Manual Quality Assurance (QA) Testing
 
@@ -62,3 +64,33 @@ Changes should be tested by somebody other than the developer who wrote the
 code. This is especially important for large or high-risk changes. It is useful
 to add a test plan to the pull request description if testing the changes is
 not straightforward.
+
+Translations
+------------
+
+Changes to translations as well as new translations can be submitted to
+[Bitcoin Core's Transifex page](https://www.transifex.com/bitcoin/bitcoin/).
+
+Translations are periodically pulled from Transifex and merged into the git repository. See the
+[translation process](doc/translation_process.md) for details on how this works.
+
+**Important**: We do not accept translation changes as GitHub pull requests because the next
+pull from Transifex would automatically overwrite them again.
+
+Branches
+-------
+
+### develop
+The develop branch is typically used by developers as the main branch for integrating new features and changes into the codebase.
+Pull requests should always be made to this branch (except for critical fixes), and might possibly break the code.
+The develop branch is considered an unstable branch, as it is constantly updated with new code, and it may contain bugs or unfinished features. It is not guaranteed to work properly on any system.
+
+### master
+The master branch gets latest updates from the stable branch.
+However, it may contain experimental features and should be used with caution.
+
+### 13.2
+The release branch for Blackcoin More 13.2.x. It is intended to contain stable and functional code that has been thoroughly tested and reviewed.
+
+### 26.x
+The release branch for Blackcoin More 26.x. Contains functional but highly experimental code.
