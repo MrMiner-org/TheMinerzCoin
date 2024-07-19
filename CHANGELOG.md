@@ -1,6 +1,6 @@
 # Changelog
 
-## v26.1.0-beta-1 (2024-05-24)
+## v2.0.0-beta-1 (2024-07-19)
 - Updated to Bitcoin Core 26.1
 - Create V2 transactions by default
 - Disconnect from peers older than version 70015
@@ -9,7 +9,7 @@
 - Enabled V2 P2P transport by default (backport of Core's PR29347 and 29058)
 - Enabled `checkkernel` RPC call
 - Only delete the PID file if we created it (backport of Core's PR28946)
-- Set minimum UTXO value to be used for staking to 0.1 BLK (can be overridden with `-minstakingamount` parameter)
+- Set minimum UTXO value to be used for staking to 0.1 TMC (can be overridden with `-minstakingamount` parameter)
 
 ## v26.0.0-beta-1 (2024-02-12)
 - Updated to Bitcoin Core 26.0
