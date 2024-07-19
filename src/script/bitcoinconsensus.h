@@ -1,22 +1,24 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2021 The Bitcoin Core developers
+// Copyright (c) 2009-2016 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_SCRIPT_BITCOINCONSENSUS_H
-#define BITCOIN_SCRIPT_BITCOINCONSENSUS_H
+#ifndef BITCOIN_BITCOINCONSENSUS_H
+#define BITCOIN_BITCOINCONSENSUS_H
 
 #include <stdint.h>
 
 #if defined(BUILD_BITCOIN_INTERNAL) && defined(HAVE_CONFIG_H)
 #include <config/bitcoin-config.h>
   #if defined(_WIN32)
-    #if defined(HAVE_DLLEXPORT_ATTRIBUTE)
-      #define EXPORT_SYMBOL __declspec(dllexport)
-    #else
-      #define EXPORT_SYMBOL
+    #if defined(DLL_EXPORT)
+      #if defined(HAVE_FUNC_ATTRIBUTE_DLLEXPORT)
+        #define EXPORT_SYMBOL __declspec(dllexport)
+      #else
+        #define EXPORT_SYMBOL
+      #endif
     #endif
-  #elif defined(HAVE_DEFAULT_VISIBILITY_ATTRIBUTE)
+  #elif defined(HAVE_FUNC_ATTRIBUTE_VISIBILITY)
     #define EXPORT_SYMBOL __attribute__ ((visibility ("default")))
   #endif
 #elif defined(MSC_VER) && !defined(STATIC_LIBBITCOINCONSENSUS)
@@ -31,7 +33,7 @@
 extern "C" {
 #endif
 
-#define BITCOINCONSENSUS_API_VER 2
+#define BITCOINCONSENSUS_API_VER 1
 
 typedef enum bitcoinconsensus_error_t
 {
@@ -41,8 +43,6 @@ typedef enum bitcoinconsensus_error_t
     bitcoinconsensus_ERR_TX_DESERIALIZE,
     bitcoinconsensus_ERR_AMOUNT_REQUIRED,
     bitcoinconsensus_ERR_INVALID_FLAGS,
-    bitcoinconsensus_ERR_SPENT_OUTPUTS_REQUIRED,
-    bitcoinconsensus_ERR_SPENT_OUTPUTS_MISMATCH
 } bitcoinconsensus_error;
 
 /** Script verification flags */
@@ -53,36 +53,22 @@ enum
     bitcoinconsensus_SCRIPT_FLAGS_VERIFY_DERSIG              = (1U << 2), // enforce strict DER (BIP66) compliance
     bitcoinconsensus_SCRIPT_FLAGS_VERIFY_NULLDUMMY           = (1U << 4), // enforce NULLDUMMY (BIP147)
     bitcoinconsensus_SCRIPT_FLAGS_VERIFY_CHECKLOCKTIMEVERIFY = (1U << 9), // enable CHECKLOCKTIMEVERIFY (BIP65)
-    bitcoinconsensus_SCRIPT_FLAGS_VERIFY_CHECKSEQUENCEVERIFY = (1U << 10), // enable CHECKSEQUENCEVERIFY (BIP112)
-    bitcoinconsensus_SCRIPT_FLAGS_VERIFY_WITNESS             = (1U << 11), // enable WITNESS (BIP141)
-    bitcoinconsensus_SCRIPT_FLAGS_VERIFY_TAPROOT             = (1U << 17), // enable TAPROOT (BIPs 341 & 342)
+    bitcoinconsensus_SCRIPT_FLAGS_VERIFY_CHECKSEQUENCEVERIFY = (1U << 11), // enable CHECKSEQUENCEVERIFY (BIP112)
     bitcoinconsensus_SCRIPT_FLAGS_VERIFY_ALL                 = bitcoinconsensus_SCRIPT_FLAGS_VERIFY_P2SH | bitcoinconsensus_SCRIPT_FLAGS_VERIFY_DERSIG |
                                                                bitcoinconsensus_SCRIPT_FLAGS_VERIFY_NULLDUMMY | bitcoinconsensus_SCRIPT_FLAGS_VERIFY_CHECKLOCKTIMEVERIFY |
-                                                               bitcoinconsensus_SCRIPT_FLAGS_VERIFY_CHECKSEQUENCEVERIFY | bitcoinconsensus_SCRIPT_FLAGS_VERIFY_WITNESS |
-                                                               bitcoinconsensus_SCRIPT_FLAGS_VERIFY_TAPROOT
+                                                               bitcoinconsensus_SCRIPT_FLAGS_VERIFY_CHECKSEQUENCEVERIFY
 };
-
-typedef struct {
-    const unsigned char *scriptPubKey;
-    unsigned int scriptPubKeySize;
-    int64_t value;
-} UTXO;
 
 /// Returns 1 if the input nIn of the serialized transaction pointed to by
 /// txTo correctly spends the scriptPubKey pointed to by scriptPubKey under
 /// the additional constraints specified by flags.
-/// If not nullptr, err will contain an error/success code for the operation
+/// If not NULL, err will contain an error/success code for the operation
 EXPORT_SYMBOL int bitcoinconsensus_verify_script(const unsigned char *scriptPubKey, unsigned int scriptPubKeyLen,
                                                  const unsigned char *txTo        , unsigned int txToLen,
                                                  unsigned int nIn, unsigned int flags, bitcoinconsensus_error* err);
 
 EXPORT_SYMBOL int bitcoinconsensus_verify_script_with_amount(const unsigned char *scriptPubKey, unsigned int scriptPubKeyLen, int64_t amount,
                                     const unsigned char *txTo        , unsigned int txToLen,
-                                    unsigned int nIn, unsigned int flags, bitcoinconsensus_error* err);
-
-EXPORT_SYMBOL int bitcoinconsensus_verify_script_with_spent_outputs(const unsigned char *scriptPubKey, unsigned int scriptPubKeyLen, int64_t amount,
-                                    const unsigned char *txTo        , unsigned int txToLen,
-                                    const UTXO *spentOutputs, unsigned int spentOutputsLen,
                                     unsigned int nIn, unsigned int flags, bitcoinconsensus_error* err);
 
 EXPORT_SYMBOL unsigned int bitcoinconsensus_version();
@@ -93,4 +79,4 @@ EXPORT_SYMBOL unsigned int bitcoinconsensus_version();
 
 #undef EXPORT_SYMBOL
 
-#endif // BITCOIN_SCRIPT_BITCOINCONSENSUS_H
+#endif // BITCOIN_BITCOINCONSENSUS_H

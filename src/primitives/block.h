@@ -1,15 +1,14 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2022 The Bitcoin Core developers
+// Copyright (c) 2009-2015 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #ifndef BITCOIN_PRIMITIVES_BLOCK_H
 #define BITCOIN_PRIMITIVES_BLOCK_H
 
-#include <primitives/transaction.h>
-#include <serialize.h>
-#include <uint256.h>
-#include <util/time.h>
+#include "primitives/transaction.h"
+#include "serialize.h"
+#include "uint256.h"
 
 /** Nodes collect new transactions into a block, hash them into a hash tree,
  * and scan through nonce values to make the block's hash satisfy proof-of-work
@@ -34,7 +33,18 @@ public:
         SetNull();
     }
 
-    SERIALIZE_METHODS(CBlockHeader, obj) { READWRITE(obj.nVersion, obj.hashPrevBlock, obj.hashMerkleRoot, obj.nTime, obj.nBits, obj.nNonce); }
+    ADD_SERIALIZE_METHODS;
+
+    template <typename Stream, typename Operation>
+    inline void SerializationOp(Stream& s, Operation ser_action, int nType, int nVersion) {
+        READWRITE(this->nVersion);
+        nVersion = this->nVersion;
+        READWRITE(hashPrevBlock);
+        READWRITE(hashMerkleRoot);
+        READWRITE(nTime);
+        READWRITE(nBits);
+        READWRITE(nNonce);
+    }
 
     void SetNull()
     {
@@ -53,10 +63,7 @@ public:
 
     uint256 GetHash() const;
 
-    NodeSeconds Time() const
-    {
-        return NodeSeconds{std::chrono::seconds{nTime}};
-    }
+    uint256 GetPoWHash() const;
 
     int64_t GetBlockTime() const
     {
@@ -65,16 +72,18 @@ public:
 };
 
 
+
 class CBlock : public CBlockHeader
 {
 public:
     // network and disk
-    std::vector<CTransactionRef> vtx;
+    std::vector<CTransaction> vtx;
 
-    // Memory-only flags for caching expensive checks
-    mutable bool fChecked;                            // CheckBlock()
-    mutable bool m_checked_witness_commitment{false}; // CheckWitnessCommitment()
-    mutable bool m_checked_merkle_root{false};        // CheckMerkleRoot()
+    // network and disk
+    std::vector<unsigned char> vchBlockSig;
+
+    // memory only
+    mutable bool fChecked;
 
     CBlock()
     {
@@ -84,21 +93,35 @@ public:
     CBlock(const CBlockHeader &header)
     {
         SetNull();
-        *(static_cast<CBlockHeader*>(this)) = header;
+        *((CBlockHeader*)this) = header;
     }
 
-    SERIALIZE_METHODS(CBlock, obj)
-    {
-        READWRITE(AsBase<CBlockHeader>(obj), obj.vtx);
+    ADD_SERIALIZE_METHODS;
+
+    template <typename Stream, typename Operation>
+    inline void SerializationOp(Stream& s, Operation ser_action, int nType, int nVersion) {
+        READWRITE(*(CBlockHeader*)this);
+        READWRITE(vtx);
+        READWRITE(vchBlockSig);
     }
 
     void SetNull()
     {
         CBlockHeader::SetNull();
         vtx.clear();
+        vchBlockSig.clear();
         fChecked = false;
-        m_checked_witness_commitment = false;
-        m_checked_merkle_root = false;
+    }
+
+    // two types of block: proof-of-work or proof-of-stake
+    bool IsProofOfStake() const
+    {
+        return (vtx.size() > 1 && vtx[1].IsCoinStake());
+    }
+
+    bool IsProofOfWork() const
+    {
+        return !IsProofOfStake();
     }
 
     CBlockHeader GetBlockHeader() const
@@ -113,6 +136,8 @@ public:
         return block;
     }
 
+
+
     std::string ToString() const;
 };
 
@@ -122,26 +147,22 @@ public:
  */
 struct CBlockLocator
 {
-    /** Historically CBlockLocator's version field has been written to network
-     * streams as the negotiated protocol version and to disk streams as the
-     * client version, but the value has never been used.
-     *
-     * Hard-code to the highest protocol version ever written to a network stream.
-     * SerParams can be used if the field requires any meaning in the future,
-     **/
-    static constexpr int DUMMY_VERSION = 70016;
-
     std::vector<uint256> vHave;
 
     CBlockLocator() {}
 
-    explicit CBlockLocator(std::vector<uint256>&& have) : vHave(std::move(have)) {}
-
-    SERIALIZE_METHODS(CBlockLocator, obj)
+    CBlockLocator(const std::vector<uint256>& vHaveIn)
     {
-        int nVersion = DUMMY_VERSION;
-        READWRITE(nVersion);
-        READWRITE(obj.vHave);
+        vHave = vHaveIn;
+    }
+
+    ADD_SERIALIZE_METHODS;
+
+    template <typename Stream, typename Operation>
+    inline void SerializationOp(Stream& s, Operation ser_action, int nType, int nVersion) {
+        if (!(nType & SER_GETHASH))
+            READWRITE(nVersion);
+        READWRITE(vHave);
     }
 
     void SetNull()

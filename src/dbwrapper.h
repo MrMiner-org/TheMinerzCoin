@@ -1,55 +1,26 @@
-// Copyright (c) 2012-2022 The Bitcoin Core developers
+// Copyright (c) 2012-2015 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #ifndef BITCOIN_DBWRAPPER_H
 #define BITCOIN_DBWRAPPER_H
 
-#include <attributes.h>
-#include <serialize.h>
-#include <span.h>
-#include <streams.h>
-#include <util/check.h>
-#include <util/fs.h>
+#include "clientversion.h"
+#include "serialize.h"
+#include "streams.h"
+#include "util.h"
+#include "utilstrencodings.h"
+#include "version.h"
 
-#include <cstddef>
-#include <exception>
-#include <memory>
-#include <optional>
-#include <stdexcept>
-#include <string>
-#include <vector>
+#include <boost/filesystem/path.hpp>
 
-static const size_t DBWRAPPER_PREALLOC_KEY_SIZE = 64;
-static const size_t DBWRAPPER_PREALLOC_VALUE_SIZE = 1024;
-
-//! User-controlled performance and debug options.
-struct DBOptions {
-    //! Compact database on startup.
-    bool force_compact = false;
-};
-
-//! Application-specific storage settings.
-struct DBParams {
-    //! Location in the filesystem where leveldb data will be stored.
-    fs::path path;
-    //! Configures various leveldb cache settings.
-    size_t cache_bytes;
-    //! If true, use leveldb's memory environment.
-    bool memory_only = false;
-    //! If true, remove all existing data.
-    bool wipe_data = false;
-    //! If true, store data obfuscated via simple XOR. If false, XOR with a
-    //! zero'd byte array.
-    bool obfuscate = false;
-    //! Passed-through options.
-    DBOptions options{};
-};
+#include <leveldb/include/leveldb/db.h>
+#include <leveldb/include/leveldb/write_batch.h>
 
 class dbwrapper_error : public std::runtime_error
 {
 public:
-    explicit dbwrapper_error(const std::string& msg) : std::runtime_error(msg) {}
+    dbwrapper_error(const std::string& msg) : std::runtime_error(msg) {}
 };
 
 class CDBWrapper;
@@ -58,15 +29,17 @@ class CDBWrapper;
  */
 namespace dbwrapper_private {
 
+/** Handle database error by throwing dbwrapper_error exception.
+ */
+void HandleError(const leveldb::Status& status);
+
 /** Work around circular dependency, as well as for testing in dbwrapper_tests.
  * Database obfuscation should be considered an implementation detail of the
  * specific database.
  */
 const std::vector<unsigned char>& GetObfuscateKey(const CDBWrapper &w);
 
-}; // namespace dbwrapper_private
-
-bool DestroyDB(const std::string& path_str);
+};
 
 /** Batch of changes queued to be written to a CDBWrapper */
 class CDBBatch
@@ -75,88 +48,77 @@ class CDBBatch
 
 private:
     const CDBWrapper &parent;
-
-    struct WriteBatchImpl;
-    const std::unique_ptr<WriteBatchImpl> m_impl_batch;
-
-    DataStream ssKey{};
-    DataStream ssValue{};
-
-    size_t size_estimate{0};
-
-    void WriteImpl(Span<const std::byte> key, DataStream& ssValue);
-    void EraseImpl(Span<const std::byte> key);
+    leveldb::WriteBatch batch;
 
 public:
     /**
-     * @param[in] _parent   CDBWrapper that this batch is to be submitted to
+     * @param[in] parent    CDBWrapper that this batch is to be submitted to
      */
-    explicit CDBBatch(const CDBWrapper& _parent);
-    ~CDBBatch();
-    void Clear();
+    CDBBatch(const CDBWrapper &parent) : parent(parent) { };
 
     template <typename K, typename V>
     void Write(const K& key, const V& value)
     {
-        ssKey.reserve(DBWRAPPER_PREALLOC_KEY_SIZE);
-        ssValue.reserve(DBWRAPPER_PREALLOC_VALUE_SIZE);
+        CDataStream ssKey(SER_DISK, CLIENT_VERSION);
+        ssKey.reserve(ssKey.GetSerializeSize(key));
         ssKey << key;
+        leveldb::Slice slKey(&ssKey[0], ssKey.size());
+
+        CDataStream ssValue(SER_DISK, CLIENT_VERSION);
+        ssValue.reserve(ssValue.GetSerializeSize(value));
         ssValue << value;
-        WriteImpl(ssKey, ssValue);
-        ssKey.clear();
-        ssValue.clear();
+        ssValue.Xor(dbwrapper_private::GetObfuscateKey(parent));
+        leveldb::Slice slValue(&ssValue[0], ssValue.size());
+
+        batch.Put(slKey, slValue);
     }
 
     template <typename K>
     void Erase(const K& key)
     {
-        ssKey.reserve(DBWRAPPER_PREALLOC_KEY_SIZE);
+        CDataStream ssKey(SER_DISK, CLIENT_VERSION);
+        ssKey.reserve(ssKey.GetSerializeSize(key));
         ssKey << key;
-        EraseImpl(ssKey);
-        ssKey.clear();
-    }
+        leveldb::Slice slKey(&ssKey[0], ssKey.size());
 
-    size_t SizeEstimate() const { return size_estimate; }
+        batch.Delete(slKey);
+    }
 };
 
 class CDBIterator
 {
-public:
-    struct IteratorImpl;
-
 private:
     const CDBWrapper &parent;
-    const std::unique_ptr<IteratorImpl> m_impl_iter;
-
-    void SeekImpl(Span<const std::byte> key);
-    Span<const std::byte> GetKeyImpl() const;
-    Span<const std::byte> GetValueImpl() const;
+    leveldb::Iterator *piter;
 
 public:
 
     /**
-     * @param[in] _parent          Parent CDBWrapper instance.
-     * @param[in] _piter           The original leveldb iterator.
+     * @param[in] parent           Parent CDBWrapper instance.
+     * @param[in] piterIn          The original leveldb iterator.
      */
-    CDBIterator(const CDBWrapper& _parent, std::unique_ptr<IteratorImpl> _piter);
+    CDBIterator(const CDBWrapper &parent, leveldb::Iterator *piterIn) :
+        parent(parent), piter(piterIn) { };
     ~CDBIterator();
 
-    bool Valid() const;
+    bool Valid();
 
     void SeekToFirst();
 
     template<typename K> void Seek(const K& key) {
-        DataStream ssKey{};
-        ssKey.reserve(DBWRAPPER_PREALLOC_KEY_SIZE);
+        CDataStream ssKey(SER_DISK, CLIENT_VERSION);
+        ssKey.reserve(ssKey.GetSerializeSize(key));
         ssKey << key;
-        SeekImpl(ssKey);
+        leveldb::Slice slKey(&ssKey[0], ssKey.size());
+        piter->Seek(slKey);
     }
 
     void Next();
 
     template<typename K> bool GetKey(K& key) {
+        leveldb::Slice slKey = piter->key();
         try {
-            DataStream ssKey{GetKeyImpl()};
+            CDataStream ssKey(slKey.data(), slKey.data() + slKey.size(), SER_DISK, CLIENT_VERSION);
             ssKey >> key;
         } catch (const std::exception&) {
             return false;
@@ -164,9 +126,14 @@ public:
         return true;
     }
 
+    unsigned int GetKeySize() {
+        return piter->key().size();
+    }
+
     template<typename V> bool GetValue(V& value) {
+        leveldb::Slice slValue = piter->value();
         try {
-            DataStream ssValue{GetValueImpl()};
+            CDataStream ssValue(slValue.data(), slValue.data() + slValue.size(), SER_DISK, CLIENT_VERSION);
             ssValue.Xor(dbwrapper_private::GetObfuscateKey(parent));
             ssValue >> value;
         } catch (const std::exception&) {
@@ -174,19 +141,37 @@ public:
         }
         return true;
     }
-};
 
-struct LevelDBContext;
+    unsigned int GetValueSize() {
+        return piter->value().size();
+    }
+
+};
 
 class CDBWrapper
 {
     friend const std::vector<unsigned char>& dbwrapper_private::GetObfuscateKey(const CDBWrapper &w);
 private:
-    //! holds all leveldb-specific fields of this class
-    std::unique_ptr<LevelDBContext> m_db_context;
+    //! custom environment this database is using (may be NULL in case of default environment)
+    leveldb::Env* penv;
 
-    //! the name of this database
-    std::string m_name;
+    //! database options used
+    leveldb::Options options;
+
+    //! options used when reading from the database
+    leveldb::ReadOptions readoptions;
+
+    //! options used when iterating over values of the database
+    leveldb::ReadOptions iteroptions;
+
+    //! options used when writing to the database
+    leveldb::WriteOptions writeoptions;
+
+    //! options used when sync writing to the database
+    leveldb::WriteOptions syncoptions;
+
+    //! the database itself
+    leveldb::DB* pdb;
 
     //! a key used for optional XOR-obfuscation of the database
     std::vector<unsigned char> obfuscate_key;
@@ -199,36 +184,36 @@ private:
 
     std::vector<unsigned char> CreateObfuscateKey() const;
 
-    //! path to filesystem storage
-    const fs::path m_path;
-
-    //! whether or not the database resides in memory
-    bool m_is_memory;
-
-    std::optional<std::string> ReadImpl(Span<const std::byte> key) const;
-    bool ExistsImpl(Span<const std::byte> key) const;
-    size_t EstimateSizeImpl(Span<const std::byte> key1, Span<const std::byte> key2) const;
-    auto& DBContext() const LIFETIMEBOUND { return *Assert(m_db_context); }
-
 public:
-    CDBWrapper(const DBParams& params);
+    /**
+     * @param[in] path          Location in the filesystem where leveldb data will be stored.
+     * @param[in] nCacheSize    Configures various leveldb cache settings.
+     * @param[in] fMemory       If true, use leveldb's memory environment.
+     * @param[in] fWipe         If true, remove all existing data.
+     * @param[in] obfuscate     If true, store data obfuscated via simple XOR. If false, XOR
+     *                          with a zero'd byte array.
+     */
+    CDBWrapper(const boost::filesystem::path& path, size_t nCacheSize, bool fMemory = false, bool fWipe = false, bool obfuscate = false);
     ~CDBWrapper();
-
-    CDBWrapper(const CDBWrapper&) = delete;
-    CDBWrapper& operator=(const CDBWrapper&) = delete;
 
     template <typename K, typename V>
     bool Read(const K& key, V& value) const
     {
-        DataStream ssKey{};
-        ssKey.reserve(DBWRAPPER_PREALLOC_KEY_SIZE);
+        CDataStream ssKey(SER_DISK, CLIENT_VERSION);
+        ssKey.reserve(ssKey.GetSerializeSize(key));
         ssKey << key;
-        std::optional<std::string> strValue{ReadImpl(ssKey)};
-        if (!strValue) {
-            return false;
+        leveldb::Slice slKey(&ssKey[0], ssKey.size());
+
+        std::string strValue;
+        leveldb::Status status = pdb->Get(readoptions, slKey, &strValue);
+        if (!status.ok()) {
+            if (status.IsNotFound())
+                return false;
+            LogPrintf("LevelDB read failure: %s\n", status.ToString());
+            dbwrapper_private::HandleError(status);
         }
         try {
-            DataStream ssValue{MakeByteSpan(*strValue)};
+            CDataStream ssValue(strValue.data(), strValue.data() + strValue.size(), SER_DISK, CLIENT_VERSION);
             ssValue.Xor(obfuscate_key);
             ssValue >> value;
         } catch (const std::exception&) {
@@ -245,21 +230,23 @@ public:
         return WriteBatch(batch, fSync);
     }
 
-    //! @returns filesystem path to the on-disk data.
-    std::optional<fs::path> StoragePath() {
-        if (m_is_memory) {
-            return {};
-        }
-        return m_path;
-    }
-
     template <typename K>
     bool Exists(const K& key) const
     {
-        DataStream ssKey{};
-        ssKey.reserve(DBWRAPPER_PREALLOC_KEY_SIZE);
+        CDataStream ssKey(SER_DISK, CLIENT_VERSION);
+        ssKey.reserve(ssKey.GetSerializeSize(key));
         ssKey << key;
-        return ExistsImpl(ssKey);
+        leveldb::Slice slKey(&ssKey[0], ssKey.size());
+
+        std::string strValue;
+        leveldb::Status status = pdb->Get(readoptions, slKey, &strValue);
+        if (!status.ok()) {
+            if (status.IsNotFound())
+                return false;
+            LogPrintf("LevelDB read failure: %s\n", status.ToString());
+            dbwrapper_private::HandleError(status);
+        }
+        return true;
     }
 
     template <typename K>
@@ -272,26 +259,28 @@ public:
 
     bool WriteBatch(CDBBatch& batch, bool fSync = false);
 
-    // Get an estimate of LevelDB memory usage (in bytes).
-    size_t DynamicMemoryUsage() const;
+    // not available for LevelDB; provide for compatibility with BDB
+    bool Flush()
+    {
+        return true;
+    }
 
-    CDBIterator* NewIterator();
+    bool Sync()
+    {
+        CDBBatch batch(*this);
+        return WriteBatch(batch, true);
+    }
+
+    CDBIterator *NewIterator()
+    {
+        return new CDBIterator(*this, pdb->NewIterator(iteroptions));
+    }
 
     /**
      * Return true if the database managed by this class contains no entries.
      */
     bool IsEmpty();
-
-    template<typename K>
-    size_t EstimateSize(const K& key_begin, const K& key_end) const
-    {
-        DataStream ssKey1{}, ssKey2{};
-        ssKey1.reserve(DBWRAPPER_PREALLOC_KEY_SIZE);
-        ssKey2.reserve(DBWRAPPER_PREALLOC_KEY_SIZE);
-        ssKey1 << key_begin;
-        ssKey2 << key_end;
-        return EstimateSizeImpl(ssKey1, ssKey2);
-    }
 };
 
 #endif // BITCOIN_DBWRAPPER_H
+

@@ -1,4 +1,6 @@
-// Copyright (c) 2011-2020 The Bitcoin Core developers
+// Copyright (c) 2011-2014 The Bitcoin Core developers
+// Copyright (c) 2015-2017 The Bitcoin Unlimited developers
+// Copyright (c) 2017 The Bitcoin developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -7,7 +9,8 @@
 
 #include <QValidator>
 
-/** Base58 entry widget validator, checks for valid characters and
+/**
+ * Bitcoin address entry widget validator, checks for valid characters and
  * removes some whitespace.
  */
 class BitcoinAddressEntryValidator : public QValidator
@@ -15,9 +18,12 @@ class BitcoinAddressEntryValidator : public QValidator
     Q_OBJECT
 
 public:
-    explicit BitcoinAddressEntryValidator(QObject *parent);
+    explicit BitcoinAddressEntryValidator(const std::string &cashaddrprefix, QObject *parent);
 
-    State validate(QString &input, int &pos) const override;
+    State validate(QString &input, int &pos) const;
+
+private:
+    std::string cashaddrprefix;
 };
 
 /** Bitcoin address widget validator, checks for a valid bitcoin address.
@@ -29,7 +35,7 @@ class BitcoinAddressCheckValidator : public QValidator
 public:
     explicit BitcoinAddressCheckValidator(QObject *parent);
 
-    State validate(QString &input, int &pos) const override;
+    State validate(QString &input, int &pos) const;
 };
 
 #endif // BITCOIN_QT_BITCOINADDRESSVALIDATOR_H

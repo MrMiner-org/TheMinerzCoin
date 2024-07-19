@@ -1,8 +1,18 @@
 UNIX BUILD NOTES
 ====================
-Some notes on how to build Bitcoin Core in Unix.
+Some notes on how to build TheMinerzCoin in Unix.
 
-(For BSD specific instructions, see `build-*bsd.md` in this directory.)
+(for OpenBSD specific instructions, see [build-openbsd.md](build-openbsd.md))
+
+Note
+---------------------
+Always use absolute paths to configure and compile theminerzcoin and the dependencies,
+for example, when specifying the path of the dependency:
+
+	../dist/configure --enable-cxx --disable-shared --with-pic --prefix=$BDB_PREFIX
+
+Here BDB_PREFIX must be an absolute path - it is defined using $(pwd) which ensures
+the usage of the absolute path.
 
 To Build
 ---------------------
@@ -10,186 +20,241 @@ To Build
 ```bash
 ./autogen.sh
 ./configure
-make # use "-j N" for N parallel jobs
+make
 make install # optional
 ```
 
-See below for instructions on how to [install the dependencies on popular Linux
-distributions](#linux-distribution-specific-instructions), or the
-[dependencies](#dependencies) section for a complete overview.
+This will build theminerzcoin-qt as well if the dependencies are met.
 
-## Memory Requirements
+Dependencies
+---------------------
+
+These dependencies are required:
+
+ Library     | Purpose          | Description
+ ------------|------------------|----------------------
+ libssl      | Crypto           | Random Number Generation, Elliptic Curve Cryptography
+ libboost    | Utility          | Library for threading, data structures, etc
+ libevent    | Networking       | OS independent asynchronous networking
+
+Optional dependencies:
+
+ Library     | Purpose          | Description
+ ------------|------------------|----------------------
+ miniupnpc   | UPnP Support     | Firewall-jumping support
+ libdb6.2    | Berkeley DB      | Wallet storage (only needed when wallet enabled)
+ qt          | GUI              | GUI toolkit (only needed when GUI enabled)
+ protobuf    | Payments in GUI  | Data interchange format used for payment protocol (only needed when GUI enabled)
+ libqrencode | QR codes in GUI  | Optional for generating QR codes (only needed when GUI enabled)
+ univalue    | Utility          | JSON parsing and encoding (bundled version will be used unless --with-system-univalue passed to configure)
+ libzmq3     | ZMQ notification | Optional, allows generating ZMQ notifications (requires ZMQ version >= 4.x)
+
+For the versions used in the release, see [release-process.md](release-process.md) under *Fetch and build inputs*.
+
+Memory Requirements
+--------------------
 
 C++ compilers are memory-hungry. It is recommended to have at least 1.5 GB of
-memory available when compiling Bitcoin Core. On systems with less, gcc can be
+memory available when compiling TheMinerzCoin. On systems with less, gcc can be
 tuned to conserve memory with additional CXXFLAGS:
 
 
     ./configure CXXFLAGS="--param ggc-min-expand=1 --param ggc-min-heapsize=32768"
 
-Alternatively, or in addition, debugging information can be skipped for compilation. The default compile flags are
-`-g -O2`, and can be changed with:
-
-    ./configure CXXFLAGS="-O2"
-
-Finally, clang (often less resource hungry) can be used instead of gcc, which is used by default:
-
-    ./configure CXX=clang++ CC=clang
-
-## Linux Distribution Specific Instructions
-
-### Ubuntu & Debian
-
-#### Dependency Build Instructions
-
+Dependency Build Instructions: Ubuntu & Debian
+----------------------------------------------
 Build requirements:
 
-    sudo apt-get install build-essential libtool autotools-dev automake pkg-config bsdmainutils python3
+    sudo apt-get install build-essential libtool autotools-dev automake pkg-config libssl-dev libevent-dev bsdmainutils
 
-Now, you can either build from self-compiled [depends](#dependencies) or install the required dependencies:
+Options when installing required Boost library files:
 
-    sudo apt-get install libevent-dev libboost-dev
+1. On at least Ubuntu 14.04+ and Debian 7+ there are generic names for the
+individual boost development packages, so the following can be used to only
+install necessary parts of boost:
 
-SQLite is required for the descriptor wallet:
+        sudo apt-get install libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-program-options-dev libboost-test-dev libboost-thread-dev
 
-    sudo apt install libsqlite3-dev
+2. If that doesn't work, you can install all boost development packages with:
 
-Berkeley DB is only required for the legacy wallet. Ubuntu and Debian have their own `libdb-dev` and `libdb++-dev` packages,
-but these will install Berkeley DB 5.3 or later. This will break binary wallet compatibility with the distributed
-executables, which are based on BerkeleyDB 4.8. If you do not care about wallet compatibility, pass
-`--with-incompatible-bdb` to configure. Otherwise, you can build Berkeley DB [yourself](#berkeley-db).
+        sudo apt-get install libboost-all-dev
 
-To build Bitcoin Core without wallet, see [*Disable-wallet mode*](#disable-wallet-mode)
+BerkeleyDB 6.2 is required for the wallet.
 
-Optional port mapping libraries (see: `--with-miniupnpc` and `--with-natpmp`):
+Ubuntu and Debian have their own libdb-dev and libdb++-dev packages, but these will most likely install
+BerkeleyDB 5.1, which break binary wallet compatibility with the distributed executables which
+are based on BerkeleyDB 6.2. If you do not care about wallet compatibility,
+pass `--with-incompatible-bdb` to configure.
 
-    sudo apt install libminiupnpc-dev libnatpmp-dev
+See the section "Disable-wallet mode" to build TheMinerzCoin without wallet.
 
-ZMQ dependencies (provides ZMQ API):
+Optional:
 
-    sudo apt-get install libzmq3-dev
+    sudo apt-get install libminiupnpc-dev (see --with-miniupnpc and --enable-upnp-default)
 
-User-Space, Statically Defined Tracing (USDT) dependencies:
+ZMQ dependencies:
 
-    sudo apt install systemtap-sdt-dev
+    sudo apt-get install libzmq3-dev (provides ZMQ API 4.x)
 
-GUI dependencies:
+Dependencies for the GUI: Ubuntu & Debian
+-----------------------------------------
 
-If you want to build bitcoin-qt, make sure that the required packages for Qt development
-are installed. Qt 5 is necessary to build the GUI.
+If you want to build TheMinerzCoin-Qt, make sure that the required packages for Qt development
+are installed. Either Qt 5 or Qt 4 are necessary to build the GUI.
+If both Qt 4 and Qt 5 are installed, Qt 5 will be used. Pass `--with-gui=qt4` to configure to choose Qt4.
 To build without GUI pass `--without-gui`.
 
-To build with Qt 5 you need the following:
+To build with Qt 5 (recommended) you need the following:
 
-    sudo apt-get install qtbase5-dev qttools5-dev qttools5-dev-tools
+    sudo apt-get install libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools libprotobuf-dev protobuf-compiler
 
-Additionally, to support Wayland protocol for modern desktop environments:
+Alternatively, to build with Qt 4 you need the following:
 
-    sudo apt install qtwayland5
+    sudo apt-get install libqt4-dev libprotobuf-dev protobuf-compiler
 
 libqrencode (optional) can be installed with:
 
     sudo apt-get install libqrencode-dev
 
-Once these are installed, they will be found by configure and a bitcoin-qt executable will be
+Once these are installed, they will be found by configure and a theminerzcoin-qt executable will be
 built by default.
 
-
-### Fedora
-
-#### Dependency Build Instructions
-
+Dependency Build Instructions: Fedora
+-------------------------------------
 Build requirements:
 
-    sudo dnf install gcc-c++ libtool make autoconf automake python3
+    sudo dnf install gcc-c++ libtool make autoconf automake openssl-devel libevent-devel boost-devel libdb4-devel libdb4-cxx-devel
 
-Now, you can either build from self-compiled [depends](#dependencies) or install the required dependencies:
+Optional:
 
-    sudo dnf install libevent-devel boost-devel
+    sudo dnf install miniupnpc-devel
 
-SQLite is required for the descriptor wallet:
+To build with Qt 5 (recommended) you need the following:
 
-    sudo dnf install sqlite-devel
-
-Berkeley DB is only required for the legacy wallet. Fedora releases have only `libdb-devel` and `libdb-cxx-devel` packages, but these will install
-Berkeley DB 5.3 or later. This will break binary wallet compatibility with the distributed executables, which
-are based on Berkeley DB 4.8. If you do not care about wallet compatibility,
-pass `--with-incompatible-bdb` to configure. Otherwise, you can build Berkeley DB [yourself](#berkeley-db).
-
-To build Bitcoin Core without wallet, see [*Disable-wallet mode*](#disable-wallet-mode)
-
-Optional port mapping libraries (see: `--with-miniupnpc` and `--with-natpmp`):
-
-    sudo dnf install miniupnpc-devel libnatpmp-devel
-
-ZMQ dependencies (provides ZMQ API):
-
-    sudo dnf install zeromq-devel
-
-User-Space, Statically Defined Tracing (USDT) dependencies:
-
-    sudo dnf install systemtap-sdt-devel
-
-GUI dependencies:
-
-If you want to build bitcoin-qt, make sure that the required packages for Qt development
-are installed. Qt 5 is necessary to build the GUI.
-To build without GUI pass `--without-gui`.
-
-To build with Qt 5 you need the following:
-
-    sudo dnf install qt5-qttools-devel qt5-qtbase-devel
-
-Additionally, to support Wayland protocol for modern desktop environments:
-
-    sudo dnf install qt5-qtwayland
+    sudo dnf install qt5-qttools-devel qt5-qtbase-devel protobuf-devel
 
 libqrencode (optional) can be installed with:
 
     sudo dnf install qrencode-devel
 
-Once these are installed, they will be found by configure and a bitcoin-qt executable will be
-built by default.
+Notes
+-----
+The release is built with GCC and then "strip theminerzcoind" to strip the debug
+symbols, which reduces the executable size by about 90%.
 
-## Dependencies
 
-See [dependencies.md](dependencies.md) for a complete overview, and
-[depends](/depends/README.md) on how to compile them yourself, if you wish to
-not use the packages of your Linux distribution.
+miniupnpc
+---------
 
-### Berkeley DB
+[miniupnpc](http://miniupnp.free.fr/) may be used for UPnP port mapping.  It can be downloaded from [here](
+http://miniupnp.tuxfamily.org/files/).  UPnP support is compiled in and
+turned off by default.  See the configure options for upnp behavior desired:
 
-The legacy wallet uses Berkeley DB. To ensure backwards compatibility it is
-recommended to use Berkeley DB 4.8. If you have to build it yourself, and don't
-want to use any other libraries built in depends, you can do:
+	--without-miniupnpc      No UPnP support miniupnp not required
+	--disable-upnp-default   (the default) UPnP support turned off by default at runtime
+	--enable-upnp-default    UPnP support turned on by default at runtime
+
+
+Berkeley DB
+-----------
+It is recommended to use Berkeley DB 6.2. If you have to build it yourself:
+
 ```bash
-make -C depends NO_BOOST=1 NO_LIBEVENT=1 NO_QT=1 NO_SQLITE=1 NO_NATPMP=1 NO_UPNP=1 NO_ZMQ=1 NO_USDT=1
-...
-to: /path/to/bitcoin/depends/x86_64-pc-linux-gnu
+BITCOIN_ROOT=$(pwd)
+
+# Pick some path to install BDB to, here we create a directory within the theminerzcoin directory
+BDB_PREFIX="${BITCOIN_ROOT}/build"
+mkdir -p $BDB_PREFIX
+
+# Fetch the source and verify that it is not tampered with
+wget 'http://download.oracle.com/berkeley-db/db-6.2.32.tar.gz'
+echo 'a9c5e2b004a5777aa03510cfe5cd766a4a3b777713406b02809c17c8e0e7a8fb  db-6.2.32.tar.gz' | sha256sum -c
+# -> db-6.2.32.tar.gz: OK
+tar -xzvf db-6.2.32.tar.gz
+
+# Build the library and install to our prefix
+cd db-6.2.32/build_unix/
+#  Note: Do a static build so that it can be embedded into the executable, instead of having to find a .so at runtime
+../dist/configure --enable-cxx --disable-shared --with-pic --prefix=$BDB_PREFIX
+make install
+
+# Configure TheMinerzCoin to use our own-built instance of BDB
+cd $BITCOIN_ROOT
+./autogen.sh
+./configure LDFLAGS="-L${BDB_PREFIX}/lib/" CPPFLAGS="-I${BDB_PREFIX}/include/" # (other args...)
 ```
-and configure using the following:
-```bash
-export BDB_PREFIX="/path/to/bitcoin/depends/x86_64-pc-linux-gnu"
 
-./configure \
-    BDB_LIBS="-L${BDB_PREFIX}/lib -ldb_cxx-4.8" \
-    BDB_CFLAGS="-I${BDB_PREFIX}/include"
-```
+**Note**: You only need Berkeley DB if the wallet is enabled (see the section *Disable-Wallet mode* below).
 
-**Note**: Make sure that `BDB_PREFIX` is an absolute path.
+Boost
+-----
+If you need to build Boost yourself:
 
-**Note**: You only need Berkeley DB if the legacy wallet is enabled (see [*Disable-wallet mode*](#disable-wallet-mode)).
+	sudo su
+	./bootstrap.sh
+	./bjam install
+
+
+Security
+--------
+To help make your theminerzcoin installation more secure by making certain attacks impossible to
+exploit even if a vulnerability is found, binaries are hardened by default.
+This can be disabled with:
+
+Hardening Flags:
+
+	./configure --enable-hardening
+	./configure --disable-hardening
+
+
+Hardening enables the following features:
+
+* Position Independent Executable
+    Build position independent code to take advantage of Address Space Layout Randomization
+    offered by some kernels. Attackers who can cause execution of code at an arbitrary memory
+    location are thwarted if they don't know where anything useful is located.
+    The stack and heap are randomly located by default but this allows the code section to be
+    randomly located as well.
+
+    On an AMD64 processor where a library was not compiled with -fPIC, this will cause an error
+    such as: "relocation R_X86_64_32 against `......' can not be used when making a shared object;"
+
+    To test that you have built PIE executable, install scanelf, part of paxutils, and use:
+
+    	scanelf -e ./theminerzcoin
+
+    The output should contain:
+
+     TYPE
+    ET_DYN
+
+* Non-executable Stack
+    If the stack is executable then trivial stack based buffer overflow exploits are possible if
+    vulnerable buffers are found. By default, theminerzcoin should be built with a non-executable stack
+    but if one of the libraries it uses asks for an executable stack or someone makes a mistake
+    and uses a compiler extension which requires an executable stack, it will silently build an
+    executable without the non-executable stack protection.
+
+    To verify that the stack is non-executable after compiling use:
+    `scanelf -e ./theminerzcoin`
+
+    the output should contain:
+	STK/REL/PTL
+	RW- R-- RW-
+
+    The STK RW- means that the stack is readable and writeable but not executable.
 
 Disable-wallet mode
 --------------------
-When the intention is to only run a P2P node, without a wallet, Bitcoin Core can
-be compiled in disable-wallet mode with:
+When the intention is to run only a P2P node without a wallet, theminerzcoin may be compiled in
+disable-wallet mode with:
 
     ./configure --disable-wallet
 
-In this case there is no dependency on SQLite or Berkeley DB.
+In this case there is no dependency on Berkeley DB 4.8.
 
-Mining is also possible in disable-wallet mode using the `getblocktemplate` RPC call.
+Mining is also possible in disable-wallet mode, but only using the `getblocktemplate` RPC
+call not `getwork`.
 
 Additional Configure Flags
 --------------------------
@@ -200,14 +265,72 @@ A list of additional configure flags can be displayed with:
 
 Setup and Build Example: Arch Linux
 -----------------------------------
-This example lists the steps necessary to setup and build a command line only distribution of the latest changes on Arch Linux:
+This example lists the steps necessary to setup and build a command line only, non-wallet distribution of the latest changes on Arch Linux:
 
-    pacman --sync --needed autoconf automake boost gcc git libevent libtool make pkgconf python sqlite
-    git clone https://github.com/bitcoin/bitcoin.git
-    cd bitcoin/
+    pacman -S git base-devel boost libevent python
+    git clone https://github.com/MrMiner-org/TheMinerzCoin.git
+    cd theminerzcoin/
     ./autogen.sh
-    ./configure
+    ./configure --disable-wallet --without-gui --without-miniupnpc
     make check
-    ./src/bitcoind
 
-If you intend to work with legacy Berkeley DB wallets, see [Berkeley DB](#berkeley-db) section.
+Note:
+Enabling wallet support requires either compiling against a Berkeley DB newer than 6.2 (package `db`) using `--with-incompatible-bdb`,
+or building and depending on a local version of Berkeley DB 6.2.
+As mentioned above, when maintaining portability of the wallet between the standard TheMinerzCoin distributions and independently built
+node software is desired, Berkeley DB 6.2 must be used.
+
+
+ARM Cross-compilation
+-------------------
+These steps can be performed on, for example, an Ubuntu VM. The depends system
+will also work on other Linux distributions, however the commands for
+installing the toolchain will be different.
+
+Make sure you install the build requirements mentioned above.
+Then, install the toolchain and curl:
+
+    sudo apt-get install g++-arm-linux-gnueabihf curl
+
+To build executables for ARM:
+
+    cd depends
+    make HOST=arm-linux-gnueabihf NO_QT=1
+    cd ..
+    ./configure --prefix=$PWD/depends/arm-linux-gnueabihf --enable-glibc-back-compat --enable-reduce-exports LDFLAGS=-static-libstdc++
+    make
+
+
+For further documentation on the depends system see [README.md](../depends/README.md) in the depends directory.
+
+Building on FreeBSD
+--------------------
+
+(Updated as of FreeBSD 11.0)
+
+Clang is installed by default as `cc` compiler, this makes it easier to get
+started than on [OpenBSD](build-openbsd.md). Installing dependencies:
+
+    pkg install autoconf automake libtool pkgconf
+    pkg install boost-libs openssl libevent2
+
+(`libressl` instead of `openssl` will also work)
+
+For the wallet (optional):
+
+    pkg install db5
+
+This will give a warning "configure: WARNING: Found Berkeley DB other
+than 4.8; wallets opened by this build will not be portable!", but as FreeBSD never
+had a binary release, this may not matter. If backwards compatibility
+with 4.8-built Bitcoin Core is needed follow the steps under "Berkeley DB" above.
+
+Then build using:
+
+    ./autogen.sh
+    ./configure --with-incompatible-bdb BDB_CFLAGS="-I/usr/local/include/db5" BDB_LIBS="-L/usr/local/lib -ldb_cxx-5"
+    make
+
+*Note on debugging*: The version of `gdb` installed by default is [ancient and considered harmful](https://wiki.freebsd.org/GdbRetirement).
+It is not suitable for debugging a multi-threaded C++ program, not even for getting backtraces. Please install the package `gdb` and
+use the versioned gdb command e.g. `gdb7111`.

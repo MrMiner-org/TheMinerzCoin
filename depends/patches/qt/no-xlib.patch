@@ -4,7 +4,12 @@ Date: Thu, 18 Jul 2019 17:22:05 -0400
 Subject: [PATCH] Wrap xlib related code blocks in #if's
 
 They are not necessary to compile QT.
+---
+ qtbase/src/plugins/platforms/xcb/qxcbcursor.cpp | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
+diff --git a/qtbase/src/plugins/platforms/xcb/qxcbcursor.cpp b/qtbase/src/plugins/platforms/xcb/qxcbcursor.cpp
+index 7c62c2e2b3..c05c6c0a07 100644
 --- a/qtbase/src/plugins/platforms/xcb/qxcbcursor.cpp
 +++ b/qtbase/src/plugins/platforms/xcb/qxcbcursor.cpp
 @@ -49,7 +49,9 @@
@@ -33,7 +38,7 @@ They are not necessary to compile QT.
  
  xcb_cursor_t QXcbCursor::createNonStandardCursor(int cshape)
  {
-@@ -558,7 +562,9 @@ static xcb_cursor_t loadCursor(void *dpy, int cshape)
+@@ -556,7 +560,9 @@ static xcb_cursor_t loadCursor(void *dpy, int cshape)
  xcb_cursor_t QXcbCursor::createFontCursor(int cshape)
  {
      xcb_connection_t *conn = xcb_connection();
@@ -42,16 +47,17 @@ They are not necessary to compile QT.
 +#endif
      xcb_cursor_t cursor = XCB_NONE;
  
- #if QT_CONFIG(xcb_xlib) && QT_CONFIG(library)
-@@ -590,6 +596,7 @@ xcb_cursor_t QXcbCursor::createFontCursor(int cshape)
+     // Try Xcursor first
+@@ -585,7 +591,7 @@ xcb_cursor_t QXcbCursor::createFontCursor(int cshape)
+ 
      // Non-standard X11 cursors are created from bitmaps
      cursor = createNonStandardCursor(cshape);
- 
+-
 +#if QT_CONFIG(xcb_xlib) && QT_CONFIG(library)
      // Create a glpyh cursor if everything else failed
      if (!cursor && cursorId) {
          cursor = xcb_generate_id(conn);
-@@ -597,6 +604,7 @@ xcb_cursor_t QXcbCursor::createFontCursor(int cshape)
+@@ -593,6 +599,7 @@ xcb_cursor_t QXcbCursor::createFontCursor(int cshape)
                                  cursorId, cursorId + 1,
                                  0xFFFF, 0xFFFF, 0xFFFF, 0, 0, 0);
      }
@@ -59,3 +65,6 @@ They are not necessary to compile QT.
  
      if (cursor && cshape >= 0 && cshape < Qt::LastCursor && connection()->hasXFixes()) {
          const char *name = cursorNames[cshape].front();
+-- 
+2.22.0
+

@@ -1,11 +1,11 @@
-// Copyright (c) 2011-2021 The Bitcoin Core developers
+// Copyright (c) 2011-2015 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #ifndef BITCOIN_QT_RECEIVECOINSDIALOG_H
 #define BITCOIN_QT_RECEIVECOINSDIALOG_H
 
-#include <qt/guiutil.h>
+#include "guiutil.h"
 
 #include <QDialog>
 #include <QHeaderView>
@@ -15,6 +15,8 @@
 #include <QPoint>
 #include <QVariant>
 
+class Config;
+class OptionsModel;
 class PlatformStyle;
 class WalletModel;
 
@@ -39,27 +41,30 @@ public:
         MINIMUM_COLUMN_WIDTH = 130
     };
 
-    explicit ReceiveCoinsDialog(const PlatformStyle *platformStyle, QWidget *parent = nullptr);
+    explicit ReceiveCoinsDialog(const PlatformStyle *platformStyle, const Config *cfg, QWidget *parent = 0);
     ~ReceiveCoinsDialog();
 
     void setModel(WalletModel *model);
 
 public Q_SLOTS:
     void clear();
-    void reject() override;
-    void accept() override;
+    void reject();
+    void accept();
+
+protected:
+    virtual void keyPressEvent(QKeyEvent *event);
 
 private:
     Ui::ReceiveCoinsDialog *ui;
-    WalletModel* model{nullptr};
+    GUIUtil::TableViewLastColumnResizingFixer *columnResizingFixer;
+    WalletModel *model;
     QMenu *contextMenu;
-    QAction* copyLabelAction;
-    QAction* copyMessageAction;
-    QAction* copyAmountAction;
     const PlatformStyle *platformStyle;
+    const Config *cfg;
 
     QModelIndex selectedRow();
     void copyColumnToClipboard(int column);
+    virtual void resizeEvent(QResizeEvent *event);
 
 private Q_SLOTS:
     void on_receiveButton_clicked();
@@ -70,7 +75,6 @@ private Q_SLOTS:
     void updateDisplayUnit();
     void showMenu(const QPoint &point);
     void copyURI();
-    void copyAddress();
     void copyLabel();
     void copyMessage();
     void copyAmount();

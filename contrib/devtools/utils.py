@@ -8,9 +8,10 @@ Common utility functions
 import shutil
 import sys
 import os
+from typing import List
 
 
-def determine_wellknown_cmd(envvar, progname) -> list[str]:
+def determine_wellknown_cmd(envvar, progname) -> List[str]:
     maybe_env = os.getenv(envvar)
     maybe_which = shutil.which(progname)
     if maybe_env:

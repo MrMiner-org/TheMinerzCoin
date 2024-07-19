@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-# Copyright (c) 2014-2021 The Bitcoin Core developers
+# Copyright (c) 2014-2020 The Bitcoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 """
     ZMQ example using python3's asyncio
 
-    Bitcoin should be started with the command line arguments:
-        bitcoind -testnet -daemon \
+    theminerzcoind should be started with the command line arguments:
+        theminerzcoind -testnet -daemon \
                 -zmqpubrawtx=tcp://127.0.0.1:28332 \
                 -zmqpubrawblock=tcp://127.0.0.1:28332 \
                 -zmqpubhashtx=tcp://127.0.0.1:28332 \
@@ -23,6 +23,7 @@
     https://github.com/bitcoin/bitcoin/blob/37a7fe9e440b83e2364d5498931253937abe9294/contrib/zmq/zmq_sub.py
 """
 
+import binascii
 import asyncio
 import zmq
 import zmq.asyncio
@@ -57,18 +58,18 @@ class ZMQHandler():
             sequence = str(struct.unpack('<I', seq)[-1])
         if topic == b"hashblock":
             print('- HASH BLOCK ('+sequence+') -')
-            print(body.hex())
+            print(binascii.hexlify(body))
         elif topic == b"hashtx":
             print('- HASH TX  ('+sequence+') -')
-            print(body.hex())
+            print(binascii.hexlify(body))
         elif topic == b"rawblock":
             print('- RAW BLOCK HEADER ('+sequence+') -')
-            print(body[:80].hex())
+            print(binascii.hexlify(body[:80]))
         elif topic == b"rawtx":
             print('- RAW TX ('+sequence+') -')
-            print(body.hex())
+            print(binascii.hexlify(body))
         elif topic == b"sequence":
-            hash = body[:32].hex()
+            hash = binascii.hexlify(body[:32])
             label = chr(body[32])
             mempool_sequence = None if len(body) != 32+1+8 else struct.unpack("<Q", body[32+1:])[0]
             print('- SEQUENCE ('+sequence+') -')
