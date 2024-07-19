@@ -1,11 +1,11 @@
 Sample configuration files for:
 ```
-systemd: theminerzcoind.service
-Upstart: theminerzcoind.conf
-OpenRC:  theminerzcoind.openrc
-         theminerzcoind.openrcconf
-CentOS:  theminerzcoind.init
-macOS:   org.theminerzcoin.theminerzcoind.plist
+systemd: bitcoind.service
+Upstart: bitcoind.conf
+OpenRC:  bitcoind.openrc
+         bitcoind.openrcconf
+CentOS:  bitcoind.init
+macOS:   org.bitcoin.bitcoind.plist
 ```
 have been made available to assist packagers in creating node packages here.
 
