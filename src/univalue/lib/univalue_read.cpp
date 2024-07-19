@@ -1,16 +1,12 @@
 // Copyright 2014 BitPay Inc.
 // Distributed under the MIT software license, see the accompanying
-// file COPYING or https://opensource.org/licenses/mit-license.php.
+// file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <univalue.h>
-#include <univalue_utffilter.h>
-
-#include <cstdint>
-#include <cstdio>
-#include <cstring>
-#include <string>
-#include <string_view>
+#include <string.h>
 #include <vector>
+#include <stdio.h>
+#include "univalue.h"
+#include "univalue_utffilter.h"
 
 /*
  * According to stackexchange, the original json test suite wanted
@@ -18,7 +14,7 @@
  * so we will follow PHP's lead, which should be more than sufficient
  * (further stackexchange comments indicate depth > 32 rarely occurs).
  */
-static constexpr size_t MAX_JSON_DEPTH = 512;
+static const size_t MAX_JSON_DEPTH = 512;
 
 static bool json_isdigit(int ch)
 {
@@ -231,7 +227,7 @@ enum jtokentype getJsonToken(std::string& tokenVal, unsigned int& consumed,
             }
 
             else {
-                writer.push_back(static_cast<unsigned char>(*raw));
+                writer.push_back(*raw);
                 raw++;
             }
         }
@@ -248,7 +244,7 @@ enum jtokentype getJsonToken(std::string& tokenVal, unsigned int& consumed,
     }
 }
 
-enum expect_bits : unsigned {
+enum expect_bits {
     EXP_OBJ_NAME = (1U << 0),
     EXP_COLON = (1U << 1),
     EXP_ARR_VALUE = (1U << 2),
@@ -260,7 +256,7 @@ enum expect_bits : unsigned {
 #define setExpect(bit) (expectMask |= EXP_##bit)
 #define clearExpect(bit) (expectMask &= ~EXP_##bit)
 
-bool UniValue::read(std::string_view str_in)
+bool UniValue::read(const char *raw, size_t size)
 {
     clear();
 
@@ -271,8 +267,7 @@ bool UniValue::read(std::string_view str_in)
     unsigned int consumed;
     enum jtokentype tok = JTOK_NONE;
     enum jtokentype last_tok = JTOK_NONE;
-    const char* raw{str_in.data()};
-    const char* end{raw + str_in.size()};
+    const char* end = raw + size;
     do {
         last_tok = tok;
 

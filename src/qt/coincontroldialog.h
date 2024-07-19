@@ -1,11 +1,11 @@
-// Copyright (c) 2011-2021 The Bitcoin Core developers
+// Copyright (c) 2011-2015 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #ifndef BITCOIN_QT_COINCONTROLDIALOG_H
 #define BITCOIN_QT_COINCONTROLDIALOG_H
 
-#include <consensus/amount.h>
+#include "amount.h"
 
 #include <QAbstractButton>
 #include <QAction>
@@ -19,9 +19,8 @@
 class PlatformStyle;
 class WalletModel;
 
-namespace wallet {
 class CCoinControl;
-} // namespace wallet
+class CTxMemPool;
 
 namespace Ui {
     class CoinControlDialog;
@@ -32,10 +31,11 @@ namespace Ui {
 class CCoinControlWidgetItem : public QTreeWidgetItem
 {
 public:
-    explicit CCoinControlWidgetItem(QTreeWidget *parent, int type = Type) : QTreeWidgetItem(parent, type) {}
-    explicit CCoinControlWidgetItem(QTreeWidgetItem *parent, int type = Type) : QTreeWidgetItem(parent, type) {}
+    CCoinControlWidgetItem(QTreeWidget *parent, int type = Type) : QTreeWidgetItem(parent, type) {}
+    CCoinControlWidgetItem(int type = Type) : QTreeWidgetItem(type) {}
+    CCoinControlWidgetItem(QTreeWidgetItem *parent, int type = Type) : QTreeWidgetItem(parent, type) {}
 
-    bool operator<(const QTreeWidgetItem &other) const override;
+    bool operator<(const QTreeWidgetItem &other) const;
 };
 
 
@@ -44,28 +44,27 @@ class CoinControlDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit CoinControlDialog(wallet::CCoinControl& coin_control, WalletModel* model, const PlatformStyle *platformStyle, QWidget *parent = nullptr);
+    explicit CoinControlDialog(const PlatformStyle *platformStyle, QWidget *parent = 0);
     ~CoinControlDialog();
 
+    void setModel(WalletModel *model);
+
     // static because also called from sendcoinsdialog
-    static void updateLabels(wallet::CCoinControl& m_coin_control, WalletModel*, QDialog*);
+    static void updateLabels(WalletModel*, QDialog*);
 
     static QList<CAmount> payAmounts;
+    static CCoinControl *coinControl;
     static bool fSubtractFeeFromAmount;
-
-protected:
-    void changeEvent(QEvent* e) override;
 
 private:
     Ui::CoinControlDialog *ui;
-    wallet::CCoinControl& m_coin_control;
     WalletModel *model;
     int sortColumn;
     Qt::SortOrder sortOrder;
 
     QMenu *contextMenu;
     QTreeWidgetItem *contextMenuItem;
-    QAction* m_copy_transaction_outpoint_action;
+    QAction *copyTransactionHashAction;
     QAction *lockAction;
     QAction *unlockAction;
 
@@ -82,14 +81,9 @@ private:
         COLUMN_ADDRESS,
         COLUMN_DATE,
         COLUMN_CONFIRMATIONS,
+        COLUMN_TXHASH,
+        COLUMN_VOUT_INDEX,
     };
-
-    enum
-    {
-        TxHashRole = Qt::UserRole,
-        VOutRole
-    };
-
     friend class CCoinControlWidgetItem;
 
 private Q_SLOTS:
@@ -97,7 +91,7 @@ private Q_SLOTS:
     void copyAmount();
     void copyLabel();
     void copyAddress();
-    void copyTransactionOutpoint();
+    void copyTransactionHash();
     void lockCoin();
     void unlockCoin();
     void clipboardQuantity();
@@ -105,6 +99,7 @@ private Q_SLOTS:
     void clipboardFee();
     void clipboardAfterFee();
     void clipboardBytes();
+    void clipboardLowOutput();
     void clipboardChange();
     void radioTreeMode(bool);
     void radioListMode(bool);

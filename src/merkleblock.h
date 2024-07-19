@@ -1,22 +1,17 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2021 The Bitcoin Core developers
+// Copyright (c) 2009-2015 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #ifndef BITCOIN_MERKLEBLOCK_H
 #define BITCOIN_MERKLEBLOCK_H
 
-#include <common/bloom.h>
-#include <primitives/block.h>
-#include <serialize.h>
-#include <uint256.h>
+#include "serialize.h"
+#include "uint256.h"
+#include "primitives/block.h"
+#include "bloom.h"
 
-#include <set>
 #include <vector>
-
-// Helper functions for serialization.
-std::vector<unsigned char> BitsToBytes(const std::vector<bool>& bits);
-std::vector<bool> BytesToBits(const std::vector<unsigned char>& bytes);
 
 /** Data structure that represents a partial merkle tree.
  *
@@ -28,7 +23,7 @@ std::vector<bool> BytesToBits(const std::vector<unsigned char>& bytes);
  * storing a bit for each traversed node, signifying whether the node is the
  * parent of at least one matched leaf txid (or a matched txid itself). In
  * case we are at the leaf level, or this bit is 0, its merkle node hash is
- * stored, and its children are not explored further. Otherwise, no hash is
+ * stored, and its children are not explorer further. Otherwise, no hash is
  * stored, but we recurse into both (or the only) child branch. During
  * decoding, the same depth-first traversal is performed, consuming bits and
  * hashes as they written during encoding.
@@ -68,7 +63,7 @@ protected:
     bool fBad;
 
     /** helper function to efficiently calculate the number of nodes at given height in the merkle tree */
-    unsigned int CalcTreeWidth(int height) const {
+    unsigned int CalcTreeWidth(int height) {
         return (nTransactions+(1 << height)-1) >> height;
     }
 
@@ -86,14 +81,27 @@ protected:
 
 public:
 
-    SERIALIZE_METHODS(CPartialMerkleTree, obj)
-    {
-        READWRITE(obj.nTransactions, obj.vHash);
-        std::vector<unsigned char> bytes;
-        SER_WRITE(obj, bytes = BitsToBytes(obj.vBits));
-        READWRITE(bytes);
-        SER_READ(obj, obj.vBits = BytesToBits(bytes));
-        SER_READ(obj, obj.fBad = false);
+    /** serialization implementation */
+    ADD_SERIALIZE_METHODS;
+
+    template <typename Stream, typename Operation>
+    inline void SerializationOp(Stream& s, Operation ser_action, int nType, int nVersion) {
+        READWRITE(nTransactions);
+        READWRITE(vHash);
+        std::vector<unsigned char> vBytes;
+        if (ser_action.ForRead()) {
+            READWRITE(vBytes);
+            CPartialMerkleTree &us = *(const_cast<CPartialMerkleTree*>(this));
+            us.vBits.resize(vBytes.size() * 8);
+            for (unsigned int p = 0; p < us.vBits.size(); p++)
+                us.vBits[p] = (vBytes[p / 8] & (1 << (p % 8))) != 0;
+            us.fBad = false;
+        } else {
+            vBytes.resize((vBits.size()+7)/8);
+            for (unsigned int p = 0; p < vBits.size(); p++)
+                vBytes[p / 8] |= vBits[p] << (p % 8);
+            READWRITE(vBytes);
+        }
     }
 
     /** Construct a partial merkle tree from a list of transaction ids, and a mask that selects a subset of them */
@@ -107,20 +115,12 @@ public:
      * returns the merkle root, or 0 in case of failure
      */
     uint256 ExtractMatches(std::vector<uint256> &vMatch, std::vector<unsigned int> &vnIndex);
-
-    /** Get number of transactions the merkle proof is indicating for cross-reference with
-     * local blockchain knowledge.
-     */
-    unsigned int GetNumTransactions() const { return nTransactions; };
-
 };
 
 
 /**
  * Used to relay blocks as header + vector<merkle branch>
  * to filtered nodes.
- *
- * NOTE: The class assumes that the given CBlock has *at least* 1 transaction. If the CBlock has 0 txs, it will hit an assertion.
  */
 class CMerkleBlock
 {
@@ -129,12 +129,8 @@ public:
     CBlockHeader header;
     CPartialMerkleTree txn;
 
-    /**
-     * Public only for unit testing and relay testing (not relayed).
-     *
-     * Used only when a bloom filter is specified to allow
-     * testing the transactions which matched the bloom filter.
-     */
+public:
+    /** Public only for unit testing and relay testing (not relayed) */
     std::vector<std::pair<unsigned int, uint256> > vMatchedTxn;
 
     /**
@@ -142,18 +138,20 @@ public:
      * Note that this will call IsRelevantAndUpdate on the filter for each transaction,
      * thus the filter will likely be modified.
      */
-    CMerkleBlock(const CBlock& block, CBloomFilter& filter) : CMerkleBlock(block, &filter, nullptr) { }
+    CMerkleBlock(const CBlock& block, CBloomFilter& filter);
 
     // Create from a CBlock, matching the txids in the set
-    CMerkleBlock(const CBlock& block, const std::set<Txid>& txids) : CMerkleBlock{block, nullptr, &txids} {}
+    CMerkleBlock(const CBlock& block, const std::set<uint256>& txids);
 
     CMerkleBlock() {}
 
-    SERIALIZE_METHODS(CMerkleBlock, obj) { READWRITE(obj.header, obj.txn); }
+    ADD_SERIALIZE_METHODS;
 
-private:
-    // Combined constructor to consolidate code
-    CMerkleBlock(const CBlock& block, CBloomFilter* filter, const std::set<Txid>* txids);
+    template <typename Stream, typename Operation>
+    inline void SerializationOp(Stream& s, Operation ser_action, int nType, int nVersion) {
+        READWRITE(header);
+        READWRITE(txn);
+    }
 };
 
 #endif // BITCOIN_MERKLEBLOCK_H

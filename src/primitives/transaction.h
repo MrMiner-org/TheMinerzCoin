@@ -1,49 +1,41 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2022 The Bitcoin Core developers
+// Copyright (c) 2009-2015 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #ifndef BITCOIN_PRIMITIVES_TRANSACTION_H
 #define BITCOIN_PRIMITIVES_TRANSACTION_H
 
-#include <attributes.h>
-#include <consensus/amount.h>
-#include <script/script.h>
-#include <serialize.h>
-#include <uint256.h>
-#include <util/transaction_identifier.h> // IWYU pragma: export
-
-#include <cstddef>
-#include <cstdint>
-#include <ios>
-#include <limits>
-#include <memory>
-#include <numeric>
-#include <string>
-#include <tuple>
-#include <utility>
-#include <vector>
+#include "amount.h"
+#include "script/script.h"
+#include "serialize.h"
+#include "uint256.h"
 
 /** An outpoint - a combination of a transaction hash and an index n into its vout */
 class COutPoint
 {
 public:
-    Txid hash;
+    uint256 hash;
     uint32_t n;
 
-    static constexpr uint32_t NULL_INDEX = std::numeric_limits<uint32_t>::max();
+    COutPoint() { SetNull(); }
+    COutPoint(uint256 hashIn, uint32_t nIn) { hash = hashIn; n = nIn; }
 
-    COutPoint(): n(NULL_INDEX) { }
-    COutPoint(const Txid& hashIn, uint32_t nIn): hash(hashIn), n(nIn) { }
+    ADD_SERIALIZE_METHODS;
 
-    SERIALIZE_METHODS(COutPoint, obj) { READWRITE(obj.hash, obj.n); }
+    template <typename Stream, typename Operation>
+    inline void SerializationOp(Stream& s, Operation ser_action, int nType, int nVersion) {
+        READWRITE(hash);
+        READWRITE(n);
+    }
 
-    void SetNull() { hash.SetNull(); n = NULL_INDEX; }
-    bool IsNull() const { return (hash.IsNull() && n == NULL_INDEX); }
+    void SetNull() { hash.SetNull(); n = (uint32_t) -1; }
+    bool IsNull() const { return (hash.IsNull() && n == (uint32_t) -1); }
 
     friend bool operator<(const COutPoint& a, const COutPoint& b)
     {
-        return std::tie(a.hash, a.n) < std::tie(b.hash, b.n);
+        int cmp = a.hash.Compare(b.hash);
+        return cmp < 0 || (cmp == 0 && a.n < b.n);
     }
 
     friend bool operator==(const COutPoint& a, const COutPoint& b)
@@ -69,47 +61,26 @@ public:
     COutPoint prevout;
     CScript scriptSig;
     uint32_t nSequence;
-    CScriptWitness scriptWitness; //!< Only serialized through CTransaction
 
-    /**
-     * Setting nSequence to this value for every input in a transaction
-     * disables nLockTime/IsFinalTx().
-     * It fails OP_CHECKLOCKTIMEVERIFY/CheckLockTime() for any input that has
-     * it set (BIP 65).
-     * It has SEQUENCE_LOCKTIME_DISABLE_FLAG set (BIP 68/112).
-     */
+    /* Setting nSequence to this value for every input in a transaction
+     * disables nLockTime. */
     static const uint32_t SEQUENCE_FINAL = 0xffffffff;
-    /**
-     * This is the maximum sequence number that enables both nLockTime and
-     * OP_CHECKLOCKTIMEVERIFY (BIP 65).
-     * It has SEQUENCE_LOCKTIME_DISABLE_FLAG set (BIP 68/112).
-     */
-    static const uint32_t MAX_SEQUENCE_NONFINAL{SEQUENCE_FINAL - 1};
 
-    // Below flags apply in the context of BIP 68. BIP 68 requires the tx
-    // version to be set to 2, or higher.
-    /**
-     * If this flag is set, CTxIn::nSequence is NOT interpreted as a
-     * relative lock-time.
-     * It skips SequenceLocks() for any input that has it set (BIP 68).
-     * It fails OP_CHECKSEQUENCEVERIFY/CheckSequence() for any input that has
-     * it set (BIP 112).
-     */
-    static const uint32_t SEQUENCE_LOCKTIME_DISABLE_FLAG = (1U << 31);
+    /* Below flags apply in the context of BIP 68*/
+    /* If this flag set, CTxIn::nSequence is NOT interpreted as a
+     * relative lock-time. */
+    static const uint32_t SEQUENCE_LOCKTIME_DISABLE_FLAG = (1 << 31);
 
-    /**
-     * If CTxIn::nSequence encodes a relative lock-time and this flag
+    /* If CTxIn::nSequence encodes a relative lock-time and this flag
      * is set, the relative lock-time has units of 512 seconds,
      * otherwise it specifies blocks with a granularity of 1. */
     static const uint32_t SEQUENCE_LOCKTIME_TYPE_FLAG = (1 << 22);
 
-    /**
-     * If CTxIn::nSequence encodes a relative lock-time, this mask is
+    /* If CTxIn::nSequence encodes a relative lock-time, this mask is
      * applied to extract that lock-time from the sequence field. */
     static const uint32_t SEQUENCE_LOCKTIME_MASK = 0x0000ffff;
 
-    /**
-     * In order to use the same number of bits to encode roughly the
+    /* In order to use the same number of bits to encode roughly the
      * same wall-clock duration, and because blocks are naturally
      * limited to occur every 600s on average, the minimum granularity
      * for time-based relative lock-time is fixed at 512 seconds.
@@ -124,9 +95,16 @@ public:
     }
 
     explicit CTxIn(COutPoint prevoutIn, CScript scriptSigIn=CScript(), uint32_t nSequenceIn=SEQUENCE_FINAL);
-    CTxIn(Txid hashPrevTx, uint32_t nOut, CScript scriptSigIn=CScript(), uint32_t nSequenceIn=SEQUENCE_FINAL);
+    CTxIn(uint256 hashPrevTx, uint32_t nOut, CScript scriptSigIn=CScript(), uint32_t nSequenceIn=SEQUENCE_FINAL);
 
-    SERIALIZE_METHODS(CTxIn, obj) { READWRITE(obj.prevout, obj.scriptSig, obj.nSequence); }
+    ADD_SERIALIZE_METHODS;
+
+    template <typename Stream, typename Operation>
+    inline void SerializationOp(Stream& s, Operation ser_action, int nType, int nVersion) {
+        READWRITE(prevout);
+        READWRITE(*(CScriptBase*)(&scriptSig));
+        READWRITE(nSequence);
+    }
 
     friend bool operator==(const CTxIn& a, const CTxIn& b)
     {
@@ -159,7 +137,13 @@ public:
 
     CTxOut(const CAmount& nValueIn, CScript scriptPubKeyIn);
 
-    SERIALIZE_METHODS(CTxOut, obj) { READWRITE(obj.nValue, obj.scriptPubKey); }
+    ADD_SERIALIZE_METHODS;
+
+    template <typename Stream, typename Operation>
+    inline void SerializationOp(Stream& s, Operation ser_action, int nType, int nVersion) {
+        READWRITE(nValue);
+        READWRITE(*(CScriptBase*)(&scriptPubKey));
+    }
 
     void SetNull()
     {
@@ -170,6 +154,46 @@ public:
     bool IsNull() const
     {
         return (nValue == -1);
+    }
+
+    void SetEmpty()
+    {
+        nValue = 0;
+        scriptPubKey.clear();
+    }
+
+    bool IsEmpty() const
+    {
+        return (nValue == 0 && scriptPubKey.empty());
+    }
+
+    bool IsUnspendable() const
+    {
+        return IsEmpty() ||
+                 (scriptPubKey.size() > 0 && *scriptPubKey.begin() == OP_RETURN);
+    }
+
+    uint256 GetHash() const;
+
+    CAmount GetDustThreshold(const CFeeRate &minRelayTxFee) const
+    {
+        // "Dust" is defined in terms of CTransaction::minRelayTxFee,
+        // which has units satoshis-per-kilobyte.
+        // If you'd pay more than 1/3 in fees
+        // to spend something, then we consider it dust.
+        // A typical spendable txout is 34 bytes big, and will
+        // need a CTxIn of at least 148 bytes to spend:
+        // so dust is a spendable txout less than
+        // 546*minRelayTxFee/1000 (in satoshis)
+    	if (scriptPubKey.IsUnspendable())
+    	            return 0;
+        size_t nSize = GetSerializeSize(SER_DISK,0)+148u;
+        return 3*minRelayTxFee.GetFee(nSize);
+    }
+
+    bool IsDust(const CFeeRate &minRelayTxFee) const
+    {
+        return (nValue < GetDustThreshold(minRelayTxFee));
     }
 
     friend bool operator==(const CTxOut& a, const CTxOut& b)
@@ -188,167 +212,96 @@ public:
 
 struct CMutableTransaction;
 
-struct TransactionSerParams {
-    const bool allow_witness;
-    SER_PARAMS_OPFUNC
-};
-static constexpr TransactionSerParams TX_WITH_WITNESS{.allow_witness = true};
-static constexpr TransactionSerParams TX_NO_WITNESS{.allow_witness = false};
-
 /**
  * Basic transaction serialization format:
  * - int32_t nVersion
+ * - uint32_t nTime
  * - std::vector<CTxIn> vin
  * - std::vector<CTxOut> vout
- * - uint32_t nLockTime
- *
- * Extended transaction serialization format:
- * - int32_t nVersion
- * - unsigned char dummy = 0x00
- * - unsigned char flags (!= 0)
- * - std::vector<CTxIn> vin
- * - std::vector<CTxOut> vout
- * - if (flags & 1):
- *   - CScriptWitness scriptWitness; (deserialized into CTxIn)
  * - uint32_t nLockTime
  */
-template<typename Stream, typename TxType>
-void UnserializeTransaction(TxType& tx, Stream& s, const TransactionSerParams& params)
-{
-    const bool fAllowWitness = params.allow_witness;
-
-    s >> tx.nVersion;
-    unsigned char flags = 0;
-    tx.vin.clear();
-    tx.vout.clear();
-    /* Try to read the vin. In case the dummy is there, this will be read as an empty vector. */
-    s >> tx.vin;
-    if (tx.vin.size() == 0 && fAllowWitness) {
-        /* We read a dummy or an empty vin. */
-        s >> flags;
-        if (flags != 0) {
-            s >> tx.vin;
-            s >> tx.vout;
-        }
-    } else {
-        /* We read a non-empty vin. Assume a normal vout follows. */
-        s >> tx.vout;
-    }
-    if ((flags & 1) && fAllowWitness) {
-        /* The witness flag is present, and we support witnesses. */
-        flags ^= 1;
-        for (size_t i = 0; i < tx.vin.size(); i++) {
-            s >> tx.vin[i].scriptWitness.stack;
-        }
-        if (!tx.HasWitness()) {
-            /* It's illegal to encode witnesses when all witness stacks are empty. */
-            throw std::ios_base::failure("Superfluous witness record");
-        }
-    }
-    if (flags) {
-        /* Unknown flag in the serialization */
-        throw std::ios_base::failure("Unknown transaction optional data");
-    }
-    s >> tx.nLockTime;
+template<typename Stream, typename Operation, typename TxType>
+inline void SerializeTransaction(TxType& tx, Stream& s, Operation ser_action, int nType, int nVersion) {
+    READWRITE(*const_cast<int32_t*>(&tx.nVersion));
+    if (tx.nVersion < 2)
+        READWRITE(*const_cast<uint32_t*>(&tx.nTime));
+    else if (ser_action.ForRead())
+        tx.nTime = 0;
+    READWRITE(*const_cast<std::vector<CTxIn>*>(&tx.vin));
+    READWRITE(*const_cast<std::vector<CTxOut>*>(&tx.vout));
+    READWRITE(*const_cast<uint32_t*>(&tx.nLockTime));
 }
-
-template<typename Stream, typename TxType>
-void SerializeTransaction(const TxType& tx, Stream& s, const TransactionSerParams& params)
-{
-    const bool fAllowWitness = params.allow_witness;
-
-    s << tx.nVersion;
-    unsigned char flags = 0;
-    // Consistency check
-    if (fAllowWitness) {
-        /* Check whether witnesses need to be serialized. */
-        if (tx.HasWitness()) {
-            flags |= 1;
-        }
-    }
-    if (flags) {
-        /* Use extended format in case witnesses are to be serialized. */
-        std::vector<CTxIn> vinDummy;
-        s << vinDummy;
-        s << flags;
-    }
-    s << tx.vin;
-    s << tx.vout;
-    if (flags & 1) {
-        for (size_t i = 0; i < tx.vin.size(); i++) {
-            s << tx.vin[i].scriptWitness.stack;
-        }
-    }
-    s << tx.nLockTime;
-}
-
-template<typename TxType>
-inline CAmount CalculateOutputValue(const TxType& tx)
-{
-    return std::accumulate(tx.vout.cbegin(), tx.vout.cend(), CAmount{0}, [](CAmount sum, const auto& txout) { return sum + txout.nValue; });
-}
-
 
 /** The basic transaction that is broadcasted on the network and contained in
  * blocks.  A transaction can contain multiple inputs and outputs.
  */
 class CTransaction
 {
+private:
+    /** Memory only. */
+    const uint256 hash;
+    void UpdateHash() const;
+
 public:
     // Default transaction version.
     static const int32_t CURRENT_VERSION=2;
+
+    // Changing the default transaction version requires a two step process: first
+    // adapting relay policy by bumping MAX_STANDARD_VERSION, and then later date
+    // bumping the default CURRENT_VERSION at which point both CURRENT_VERSION and
+    // MAX_STANDARD_VERSION will be equal.
+    static const int32_t MAX_STANDARD_VERSION=2;
 
     // The local variables are made const to prevent unintended modification
     // without updating the cached hash value. However, CTransaction is not
     // actually immutable; deserialization and assignment are implemented,
     // and bypass the constness. This is safe, as they update the entire
     // structure, including the hash.
+    const int32_t nVersion;
+    uint32_t nTime;
     const std::vector<CTxIn> vin;
     const std::vector<CTxOut> vout;
-    const int32_t nVersion;
     const uint32_t nLockTime;
 
-private:
-    /** Memory only. */
-    const bool m_has_witness;
-    const Txid hash;
-    const Wtxid m_witness_hash;
+    /** Construct a CTransaction that qualifies as IsNull() */
+    CTransaction();
 
-    Txid ComputeHash() const;
-    Wtxid ComputeWitnessHash() const;
-
-    bool ComputeHasWitness() const;
-
-public:
     /** Convert a CMutableTransaction into a CTransaction. */
-    explicit CTransaction(const CMutableTransaction& tx);
-    explicit CTransaction(CMutableTransaction&& tx);
+    CTransaction(const CMutableTransaction &tx);
 
-    template <typename Stream>
-    inline void Serialize(Stream& s) const {
-        SerializeTransaction(*this, s, s.GetParams());
+    CTransaction& operator=(const CTransaction& tx);
+
+    ADD_SERIALIZE_METHODS;
+
+    template <typename Stream, typename Operation>
+    inline void SerializationOp(Stream& s, Operation ser_action, int nType, int nVersion) {
+        SerializeTransaction(*this, s, ser_action, nType, nVersion);
+        if (ser_action.ForRead()) {
+            UpdateHash();
+        }
     }
-
-    /** This deserializing constructor is provided instead of an Unserialize method.
-     *  Unserialize is not possible, since it would require overwriting const fields. */
-    template <typename Stream>
-    CTransaction(deserialize_type, const TransactionSerParams& params, Stream& s) : CTransaction(CMutableTransaction(deserialize, params, s)) {}
-    template <typename Stream>
-    CTransaction(deserialize_type, ParamsStream<TransactionSerParams,Stream>& s) : CTransaction(CMutableTransaction(deserialize, s)) {}
 
     bool IsNull() const {
         return vin.empty() && vout.empty();
     }
 
-    const Txid& GetHash() const LIFETIMEBOUND { return hash; }
-    const Wtxid& GetWitnessHash() const LIFETIMEBOUND { return m_witness_hash; };
+    const uint256& GetHash() const {
+        return hash;
+    }
 
     // Return sum of txouts.
     CAmount GetValueOut() const;
+    // GetValueIn() is a method on CCoinsViewCache, because
+    // inputs must be known to compute value in.
+
+    // Compute priority, given priority of inputs and (optionally) tx size
+    double ComputePriority(double dPriorityInputs, unsigned int nTxSize=0) const;
+
+    // Compute modified tx size for priority calculation (optionally given tx size)
+    unsigned int CalculateModifiedSize(unsigned int nTxSize=0) const;
 
     /**
-     * Get the total transaction size in bytes, including witness data.
-     * "Total Size" defined in BIP141 and BIP144.
+     * Get the total transaction size in bytes.
      * @return Total transaction size in bytes
      */
     unsigned int GetTotalSize() const;
@@ -356,6 +309,12 @@ public:
     bool IsCoinBase() const
     {
         return (vin.size() == 1 && vin[0].prevout.IsNull());
+    }
+
+    bool IsCoinStake() const
+    {
+        // the coin stake transaction is marked with the first output empty
+        return (vin.size() > 0 && (!vin[0].prevout.IsNull()) && vout.size() >= 2 && vout[0].IsEmpty());
     }
 
     friend bool operator==(const CTransaction& a, const CTransaction& b)
@@ -369,74 +328,33 @@ public:
     }
 
     std::string ToString() const;
-
-    bool HasWitness() const { return m_has_witness; }
 };
 
 /** A mutable version of CTransaction. */
 struct CMutableTransaction
 {
+    int32_t nVersion;
+    uint32_t nTime;
     std::vector<CTxIn> vin;
     std::vector<CTxOut> vout;
-    int32_t nVersion;
     uint32_t nLockTime;
 
-    explicit CMutableTransaction();
-    explicit CMutableTransaction(const CTransaction& tx);
+    CMutableTransaction();
+    CMutableTransaction(const CTransaction& tx);
 
-    template <typename Stream>
-    inline void Serialize(Stream& s) const {
-        SerializeTransaction(*this, s, s.GetParams());
-    }
+    ADD_SERIALIZE_METHODS;
 
-    template <typename Stream>
-    inline void Unserialize(Stream& s) {
-        UnserializeTransaction(*this, s, s.GetParams());
-    }
-
-    template <typename Stream>
-    CMutableTransaction(deserialize_type, const TransactionSerParams& params, Stream& s) {
-        UnserializeTransaction(*this, s, params);
-    }
-
-    template <typename Stream>
-    CMutableTransaction(deserialize_type, ParamsStream<TransactionSerParams,Stream>& s) {
-        Unserialize(s);
+    template <typename Stream, typename Operation>
+    inline void SerializationOp(Stream& s, Operation ser_action, int nType, int nVersion) {
+        SerializeTransaction(*this, s, ser_action, nType, nVersion);
     }
 
     /** Compute the hash of this CMutableTransaction. This is computed on the
      * fly, as opposed to GetHash() in CTransaction, which uses a cached result.
      */
-    Txid GetHash() const;
+    uint256 GetHash() const;
 
-    bool HasWitness() const
-    {
-        for (size_t i = 0; i < vin.size(); i++) {
-            if (!vin[i].scriptWitness.IsNull()) {
-                return true;
-            }
-        }
-        return false;
-    }
-};
-
-typedef std::shared_ptr<const CTransaction> CTransactionRef;
-template <typename Tx> static inline CTransactionRef MakeTransactionRef(Tx&& txIn) { return std::make_shared<const CTransaction>(std::forward<Tx>(txIn)); }
-
-/** A generic txid reference (txid or wtxid). */
-class GenTxid
-{
-    bool m_is_wtxid;
-    uint256 m_hash;
-    GenTxid(bool is_wtxid, const uint256& hash) : m_is_wtxid(is_wtxid), m_hash(hash) {}
-
-public:
-    static GenTxid Txid(const uint256& hash) { return GenTxid{false, hash}; }
-    static GenTxid Wtxid(const uint256& hash) { return GenTxid{true, hash}; }
-    bool IsWtxid() const { return m_is_wtxid; }
-    const uint256& GetHash() const LIFETIMEBOUND { return m_hash; }
-    friend bool operator==(const GenTxid& a, const GenTxid& b) { return a.m_is_wtxid == b.m_is_wtxid && a.m_hash == b.m_hash; }
-    friend bool operator<(const GenTxid& a, const GenTxid& b) { return std::tie(a.m_is_wtxid, a.m_hash) < std::tie(b.m_is_wtxid, b.m_hash); }
+    uint256 GetNormalizedHash() const;
 };
 
 #endif // BITCOIN_PRIMITIVES_TRANSACTION_H

@@ -1,13 +1,17 @@
-// Copyright (c) 2015-2021 The Bitcoin Core developers
+// Copyright (c) 2015 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/platformstyle.h>
+#include "platformstyle.h"
+
+#include "guiconstants.h"
 
 #include <QApplication>
 #include <QColor>
+#include <QIcon>
 #include <QImage>
 #include <QPalette>
+#include <QPixmap>
 
 static const struct {
     const char *platformId;
@@ -23,6 +27,7 @@ static const struct {
     /* Other: linux, unix, ... */
     {"other", true, true, false}
 };
+static const unsigned platform_styles_count = sizeof(platform_styles)/sizeof(*platform_styles);
 
 namespace {
 /* Local functions for colorizing single-color images */
@@ -43,7 +48,8 @@ void MakeSingleColorImage(QImage& img, const QColor& colorbase)
 QIcon ColorizeIcon(const QIcon& ico, const QColor& colorbase)
 {
     QIcon new_ico;
-    for (const QSize& sz : ico.availableSizes())
+    QSize sz;
+    Q_FOREACH(sz, ico.availableSizes())
     {
         QImage img(ico.pixmap(sz).toImage());
         MakeSingleColorImage(img, colorbase);
@@ -67,32 +73,29 @@ QIcon ColorizeIcon(const QString& filename, const QColor& colorbase)
 }
 
 
-PlatformStyle::PlatformStyle(const QString &_name, bool _imagesOnButtons, bool _colorizeIcons, bool _useExtraSpacing):
-    name(_name),
-    imagesOnButtons(_imagesOnButtons),
-    colorizeIcons(_colorizeIcons),
-    useExtraSpacing(_useExtraSpacing)
+PlatformStyle::PlatformStyle(const QString &name, bool imagesOnButtons, bool colorizeIcons, bool useExtraSpacing):
+    name(name),
+    imagesOnButtons(imagesOnButtons),
+    colorizeIcons(colorizeIcons),
+    useExtraSpacing(useExtraSpacing),
+    singleColor(0,0,0),
+    textColor(0,0,0)
 {
-}
-
-QColor PlatformStyle::TextColor() const
-{
-    return QApplication::palette().color(QPalette::WindowText);
-}
-
-QColor PlatformStyle::SingleColor() const
-{
+    // Determine icon highlighting color
     if (colorizeIcons) {
-        QColor colorHighlightBg(QApplication::palette().color(QPalette::Highlight));
-        QColor colorHighlightFg(QApplication::palette().color(QPalette::HighlightedText));
+        const QColor colorHighlightBg(QApplication::palette().color(QPalette::Highlight));
+        const QColor colorHighlightFg(QApplication::palette().color(QPalette::HighlightedText));
         const QColor colorText(QApplication::palette().color(QPalette::WindowText));
         const int colorTextLightness = colorText.lightness();
-        if (abs(colorHighlightBg.lightness() - colorTextLightness) < abs(colorHighlightFg.lightness() - colorTextLightness)) {
-            return colorHighlightBg;
-        }
-        return colorHighlightFg;
+        QColor colorbase;
+        if (abs(colorHighlightBg.lightness() - colorTextLightness) < abs(colorHighlightFg.lightness() - colorTextLightness))
+            colorbase = colorHighlightBg;
+        else
+            colorbase = colorHighlightFg;
+        singleColor = colorbase;
     }
-    return {0, 0, 0};
+    // Determine text color
+    textColor = QColor(QApplication::palette().color(QPalette::WindowText));
 }
 
 QImage PlatformStyle::SingleColorImage(const QString& filename) const
@@ -116,6 +119,11 @@ QIcon PlatformStyle::SingleColorIcon(const QIcon& icon) const
     return ColorizeIcon(icon, SingleColor());
 }
 
+QIcon PlatformStyle::TextColorIcon(const QString& filename) const
+{
+    return ColorizeIcon(filename, TextColor());
+}
+
 QIcon PlatformStyle::TextColorIcon(const QIcon& icon) const
 {
     return ColorizeIcon(icon, TextColor());
@@ -123,15 +131,17 @@ QIcon PlatformStyle::TextColorIcon(const QIcon& icon) const
 
 const PlatformStyle *PlatformStyle::instantiate(const QString &platformId)
 {
-    for (const auto& platform_style : platform_styles) {
-        if (platformId == platform_style.platformId) {
+    for (unsigned x=0; x<platform_styles_count; ++x)
+    {
+        if (platformId == platform_styles[x].platformId)
+        {
             return new PlatformStyle(
-                    platform_style.platformId,
-                    platform_style.imagesOnButtons,
-                    platform_style.colorizeIcons,
-                    platform_style.useExtraSpacing);
+                    platform_styles[x].platformId,
+                    platform_styles[x].imagesOnButtons,
+                    platform_styles[x].colorizeIcons,
+                    platform_styles[x].useExtraSpacing);
         }
     }
-    return nullptr;
+    return 0;
 }
 

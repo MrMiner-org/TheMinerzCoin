@@ -1,139 +1,86 @@
-// Copyright (c) 2015-2022 The Bitcoin Core developers
+// Copyright (c) 2015 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include <bench/bench.h>
 
-#include <test/util/setup_common.h>
-#include <util/fs.h>
-#include <util/string.h>
-
-#include <chrono>
-#include <fstream>
-#include <functional>
 #include <iostream>
-#include <map>
-#include <regex>
-#include <string>
-#include <vector>
+#include <iomanip>
+#include <sys/time.h>
 
-using namespace std::chrono_literals;
+using namespace benchmark;
 
-const std::function<void(const std::string&)> G_TEST_LOG_FUN{};
+std::map<std::string, BenchFunction> BenchRunner::benchmarks;
 
-const std::function<std::vector<const char*>()> G_TEST_COMMAND_LINE_ARGUMENTS{};
+static double gettimedouble(void) {
+    struct timeval tv;
+    gettimeofday(&tv, nullptr);
+    return tv.tv_usec * 0.000001 + tv.tv_sec;
+}
 
-namespace {
-
-void GenerateTemplateResults(const std::vector<ankerl::nanobench::Result>& benchmarkResults, const fs::path& file, const char* tpl)
+BenchRunner::BenchRunner(std::string name, BenchFunction func)
 {
-    if (benchmarkResults.empty() || file.empty()) {
-        // nothing to write, bail out
-        return;
+    benchmarks.insert(std::make_pair(name, func));
+}
+
+void
+BenchRunner::RunAll(double elapsedTimeForOne)
+{
+    std::cout << "#Benchmark" << "," << "count" << "," << "min" << "," << "max" << "," << "average" << "\n";
+
+    for (std::map<std::string,BenchFunction>::iterator it = benchmarks.begin();
+         it != benchmarks.end(); ++it) {
+
+        State state(it->first, elapsedTimeForOne);
+        BenchFunction& func = it->second;
+        func(state);
     }
-    std::ofstream fout{file};
-    if (fout.is_open()) {
-        ankerl::nanobench::render(tpl, benchmarkResults, fout);
-        std::cout << "Created " << file << std::endl;
-    } else {
-        std::cout << "Could not write to file " << file << std::endl;
+}
+
+bool State::KeepRunning()
+{
+    if (count & countMask) {
+      ++count;
+      return true;
     }
-}
-
-} // namespace
-
-namespace benchmark {
-
-// map a label to one or multiple priority levels
-std::map<std::string, uint8_t> map_label_priority = {
-    {"high", PriorityLevel::HIGH},
-    {"low", PriorityLevel::LOW},
-    {"all", 0xff}
-};
-
-std::string ListPriorities()
-{
-    using item_t = std::pair<std::string, uint8_t>;
-    auto sort_by_priority = [](item_t a, item_t b){ return a.second < b.second; };
-    std::set<item_t, decltype(sort_by_priority)> sorted_priorities(map_label_priority.begin(), map_label_priority.end(), sort_by_priority);
-    return Join(sorted_priorities, ',', [](const auto& entry){ return entry.first; });
-}
-
-uint8_t StringToPriority(const std::string& str)
-{
-    auto it = map_label_priority.find(str);
-    if (it == map_label_priority.end()) throw std::runtime_error(strprintf("Unknown priority level %s", str));
-    return it->second;
-}
-
-BenchRunner::BenchmarkMap& BenchRunner::benchmarks()
-{
-    static BenchmarkMap benchmarks_map;
-    return benchmarks_map;
-}
-
-BenchRunner::BenchRunner(std::string name, BenchFunction func, PriorityLevel level)
-{
-    benchmarks().insert(std::make_pair(name, std::make_pair(func, level)));
-}
-
-void BenchRunner::RunAll(const Args& args)
-{
-    std::regex reFilter(args.regex_filter);
-    std::smatch baseMatch;
-
-    if (args.sanity_check) {
-        std::cout << "Running with -sanity-check option, output is being suppressed as benchmark results will be useless." << std::endl;
+    double now;
+    if (count == 0) {
+        lastTime = beginTime = now = gettimedouble();
     }
-
-    std::vector<ankerl::nanobench::Result> benchmarkResults;
-    for (const auto& [name, bench_func] : benchmarks()) {
-        const auto& [func, priority_level] = bench_func;
-
-        if (!(priority_level & args.priority)) {
-            continue;
+    else {
+        now = gettimedouble();
+        double elapsed = now - lastTime;
+        double elapsedOne = elapsed * countMaskInv;
+        if (elapsedOne < minTime) minTime = elapsedOne;
+        if (elapsedOne > maxTime) maxTime = elapsedOne;
+        if (elapsed*128 < maxElapsed) {
+          // If the execution was much too fast (1/128th of maxElapsed), increase the count mask by 8x and restart timing.
+          // The restart avoids including the overhead of this code in the measurement.
+          countMask = ((countMask<<3)|7) & ((1LL<<60)-1);
+          countMaskInv = 1./(countMask+1);
+          count = 0;
+          minTime = std::numeric_limits<double>::max();
+          maxTime = std::numeric_limits<double>::min();
+          return true;
         }
-
-        if (!std::regex_match(name, baseMatch, reFilter)) {
-            continue;
-        }
-
-        if (args.is_list_only) {
-            std::cout << name << std::endl;
-            continue;
-        }
-
-        Bench bench;
-        if (args.sanity_check) {
-            bench.epochs(1).epochIterations(1);
-            bench.output(nullptr);
-        }
-        bench.name(name);
-        if (args.min_time > 0ms) {
-            // convert to nanos before dividing to reduce rounding errors
-            std::chrono::nanoseconds min_time_ns = args.min_time;
-            bench.minEpochTime(min_time_ns / bench.epochs());
-        }
-
-        if (args.asymptote.empty()) {
-            func(bench);
-        } else {
-            for (auto n : args.asymptote) {
-                bench.complexityN(n);
-                func(bench);
-            }
-            std::cout << bench.complexityBigO() << std::endl;
-        }
-
-        if (!bench.results().empty()) {
-            benchmarkResults.push_back(bench.results().back());
+        if (elapsed*16 < maxElapsed) {
+          uint64_t newCountMask = ((countMask<<1)|1) & ((1LL<<60)-1);
+          if ((count & newCountMask)==0) {
+              countMask = newCountMask;
+              countMaskInv = 1./(countMask+1);
+          }
         }
     }
+    lastTime = now;
+    ++count;
 
-    GenerateTemplateResults(benchmarkResults, args.output_csv, "# Benchmark, evals, iterations, total, min, max, median\n"
-                                                               "{{#result}}{{name}}, {{epochs}}, {{average(iterations)}}, {{sumProduct(iterations, elapsed)}}, {{minimum(elapsed)}}, {{maximum(elapsed)}}, {{median(elapsed)}}\n"
-                                                               "{{/result}}");
-    GenerateTemplateResults(benchmarkResults, args.output_json, ankerl::nanobench::templates::json());
+    if (now - beginTime < maxElapsed) return true; // Keep going
+
+    --count;
+
+    // Output results
+    double average = (now-beginTime)/count;
+    std::cout << std::fixed << std::setprecision(15) << name << "," << count << "," << minTime << "," << maxTime << "," << average << "\n";
+
+    return false;
 }
-
-} // namespace benchmark

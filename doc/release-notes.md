@@ -1,11 +1,11 @@
-27.1 Release Notes
-=====================
+22.0 Release Notes
+==================
 
-Bitcoin Core version 27.1 is now available from:
+Bitcoin Core version 22.0 is now available from:
 
-  <https://bitcoincore.org/bin/bitcoin-core-27.1/>
+  <https://bitcoincore.org/bin/bitcoin-core-22.0/>
 
-This release includes various bug fixes and performance
+This release includes new features, various bug fixes and performance
 improvements, as well as updated translations.
 
 Please report bugs using the issue tracker at GitHub:
@@ -21,7 +21,7 @@ How to Upgrade
 
 If you are running an older version, shut it down. Wait until it has completely
 shut down (which might take a few minutes in some cases), then run the
-installer (on Windows) or just copy over `/Applications/Bitcoin-Qt` (on macOS)
+installer (on Windows) or just copy over `/Applications/Bitcoin-Qt` (on Mac)
 or `bitcoind`/`bitcoin-qt` (on Linux).
 
 Upgrading directly from a version of Bitcoin Core that has reached its EOL is
@@ -32,83 +32,85 @@ Compatibility
 ==============
 
 Bitcoin Core is supported and extensively tested on operating systems
-using the Linux Kernel 3.17+, macOS 11.0+, and Windows 7 and newer. Bitcoin
+using the Linux kernel, macOS 10.14+, and Windows 7 and newer.  Bitcoin
 Core should also work on most other Unix-like systems but is not as
-frequently tested on them. It is not recommended to use Bitcoin Core on
+frequently tested on them.  It is not recommended to use Bitcoin Core on
 unsupported systems.
+
+From Bitcoin Core 22.0 onwards, macOS versions earlier than 10.14 are no longer supported.
 
 Notable changes
 ===============
 
-### Miniscript
+P2P and network changes
+-----------------------
 
-- #29853 sign: don't assume we are parsing a sane TapMiniscript
+New and Updated RPCs
+--------------------
 
-### RPC
+Build System
+------------
 
-- #29869 rpc, bugfix: Enforce maximum value for setmocktime
-- #29870 rpc: Reword SighashFromStr error message
-- #30094 rpc: move UniValue in blockToJSON
+Files
+-----
 
-### Index
+New settings
+------------
 
-- #29776 Fix #29767, set m_synced = true after Commit()
+Updated settings
+----------------
 
-### Gui
+Tools and Utilities
+-------------------
 
-- #gui812 Fix create unsigned transaction fee bump
-- #gui813 Don't permit port in proxy IP option
+Wallet
+------
 
-### Test
+GUI changes
+-----------
 
-- #29892 test: Fix failing univalue float test
+Low-level changes
+=================
 
-### P2P
+RPC
+---
 
-- #30085 p2p: detect addnode cjdns peers in GetAddedNodeInfo()
+Tests
+-----
 
-### Build
+22.0 change log
+===============
 
-- #29747 depends: fix mingw-w64 Qt DEBUG=1 build
-- #29859 build: Fix false positive CHECK_ATOMIC test
-- #29985 depends: Fix build of Qt for 32-bit platforms with recent glibc
-- #30097 crypto: disable asan for sha256_sse4 with clang and -O0
-- #30151 depends: Fetch miniupnpc sources from an alternative website
-- #30216 build: Fix building fuzz binary on on SunOS / illumos
-- #30217 depends: Update Boost download link
+A detailed list of changes in this version follows. To keep the list to a manageable length, small refactors and typo fixes are not included, and similar changes are sometimes condensed into one line.
 
-### Doc
+### Consensus
 
-- #29934 doc: add LLVM instruction for macOS < 13
+### Policy
 
-### CI
+### Mining
 
-- #29856 ci: Bump s390x to ubuntu:24.04
+### Block and transaction handling
 
-### Misc
+### P2P protocol and network code
 
-- #29691 Change Luke Dashjr seed to dashjr-list-of-p2p-nodes.us
-- #30149 contrib: Renew Windows code signing certificate
+### Wallet
+
+### RPC and other APIs
+
+### GUI
+
+### Build system
+
+### Tests and QA
+
+### Miscellaneous
+
+### Documentation
 
 Credits
 =======
 
 Thanks to everyone who directly contributed to this release:
-
-- Antoine Poinsot
-- Ava Chow
-- Cory Fields
-- dergoegge
-- fanquake
-- furszy
-- Hennadii Stepanov
-- Jon Atack
-- laanwj
-- Luke Dashjr
-- MarcoFalke
-- nanlour
-- Sjors Provoost
-- willcl-ark
 
 As well as to everyone that helped with translations on
 [Transifex](https://www.transifex.com/bitcoin/bitcoin/).

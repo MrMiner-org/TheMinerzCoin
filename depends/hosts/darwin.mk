@@ -1,8 +1,8 @@
-OSX_MIN_VERSION=11.0
-OSX_SDK_VERSION=14.0
-XCODE_VERSION=15.0
-XCODE_BUILD_ID=15A240d
-LD64_VERSION=711
+OSX_MIN_VERSION=10.14
+OSX_SDK_VERSION=10.15.6
+XCODE_VERSION=12.1
+XCODE_BUILD_ID=12A7403
+LD64_VERSION=609
 
 OSX_SDK=$(SDK_PATH)/Xcode-$(XCODE_VERSION)-$(XCODE_BUILD_ID)-extracted-SDK-with-libcxx-headers
 
@@ -17,8 +17,8 @@ darwin_native_toolchain=native_cctools
 
 clang_prog=$(build_prefix)/bin/clang
 clangxx_prog=$(clang_prog)++
-llvm_config_prog=$(build_prefix)/bin/llvm-config
 
+clang_resource_dir=$(build_prefix)/lib/clang/$(native_clang_version)
 else
 # FORCE_USE_SYSTEM_CLANG is non-empty, so we use the clang from the user's
 # system
@@ -34,12 +34,11 @@ darwin_native_toolchain=
 # Source: https://lists.gnu.org/archive/html/bug-make/2017-11/msg00017.html
 clang_prog=$(shell $(SHELL) $(.SHELLFLAGS) "command -v clang")
 clangxx_prog=$(shell $(SHELL) $(.SHELLFLAGS) "command -v clang++")
-llvm_config_prog=$(shell $(SHELL) $(.SHELLFLAGS) "command -v llvm-config")
 
-llvm_lib_dir=$(shell $(llvm_config_prog) --libdir)
+clang_resource_dir=$(shell clang -print-resource-dir)
 endif
 
-cctools_TOOLS=AR RANLIB STRIP NM OTOOL INSTALL_NAME_TOOL DSYMUTIL
+cctools_TOOLS=AR RANLIB STRIP NM LIBTOOL OTOOL INSTALL_NAME_TOOL
 
 # Make-only lowercase function
 lc = $(subst A,a,$(subst B,b,$(subst C,c,$(subst D,d,$(subst E,e,$(subst F,f,$(subst G,g,$(subst H,h,$(subst I,i,$(subst J,j,$(subst K,k,$(subst L,l,$(subst M,m,$(subst N,n,$(subst O,o,$(subst P,p,$(subst Q,q,$(subst R,r,$(subst S,s,$(subst T,t,$(subst U,u,$(subst V,v,$(subst W,w,$(subst X,x,$(subst Y,y,$(subst Z,z,$1))))))))))))))))))))))))))
@@ -61,46 +60,57 @@ $(foreach TOOL,$(cctools_TOOLS),$(eval darwin_$(TOOL) = $$(build_prefix)/bin/$$(
 #         Explicitly point to our binaries (e.g. cctools) so that they are
 #         ensured to be found and preferred over other possibilities.
 #
-#     -isysroot$(OSX_SDK) -nostdlibinc
+#     -stdlib=libc++ -stdlib++-isystem$(OSX_SDK)/usr/include/c++/v1
 #
-#         Disable default include paths built into the compiler as well as
-#         those normally included for libc and libc++. The only path that
-#         remains implicitly is the clang resource dir.
+#         Forces clang to use the libc++ headers from our SDK and completely
+#         forget about the libc++ headers from the standard directories
 #
-#     -iwithsysroot / -iframeworkwithsysroot
+#     -Xclang -*system<path_a> \
+#     -Xclang -*system<path_b> \
+#     -Xclang -*system<path_c> ...
 #
-#         Adds the desired paths from the SDK
+#         Adds path_a, path_b, and path_c to the bottom of clang's list of
+#         include search paths. This is used to explicitly specify the list of
+#         system include search paths and its ordering, rather than rely on
+#         clang's autodetection routine. This routine has been shown to:
+#             1. Fail to pickup libc++ headers in $SYSROOT/usr/include/c++/v1
+#                when clang was built manually (see: https://github.com/bitcoin/bitcoin/pull/17919#issuecomment-656785034)
+#             2. Fail to pickup C headers in $SYSROOT/usr/include when
+#                C_INCLUDE_DIRS was specified at configure time (see: https://gist.github.com/dongcarl/5cdc6990b7599e8a5bf6d2a9c70e82f9)
 #
-#     -platform_version
+#         Talking directly to cc1 with -Xclang here grants us access to specify
+#         more granular categories for these system include search paths, and we
+#         can use the correct categories that these search paths would have been
+#         placed in if the autodetection routine had worked correctly. (see:
+#         https://gist.github.com/dongcarl/5cdc6990b7599e8a5bf6d2a9c70e82f9#the-treatment)
 #
-#         Indicate to the linker the platform, the oldest supported version,
-#         and the SDK used.
-
+#         Furthermore, it places these search paths after any "non-Xclang"
+#         specified search paths. This prevents any additional clang options or
+#         environment variables from coming after or in between these system
+#         include search paths, as that would be wrong in general but would also
+#         break #include_next's.
+#
 darwin_CC=env -u C_INCLUDE_PATH -u CPLUS_INCLUDE_PATH \
               -u OBJC_INCLUDE_PATH -u OBJCPLUS_INCLUDE_PATH -u CPATH \
               -u LIBRARY_PATH \
-              $(clang_prog) --target=$(host) \
-              -B$(build_prefix)/bin \
-              -isysroot$(OSX_SDK) -nostdlibinc \
-              -iwithsysroot/usr/include -iframeworkwithsysroot/System/Library/Frameworks
-
+            $(clang_prog) --target=$(host) -mmacosx-version-min=$(OSX_MIN_VERSION) \
+              -B$(build_prefix)/bin -mlinker-version=$(LD64_VERSION) \
+              -isysroot$(OSX_SDK) \
+              -Xclang -internal-externc-isystem$(clang_resource_dir)/include \
+              -Xclang -internal-externc-isystem$(OSX_SDK)/usr/include
 darwin_CXX=env -u C_INCLUDE_PATH -u CPLUS_INCLUDE_PATH \
                -u OBJC_INCLUDE_PATH -u OBJCPLUS_INCLUDE_PATH -u CPATH \
                -u LIBRARY_PATH \
-               $(clangxx_prog) --target=$(host) \
-               -B$(build_prefix)/bin \
-               -isysroot$(OSX_SDK) -nostdlibinc \
-               -iwithsysroot/usr/include/c++/v1 \
-               -iwithsysroot/usr/include -iframeworkwithsysroot/System/Library/Frameworks
+             $(clangxx_prog) --target=$(host) -mmacosx-version-min=$(OSX_MIN_VERSION) \
+               -B$(build_prefix)/bin -mlinker-version=$(LD64_VERSION) \
+               -isysroot$(OSX_SDK) \
+               -stdlib=libc++ \
+               -stdlib++-isystem$(OSX_SDK)/usr/include/c++/v1 \
+               -Xclang -internal-externc-isystem$(clang_resource_dir)/include \
+               -Xclang -internal-externc-isystem$(OSX_SDK)/usr/include
 
-darwin_CFLAGS=-pipe -std=$(C_STANDARD) -mmacosx-version-min=$(OSX_MIN_VERSION)
-darwin_CXXFLAGS=-pipe -std=$(CXX_STANDARD) -mmacosx-version-min=$(OSX_MIN_VERSION)
-darwin_LDFLAGS=-Wl,-platform_version,macos,$(OSX_MIN_VERSION),$(OSX_SDK_VERSION)
-
-ifneq ($(build_os),darwin)
-darwin_CFLAGS += -mlinker-version=$(LD64_VERSION)
-darwin_CXXFLAGS += -mlinker-version=$(LD64_VERSION)
-endif
+darwin_CFLAGS=-pipe
+darwin_CXXFLAGS=$(darwin_CFLAGS)
 
 darwin_release_CFLAGS=-O2
 darwin_release_CXXFLAGS=$(darwin_release_CFLAGS)
