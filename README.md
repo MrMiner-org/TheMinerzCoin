@@ -1,41 +1,41 @@
-Blackcoin More
+TheMinerzCoin
 =====================================
-[![build](https://github.com/CoinBlack/blackcoin-more/actions/workflows/build.yml/badge.svg?branch=26.x)](https://github.com/CoinBlack/blackcoin-more/actions/workflows/build.yml)
+[![build](https://github.com/MrMiner-org/TheMinerzCoin/actions/workflows/build.yml/badge.svg?branch=2.x)](https://github.com/MrMiner-org/TheMinerzCoin/actions/workflows/build.yml)
 
-https://blackcoinmore.org
+https://theminerzcoin.eu/
 
-What is Blackcoin?
+What is TheMinerzCoin?
 ----------------
 
-Blackcoin is a decentralised digital currency with near-instant transaction speeds and negligible transaction fees built upon Proof of Stake 3.1 (PoSV3, BPoS) as introduced by the Blackcoin development team.
+TheMinerzCoin is a decentralised digital currency with near-instant transaction speeds and negligible transaction fees built upon Proof of Stake 3.1 (PoSV3, BPoS) as introduced by the TheMinerzCoin development team.
 
-What is Blackcoin More?
+What is TheMinerzCoin?
 ----------------
 
-Blackcoin More is the name of open source software which enables use of the Blackcoin protocol.
-It connects to the Blackcoin peer-to-peer network to download and fully
+TheMinerzCoin More is the name of open source software which enables use of the TheMinerzCoin protocol.
+It connects to the TheMinerzCoin peer-to-peer network to download and fully
 validate blocks and transactions. It also includes a wallet and graphical user
 interface, which can be optionally built.
 
 For more information, as well as an immediately usable, binary version of
-the Blackcoin More software, see https://blackcoinmore.org.
+the TheMinerzCoin More software, see https://blackcoinmore.org.
 
 License
 -------
 
-Blackcoin More is released under the terms of the MIT license. See [COPYING](COPYING) for more
+TheMinerzCoin More is released under the terms of the MIT license. See [COPYING](COPYING) for more
 information or see https://opensource.org/licenses/MIT.
 
 Development Process
 -------------------
 
-The `master` branch is regularly built (see `doc/build-*.md` for instructions) and tested. [Tags](https://github.com/CoinBlack/blackcoin-more/tags) are created
-regularly to indicate new official, stable release versions of Blackcoin More.
+The `master` branch is regularly built (see `doc/build-*.md` for instructions) and tested. [Tags](https://github.com/MrMiner-org/TheMinerzCoin/tags) are created
+regularly to indicate new official, stable release versions of TheMinerzCoin More.
 
 The contribution workflow is described in [CONTRIBUTING.md](CONTRIBUTING.md)
 and useful hints for developers can be found in [doc/developer-notes.md](doc/developer-notes.md).
 
-The best place to get started is to join Blackcoin Discord: https://discord.blackcoin.nl
+The best place to get started is to join TheMinerzCoin Discord: https://discord.gg/s7pM5ChykY
 
 Testing
 -------
@@ -89,8 +89,8 @@ The develop branch is considered an unstable branch, as it is constantly updated
 The master branch gets latest updates from the stable branch.
 However, it may contain experimental features and should be used with caution.
 
-### 13.2
-The release branch for Blackcoin More 13.2.x. It is intended to contain stable and functional code that has been thoroughly tested and reviewed.
+### 1.x
+The release branch for TheMinerzCoin 1.x. It is intended to contain stable and functional code that has been thoroughly tested and reviewed.
 
-### 26.x
-The release branch for Blackcoin More 26.x. Contains functional but highly experimental code.
+### 2.x
+The release branch for TheMinerzCoin 2.x. Contains functional but highly experimental code.
