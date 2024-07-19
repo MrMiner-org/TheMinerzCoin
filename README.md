@@ -18,7 +18,7 @@ validate blocks and transactions. It also includes a wallet and graphical user
 interface, which can be optionally built.
 
 For more information, as well as an immediately usable, binary version of
-the TheMinerzCoin More software, see https://blackcoinmore.org.
+the TheMinerzCoin More software, see https://theminerzcoin.eu/.
 
 License
 -------
