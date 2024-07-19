@@ -46,7 +46,7 @@ SplashScreen::SplashScreen(const NetworkStyle* networkStyle)
 
     QString copyrightTextBitcoin     = QChar(0xA9)+QString(" %1-%2 ").arg(2009).arg(COPYRIGHT_YEAR) + QString("The Bitcoin Core developers");
     QString copyrightTextBlackcoin   = QChar(0xA9)+QString(" %1-%2 ").arg(2014).arg(2018) + QString("The Blackcoin developers");
-    QString copyrightTextBlackmore   = QChar(0xA9)+QString(" %1-%2 ").arg(2018).arg(COPYRIGHT_YEAR) + QString("The Blackcoin More developers");
+    QString copyrightTextBlackmore   = QChar(0xA9)+QString(" %1-%2 ").arg(2018).arg(COPYRIGHT_YEAR) + QString("The TheMinerzCoin developers");
 
     // QString copyrightText   = QString::fromUtf8(CopyrightHolders(strprintf("\xc2\xA9 %u-%u ", 2009, COPYRIGHT_YEAR)).c_str());
     const QString& titleAddText    = networkStyle->getTitleAddText();
@@ -70,7 +70,7 @@ SplashScreen::SplashScreen(const NetworkStyle* networkStyle)
     QRect rGradient(QPoint(0,0), splashSize);
     pixPaint.fillRect(rGradient, gradient);
 
-    // draw the bitcoin icon, expected size of PNG: 1024x1024
+    // draw the theminerzcoin icon, expected size of PNG: 1024x1024
     QRect rectIcon(QPoint(-130,-102), QSize(430,430));
 
     const QSize requiredSize(1024,1024);
