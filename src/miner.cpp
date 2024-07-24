@@ -13,8 +13,6 @@
 #include "consensus/merkle.h"
 #include "consensus/validation.h"
 #include "crypto/scrypt.h"
-#include "crypto/yescrypt.h"
-#include "config.h"
 #include "hash.h"
 #include "main.h"
 #include "net.h"
@@ -52,25 +50,6 @@ uint64_t nLastBlockTx = 0;
 uint64_t nLastBlockSize = 0;
 int64_t nLastCoinStakeSearchInterval = 0;
 unsigned int nMinerSleep = 500;
-
-// Modify the block hashing process
-bool ProcessBlock(CBlock& block, int nHeight)
-{
-    std::string algo = GetArg("-algo", "scrypt");
-    
-    if (nHeight >= 75000 && algo == "yescrypt")
-    {
-        block.hash = Yescrypt(block.GetSerializedData());
-    }
-    else
-    {
-        // Default to Scrypt
-        block.hash = Scrypt(block.GetSerializedData());
-    }
-
-    // Existing block processing code...
-    return true;
-}
 
 class ScoreCompare
 {

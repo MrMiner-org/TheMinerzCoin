@@ -9,8 +9,6 @@
 
 #include <cstdint>
 
-std::string GetArg(const std::string& strArg, const std::string& strDefault);
-
 class CChainParams;
 
 class Config : public boost::noncopyable
