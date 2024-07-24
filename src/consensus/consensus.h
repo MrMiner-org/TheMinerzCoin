@@ -26,5 +26,10 @@ enum {
     /* Use GetMedianTimePast() instead of nTime for end point timestamp. */
     LOCKTIME_MEDIAN_TIME_PAST = (1 << 1),
 };
+class CBlockIndex;
+class CBlockHeader;
+
+unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock);
+unsigned int DarkGravityWave(const CBlockIndex* pindexLast, const CBlockHeader *pblock);
 
 #endif // BITCOIN_CONSENSUS_CONSENSUS_H
