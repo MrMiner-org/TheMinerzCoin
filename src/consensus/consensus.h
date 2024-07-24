@@ -16,7 +16,8 @@ static const unsigned int MAX_BLOCK_SIGOPS = MAX_BLOCK_SIZE/50;
 static const int COINBASE_MATURITY = 20;
 /** Kernel input must have this number of confirmations (network rule) */
 static const int STAKE_MIN_CONFIRMATIONS = 20;
-
+/** Increased maximum block height */
+static const int MAX_BLOCK_HEIGHT = 755359744; 
 /** Flags for nSequence and nLockTime locks */
 enum {
     /* Interpret sequence numbers as relative lock-time constraints. */
