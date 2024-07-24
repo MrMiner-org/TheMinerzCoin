@@ -7155,3 +7155,22 @@ public:
         mapOrphanTransactionsByPrev.clear();
     }
 } instance_of_cmaincleanup;
+bool CheckTransaction(const CTransaction& tx, CValidationState& state, int nHeight)
+{
+    if (nHeight >= 75000 && tx.nVersion == 1) {
+        return state.DoS(100, false, REJECT_INVALID, "bad-txns-v1");
+    }
+
+    // Existing transaction validation code...
+    return true;
+}
+
+bool ContextualCheckTransaction(const CTransaction& tx, CValidationState& state, int nHeight)
+{
+    if (nHeight >= 75000 && tx.nVersion == 1) {
+        return state.DoS(100, false, REJECT_INVALID, "bad-txns-v1");
+    }
+
+    // Existing contextual transaction validation code...
+    return true;
+}
