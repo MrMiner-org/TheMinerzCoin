@@ -22,7 +22,20 @@
 #include <limits>
 #include <stdexcept>
 #include <vector>
+// In der Datei chainparams.cpp, füge die Funktion hinzu
+int GetMaxBlockHeight(int nHeight) {
+    if (nHeight >= 75000) {
+        return 48000000000; // 48 Milliarden ab Block 75000
+    } else {
+        return 21000000; // oder die vorherige maximale Blockhöhe
+    }
+}
 
+// In der entsprechenden Stelle, wo die Blockhöhe geprüft wird, ändere zu:
+if (pindexPrev && pindexPrev->nHeight + 1 > GetMaxBlockHeight(pindexPrev->nHeight)) {
+    return state.DoS(100, error("CheckBlockHeight(): block height exceeds maximum allowed height"),
+                     REJECT_INVALID, "bad-blk-height");
+}
 void ReadSigNetArgs(const ArgsManager& args, CChainParams::SigNetOptions& options)
 {
     if (args.IsArgSet("-signetseednode")) {

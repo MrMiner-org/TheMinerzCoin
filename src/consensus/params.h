@@ -143,7 +143,13 @@ struct Params {
         return std::numeric_limits<int>::max();
     }
 };
-
+int GetMaxBlockHeight(int nHeight) {
+    if (nHeight >= 75000) {
+        return 48000000000; // 48 Milliarden ab Block 75000
+    } else {
+        return 360000; // oder die vorherige maximale Blockhöhe
+    }
+}
 } // namespace Consensus
 
 #endif // BITCOIN_CONSENSUS_PARAMS_H

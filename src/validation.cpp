@@ -1657,12 +1657,12 @@ CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams, b
 // Blackcoin
 CAmount GetProofOfWorkSubsidy()
 {
-    return 10000 * COIN;
+    return 10 * COIN;
 }
 
 CAmount GetProofOfStakeSubsidy()
 {
-    return COIN * 3 / 2;
+    return COIN * 25;
 }
 
 CoinsViews::CoinsViews(DBParams db_params, CoinsViewOptions options)
@@ -6175,4 +6175,8 @@ std::pair<int, int> ChainstateManager::GetPruneRange(const Chainstate& chainstat
     int prune_end = std::min(last_height_can_prune, max_prune);
 
     return {prune_start, prune_end};
+}
+if (pindexPrev && pindexPrev->nHeight + 1 > GetMaxBlockHeight(pindexPrev->nHeight)) {
+    return state.DoS(100, error("CheckBlockHeight(): block height exceeds maximum allowed height"),
+                     REJECT_INVALID, "bad-blk-height");
 }
