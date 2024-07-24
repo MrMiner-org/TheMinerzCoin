@@ -145,7 +145,7 @@ struct Params {
 };
 int GetMaxBlockHeight(int nHeight) {
     if (nHeight >= 75000) {
-        return 48000000000; // 48 Milliarden ab Block 75000
+        return 755359744; // 48 Milliarden ab Block 75000
     } else {
         return 360000; // oder die vorherige maximale Blockhöhe
     }
