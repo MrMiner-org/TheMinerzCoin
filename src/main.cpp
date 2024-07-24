@@ -7174,3 +7174,12 @@ bool ContextualCheckTransaction(const CTransaction& tx, CValidationState& state,
     // Existing contextual transaction validation code...
     return true;
 }
+bool CheckProofOfWork(const CBlockHeader& block, const Consensus::Params& params) {
+    uint256 hash = block.GetHash();
+    unsigned int nBits = GetNextWorkRequired(chainActive.Tip(), &block);
+    
+    if (UintToArith256(hash) > UintToArith256(nBits)) {
+        return error("CheckProofOfWork(): hash doesn't match nBits");
+    }
+    return true;
+}
