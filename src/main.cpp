@@ -7164,21 +7164,15 @@ bool CheckTransaction(const CTransaction& tx, CValidationState& state, int nHeig
     // Existing transaction validation code...
     return true;
 }
-
-bool ContextualCheckTransaction(const CTransaction& tx, CValidationState& state, int nHeight)
-{
-    if (nHeight >= 75000 && tx.nVersion == 1) {
-        return state.DoS(100, false, REJECT_INVALID, "bad-txns-v1");
-    }
-
-    // Existing contextual transaction validation code...
-    return true;
-}
+ 
 bool CheckProofOfWork(const CBlockHeader& block, const Consensus::Params& params) {
     uint256 hash = block.GetHash();
     unsigned int nBits = GetNextWorkRequired(chainActive.Tip(), &block);
-    
-    if (UintToArith256(hash) > UintToArith256(nBits)) {
+
+    arith_uint256 bnTarget;
+    bnTarget.SetCompact(nBits);
+
+    if (UintToArith256(hash) > bnTarget) {
         return error("CheckProofOfWork(): hash doesn't match nBits");
     }
     return true;
