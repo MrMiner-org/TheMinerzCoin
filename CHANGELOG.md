@@ -1,5 +1,12 @@
 # Changelog
 
+## v2.0.0 (2024-07-27)
+
+- Bann V1 tansctions from network on block 75000
+- Difficulty Adjustment Algorithm (Dark Gravity Wave)
+- change max blocks to 755359744
+
+
 ## v1.1.3 (2024-07-13)
 
 - Create V2 transactions by default
