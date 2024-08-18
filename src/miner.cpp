@@ -62,6 +62,17 @@ public:
     }
 };
 
+void CreateNewBlock()
+{
+    for (const auto& tx : mempool) {
+        if (!tx.tokenType.empty()) {
+            ProcessBRC20Transaction(static_cast<const CBRC20Transaction&>(tx));
+        } else {
+            ProcessStandardTransaction(tx);
+        }
+    }
+}
+
 int64_t UpdateTime(CBlock* pblock, const Consensus::Params& consensusParams, const CBlockIndex* pindexPrev)
 {
     int64_t nOldTime = pblock->nTime;

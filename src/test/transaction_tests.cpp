@@ -428,5 +428,16 @@ BOOST_AUTO_TEST_CASE(test_IsStandard)
     t.vout[1].scriptPubKey = CScript() << OP_RETURN;
     BOOST_CHECK(!IsStandardTx(t, reason));
 }
+BOOST_AUTO_TEST_CASE(brc20_token_transfer_test)
+{
+    CWallet wallet;
 
+    CBRC20Token token;
+    token.DeployToken("MYTOKEN", 1000000, &wallet);
+
+    CTxDestination recipient = DecodeDestination("recipientAddress");
+    bool success = token.TransferToken("MYTOKEN", 100, recipient, &wallet);
+
+    BOOST_CHECK(success);
+}
 BOOST_AUTO_TEST_SUITE_END()

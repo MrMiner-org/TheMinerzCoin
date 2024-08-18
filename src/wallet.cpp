@@ -4065,3 +4065,35 @@ bool CMerkleTx::AcceptToMemoryPool(bool fLimitFree, CAmount nAbsurdFee, CValidat
 {
     return ::AcceptToMemoryPool(mempool, state, *this, fLimitFree, NULL, false, nAbsurdFee);
 }
+
+bool CBRC20Token::DeployToken(std::string tokenType, uint64_t initialSupply, CWallet* pwallet)
+{
+    // Erstellen einer neuen Token-Transaktion
+    CBRC20Transaction tx;
+    tx.tokenType = tokenType;
+    tx.amount = initialSupply;
+    tx.recipient = pwallet->GetPrimaryAddress();
+
+    // Senden der Transaktion zur Blockchain
+    return pwallet->SendBRC20Transaction(tx);
+}
+
+bool CBRC20Token::MintToken(std::string tokenType, uint64_t amount, CWallet* pwallet)
+{
+    CBRC20Transaction tx;
+    tx.tokenType = tokenType;
+    tx.amount = amount;
+    tx.recipient = pwallet->GetPrimaryAddress();
+
+    return pwallet->SendBRC20Transaction(tx);
+}
+
+bool CBRC20Token::TransferToken(std::string tokenType, uint64_t amount, CTxDestination recipient, CWallet* pwallet)
+{
+    CBRC20Transaction tx;
+    tx.tokenType = tokenType;
+    tx.amount = amount;
+    tx.recipient = recipient;
+
+    return pwallet->SendBRC20Transaction(tx);
+}

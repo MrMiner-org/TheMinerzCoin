@@ -574,6 +574,33 @@ UniValue clearbanned(const UniValue& params, bool fHelp)
     return NullUniValue;
 }
 
+UniValue sendtoaddress(const JSONRPCRequest& request)
+{
+    std::string tokenType = "DEFAULT_TOKEN";
+    if (request.params[2].isStr()) {
+        tokenType = request.params[2].get_str(); // Optionaler Token-Typ
+    }
+
+    uint64_t amount = request.params[1].get_int64();
+    CTxDestination recipient = DecodeDestination(request.params[0].get_str());
+
+    CBRC20Transaction tx;
+    tx.tokenType = tokenType;
+    tx.amount = amount;
+    tx.recipient = recipient;
+
+    // Token-Transaktion durchführen
+    return pwallet->SendBRC20Transaction(tx);
+}
+UniValue getbalance(const JSONRPCRequest& request)
+{
+    std::string tokenType = "DEFAULT_TOKEN";
+    if (request.params[0].isStr()) {
+        tokenType = request.params[0].get_str();
+    }
+
+    return pwallet->GetBRC20TokenBalance(tokenType);
+}
 static const CRPCCommand commands[] =
 { //  category              name                      actor (function)         okSafeMode
   //  --------------------- ------------------------  -----------------------  ----------
@@ -595,3 +622,4 @@ void RegisterNetRPCCommands(CRPCTable &tableRPC)
     for (unsigned int vcidx = 0; vcidx < ARRAYLEN(commands); vcidx++)
         tableRPC.appendCommand(commands[vcidx].name, &commands[vcidx]);
 }
+

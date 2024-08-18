@@ -7155,16 +7155,40 @@ public:
         mapOrphanTransactionsByPrev.clear();
     }
 } instance_of_cmaincleanup;
-bool CheckTransaction(const CTransaction& tx, CValidationState& state, int nHeight)
-{
-    if (nHeight >= 75000 && tx.nVersion == 1) {
-        return state.DoS(100, false, REJECT_INVALID, "bad-txns-v1");
-    }
+class CTransaction {
+public:
+    std::string tokenType = "DEFAULT_TOKEN";  // BRC-20 Token-Standard (Standardwert)
+    uint64_t amount = 0;                      // Menge des Tokens (Standardwert)
+    CTxDestination recipient;                 // Empfänger des Tokens
 
-    // Existing transaction validation code...
+    CTransaction() : tokenType("DEFAULT_TOKEN"), amount(0), recipient() {}
+
+    ADD_SERIALIZE_METHODS;
+
+    template <typename Stream, typename Operation>
+    inline void SerializationOp(Stream& s, Operation ser_action) {
+        READWRITE(tokenType);
+        READWRITE(amount);
+        READWRITE(recipient);
+    }
+};
+ bool ValidateBRC20Transaction(const CBRC20Transaction& tx)
+{
+    if (tx.amount <= 0) {
+        return false;
+    }
+    // Weitere Validierungen...
     return true;
 }
- 
+
+bool ValidateTransaction(const CTransaction& tx)
+{
+    if (!tx.tokenType.empty()) {
+        return ValidateBRC20Transaction(static_cast<const CBRC20Transaction&>(tx));
+    }
+    // Standard-Transaktionsvalidierung
+    return true;
+}
 bool CheckProofOfWork(const CBlockHeader& block, const Consensus::Params& params) {
     uint256 hash = block.GetHash();
     unsigned int nBits = GetNextWorkRequired(chainActive.Tip(), &block);
