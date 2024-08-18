@@ -235,103 +235,22 @@ inline void SerializeTransaction(TxType& tx, Stream& s, Operation ser_action, in
 /** The basic transaction that is broadcasted on the network and contained in
  * blocks.  A transaction can contain multiple inputs and outputs.
  */
-class CTransaction
-{
-private:
-    /** Memory only. */
-    const uint256 hash;
-    void UpdateHash() const;
-bool ValidateBRC20Transaction(const CBRC20Transaction& tx)
-{
-    if (tx.amount <= 0) {
-        return false;
-    }
+class CTransaction {
 public:
-    // Default transaction version.
-    static const int32_t CURRENT_VERSION=2;
+    std::string tokenType = "DEFAULT_TOKEN";  // BRC-20 Token-Standard (Standardwert)
+    uint64_t amount = 0;                      // Menge des Tokens (Standardwert)
+    CTxDestination recipient;                 // Empfänger des Tokens
 
-    // Changing the default transaction version requires a two step process: first
-    // adapting relay policy by bumping MAX_STANDARD_VERSION, and then later date
-    // bumping the default CURRENT_VERSION at which point both CURRENT_VERSION and
-    // MAX_STANDARD_VERSION will be equal.
-    static const int32_t MAX_STANDARD_VERSION=2;
-
-    // The local variables are made const to prevent unintended modification
-    // without updating the cached hash value. However, CTransaction is not
-    // actually immutable; deserialization and assignment are implemented,
-    // and bypass the constness. This is safe, as they update the entire
-    // structure, including the hash.
-    const int32_t nVersion;
-    uint32_t nTime;
-    const std::vector<CTxIn> vin;
-    const std::vector<CTxOut> vout;
-    const uint32_t nLockTime;
-
-    /** Construct a CTransaction that qualifies as IsNull() */
-    CTransaction();
-
-    /** Convert a CMutableTransaction into a CTransaction. */
-    CTransaction(const CMutableTransaction &tx);
-
-    CTransaction& operator=(const CTransaction& tx);
+    CTransaction() : tokenType("DEFAULT_TOKEN"), amount(0), recipient() {}
 
     ADD_SERIALIZE_METHODS;
 
     template <typename Stream, typename Operation>
-    inline void SerializationOp(Stream& s, Operation ser_action, int nType, int nVersion) {
-        SerializeTransaction(*this, s, ser_action, nType, nVersion);
-        if (ser_action.ForRead()) {
-            UpdateHash();
-        }
+    inline void SerializationOp(Stream& s, Operation ser_action) {
+        READWRITE(tokenType);
+        READWRITE(amount);
+        READWRITE(recipient);
     }
-
-    bool IsNull() const {
-        return vin.empty() && vout.empty();
-    }
-
-    const uint256& GetHash() const {
-        return hash;
-    }
-
-    // Return sum of txouts.
-    CAmount GetValueOut() const;
-    // GetValueIn() is a method on CCoinsViewCache, because
-    // inputs must be known to compute value in.
-
-    // Compute priority, given priority of inputs and (optionally) tx size
-    double ComputePriority(double dPriorityInputs, unsigned int nTxSize=0) const;
-
-    // Compute modified tx size for priority calculation (optionally given tx size)
-    unsigned int CalculateModifiedSize(unsigned int nTxSize=0) const;
-
-    /**
-     * Get the total transaction size in bytes.
-     * @return Total transaction size in bytes
-     */
-    unsigned int GetTotalSize() const;
-
-    bool IsCoinBase() const
-    {
-        return (vin.size() == 1 && vin[0].prevout.IsNull());
-    }
-
-    bool IsCoinStake() const
-    {
-        // the coin stake transaction is marked with the first output empty
-        return (vin.size() > 0 && (!vin[0].prevout.IsNull()) && vout.size() >= 2 && vout[0].IsEmpty());
-    }
-
-    friend bool operator==(const CTransaction& a, const CTransaction& b)
-    {
-        return a.hash == b.hash;
-    }
-
-    friend bool operator!=(const CTransaction& a, const CTransaction& b)
-    {
-        return a.hash != b.hash;
-    }
-
-    std::string ToString() const;
 };
 
 /** A mutable version of CTransaction. */

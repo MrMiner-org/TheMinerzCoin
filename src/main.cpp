@@ -7172,6 +7172,14 @@ public:
         READWRITE(recipient);
     }
 };
+ bool ValidateBRC20Transaction(const CBRC20Transaction& tx)
+{
+    if (tx.amount <= 0) {
+        return false;
+    }
+    // Weitere Validierungen...
+    return true;
+}
 
 bool ValidateTransaction(const CTransaction& tx)
 {
