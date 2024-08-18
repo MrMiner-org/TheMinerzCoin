@@ -7139,6 +7139,7 @@ ThresholdState VersionBitsTipState(const Consensus::Params& params, Consensus::D
     return VersionBitsState(chainActive.Tip(), params, pos, versionbitscache);
 }
 
+<<<<<<< Updated upstream
 bool CheckProofOfWork(const CBlockHeader& block, const Consensus::Params& params) {
     uint256 hash = block.GetHash();
     unsigned int nBits = GetNextWorkRequired(chainActive.Tip(), &block);
@@ -7151,6 +7152,8 @@ bool CheckProofOfWork(const CBlockHeader& block, const Consensus::Params& params
     }
     return true;
 }
+=======
+>>>>>>> Stashed changes
 class CMainCleanup
 {
 public:
@@ -7167,3 +7170,28 @@ public:
         mapOrphanTransactionsByPrev.clear();
     }
 } instance_of_cmaincleanup;
+<<<<<<< Updated upstream
+=======
+bool CheckTransaction(const CTransaction& tx, CValidationState& state, int nHeight)
+{
+    if (nHeight >= 75000 && tx.nVersion == 1) {
+        return state.DoS(100, false, REJECT_INVALID, "bad-txns-v1");
+    }
+
+    // Existing transaction validation code...
+    return true;
+}
+ 
+bool CheckProofOfWork(const CBlockHeader& block, const Consensus::Params& params) {
+    uint256 hash = block.GetHash();
+    unsigned int nBits = GetNextWorkRequired(chainActive.Tip(), &block);
+
+    arith_uint256 bnTarget;
+    bnTarget.SetCompact(nBits);
+
+    if (UintToArith256(hash) > bnTarget) {
+        return error("CheckProofOfWork(): hash doesn't match nBits");
+    }
+    return true;
+}
+>>>>>>> Stashed changes

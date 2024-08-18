@@ -574,6 +574,7 @@ UniValue clearbanned(const UniValue& params, bool fHelp)
     return NullUniValue;
 }
 
+<<<<<<< Updated upstream
 UniValue sendtoaddress(const JSONRPCRequest& request)
 {
     std::string tokenType = "DEFAULT_TOKEN";
@@ -601,6 +602,8 @@ UniValue getbalance(const JSONRPCRequest& request)
 
     return pwallet->GetBRC20TokenBalance(tokenType);
 }
+=======
+>>>>>>> Stashed changes
 static const CRPCCommand commands[] =
 { //  category              name                      actor (function)         okSafeMode
   //  --------------------- ------------------------  -----------------------  ----------
@@ -622,4 +625,7 @@ void RegisterNetRPCCommands(CRPCTable &tableRPC)
     for (unsigned int vcidx = 0; vcidx < ARRAYLEN(commands); vcidx++)
         tableRPC.appendCommand(commands[vcidx].name, &commands[vcidx]);
 }
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes

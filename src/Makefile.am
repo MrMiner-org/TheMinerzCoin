@@ -188,7 +188,10 @@ BITCOIN_CORE_H = \
   utilmoneystr.h \
   utilstrencodings.h \
   utiltime.h \
+<<<<<<< Updated upstream
   validation.cpp \
+=======
+>>>>>>> Stashed changes
   validationinterface.h \
   version.h \
   versionbits.h \

@@ -4065,6 +4065,7 @@ bool CMerkleTx::AcceptToMemoryPool(bool fLimitFree, CAmount nAbsurdFee, CValidat
 {
     return ::AcceptToMemoryPool(mempool, state, *this, fLimitFree, NULL, false, nAbsurdFee);
 }
+<<<<<<< Updated upstream
 
 bool CBRC20Token::DeployToken(std::string tokenType, uint64_t initialSupply, CWallet* pwallet)
 {
@@ -4097,3 +4098,5 @@ bool CBRC20Token::TransferToken(std::string tokenType, uint64_t amount, CTxDesti
 
     return pwallet->SendBRC20Transaction(tx);
 }
+=======
+>>>>>>> Stashed changes

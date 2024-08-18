@@ -3,7 +3,11 @@ name: build
 on:
   push:
     branches:
+<<<<<<< Updated upstream
       - main
+=======
+      - 2.x
+>>>>>>> Stashed changes
     paths-ignore:
       - '**/*.md'
   pull_request:

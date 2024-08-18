@@ -62,6 +62,7 @@ public:
     }
 };
 
+<<<<<<< Updated upstream
 void CreateNewBlock()
 {
     for (const auto& tx : mempool) {
@@ -73,6 +74,8 @@ void CreateNewBlock()
     }
 }
 
+=======
+>>>>>>> Stashed changes
 int64_t UpdateTime(CBlock* pblock, const Consensus::Params& consensusParams, const CBlockIndex* pindexPrev)
 {
     int64_t nOldTime = pblock->nTime;
