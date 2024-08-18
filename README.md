@@ -1,6 +1,6 @@
 TheMinerzCoin 
 =====================================
-[![build](https://github.com/MrMiner-org/TheMinerzCoin/actions/workflows/c-cpp.yml/badge.svg?branch=2.X)](https://github.com/MrMiner-org/TheMinerzCoin/actions/workflows/c-cpp.yml)
+[![build](https://github.com/MrMiner-org/TheMinerzCoin/actions/workflows/build.yml/badge.svg?branch=2.X)](https://github.com/MrMiner-org/TheMinerzCoin/actions/workflows/build.yml)
 
 https://theminerzcoin.eu/
 
