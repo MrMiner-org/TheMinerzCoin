@@ -188,6 +188,7 @@ BITCOIN_CORE_H = \
   utilmoneystr.h \
   utilstrencodings.h \
   utiltime.h \
+  validation.cpp \
   validationinterface.h \
   version.h \
   versionbits.h \

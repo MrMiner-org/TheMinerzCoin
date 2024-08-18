@@ -7139,6 +7139,18 @@ ThresholdState VersionBitsTipState(const Consensus::Params& params, Consensus::D
     return VersionBitsState(chainActive.Tip(), params, pos, versionbitscache);
 }
 
+bool CheckProofOfWork(const CBlockHeader& block, const Consensus::Params& params) {
+    uint256 hash = block.GetHash();
+    unsigned int nBits = GetNextWorkRequired(chainActive.Tip(), &block);
+
+    arith_uint256 bnTarget;
+    bnTarget.SetCompact(nBits);
+
+    if (UintToArith256(hash) > bnTarget) {
+        return error("CheckProofOfWork(): hash doesn't match nBits");
+    }
+    return true;
+}
 class CMainCleanup
 {
 public:
@@ -7155,49 +7167,3 @@ public:
         mapOrphanTransactionsByPrev.clear();
     }
 } instance_of_cmaincleanup;
-class CTransaction {
-public:
-    std::string tokenType = "DEFAULT_TOKEN";  // BRC-20 Token-Standard (Standardwert)
-    uint64_t amount = 0;                      // Menge des Tokens (Standardwert)
-    CTxDestination recipient;                 // Empfänger des Tokens
-
-    CTransaction() : tokenType("DEFAULT_TOKEN"), amount(0), recipient() {}
-
-    ADD_SERIALIZE_METHODS;
-
-    template <typename Stream, typename Operation>
-    inline void SerializationOp(Stream& s, Operation ser_action) {
-        READWRITE(tokenType);
-        READWRITE(amount);
-        READWRITE(recipient);
-    }
-};
- bool ValidateBRC20Transaction(const CBRC20Transaction& tx)
-{
-    if (tx.amount <= 0) {
-        return false;
-    }
-    // Weitere Validierungen...
-    return true;
-}
-
-bool ValidateTransaction(const CTransaction& tx)
-{
-    if (!tx.tokenType.empty()) {
-        return ValidateBRC20Transaction(static_cast<const CBRC20Transaction&>(tx));
-    }
-    // Standard-Transaktionsvalidierung
-    return true;
-}
-bool CheckProofOfWork(const CBlockHeader& block, const Consensus::Params& params) {
-    uint256 hash = block.GetHash();
-    unsigned int nBits = GetNextWorkRequired(chainActive.Tip(), &block);
-
-    arith_uint256 bnTarget;
-    bnTarget.SetCompact(nBits);
-
-    if (UintToArith256(hash) > bnTarget) {
-        return error("CheckProofOfWork(): hash doesn't match nBits");
-    }
-    return true;
-}

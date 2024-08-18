@@ -235,7 +235,13 @@ inline void SerializeTransaction(TxType& tx, Stream& s, Operation ser_action, in
 /** The basic transaction that is broadcasted on the network and contained in
  * blocks.  A transaction can contain multiple inputs and outputs.
  */
-class CTransaction {
+class CTransaction
+{
+private:
+    /** Memory only. */
+    const uint256 hash;
+    void UpdateHash() const;
+	
 public:
     std::string tokenType = "DEFAULT_TOKEN";  // BRC-20 Token-Standard (Standardwert)
     uint64_t amount = 0;                      // Menge des Tokens (Standardwert)
@@ -251,6 +257,73 @@ public:
         READWRITE(amount);
         READWRITE(recipient);
     }
+
+
+    /** Construct a CTransaction that qualifies as IsNull() */
+    CTransaction();
+
+    /** Convert a CMutableTransaction into a CTransaction. */
+    CTransaction(const CMutableTransaction &tx);
+
+    CTransaction& operator=(const CTransaction& tx);
+
+    ADD_SERIALIZE_METHODS;
+
+    template <typename Stream, typename Operation>
+    inline void SerializationOp(Stream& s, Operation ser_action, int nType, int nVersion) {
+        SerializeTransaction(*this, s, ser_action, nType, nVersion);
+        if (ser_action.ForRead()) {
+            UpdateHash();
+        }
+    }
+
+    bool IsNull() const {
+        return vin.empty() && vout.empty();
+    }
+
+    const uint256& GetHash() const {
+        return hash;
+    }
+
+    // Return sum of txouts.
+    CAmount GetValueOut() const;
+    // GetValueIn() is a method on CCoinsViewCache, because
+    // inputs must be known to compute value in.
+
+    // Compute priority, given priority of inputs and (optionally) tx size
+    double ComputePriority(double dPriorityInputs, unsigned int nTxSize=0) const;
+
+    // Compute modified tx size for priority calculation (optionally given tx size)
+    unsigned int CalculateModifiedSize(unsigned int nTxSize=0) const;
+
+    /**
+     * Get the total transaction size in bytes.
+     * @return Total transaction size in bytes
+     */
+    unsigned int GetTotalSize() const;
+
+    bool IsCoinBase() const
+    {
+        return (vin.size() == 1 && vin[0].prevout.IsNull());
+    }
+
+    bool IsCoinStake() const
+    {
+        // the coin stake transaction is marked with the first output empty
+        return (vin.size() > 0 && (!vin[0].prevout.IsNull()) && vout.size() >= 2 && vout[0].IsEmpty());
+    }
+
+    friend bool operator==(const CTransaction& a, const CTransaction& b)
+    {
+        return a.hash == b.hash;
+    }
+
+    friend bool operator!=(const CTransaction& a, const CTransaction& b)
+    {
+        return a.hash != b.hash;
+    }
+
+    std::string ToString() const;
 };
 
 /** A mutable version of CTransaction. */
