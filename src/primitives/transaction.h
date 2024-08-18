@@ -241,7 +241,11 @@ private:
     /** Memory only. */
     const uint256 hash;
     void UpdateHash() const;
-
+bool ValidateBRC20Transaction(const CBRC20Transaction& tx)
+{
+    if (tx.amount <= 0) {
+        return false;
+    }
 public:
     // Default transaction version.
     static const int32_t CURRENT_VERSION=2;
