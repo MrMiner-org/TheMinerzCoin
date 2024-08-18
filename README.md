@@ -1,9 +1,6 @@
 TheMinerzCoin
 =====================================
-<<<<<<< Updated upstream
-[![build](https://github.com/MrMiner-org/TheMinerzCoin/actions/workflows/c-cpp.yml/badge.svg?branch=main)](https://github.com/MrMiner-org/TheMinerzCoin/actions/workflows/c-cpp.yml)[![Documentation](https://codedocs.xyz/jbeder/yaml-cpp.svg)](https://codedocs.xyz/jbeder/yaml-cpp/)
-=======
->>>>>>> Stashed changes
+
 
 https://theminerzcoin.eu/
 
