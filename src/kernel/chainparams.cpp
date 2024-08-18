@@ -139,7 +139,7 @@ public:
         pchMessageStart[2] = 0xf8;
         pchMessageStart[3] = 0xa8;
         nDefaultPort = 13948;
-        nPruneAfterHeight = 100000;
+        m_assumed_blockchain_size = 20;
 
         genesis = CreateGenesisBlock(1693994590, 474961, 0x1e0fffff, 1, 0);
         consensus.hashGenesisBlock = genesis.GetHash();
@@ -151,33 +151,27 @@ public:
         // This is fine at runtime as we'll fall back to using them as an addrfetch if they don't support the
         // service bits we want, but we should get them updated to support all service bits wanted by any
         // release ASAP to avoid it where possible.
-        vSeeds.push_back(CDNSSeedData("184.174.34.86", "184.174.34.86"));
-        vSeeds.push_back(CDNSSeedData("161.97.132.124", "161.97.132.124"));
-		vSeeds.push_back(CDNSSeedData("84.247.184.164", "84.247.184.164"));
-        vSeeds.push_back(CDNSSeedData("75.119.136.103", "75.119.136.103"));
+        vSeeds.emplace_back("184.174.34.86", "184.174.34.86");
+        vSeeds.emplace_back("161.97.132.124", "161.97.132.124");
+		vSeeds.emplace_back("84.247.184.164", "84.247.184.164");
+        vSeeds.emplace_back("75.119.136.103", "75.119.136.103");
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,65);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,66);
         base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1,193);
-        base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x04)(0x88)(0xB2)(0x1E).convert_to_container<std::vector<unsigned char> >();
-        base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x04)(0x88)(0xAD)(0xE4).convert_to_container<std::vector<unsigned char> >();
-        cashaddrPrefix = "theminerzcoin";
+        base58Prefixes[EXT_PUBLIC_KEY] = {0x04, 0x88, 0xB2, 0x1E};
+        base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x88, 0xAD, 0xE4};
+        bech32_hrp = "TMC";
 
         vFixedSeeds = std::vector<uint8_t>(std::begin(chainparams_seed_main), std::end(chainparams_seed_main));
 
-        fMiningRequiresPeers = true;
         fDefaultConsistencyChecks = false;
-        fRequireStandard = true;
-        fMineBlocksOnDemand = false;
-        fTestnetToBeDeprecatedFieldRPC = false;
+        m_is_mockable_chain = false;
 
-        checkpointData = (CCheckpointData) {
-                    boost::assign::map_list_of
-                    (0, uint256S("0x0000060b614d1629e0ada5da36d52ad994c9c994166d88b90fada164e586b9ba")),
-                    1693994590, // * UNIX timestamp of last checkpoint block
-                    0,    // * total number of transactions between genesis and last checkpoint
-                                //   (the tx=... number in the SetBestChain debug.log lines)
-                    0      // * estimated number of transactions per day after checkpoint
+        checkpointData = {
+            {
+                {   0, uint256S("0x0000060b614d1629e0ada5da36d52ad994c9c994166d88b90fada164e586b9ba")}
+            }
         };
 
         m_assumeutxo_data = {
