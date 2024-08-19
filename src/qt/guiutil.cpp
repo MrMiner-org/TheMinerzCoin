@@ -148,7 +148,7 @@ void AddButtonShortcut(QAbstractButton* button, const QKeySequence& shortcut)
 bool parseBitcoinURI(const QUrl &uri, SendCoinsRecipient *out)
 {
     // return if URI is not valid or is no bitcoin: URI
-    if(!uri.isValid() || uri.scheme() != QString("blackcoin"))
+    if(!uri.isValid() || uri.scheme() != QString("theminerzcoin"))
         return false;
 
     SendCoinsRecipient rv;
@@ -211,7 +211,7 @@ QString formatBitcoinURI(const SendCoinsRecipient &info)
 {
     bool bech_32 = info.address.startsWith(QString::fromStdString(Params().Bech32HRP() + "1"));
 
-    QString ret = QString("blackcoin:%1").arg(bech_32 ? info.address.toUpper() : info.address);
+    QString ret = QString("theminerzcoin:%1").arg(bech_32 ? info.address.toUpper() : info.address);
     int paramCount = 0;
 
     if (info.amount)
@@ -446,7 +446,7 @@ bool openBitcoinConf()
 
     configFile.close();
 
-    /* Open blackmore.conf with the associated application */
+    /* Open theminerzcoin.conf with the associated application */
     bool res = QDesktopServices::openUrl(QUrl::fromLocalFile(PathToQString(pathConfig)));
 #ifdef Q_OS_MACOS
     // Workaround for macOS-specific behavior; see #15409.
@@ -593,8 +593,8 @@ fs::path static GetAutostartFilePath()
 {
     ChainType chain = gArgs.GetChainType();
     if (chain == ChainType::MAIN)
-        return GetAutostartDir() / "blackmore.desktop";
-    return GetAutostartDir() / fs::u8path(strprintf("blackmore-%s.desktop", ChainTypeToString(chain)));
+        return GetAutostartDir() / "theminerzcoin.desktop";
+    return GetAutostartDir() / fs::u8path(strprintf("theminerzcoin-%s.desktop", ChainTypeToString(chain)));
 }
 
 bool GetStartOnSystemStartup()
@@ -635,7 +635,7 @@ bool SetStartOnSystemStartup(bool fAutoStart)
         if (!optionFile.good())
             return false;
         ChainType chain = gArgs.GetChainType();
-        // Write a blackmore.desktop file to the autostart directory:
+        // Write a theminerzcoin.desktop file to the autostart directory:
         optionFile << "[Desktop Entry]\n";
         optionFile << "Type=Application\n";
         if (chain == ChainType::MAIN)

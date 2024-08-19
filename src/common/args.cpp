@@ -35,7 +35,7 @@
 #include <utility>
 #include <variant>
 
-const char * const BITCOIN_CONF_FILENAME = "blackmore.conf";
+const char * const BITCOIN_CONF_FILENAME = "theminerzcoin.conf";
 const char * const BITCOIN_SETTINGS_FILENAME = "settings.json";
 
 ArgsManager gArgs;
@@ -686,7 +686,7 @@ fs::path GetDefaultDataDir()
 {
     // Windows: C:\Users\Username\AppData\Roaming\Blackmore
     // macOS: ~/Library/Application Support/Blackmore
-    // Unix-like: ~/.blackmore
+    // Unix-like: ~/.theminerzcoin
 #ifdef WIN32
     // Windows
     return GetSpecialFolderPath(CSIDL_APPDATA) / "Blackmore";
@@ -702,7 +702,7 @@ fs::path GetDefaultDataDir()
     return pathRet / "Library/Application Support/Blackmore";
 #else
     // Unix-like
-    return pathRet / ".blackmore";
+    return pathRet / ".theminerzcoin";
 #endif
 #endif
 }

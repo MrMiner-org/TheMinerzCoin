@@ -645,7 +645,7 @@ bool SignBlock(CBlock& block, const CWallet& keystore)
 void PoSMiner(CWallet *pwallet)
 {
     pwallet->WalletLogPrintf("PoSMiner started for proof-of-stake\n");
-    util::ThreadRename(strprintf("blackcoin-stake-miner-%s", pwallet->GetName()));
+    util::ThreadRename(strprintf("theminerzcoin-stake-miner-%s", pwallet->GetName()));
 
     unsigned int nExtraNonce = 0;
 

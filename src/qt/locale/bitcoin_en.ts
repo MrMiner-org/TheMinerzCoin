@@ -580,7 +580,7 @@ Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
     <message>
         <location line="-857"/>
         <source>Request payments (generates QR codes and bitcoin: URIs)</source>
-        <translation>Request payments (generates QR codes and blackcoin: URIs)</translation>
+        <translation>Request payments (generates QR codes and theminerzcoin: URIs)</translation>
     </message>
     <message>
         <location line="+65"/>
@@ -688,7 +688,7 @@ Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
     <message>
         <location line="+4"/>
         <source>Open a bitcoin: URI</source>
-        <translation>Open a blackcoin: URI</translation>
+        <translation>Open a theminerzcoin: URI</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -1566,7 +1566,7 @@ The migration process will create a backup of the wallet before migrating. This 
     <message>
         <location line="+119"/>
         <source>Recent transactions may not yet be visible, and therefore your wallet&apos;s balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the bitcoin network, as detailed below.</source>
-        <translation>Recent transactions may not yet be visible, and therefore your wallet&apos;s balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the blackcoin network, as detailed below.</translation>
+        <translation>Recent transactions may not yet be visible, and therefore your wallet&apos;s balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the theminerzcoin network, as detailed below.</translation>
     </message>
     <message>
         <location line="+19"/>
@@ -1642,7 +1642,7 @@ The migration process will create a backup of the wallet before migrating. This 
     <message>
         <location filename="../forms/openuridialog.ui" line="+14"/>
         <source>Open bitcoin URI</source>
-        <translation>Open blackcoin URI</translation>
+        <translation>Open theminerzcoin URI</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -2428,7 +2428,7 @@ The migration process will create a backup of the wallet before migrating. This 
     <message>
         <location line="+1"/>
         <source>Cannot start bitcoin: click-to-pay handler</source>
-        <translation>Cannot start blackcoin: click-to-pay handler</translation>
+        <translation>Cannot start theminerzcoin: click-to-pay handler</translation>
     </message>
     <message>
         <location line="+48"/>
@@ -2441,7 +2441,7 @@ The migration process will create a backup of the wallet before migrating. This 
     <message>
         <location line="-29"/>
         <source>&apos;bitcoin://&apos; is not a valid URI. Use &apos;bitcoin:&apos; instead.</source>
-        <translation>&apos;blackcoin://&apos; is not a valid URI. Use &apos;blackcoin:&apos; instead.</translation>
+        <translation>&apos;theminerzcoin://&apos; is not a valid URI. Use &apos;theminerzcoin:&apos; instead.</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -3947,7 +3947,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of &quot;100 
     <message>
         <location line="+35"/>
         <source>When there is less transaction volume than space in the blocks, miners as well as relaying nodes may enforce a minimum fee. Paying only this minimum fee is just fine, but be aware that this can result in a never confirming transaction once there is more demand for bitcoin transactions than the network can process.</source>
-        <translation>When there is less transaction volume than space in the blocks, miners as well as relaying nodes may enforce a minimum fee. Paying only this minimum fee is just fine, but be aware that this can result in a never confirming transaction once there is more demand for blackcoin transactions than the network can process.</translation>
+        <translation>When there is less transaction volume than space in the blocks, miners as well as relaying nodes may enforce a minimum fee. Paying only this minimum fee is just fine, but be aware that this can result in a never confirming transaction once there is more demand for theminerzcoin transactions than the network can process.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -4354,7 +4354,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of &quot;100 
     <message>
         <location line="+58"/>
         <source>A message that was attached to the bitcoin: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Bitcoin network.</source>
-        <translation>A message that was attached to the blackcoin: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the TheMinerzCoin network.</translation>
+        <translation>A message that was attached to the theminerzcoin: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the TheMinerzCoin network.</translation>
     </message>
 </context>
 <context>
@@ -5390,7 +5390,7 @@ Go to File &gt; Open Wallet to load a wallet.
     <message>
         <location line="+1"/>
         <source>%s corrupt. Try using the wallet tool bitcoin-wallet to salvage or restoring a backup.</source>
-        <translation>%s corrupt. Try using the wallet tool blackcoin-wallet to salvage or restoring a backup.</translation>
+        <translation>%s corrupt. Try using the wallet tool theminerzcoin-wallet to salvage or restoring a backup.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -5450,7 +5450,7 @@ Go to File &gt; Open Wallet to load a wallet.
     <message>
         <location line="+2"/>
         <source>Error: Dumpfile version is not supported. This version of bitcoin-wallet only supports version 1 dumpfiles. Got dumpfile with version %s</source>
-        <translation>Error: Dumpfile version is not supported. This version of blackcoin-wallet only supports version 1 dumpfiles. Got dumpfile with version %s</translation>
+        <translation>Error: Dumpfile version is not supported. This version of theminerzcoin-wallet only supports version 1 dumpfiles. Got dumpfile with version %s</translation>
     </message>
     <message>
         <location line="+6"/>

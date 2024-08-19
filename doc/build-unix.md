@@ -75,7 +75,7 @@ User-Space, Statically Defined Tracing (USDT) dependencies:
 
 GUI dependencies:
 
-If you want to build blackmore-qt, make sure that the required packages for Qt development
+If you want to build theminerzcoin-qt, make sure that the required packages for Qt development
 are installed. Qt 5 is necessary to build the GUI.
 To build without GUI pass `--without-gui`.
 
@@ -91,7 +91,7 @@ libqrencode (optional) can be installed with:
 
     sudo apt-get install libqrencode-dev
 
-Once these are installed, they will be found by configure and a blackmore-qt executable will be
+Once these are installed, they will be found by configure and a theminerzcoin-qt executable will be
 built by default.
 
 
@@ -132,7 +132,7 @@ User-Space, Statically Defined Tracing (USDT) dependencies:
 
 GUI dependencies:
 
-If you want to build blackmore-qt, make sure that the required packages for Qt development
+If you want to build theminerzcoin-qt, make sure that the required packages for Qt development
 are installed. Qt 5 is necessary to build the GUI.
 To build without GUI pass `--without-gui`.
 
@@ -148,7 +148,7 @@ libqrencode (optional) can be installed with:
 
     sudo dnf install qrencode-devel
 
-Once these are installed, they will be found by configure and a blackmore-qt executable will be
+Once these are installed, they will be found by configure and a theminerzcoin-qt executable will be
 built by default.
 
 ## Dependencies
@@ -165,11 +165,11 @@ want to use any other libraries built in depends, you can do:
 ```bash
 make -C depends NO_BOOST=1 NO_LIBEVENT=1 NO_QT=1 NO_SQLITE=1 NO_NATPMP=1 NO_UPNP=1 NO_ZMQ=1 NO_USDT=1
 ...
-to: /path/to/blackmore/depends/x86_64-pc-linux-gnu
+to: /path/to/theminerzcoin/depends/x86_64-pc-linux-gnu
 ```
 and configure using the following:
 ```bash
-export BDB_PREFIX="/path/to/blackmore/depends/x86_64-pc-linux-gnu"
+export BDB_PREFIX="/path/to/theminerzcoin/depends/x86_64-pc-linux-gnu"
 
 ./configure \
     BDB_LIBS="-L${BDB_PREFIX}/lib -ldb_cxx-6.2" \
@@ -203,8 +203,8 @@ Setup and Build Example: Arch Linux
 This example lists the steps necessary to setup and build a command line only distribution of the latest changes on Arch Linux:
 
     pacman --sync --needed autoconf automake boost gcc git libevent libtool make pkgconf python sqlite
-    git clone https://github.com/CoinBlack/blackcoin-more.git
-    cd blackcoin-more/
+    git clone https://github.com/CoinBlack/theminerzcoin-more.git
+    cd theminerzcoin-more/
     ./autogen.sh
     ./configure
     make check

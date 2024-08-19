@@ -1729,12 +1729,12 @@ CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams, b
 // TheMinerzCoin
 CAmount GetProofOfWorkSubsidy()
 {
-    return 10 * COIN;
+    return 10000 * COIN;
 }
 
 CAmount GetProofOfStakeSubsidy()
 {
-    return COIN * 25;
+    return COIN * 3 / 2;
 }
 
 CoinsViews::CoinsViews(DBParams db_params, CoinsViewOptions options)

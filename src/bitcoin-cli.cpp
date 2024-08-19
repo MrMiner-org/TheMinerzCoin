@@ -85,7 +85,7 @@ static void SetupCliArgs(ArgsManager& argsman)
     argsman.AddArg("-generate",
                    strprintf("Generate blocks, equivalent to RPC getnewaddress followed by RPC generatetoaddress. Optional positional integer "
                              "arguments are number of blocks to generate (default: %s) and maximum iterations to try (default: %s), equivalent to "
-                             "RPC generatetoaddress nblocks and maxtries arguments. Example: blackmore-cli -generate 4 1000",
+                             "RPC generatetoaddress nblocks and maxtries arguments. Example: theminerzcoin-cli -generate 4 1000",
                              DEFAULT_NBLOCKS, DEFAULT_MAX_TRIES),
                    ArgsManager::ALLOW_ANY, OptionsCategory::OPTIONS);
     argsman.AddArg("-addrinfo", "Get the number of addresses known to the node, per network and total, after filtering for quality and recency. The total number of addresses known to the node may be higher.", ArgsManager::ALLOW_ANY, OptionsCategory::OPTIONS);
@@ -151,10 +151,10 @@ static int AppInitRPC(int argc, char* argv[])
             strUsage += FormatParagraph(LicenseInfo());
         } else {
             strUsage += "\n"
-                "Usage:  blackmore-cli [options] <command> [params]  Send command to " PACKAGE_NAME "\n"
-                "or:     blackmore-cli [options] -named <command> [name=value]...  Send command to " PACKAGE_NAME " (with named arguments)\n"
-                "or:     blackmore-cli [options] help                List commands\n"
-                "or:     blackmore-cli [options] help <command>      Get help for a command\n";
+                "Usage:  theminerzcoin-cli [options] <command> [params]  Send command to " PACKAGE_NAME "\n"
+                "or:     theminerzcoin-cli [options] -named <command> [name=value]...  Send command to " PACKAGE_NAME " (with named arguments)\n"
+                "or:     theminerzcoin-cli [options] help                List commands\n"
+                "or:     theminerzcoin-cli [options] help <command>      Get help for a command\n";
             strUsage += "\n" + gArgs.GetHelpMessage();
         }
 
@@ -466,7 +466,7 @@ public:
             if (ParseUInt8(args.at(0), &n)) {
                 m_details_level = std::min(n, MAX_DETAIL_LEVEL);
             } else {
-                throw std::runtime_error(strprintf("invalid -netinfo argument: %s\nFor more information, run: blackmore-cli -netinfo help", args.at(0)));
+                throw std::runtime_error(strprintf("invalid -netinfo argument: %s\nFor more information, run: theminerzcoin-cli -netinfo help", args.at(0)));
             }
         }
         UniValue result(UniValue::VARR);
@@ -686,15 +686,15 @@ public:
         "* The local addresses table lists each local address broadcast by the node, the port, and the score.\n\n"
         "Examples:\n\n"
         "Peer counts table of reachable networks and list of local addresses\n"
-        "> blackmore-cli -netinfo\n\n"
+        "> theminerzcoin-cli -netinfo\n\n"
         "The same, preceded by a peers listing without address and version columns\n"
-        "> blackmore-cli -netinfo 1\n\n"
+        "> theminerzcoin-cli -netinfo 1\n\n"
         "Full dashboard\n"
-        + strprintf("> blackmore-cli -netinfo %d\n\n", MAX_DETAIL_LEVEL) +
+        + strprintf("> theminerzcoin-cli -netinfo %d\n\n", MAX_DETAIL_LEVEL) +
         "Full live dashboard, adjust --interval or --no-title as needed (Linux)\n"
-        + strprintf("> watch --interval 1 --no-title blackmore-cli -netinfo %d\n\n", MAX_DETAIL_LEVEL) +
+        + strprintf("> watch --interval 1 --no-title theminerzcoin-cli -netinfo %d\n\n", MAX_DETAIL_LEVEL) +
         "See this help\n"
-        "> blackmore-cli -netinfo help\n"};
+        "> theminerzcoin-cli -netinfo help\n"};
 };
 
 /** Process RPC generatetoaddress request. */
@@ -912,7 +912,7 @@ static void ParseError(const UniValue& error, std::string& strPrint, int& nRet)
             strPrint += ("error message:\n" + err_msg.get_str());
         }
         if (err_code.isNum() && err_code.getInt<int>() == RPC_WALLET_NOT_SPECIFIED) {
-            strPrint += "\nTry adding \"-rpcwallet=<filename>\" option to blackmore-cli command line.";
+            strPrint += "\nTry adding \"-rpcwallet=<filename>\" option to theminerzcoin-cli command line.";
         }
     } else {
         strPrint = "error: " + error.write();

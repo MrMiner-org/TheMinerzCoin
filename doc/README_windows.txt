@@ -11,7 +11,7 @@ with each other, with the help of a P2P network to check for double-spending.
 
 Setup
 -----
-Unpack the files into a directory and run blackmore-qt.exe.
+Unpack the files into a directory and run theminerzcoin-qt.exe.
 
 TheMinerzCoin  is the original TheMinerzCoin client and it builds the backbone of the network.
 However, it downloads and stores the entire history of TheMinerzCoin transactions;
@@ -22,7 +22,7 @@ See the TheMinerzCoin  website at:
 https://blackcoinmore.org
 
 See the TheMinerzCoin website at:
-  https://blackcoin.org
+  https://theminerzcoin.org
 
 Also see the bitcoin wiki at:
   https://en.bitcoin.it/wiki/Main_Page

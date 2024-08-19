@@ -72,14 +72,14 @@ Now that all the required dependencies are installed, let's clone the TheMinerzC
 All build scripts and commands will run from this directory.
 
 ``` bash
-git clone https://github.com/CoinBlack/blackcoin-more.git
+git clone https://github.com/CoinBlack/theminerzcoin-more.git
 ```
 
 ### 5. Install Optional Dependencies
 
 #### Wallet Dependencies
 
-It is not necessary to build wallet functionality to run `blackmored` or  `blackmore-qt`.
+It is not necessary to build wallet functionality to run `blackmored` or  `theminerzcoin-qt`.
 
 ###### Descriptor Wallet Support
 
@@ -246,9 +246,9 @@ make deploy
 ## Running TheMinerzCoin 
 
 TheMinerzCoin  should now be available at `./src/blackmored`.
-If you compiled support for the GUI, it should be available at `./src/qt/blackmore-qt`.
+If you compiled support for the GUI, it should be available at `./src/qt/theminerzcoin-qt`.
 
-The first time you run `blackmored` or `blackmore-qt`, it will start downloading the blockchain.
+The first time you run `blackmored` or `theminerzcoin-qt`, it will start downloading the blockchain.
 This process could take many hours, or even days on slower than average systems.
 
 By default, blockchain and wallet data files will be stored in:
@@ -262,9 +262,9 @@ Before running, you may create an empty configuration file:
 ```shell
 mkdir -p "/Users/${USER}/Library/Application Support/Blackmore"
 
-touch "/Users/${USER}/Library/Application Support/Blackmore/blackmore.conf"
+touch "/Users/${USER}/Library/Application Support/Blackmore/theminerzcoin.conf"
 
-chmod 600 "/Users/${USER}/Library/Application Support/Blackmore/blackmore.conf"
+chmod 600 "/Users/${USER}/Library/Application Support/Blackmore/theminerzcoin.conf"
 ```
 
 You can monitor the download process by looking at the debug.log file:
@@ -276,8 +276,8 @@ tail -f $HOME/Library/Application\ Support/Blackmore/debug.log
 ## Other commands:
 
 ```shell
-./src/blackmored -daemon      # Starts the blackmore daemon.
-./src/blackmore-cli --help    # Outputs a list of command-line options.
-./src/blackmore-cli help      # Outputs a list of RPC commands when the daemon is running.
-./src/qt/blackmore-qt -server # Starts the blackmore-qt server mode, allows blackmore-cli control
+./src/blackmored -daemon      # Starts the theminerzcoin daemon.
+./src/theminerzcoin-cli --help    # Outputs a list of command-line options.
+./src/theminerzcoin-cli help      # Outputs a list of RPC commands when the daemon is running.
+./src/qt/theminerzcoin-qt -server # Starts the theminerzcoin-qt server mode, allows theminerzcoin-cli control
 ```

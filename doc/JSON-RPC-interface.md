@@ -1,7 +1,7 @@
 # JSON-RPC Interface
 
 The headless daemon `blackmored` has the JSON-RPC API enabled by default, the GUI
-`blackmore-qt` has it disabled by default. This can be changed with the `-server`
+`theminerzcoin-qt` has it disabled by default. This can be changed with the `-server`
 option. In the GUI it is possible to execute RPC methods in the Debug Console
 Dialog.
 

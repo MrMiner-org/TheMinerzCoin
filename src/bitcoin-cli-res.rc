@@ -15,13 +15,13 @@ BEGIN
         BLOCK "040904E4" // U.S. English - multilingual (hex)
         BEGIN
             VALUE "CompanyName",        "TheMinerzCoin"
-            VALUE "FileDescription",    "blackmore-cli (JSON-RPC client for " PACKAGE_NAME ")"
+            VALUE "FileDescription",    "theminerzcoin-cli (JSON-RPC client for " PACKAGE_NAME ")"
             VALUE "FileVersion",        PACKAGE_VERSION
-            VALUE "InternalName",       "blackmore-cli"
+            VALUE "InternalName",       "theminerzcoin-cli"
             VALUE "LegalCopyright",     COPYRIGHT_STR
             VALUE "LegalTrademarks1",   "Distributed under the MIT software license, see the accompanying file COPYING or http://www.opensource.org/licenses/mit-license.php."
-            VALUE "OriginalFilename",   "blackmore-cli.exe"
-            VALUE "ProductName",        "blackmore-cli"
+            VALUE "OriginalFilename",   "theminerzcoin-cli.exe"
+            VALUE "ProductName",        "theminerzcoin-cli"
             VALUE "ProductVersion",     PACKAGE_VERSION
         END
     END

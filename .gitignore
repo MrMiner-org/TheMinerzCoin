@@ -154,31 +154,31 @@ dist/
 # TheMinerzCoin specifics
 
 #binaries
-src/blackmore
+src/theminerzcoin
 src/blackmored
-src/blackmore-cli
-src/blackmore-gui
-src/blackmore-node
-src/blackmore-tx
-src/blackmore-util
-src/blackmore-chainstate
-src/blackmore-wallet
+src/theminerzcoin-cli
+src/theminerzcoin-gui
+src/theminerzcoin-node
+src/theminerzcoin-tx
+src/theminerzcoin-util
+src/theminerzcoin-chainstate
+src/theminerzcoin-wallet
 src/test/test_blackmore
 src/qt/test/test_blackmore-qt
 
 # autoreconf
-src/qt/blackmore-qt.config
-src/qt/blackmore-qt.creator
-src/qt/blackmore-qt.creator.user
-src/qt/blackmore-qt.files
-src/qt/blackmore-qt.includes
+src/qt/theminerzcoin-qt.config
+src/qt/theminerzcoin-qt.creator
+src/qt/theminerzcoin-qt.creator.user
+src/qt/theminerzcoin-qt.files
+src/qt/theminerzcoin-qt.includes
 
 # Compilation and Qt preprocessor part
-src/qt/blackmore-qt
+src/qt/theminerzcoin-qt
 Blackmore-Qt.app
 
 # Unit-tests
-blackmore-qt_test
+theminerzcoin-qt_test
 
 # Output from running db62 installation
 db62/

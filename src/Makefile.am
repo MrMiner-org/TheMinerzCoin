@@ -89,29 +89,29 @@ if BUILD_BITCOIND
 endif
 
 if BUILD_BITCOIN_NODE
-  bin_PROGRAMS += blackmore-node
+  bin_PROGRAMS += theminerzcoin-node
 endif
 
 if BUILD_BITCOIN_CLI
-  bin_PROGRAMS += blackmore-cli
+  bin_PROGRAMS += theminerzcoin-cli
 endif
 
 if BUILD_BITCOIN_TX
-  bin_PROGRAMS += blackmore-tx
+  bin_PROGRAMS += theminerzcoin-tx
 endif
 
 if ENABLE_WALLET
 if BUILD_BITCOIN_WALLET
-  bin_PROGRAMS += blackmore-wallet
+  bin_PROGRAMS += theminerzcoin-wallet
 endif
 endif
 
 if BUILD_BITCOIN_UTIL
-  bin_PROGRAMS += blackmore-util
+  bin_PROGRAMS += theminerzcoin-util
 endif
 
 if BUILD_BITCOIN_CHAINSTATE
-  bin_PROGRAMS += blackmore-chainstate
+  bin_PROGRAMS += theminerzcoin-chainstate
 endif
 
 .PHONY: FORCE check-symbols check-security
@@ -783,7 +783,7 @@ libbitcoin_cli_a_SOURCES = \
 nodist_libbitcoin_util_a_SOURCES = $(srcdir)/obj/build.h
 #
 
-# blackmored & blackmore-node binaries #
+# blackmored & theminerzcoin-node binaries #
 blackmore_daemon_sources = bitcoind.cpp
 blackmore_bin_cppflags = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
 blackmore_bin_cxxflags = $(AM_CXXFLAGS) $(PIE_FLAGS)
@@ -819,7 +819,7 @@ blackmore_node_CXXFLAGS = $(blackmore_bin_cxxflags)
 blackmore_node_LDFLAGS = $(blackmore_bin_ldflags)
 blackmore_node_LDADD = $(LIBBITCOIN_NODE) $(blackmore_bin_ldadd) $(LIBBITCOIN_IPC) $(LIBMULTIPROCESS_LIBS)
 
-# blackmore-cli binary #
+# theminerzcoin-cli binary #
 blackmore_cli_SOURCES = bitcoin-cli.cpp
 blackmore_cli_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(EVENT_CFLAGS)
 blackmore_cli_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
@@ -839,7 +839,7 @@ blackmore_cli_LDADD = \
 blackmore_cli_LDADD += $(EVENT_LIBS)
 #
 
-# blackmore-tx binary #
+# theminerzcoin-tx binary #
 blackmore_tx_SOURCES = \
   bitcoin-tx.cpp \
   timedatadummy.cpp
@@ -860,7 +860,7 @@ blackmore_tx_LDADD = \
   $(LIBSECP256K1)
 #
 
-# blackmore-wallet binary #
+# theminerzcoin-wallet binary #
 blackmore_wallet_SOURCES = bitcoin-wallet.cpp
 blackmore_wallet_SOURCES += init/bitcoin-wallet.cpp
 blackmore_wallet_CPPFLAGS = $(blackmore_bin_cppflags)
@@ -884,7 +884,7 @@ blackmore_wallet_SOURCES += bitcoin-wallet-res.rc
 endif
 #
 
-# blackmore-util binary #
+# theminerzcoin-util binary #
 blackmore_util_SOURCES = bitcoin-util.cpp
 blackmore_util_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
 blackmore_util_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
@@ -903,7 +903,7 @@ blackmore_util_LDADD = \
   $(LIBSECP256K1)
 #
 
-# blackmore-chainstate binary #
+# theminerzcoin-chainstate binary #
 blackmore_chainstate_SOURCES = bitcoin-chainstate.cpp
 blackmore_chainstate_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(BOOST_CPPFLAGS)
 blackmore_chainstate_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)

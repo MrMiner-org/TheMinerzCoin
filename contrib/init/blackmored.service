@@ -5,13 +5,13 @@
 # See "man systemd.service" for details.
 
 # Note that almost all daemon options could be specified in
-# /etc/blackmore/blackmore.conf, but keep in mind those explicitly
+# /etc/theminerzcoin/theminerzcoin.conf, but keep in mind those explicitly
 # specified as arguments in ExecStart= will override those in the
 # config file.
 
 [Unit]
 Description=TheMinerzCoin daemon
-Documentation=https://github.com/CoinBlack/blackcoin-more/blob/master/doc/init.md
+Documentation=https://github.com/CoinBlack/theminerzcoin-more/blob/master/doc/init.md
 
 # https://www.freedesktop.org/wiki/Software/systemd/NetworkTarget/
 After=network-online.target
@@ -19,14 +19,14 @@ Wants=network-online.target
 
 [Service]
 ExecStart=/usr/bin/blackmored -pid=/run/blackmored/blackmored.pid \
-                            -conf=/etc/blackmore/blackmore.conf \
+                            -conf=/etc/theminerzcoin/theminerzcoin.conf \
                             -datadir=/var/lib/blackmored \
                             -startupnotify='systemd-notify --ready' \
                             -shutdownnotify='systemd-notify --stopping'
 
 # Make sure the config directory is readable by the service user
 PermissionsStartOnly=true
-ExecStartPre=/bin/chgrp blackcoin /etc/blackmore
+ExecStartPre=/bin/chgrp theminerzcoin /etc/theminerzcoin
 
 # Process management
 ####################
@@ -42,16 +42,16 @@ TimeoutStopSec=600
 # Directory creation and permissions
 ####################################
 
-# Run as blackcoin:blackcoin
-User=blackcoin
-Group=blackcoin
+# Run as theminerzcoin:theminerzcoin
+User=theminerzcoin
+Group=theminerzcoin
 
 # /run/blackmored
 RuntimeDirectory=blackmored
 RuntimeDirectoryMode=0710
 
-# /etc/blackmore
-ConfigurationDirectory=blackmore
+# /etc/theminerzcoin
+ConfigurationDirectory=theminerzcoin
 ConfigurationDirectoryMode=0710
 
 # /var/lib/blackmored

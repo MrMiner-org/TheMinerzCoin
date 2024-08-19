@@ -15,12 +15,12 @@ The following are some helpful notes on how to run TheMinerzCoin  on your native
 
 Unpack the files into a directory and run:
 
-- `bin/blackmore-qt` (GUI) or
+- `bin/theminerzcoin-qt` (GUI) or
 - `bin/blackmored` (headless)
 
 ### Windows
 
-Unpack the files into a directory, and then run blackmore-qt.exe.
+Unpack the files into a directory, and then run theminerzcoin-qt.exe.
 
 ### macOS
 

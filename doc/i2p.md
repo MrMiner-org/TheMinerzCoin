@@ -51,7 +51,7 @@ blackmored -i2psam=127.0.0.1:7656
 ```
 
 Set the `debug=i2p` config logging option to see additional information in the
-debug log about your I2P configuration and connections. Run `blackmore-cli help
+debug log about your I2P configuration and connections. Run `theminerzcoin-cli help
 logging` for more information.
 
 ```
@@ -66,7 +66,7 @@ I2P support was added to TheMinerzCoin  in version 22.0 and there may be fewer I
 peers than Tor or IP ones. Therefore, using I2P alone without other networks may
 make a node more susceptible to [Sybil
 attacks](https://en.bitcoin.it/wiki/Weaknesses#Sybil_attack). You can use
-`blackmore-cli -addrinfo` to see the number of I2P addresses known to your node.
+`theminerzcoin-cli -addrinfo` to see the number of I2P addresses known to your node.
 
 Another consideration with `onlynet=i2p` is that the initial blocks download
 phase when syncing up a new node can be very slow. This phase can be sped up by
@@ -106,8 +106,8 @@ incoming I2P connections (`-i2pacceptincoming`):
 - in the "localaddresses" output of RPC `getnetworkinfo`
 - in the debug log (grep for `AddLocal`; the I2P address ends in `.b32.i2p`)
 
-To see which I2P peers your node is connected to, use `blackmore-cli -netinfo 4`
-or the `getpeerinfo` RPC (e.g. `blackmore-cli getpeerinfo`).
+To see which I2P peers your node is connected to, use `theminerzcoin-cli -netinfo 4`
+or the `getpeerinfo` RPC (e.g. `theminerzcoin-cli getpeerinfo`).
 
 You can use the `getnodeaddresses` RPC to fetch a number of I2P peers known to your node; run `bitcoin-cli help getnodeaddresses` for details.
 

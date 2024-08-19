@@ -17,7 +17,7 @@
 
 /**
  * Name of client reported in the 'version' message. Report the same name
- * for both blackmored and blackmore-qt, to make it harder for attackers to
+ * for both blackmored and theminerzcoin-qt, to make it harder for attackers to
  * target servers or GUI users specifically.
  */
 const std::string CLIENT_NAME("TheMinerzCoin ");
@@ -103,7 +103,7 @@ std::string CopyrightHolders(const std::string& strPrefix)
 
 std::string LicenseInfo()
 {
-    const std::string URL_SOURCE_CODE = "<https://github.com/CoinBlack/blackcoin-more>";
+    const std::string URL_SOURCE_CODE = "<https://github.com/CoinBlack/theminerzcoin-more>";
 
     return strprintf(_("Copyright (C) 2009-%i The Bitcoin Core Developers").translated, COPYRIGHT_YEAR) +
            "\n" +

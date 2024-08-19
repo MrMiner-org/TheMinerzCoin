@@ -13,7 +13,7 @@
 class ArgsManager;
 
 /**
- * CBaseChainParams defines the base parameters (shared between blackmore-cli and blackmored)
+ * CBaseChainParams defines the base parameters (shared between theminerzcoin-cli and blackmored)
  * of a given instance of the Bitcoin system.
  */
 class CBaseChainParams

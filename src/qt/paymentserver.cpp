@@ -33,7 +33,7 @@
 #include <QUrlQuery>
 
 const int BITCOIN_IPC_CONNECT_TIMEOUT = 1000; // milliseconds
-const QString BITCOIN_IPC_PREFIX("blackcoin:");
+const QString BITCOIN_IPC_PREFIX("theminerzcoin:");
 
 //
 // Create a name that is unique for:
@@ -126,7 +126,7 @@ PaymentServer::PaymentServer(QObject* parent, bool startLocalServer)
     : QObject(parent)
 {
     // Install global event filter to catch QFileOpenEvents
-    // on Mac: sent when you click blackcoin: links
+    // on Mac: sent when you click theminerzcoin: links
     // other OSes: helpful when dealing with payment request files
     if (parent)
         parent->installEventFilter(this);
@@ -143,7 +143,7 @@ PaymentServer::PaymentServer(QObject* parent, bool startLocalServer)
         if (!uriServer->listen(name)) {
             // constructor is called early in init, so don't use "Q_EMIT message()" here
             QMessageBox::critical(nullptr, tr("Payment request error"),
-                tr("Cannot start blackcoin: click-to-pay handler"));
+                tr("Cannot start theminerzcoin: click-to-pay handler"));
         }
         else {
             connect(uriServer, &QLocalServer::newConnection, this, &PaymentServer::handleURIConnection);
@@ -154,7 +154,7 @@ PaymentServer::PaymentServer(QObject* parent, bool startLocalServer)
 PaymentServer::~PaymentServer() = default;
 
 //
-// OSX-specific way of handling blackcoin: URIs
+// OSX-specific way of handling theminerzcoin: URIs
 //
 bool PaymentServer::eventFilter(QObject *object, QEvent *event)
 {
@@ -189,12 +189,12 @@ void PaymentServer::handleURIOrFile(const QString& s)
         return;
     }
 
-    if (s.startsWith("blackcoin://", Qt::CaseInsensitive))
+    if (s.startsWith("theminerzcoin://", Qt::CaseInsensitive))
     {
-        Q_EMIT message(tr("URI handling"), tr("'blackcoin://' is not a valid URI. Use 'blackcoin:' instead."),
+        Q_EMIT message(tr("URI handling"), tr("'theminerzcoin://' is not a valid URI. Use 'theminerzcoin:' instead."),
             CClientUIInterface::MSG_ERROR);
     }
-    else if (s.startsWith(BITCOIN_IPC_PREFIX, Qt::CaseInsensitive)) // blackcoin: URI
+    else if (s.startsWith(BITCOIN_IPC_PREFIX, Qt::CaseInsensitive)) // theminerzcoin: URI
     {
         QUrlQuery uri((QUrl(s)));
         // normal URI

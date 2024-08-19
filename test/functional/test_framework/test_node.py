@@ -78,7 +78,7 @@ class TestNode():
         self.index = i
         self.p2p_conn_index = 1
         self.datadir_path = datadir_path
-        self.bitcoinconf = self.datadir_path / "blackmore.conf"
+        self.bitcoinconf = self.datadir_path / "theminerzcoin.conf"
         self.stdout_dir = self.datadir_path / "stdout"
         self.stderr_dir = self.datadir_path / "stderr"
         self.chain = chain
@@ -95,7 +95,7 @@ class TestNode():
         # Note that common args are set in the config file (see initialize_datadir)
         self.extra_args = extra_args
         self.version = version
-        # Configuration for logging is set as command-line args rather than in the blackmore.conf file.
+        # Configuration for logging is set as command-line args rather than in the theminerzcoin.conf file.
         # This means that starting a blackmored using the temp dir to debug a failed test won't
         # spam debug.log.
         self.args = [

@@ -19,13 +19,13 @@ See [dependencies.md](dependencies.md) for a complete overview.
 ### 2. Clone TheMinerzCoin Repo
 Now that `git` and all the required dependencies are installed, let's clone the TheMinerzCoin  repository to a directory. All build scripts and commands will run from this directory.
 ``` bash
-git clone https://github.com/CoinBlack/blackcoin-more.git
+git clone https://github.com/CoinBlack/theminerzcoin-more.git
 ```
 
 ### 3. Install Optional Dependencies
 
 #### Wallet Dependencies
-It is not necessary to build wallet functionality to run either `blackmored` or `blackmore-qt`.
+It is not necessary to build wallet functionality to run either `blackmored` or `theminerzcoin-qt`.
 
 ###### Descriptor Wallet Support
 

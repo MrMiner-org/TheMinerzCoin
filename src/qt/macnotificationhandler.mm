@@ -13,7 +13,7 @@
 - (NSString *)__bundleIdentifier
 {
     if (self == [NSBundle mainBundle]) {
-        return @"org.blackcoin.Blackmore-Qt";
+        return @"org.theminerzcoin.Blackmore-Qt";
     } else {
         return [self __bundleIdentifier];
     }

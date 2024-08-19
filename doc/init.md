@@ -13,7 +13,7 @@ can be found in the contrib/init folder.
 Service User
 ---------------------------------
 
-All three Linux startup configurations assume the existence of a "blackcoin" user
+All three Linux startup configurations assume the existence of a "theminerzcoin" user
 and group.  They must be created before attempting to use these scripts.
 The macOS configuration assumes blackmored will be set up for the current user.
 
@@ -21,7 +21,7 @@ Configuration
 ---------------------------------
 
 Running blackmored as a daemon does not require any manual configuration. You may
-set the `rpcauth` setting in the `blackmore.conf` configuration file to override
+set the `rpcauth` setting in the `theminerzcoin.conf` configuration file to override
 the default behaviour of using a special cookie for authentication.
 
 This password does not have to be remembered or typed as it is mostly used
@@ -44,7 +44,7 @@ This allows for running blackmored without having to do any manual configuration
 relative to the data directory. `wallet` *only* supports relative paths.
 
 For an example configuration file that describes the configuration settings,
-see `share/examples/blackmore.conf`.
+see `share/examples/theminerzcoin.conf`.
 
 Paths
 ---------------------------------
@@ -54,30 +54,30 @@ Paths
 All three configurations assume several paths that might need to be adjusted.
 
     Binary:              /usr/bin/blackmored
-    Configuration file:  /etc/blackcoin/blackmore.conf
+    Configuration file:  /etc/theminerzcoin/theminerzcoin.conf
     Data directory:      /var/lib/blackmored
     PID file:            /var/run/blackmored/blackmored.pid (OpenRC and Upstart) or
                          /run/blackmored/blackmored.pid (systemd)
     Lock file:           /var/lock/subsys/blackmored (CentOS)
 
 The PID directory (if applicable) and data directory should both be owned by the
-blackcoin user and group. It is advised for security reasons to make the
-configuration file and data directory only readable by the blackcoin user and
-group. Access to blackmore-cli and other blackmored rpc clients can then be
+theminerzcoin user and group. It is advised for security reasons to make the
+configuration file and data directory only readable by the theminerzcoin user and
+group. Access to theminerzcoin-cli and other blackmored rpc clients can then be
 controlled by group membership.
 
 NOTE: When using the systemd .service file, the creation of the aforementioned
 directories and the setting of their permissions is automatically handled by
-systemd. Directories are given a permission of 710, giving the blackcoin group
+systemd. Directories are given a permission of 710, giving the theminerzcoin group
 access to files under it _if_ the files themselves give permission to the
-blackcoin group to do so. This does not allow
+theminerzcoin group to do so. This does not allow
 for the listing of files under the directory.
 
 NOTE: It is not currently possible to override `datadir` in
-`/etc/blackcoin/blackmore.conf` with the current systemd, OpenRC, and Upstart init
+`/etc/theminerzcoin/theminerzcoin.conf` with the current systemd, OpenRC, and Upstart init
 files out-of-the-box. This is because the command line options specified in the
 init files take precedence over the configurations in
-`/etc/blackcoin/blackmore.conf`. However, some init systems have their own
+`/etc/theminerzcoin/theminerzcoin.conf`. However, some init systems have their own
 configuration mechanisms that would allow for overriding the command line
 options specified in the init files (e.g. setting `BITCOIND_DATADIR` for
 OpenRC).
@@ -85,7 +85,7 @@ OpenRC).
 ### macOS
 
     Binary:              /usr/local/bin/blackmored
-    Configuration file:  ~/Library/Application Support/TheMinerzCoin/blackmore.conf
+    Configuration file:  ~/Library/Application Support/TheMinerzCoin/theminerzcoin.conf
     Data directory:      ~/Library/Application Support/TheMinerzCoin
     Lock file:           ~/Library/Application Support/TheMinerzCoin/.lock
 
@@ -130,14 +130,14 @@ setting the BLACKMORED and FLAGS environment variables in the file
 
 ### macOS
 
-Copy org.blackcoin.blackmored.plist into ~/Library/LaunchAgents. Load the launch agent by
-running `launchctl load ~/Library/LaunchAgents/org.blackcoin.blackmored.plist`.
+Copy org.theminerzcoin.blackmored.plist into ~/Library/LaunchAgents. Load the launch agent by
+running `launchctl load ~/Library/LaunchAgents/org.theminerzcoin.blackmored.plist`.
 
 This Launch Agent will cause blackmored to start whenever the user logs in.
 
 NOTE: This approach is intended for those wanting to run blackmored as the current user.
-You will need to modify org.blackcoin.blackmored.plist if you intend to use it as a
-Launch Daemon with a dedicated blackcoin user.
+You will need to modify org.theminerzcoin.blackmored.plist if you intend to use it as a
+Launch Daemon with a dedicated theminerzcoin user.
 
 Auto-respawn
 -----------------------------------

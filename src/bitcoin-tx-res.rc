@@ -15,13 +15,13 @@ BEGIN
         BLOCK "040904E4" // U.S. English - multilingual (hex)
         BEGIN
             VALUE "CompanyName",        "TheMinerzCoin"
-            VALUE "FileDescription",    "blackmore-tx (CLI TheMinerzCoin transaction editor utility)"
+            VALUE "FileDescription",    "theminerzcoin-tx (CLI TheMinerzCoin transaction editor utility)"
             VALUE "FileVersion",        PACKAGE_VERSION
-            VALUE "InternalName",       "blackmore-tx"
+            VALUE "InternalName",       "theminerzcoin-tx"
             VALUE "LegalCopyright",     COPYRIGHT_STR
             VALUE "LegalTrademarks1",   "Distributed under the MIT software license, see the accompanying file COPYING or http://www.opensource.org/licenses/mit-license.php."
-            VALUE "OriginalFilename",   "blackmore-tx.exe"
-            VALUE "ProductName",        "blackmore-tx"
+            VALUE "OriginalFilename",   "theminerzcoin-tx.exe"
+            VALUE "ProductName",        "theminerzcoin-tx"
             VALUE "ProductVersion",     PACKAGE_VERSION
         END
     END

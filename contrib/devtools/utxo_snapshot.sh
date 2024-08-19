@@ -11,15 +11,15 @@ set -ueo pipefail
 NETWORK_DISABLED=false
 
 if (( $# < 3 )); then
-  echo 'Usage: utxo_snapshot.sh <generate-at-height> <snapshot-out-path> <blackmore-cli-call ...>'
+  echo 'Usage: utxo_snapshot.sh <generate-at-height> <snapshot-out-path> <theminerzcoin-cli-call ...>'
   echo
   echo "  if <snapshot-out-path> is '-', don't produce a snapshot file but instead print the "
   echo "  expected assumeutxo hash"
   echo
   echo 'Examples:'
   echo
-  echo "  ./contrib/devtools/utxo_snapshot.sh 4200000 utxo.dat ./src/blackmore-cli -datadir=\$(pwd)/testdata"
-  echo '  ./contrib/devtools/utxo_snapshot.sh 4200000 - ./src/blackmore-cli'
+  echo "  ./contrib/devtools/utxo_snapshot.sh 4200000 utxo.dat ./src/theminerzcoin-cli -datadir=\$(pwd)/testdata"
+  echo '  ./contrib/devtools/utxo_snapshot.sh 4200000 - ./src/theminerzcoin-cli'
   exit 1
 fi
 
