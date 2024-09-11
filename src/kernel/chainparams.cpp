@@ -151,10 +151,10 @@ public:
         // This is fine at runtime as we'll fall back to using them as an addrfetch if they don't support the
         // service bits we want, but we should get them updated to support all service bits wanted by any
         // release ASAP to avoid it where possible.
-        vSeeds.emplace_back("184.174.34.86")
-        vSeeds.emplace_back("161.97.132.124")
-		vSeeds.emplace_back("84.247.184.164")
-        vSeeds.emplace_back("75.119.136.103")
+        vSeeds.emplace_back("184.174.34.86");
+        vSeeds.emplace_back("161.97.132.124");
+		vSeeds.emplace_back("84.247.184.164");
+        vSeeds.emplace_back("75.119.136.103");
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,65);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,66);
