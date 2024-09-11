@@ -1667,7 +1667,7 @@ CAmount GetProofOfWorkSubsidy(int nHeight, const Consensus::Params& consensusPar
 }
 CAmount GetProofOfStakeSubsidy(int nHeight, const Consensus::Params& consensusParams)
 {
-    if (nHeight >= 11500 && IsProofOfStake()) {
+    if (nHeight >= 11500 && CheckProofOfStake()) {
         return 25 * COIN;  // Neue PoS Belohnung: 25 Coins
 }
     // Für Blöcke vor 11.500
