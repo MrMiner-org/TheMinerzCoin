@@ -1,13 +1,13 @@
 AC_PREREQ([2.69])
 define(_CLIENT_VERSION_MAJOR, 2)
-define(_CLIENT_VERSION_MINOR, 1)
-define(_CLIENT_VERSION_BUILD, 0)
+define(_CLIENT_VERSION_MINOR, 0)
+define(_CLIENT_VERSION_BUILD, 1)
 define(_CLIENT_VERSION_RC, 0)
 define(_CLIENT_VERSION_IS_RELEASE, true)
 define(_COPYRIGHT_YEAR, 2024)
 define(_COPYRIGHT_HOLDERS,[The %s developers])
 define(_COPYRIGHT_HOLDERS_SUBSTITUTION,[[TheMinerzCoin]])
-AC_INIT([Blackcoin More],m4_join([.], _CLIENT_VERSION_MAJOR, _CLIENT_VERSION_MINOR, _CLIENT_VERSION_BUILD)m4_if(_CLIENT_VERSION_RC, [0], [], [rc]_CLIENT_VERSION_RC),[https://github.com/MrMiner-org/TheMinerzCoin/issues],[theminerzcoin],[https://theminerzcoin.eu//])
+AC_INIT([TheMinerzCoin],m4_join([.], _CLIENT_VERSION_MAJOR, _CLIENT_VERSION_MINOR, _CLIENT_VERSION_BUILD)m4_if(_CLIENT_VERSION_RC, [0], [], [rc]_CLIENT_VERSION_RC),[https://github.com/MrMiner-org/TheMinerzCoin/issues],[theminerzcoin],[https://theminerzcoin.eu//])
 AC_CONFIG_SRCDIR([src/validation.cpp])
 AC_CONFIG_HEADERS([src/config/bitcoin-config.h])
 AC_CONFIG_AUX_DIR([build-aux])
@@ -31,7 +31,7 @@ fi
 
 BITCOIN_DAEMON_NAME=theminerzcoind
 BITCOIN_GUI_NAME=theminerzcoin-qt
-BITCOIN_TEST_NAME=test_blackmore
+BITCOIN_TEST_NAME=test_theminerzcoind
 BITCOIN_CLI_NAME=theminerzcoin-cli
 BITCOIN_TX_NAME=theminerzcoin-tx
 BITCOIN_UTIL_NAME=theminerzcoin-util
