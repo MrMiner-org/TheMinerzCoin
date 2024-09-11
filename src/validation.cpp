@@ -1657,14 +1657,23 @@ CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams, b
 // Blackcoin
 CAmount GetProofOfWorkSubsidy()
 {
-    return 10000 * COIN;
+    // Block-Belohnung für PoW ab Block 11.500
+    if (nHeight >= 11500) {
+        return 10 * COIN;  // Neue PoW Belohnung: 10 Coins
 }
-
+    if (nHeight < 11500) {
+        return 50 * COIN;  // Alte PoW Belohnung: 50 Coins
+    }
 CAmount GetProofOfStakeSubsidy()
 {
-    return COIN * 3 / 2;
+    if (nHeight >= 11500 && IsProofOfStake()) {
+        return 25 * COIN;  // Neue PoS Belohnung: 25 Coins
 }
-
+    // Für Blöcke vor 11.500
+    if (nHeight < 11500) {
+        return 2 * COIN;  // Alte PoW Belohnung: 2 Coins
+    }
+}
 CoinsViews::CoinsViews(DBParams db_params, CoinsViewOptions options)
     : m_dbview{std::move(db_params), std::move(options)},
       m_catcherview(&m_dbview) {}
