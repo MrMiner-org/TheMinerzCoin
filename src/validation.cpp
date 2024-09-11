@@ -1646,31 +1646,24 @@ PackageMempoolAcceptResult ProcessNewPackage(Chainstate& active_chainstate, CTxM
     return result;
 }
 
-CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams)
+CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams, bool fProofOfStake)
 {
-    if (nHeight == 0) {
-        return 500000 * COIN; // Genesis Block Premine (falls benötigt)
-    }
-    
-    // Belohnungsänderungen ab Block 11.500
-    if (nHeight >= 11500) {
-        if (IsProofOfWork(nHeight)) {
-            return 10 * COIN;  // Neue PoW Blockbelohnung ab Block 11.500
-        } else if (IsProofOfStake(nHeight)) {
-            return 25 * COIN;  // Neue PoS Blockbelohnung ab Block 11.500
-        }
-    } else {
-        // Vor Block 11.500
-        if (IsProofOfWork(nHeight)) {
-            return 50 * COIN;  // Ursprüngliche PoW Blockbelohnung
-        } else if (IsProofOfStake(nHeight)) {
-            return 2 * COIN;   // Ursprüngliche PoS Blockbelohnung
-        }
-    }
+    if (fProofOfStake)
+        return GetProofOfStakeSubsidy();
 
-    return 0;
+    return GetProofOfWorkSubsidy();
 }
 
+// Blackcoin
+CAmount GetProofOfWorkSubsidy()
+{
+    return 10000 * COIN;
+}
+
+CAmount GetProofOfStakeSubsidy()
+{
+    return COIN * 3 / 2;
+}
 
 CoinsViews::CoinsViews(DBParams db_params, CoinsViewOptions options)
     : m_dbview{std::move(db_params), std::move(options)},
@@ -1727,37 +1720,7 @@ void Chainstate::InitCoinsCache(size_t cache_size_bytes)
     m_coinstip_cache_size_bytes = cache_size_bytes;
     m_coins_views->InitCache();
 }
-bool IsProofOfWork(int nHeight)
-{
-    // Wenn die Blockhöhe kleiner als die Max-PoW-Höhe ist, dann PoW
-    return nHeight < consensusParams.nMaxPoWHeight;
-}
 
-bool IsProofOfStake(int nHeight)
-{
-    // Wenn die Blockhöhe kleiner als die Max-PoS-Höhe ist, dann PoS
-    return nHeight < consensusParams.nMaxPoSHeight;
-}
-bool IsBlockPayeeValid(const CTransaction& txNew, int nBlockHeight, CAmount blockReward)
-{
-    if (nBlockHeight >= 82000) {
-        // Neue Regeln für PoW und PoS ab Block 82.000
-        if (IsProofOfWork(nBlockHeight)) {
-            return blockReward == 10 * COIN;
-        } else if (IsProofOfStake(nBlockHeight)) {
-            return blockReward == 25 * COIN;
-        }
-    } else {
-        // Alte Regeln für PoW und PoS vor Block 82.000
-        if (IsProofOfWork(nBlockHeight)) {
-            return blockReward == 50 * COIN;
-        } else if (IsProofOfStake(nBlockHeight)) {
-            return blockReward == 2 * COIN;
-        }
-    }
-
-    return true;
-}
 // Note that though this is marked const, we may end up modifying `m_cached_finished_ibd`, which
 // is a performance-related implementation detail. This function must be marked
 // `const` so that `CValidationInterface` clients (which are given a `const Chainstate*`)
@@ -3948,18 +3911,7 @@ static bool ContextualCheckBlockHeader(const CBlockHeader& block, BlockValidatio
         if (!blockman.CheckHardened(nHeight, block.GetHash(), chainman.GetParams().Checkpoints())) {
             return state.Invalid(BlockValidationResult::BLOCK_CHECKPOINT, "bad-fork-hardened-checkpoint", strprintf("%s: expected hardened checkpoint at height %d", __func__, nHeight));
         }
-    // Blockhöhenbeschränkung für PoW ab Block 82.000
-    if (nHeight >= 82000 && nHeight > consensusParams.nMaxPoWHeight && IsProofOfWork(nHeight)) {
-        return state.DoS(100, false, REJECT_INVALID, "pow-limit-exceeded", false, "Maximale Anzahl PoW-Blöcke erreicht");
     }
-
-    // Blockhöhenbeschränkung für PoS ab Block 82.000
-    if (nHeight >= 82000 && nHeight > consensusParams.nMaxPoSHeight && IsProofOfStake(nHeight)) {
-        return state.DoS(100, false, REJECT_INVALID, "pos-limit-exceeded", false, "Maximale Anzahl PoS-Blöcke erreicht");
-    }
-
-    return true;
-}
 
     // Qtum
     // Check that the block satisfies synchronized checkpoint

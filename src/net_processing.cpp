@@ -615,30 +615,7 @@ public:
     void ProcessMessage(CNode& pfrom, const std::string& msg_type, CDataStream& vRecv,
                         const std::chrono::microseconds time_received, const std::atomic<bool>& interruptMsgProc) override
         EXCLUSIVE_LOCKS_REQUIRED(!m_peer_mutex, !m_recent_confirmed_transactions_mutex, !m_most_recent_block_mutex, !m_headers_presync_mutex, g_msgproc_mutex);
-		    {if (strCommand == "version") {
-        int nVersion;
-        std::string strSubVer;
-        vRecv >> nVersion >> strSubVer;
 
-        // Überprüfe die Version des Clients
-        std::string requiredVersion = "1.1.3";
-        
-        // Extrahiere die Versionsnummer aus dem Subversion-String, Beispiel: "/TheMinerzCoin:1.1.2/"
-        size_t posStart = strSubVer.find(":") + 1;
-        size_t posEnd = strSubVer.find("/", posStart);
-        std::string peerVersion = strSubVer.substr(posStart, posEnd - posStart);
-
-        // Vergleiche die Versionen
-        if (peerVersion < requiredVersion) {
-            LogPrintf("Ban peer %s for using outdated version %s\n", pfrom->addr.ToString(), peerVersion);
-            pfrom->fDisconnect = true;
-            Misbehaving(pfrom->GetId(), 100); // High misbehavior score to ban
-            return;
-        }
-    }
-
-    // Rest der Verarbeitung...
-}
     void UpdateLastBlockAnnounceTime(NodeId node, int64_t time_in_seconds) override;
 
 private:
