@@ -302,7 +302,7 @@ public:
 /**
  * Signet: test network with an additional consensus parameter (see BIP325).
  */
-class SigNetParams : public CChainParams {
+/**class SigNetParams : public CChainParams {
 public:
     explicit SigNetParams(const SigNetOptions& options)
     {
@@ -320,7 +320,7 @@ public:
             vSeeds.emplace_back("v7ajjeirttkbnt32wpy3c6w3emwnfr3fkla7hpxcfokr3ysd3kqtzmqd.onion:38333");
             */
 
-            vSeeds.clear();
+/**            vSeeds.clear();
 
             consensus.nMinimumChainWork = uint256S("0x00");
             consensus.defaultAssumeValid = uint256S("0x00");
@@ -421,7 +421,7 @@ public:
  * Regression test: intended for private networks only. Has minimal difficulty to ensure that
  * blocks can be found instantly.
  */
-class CRegTestParams : public CChainParams
+/**class CRegTestParams : public CChainParams
 {
 public:
     explicit CRegTestParams(const RegTestOptions& opts)
@@ -486,7 +486,7 @@ public:
                 consensus.SegwitHeight = int{height};
                 break;
             */
-            case Consensus::BuriedDeployment::DEPLOYMENT_CSV:
+            /**case Consensus::BuriedDeployment::DEPLOYMENT_CSV:
                 consensus.CSVHeight = int{height};
                 break;
             }
@@ -549,7 +549,7 @@ public:
         vDevFundAddress = {};
     }
 };
-
+ */
 std::unique_ptr<const CChainParams> CChainParams::SigNet(const SigNetOptions& options)
 {
     return std::make_unique<const SigNetParams>(options);
