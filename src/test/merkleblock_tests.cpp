@@ -21,13 +21,13 @@ BOOST_AUTO_TEST_CASE(merkleblock_construct_from_txids_found)
 {
     CBlock block = getBlockfbdc9();
 
-    std::set<Txid> txids;
+    std::set<uint256> txids;
 
     // Last txn in block.
-    Txid txhash1{TxidFromString("0xb28a6c9a536c4f273b8fa552e979430b989cf21f58d67dcab6f1eec2873633b0")};
+    uint256 txhash1 = uint256S("0xb28a6c9a536c4f273b8fa552e979430b989cf21f58d67dcab6f1eec2873633b0");
 
     // Second txn in block.
-    Txid txhash2{TxidFromString("0xe2adf9a0b8ddfdc675bef749cc3e764bf25cfabbfd428d7eec7987f0a5535418")};
+    uint256 txhash2 = uint256S("0xe2adf9a0b8ddfdc675bef749cc3e764bf25cfabbfd428d7eec7987f0a5535418");
 
     txids.insert(txhash1);
     txids.insert(txhash2);
@@ -62,8 +62,8 @@ BOOST_AUTO_TEST_CASE(merkleblock_construct_from_txids_not_found)
 {
     CBlock block = getBlockfbdc9();
 
-    std::set<Txid> txids2;
-    txids2.insert(TxidFromString("0xc0ffee00003bafa802c8aa084379aa98d9fcd632ddc2ed9782b586ec87451f20"));
+    std::set<uint256> txids2;
+    txids2.insert(uint256S("0xc0ffee00003bafa802c8aa084379aa98d9fcd632ddc2ed9782b586ec87451f20"));
     CMerkleBlock merkleBlock(block, txids2);
 
     BOOST_CHECK_EQUAL(merkleBlock.header.GetHash().GetHex(), block.GetHash().GetHex());

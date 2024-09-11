@@ -974,7 +974,7 @@ A detailed list of changes in this version follows. To keep the list to a manage
 - bitcoin/bitcoin#21026 Document use of make-tag script to make tags (laanwj)
 - bitcoin/bitcoin#21028 doc/bips: Add BIPs 43, 44, 49, and 84 (luke-jr)
 - bitcoin/bitcoin#21049 Add release notes for listdescriptors RPC (S3RK)
-- bitcoin/bitcoin#21060  precise -debug and -debugexclude doc (wodry)
+- bitcoin/bitcoin#21060 More precise -debug and -debugexclude doc (wodry)
 - bitcoin/bitcoin#21077 Clarify -timeout and -peertimeout config options (glozow)
 - bitcoin/bitcoin#21105 Correctly identify script type (niftynei)
 - bitcoin/bitcoin#21163 Guix is shipped in Debian and Ubuntu (MarcoFalke)

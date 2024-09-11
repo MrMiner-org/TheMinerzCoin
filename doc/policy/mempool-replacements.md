@@ -11,8 +11,7 @@ their in-mempool descendants (together, "original transactions") if, in addition
 other consensus and policy rules, each of the following conditions are met:
 
 1. The directly conflicting transactions all signal replaceability explicitly. A transaction is
-   signaling BIP125 replaceability if any of its inputs have an nSequence number less than (0xffffffff - 1).
-   A transaction also signals replaceability if its nVersion field is set to 3.
+   signaling replaceability if any of its inputs have an nSequence number less than (0xffffffff - 1).
 
    *Rationale*: See [BIP125
    explanation](https://github.com/bitcoin/bips/blob/master/bip-0125.mediawiki#motivation).
@@ -45,7 +44,7 @@ other consensus and policy rules, each of the following conditions are met:
    *Rationale*: Try to prevent DoS attacks where an attacker causes the network to repeatedly relay
    transactions each paying a tiny additional amount in fees, e.g. just 1 satoshi.
 
-5. The number of original transactions does not exceed 100.  precisely, the sum of all
+5. The number of original transactions does not exceed 100. More precisely, the sum of all
    directly conflicting transactions' descendant counts (number of transactions inclusive of itself
    and its descendants) must not exceed 100; it is possible that this overestimates the true number
    of original transactions.

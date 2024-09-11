@@ -727,7 +727,7 @@ git merge commit are mentioned.
 - #7922 `90653bc` CBase58Data::SetString: cleanse the full vector (kazcw)
 - #7881 `c4e8390` Update release process (laanwj)
 - #7952 `a9c8b74` Log invalid block hash to make debugging easier (paveljanik)
-- #7974 `8206835`  comments on the design of AttemptToEvictConnection (gmaxwell)
+- #7974 `8206835` More comments on the design of AttemptToEvictConnection (gmaxwell)
 - #7795 `47a7cfb` UpdateTip: log only one line at most per block (laanwj)
 - #8110 `e7e25ea` Add benchmarking notes (fanquake)
 - #8121 `58f0c92` Update implemented BIPs list (fanquake)

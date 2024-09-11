@@ -34,12 +34,12 @@ Then, when configuring, pass the following:
 
 See [dependencies.md](dependencies.md) for a complete overview.
 
-### 2. Clone TheMinerzCoin Repo
+### 2. Clone Blackcoin Repo
 
-Clone the TheMinerzCoin  repository to a directory. All build scripts and commands will run from this directory.
+Clone the Blackcoin More repository to a directory. All build scripts and commands will run from this directory.
 
 ```bash
-git clone https://github.com/CoinBlack/theminerzcoin-more.git
+git clone https://github.com/CoinBlack/blackcoin-more.git
 ```
 
 ### 3. Install Optional Dependencies
@@ -66,7 +66,7 @@ pkgin install db4
 
 #### GUI Dependencies
 
-TheMinerzCoin  includes a GUI built with the cross-platform Qt Framework. To compile the GUI, we need to install `qt5`.
+Blackcoin More includes a GUI built with the cross-platform Qt Framework. To compile the GUI, we need to install `qt5`.
 
 ```bash
 pkgin install qt5

@@ -756,7 +756,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>Click for more actions.</source>
-        <extracomment>A substring of the tooltip. " actions" are available via the context menu.</extracomment>
+        <extracomment>A substring of the tooltip. "More actions" are available via the context menu.</extracomment>
         <translation type="unfinished">Kliknite pre viac akcií.</translation>
     </message>
     <message>
@@ -1684,6 +1684,18 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Použiť samostatný SOCKS&amp;5 proxy server na nadviazanie spojenia s peer-mi cez službu Tor:</translation>
     </message>
     <message>
+        <source>Monospaced font in the Overview tab:</source>
+        <translation type="unfinished">Písmo s pevnou šírkou na karte Prehľad:</translation>
+    </message>
+    <message>
+        <source>embedded "%1"</source>
+        <translation type="unfinished">zabudovaný "%1"</translation>
+    </message>
+    <message>
+        <source>closest matching "%1"</source>
+        <translation type="unfinished">najbližší zodpovedajúci "%1"</translation>
+    </message>
+    <message>
         <source>&amp;Cancel</source>
         <translation type="unfinished">&amp;Zrušiť</translation>
     </message>
@@ -1905,8 +1917,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">PSBT bola uložená na disk.</translation>
     </message>
     <message>
-        <source>own address</source>
-        <translation type="unfinished">vlastná adresa</translation>
+        <source> * Sends %1 to %2</source>
+        <translation type="unfinished">* Pošle %1 do %2</translation>
     </message>
     <message>
         <source>own address</source>
@@ -2921,6 +2933,10 @@ Poznámka: Keďže poplatok je počítaný za bajt, poplatok pri sadzbe "100 sat
         <translation type="unfinished">Vytvorí čiastočne podpísanú Bitcoin transakciu (Partially Signed Bitcoin Transaction - PSBT) na použitie napríklad s offline %1 peňaženkou alebo v hardvérovej peňaženke kompatibilnej s PSBT.</translation>
     </message>
     <message>
+        <source> from wallet '%1'</source>
+        <translation type="unfinished"> z peňaženky '%1'</translation>
+    </message>
+    <message>
         <source>%1 to '%2'</source>
         <translation type="unfinished">%1 do '%2'</translation>
     </message>
@@ -3414,6 +3430,10 @@ Poznámka: Keďže poplatok je počítaný za bajt, poplatok pri sadzbe "100 sat
     <message>
         <source>Output index</source>
         <translation type="unfinished">Index výstupu</translation>
+    </message>
+    <message>
+        <source> (Certificate was not verified)</source>
+        <translation type="unfinished">(Certifikát nebol overený)</translation>
     </message>
     <message>
         <source>Merchant</source>
@@ -3913,7 +3933,7 @@ Choďte do Súbor &gt; Otvoriť Peňaženku, pre načítanie peňaženky.
         <translation type="unfinished">Chybný alebo poškodený súbor peers.dat (%s). Ak si myslíte, že ide o chybu, prosím nahláste to na %s. Ako dočasné riešenie môžete súbor odsunúť (%s) z umiestnenia (premenovať, presunúť, vymazať), aby sa pri ďalšom spustení vytvoril nový.</translation>
     </message>
     <message>
-        <source> than one onion bind address is provided. Using %s for the automatically created Tor onion service.</source>
+        <source>More than one onion bind address is provided. Using %s for the automatically created Tor onion service.</source>
         <translation type="unfinished">K dispozícii je viac ako jedna adresa onion. Použitie %s pre automaticky vytvorenú službu Tor.</translation>
     </message>
     <message>
@@ -4417,6 +4437,10 @@ S peňaženkou mohlo byť manipulované alebo mohla byť vytvorená s úmyselne 
     <message>
         <source>Transaction change output index out of range</source>
         <translation type="unfinished">Výstupný index transakcie zmeny je mimo rozsahu</translation>
+    </message>
+    <message>
+        <source>Transaction has too long of a mempool chain</source>
+        <translation type="unfinished">Transakcia má v transakčnom zásobníku príliš dlhý reťazec</translation>
     </message>
     <message>
         <source>Transaction must have at least one recipient</source>

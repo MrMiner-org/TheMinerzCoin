@@ -3,22 +3,25 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include <consensus/amount.h>
-#include <primitives/transaction.h>
+#include <pubkey.h>
 #include <script/interpreter.h>
-#include <serialize.h>
 #include <streams.h>
-#include <test/fuzz/fuzz.h>
 #include <test/util/script.h>
+#include <version.h>
 
-#include <cassert>
-#include <ios>
-#include <utility>
-#include <vector>
+#include <test/fuzz/fuzz.h>
 
 FUZZ_TARGET(script_flags)
 {
-    if (buffer.size() > 100'000) return;
     CDataStream ds(buffer, SER_NETWORK);
+    try {
+        int nVersion;
+        ds >> nVersion;
+        ds.SetVersion(nVersion);
+    } catch (const std::ios_base::failure&) {
+        return;
+    }
+
     try {
         const CTransaction tx(deserialize, TX_WITH_WITNESS, ds);
 

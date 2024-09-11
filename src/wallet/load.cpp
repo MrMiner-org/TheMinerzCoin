@@ -141,7 +141,7 @@ bool LoadWallets(WalletContext& context)
     }
 }
 
-void StartWallets(WalletContext& context)
+void StartWallets(WalletContext& context, CScheduler& scheduler)
 {
     for (const std::shared_ptr<CWallet>& pwallet : GetWallets(context)) {
         pwallet->postInitProcess();
@@ -149,9 +149,9 @@ void StartWallets(WalletContext& context)
 
     // Schedule periodic wallet flushes and tx rebroadcasts
     if (context.args->GetBoolArg("-flushwallet", DEFAULT_FLUSHWALLET)) {
-        context.scheduler->scheduleEvery([&context] { MaybeCompactWalletDB(context); }, 500ms);
+        scheduler.scheduleEvery([&context] { MaybeCompactWalletDB(context); }, std::chrono::milliseconds{500});
     }
-    context.scheduler->scheduleEvery([&context] { MaybeResendWalletTxs(context); }, 1min);
+    scheduler.scheduleEvery([&context] { MaybeResendWalletTxs(context); }, 1min);
 }
 
 void FlushWallets(WalletContext& context)

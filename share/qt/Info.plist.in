@@ -43,7 +43,7 @@
   <true/>
 
   <key>CFBundleIdentifier</key>
-  <string>org.theminerzcoin.Blackmore-Qt</string>
+  <string>org.blackcoin.Blackmore-Qt</string>
 
   <key>CFBundleURLTypes</key>
   <array>
@@ -51,7 +51,7 @@
       <key>CFBundleTypeRole</key>
       <string>Editor</string>
       <key>CFBundleURLName</key>
-      <string>org.theminerzcoin.BlackcoinPayment</string>
+      <string>org.blackcoin.BlackcoinPayment</string>
       <key>CFBundleURLSchemes</key>
       <array>
         <string>bitcoin</string>

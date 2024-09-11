@@ -1,13 +1,13 @@
-# I2P support in TheMinerzCoin 
+# I2P support in Blackcoin More
 
-It is possible to run TheMinerzCoin  as an
+It is possible to run Blackcoin More as an
 [I2P (Invisible Internet Project)](https://en.wikipedia.org/wiki/I2P)
 service and connect to such services.
 
 This [glossary](https://geti2p.net/en/about/glossary) may be useful to get
 started with I2P terminology.
 
-## Run TheMinerzCoin  with an I2P router (proxy)
+## Run Blackcoin More with an I2P router (proxy)
 
 A running I2P router (proxy) is required with the [SAM](https://geti2p.net/en/docs/api/samv3)
 application bridge enabled. The following routers are recommended for use with Bitcoin Core:
@@ -23,8 +23,8 @@ application bridge enabled. The following routers are recommended for use with B
 Note the IP address and port the SAM proxy is listening to; usually, it is
 `127.0.0.1:7656`.
 
-Once an I2P router with SAM enabled is up and running, use the following TheMinerzCoin
- configuration options:
+Once an I2P router with SAM enabled is up and running, use the following Blackcoin
+More configuration options:
 
 ```
 -i2psam=<ip:port>
@@ -51,7 +51,7 @@ blackmored -i2psam=127.0.0.1:7656
 ```
 
 Set the `debug=i2p` config logging option to see additional information in the
-debug log about your I2P configuration and connections. Run `theminerzcoin-cli help
+debug log about your I2P configuration and connections. Run `blackmore-cli help
 logging` for more information.
 
 ```
@@ -62,11 +62,11 @@ Make automatic outbound connections only to I2P addresses. Inbound and manual
 connections are not affected by this option. It can be specified multiple times
 to allow multiple networks, e.g. onlynet=onion, onlynet=i2p.
 
-I2P support was added to TheMinerzCoin  in version 22.0 and there may be fewer I2P
+I2P support was added to Blackcoin More in version 22.0 and there may be fewer I2P
 peers than Tor or IP ones. Therefore, using I2P alone without other networks may
 make a node more susceptible to [Sybil
 attacks](https://en.bitcoin.it/wiki/Weaknesses#Sybil_attack). You can use
-`theminerzcoin-cli -addrinfo` to see the number of I2P addresses known to your node.
+`blackmore-cli -addrinfo` to see the number of I2P addresses known to your node.
 
 Another consideration with `onlynet=i2p` is that the initial blocks download
 phase when syncing up a new node can be very slow. This phase can be sped up by
@@ -78,10 +78,10 @@ one of the networks has issues.
 
 ## Persistent vs transient I2P addresses
 
-The first time TheMinerzCoin  connects to the I2P router, it automatically
+The first time Blackcoin More connects to the I2P router, it automatically
 generates a persistent I2P address and its corresponding private key by default
 or if `-i2pacceptincoming=1` is set.  The private key is saved in a file named
-`i2p_private_key` in the TheMinerzCoin  data directory.  The persistent I2P
+`i2p_private_key` in the Blackcoin More data directory.  The persistent I2P
 address is used for making outbound connections and accepting inbound
 connections.
 
@@ -98,25 +98,25 @@ I2P addresses are designed to be long-lived.  Waiting for tunnels to be built
 for every peer connection adds delay to connection setup time.  Therefore, I2P
 listening should only be turned off if really needed.
 
-## Fetching I2P-related information from TheMinerzCoin 
+## Fetching I2P-related information from Blackcoin More
 
-There are several ways to see your I2P address in TheMinerzCoin  if accepting
+There are several ways to see your I2P address in Blackcoin More if accepting
 incoming I2P connections (`-i2pacceptincoming`):
 - in the "Local addresses" output of CLI `-netinfo`
 - in the "localaddresses" output of RPC `getnetworkinfo`
 - in the debug log (grep for `AddLocal`; the I2P address ends in `.b32.i2p`)
 
-To see which I2P peers your node is connected to, use `theminerzcoin-cli -netinfo 4`
-or the `getpeerinfo` RPC (e.g. `theminerzcoin-cli getpeerinfo`).
+To see which I2P peers your node is connected to, use `blackmore-cli -netinfo 4`
+or the `getpeerinfo` RPC (e.g. `blackmore-cli getpeerinfo`).
 
 You can use the `getnodeaddresses` RPC to fetch a number of I2P peers known to your node; run `bitcoin-cli help getnodeaddresses` for details.
 
 ## Compatibility
 
-TheMinerzCoin  uses the [SAM v3.1](https://geti2p.net/en/docs/api/samv3) protocol
+Blackcoin More uses the [SAM v3.1](https://geti2p.net/en/docs/api/samv3) protocol
 to connect to the I2P network. Any I2P router that supports it can be used.
 
-## Ports in I2P and TheMinerzCoin 
+## Ports in I2P and Blackcoin More
 
 One particularity of SAM v3.1 is that it does not support ports,
 unlike newer versions of SAM (v3.2 and up) that do support them and default the
@@ -124,18 +124,18 @@ port numbers to 0. From the point of view of peers that use newer versions of
 SAM or other protocols that support ports, a SAM v3.1 peer is connecting to them
 on port 0, from source port 0.
 
-To allow future upgrades to newer versions of SAM, TheMinerzCoin  sets its
+To allow future upgrades to newer versions of SAM, Blackcoin More sets its
 listening port to 0 when listening for incoming I2P connections and advertises
 its own I2P address with port 0. Furthermore, it will not attempt to connect to
 I2P addresses with a non-zero port number because with SAM v3.1 the destination
-port (`TO_PORT`) is always set to 0 and is not in the control of TheMinerzCoin .
+port (`TO_PORT`) is always set to 0 and is not in the control of Blackcoin More.
 
 ## Bandwidth
 
 By default, your node shares bandwidth and transit tunnels with the I2P network
 in order to increase your anonymity with cover traffic, help the I2P router used
 by your node integrate optimally with the network, and give back to the network.
-It's important that the nodes of a popular application like TheMinerzCoin contribute
+It's important that the nodes of a popular application like Blackcoin contribute
 as much to the I2P network as they consume.
 
 It is possible, though strongly discouraged, to change your I2P router
@@ -162,7 +162,7 @@ in [Embedding I2P in your Application](https://geti2p.net/en/docs/applications/e
 
 In most cases, the default router settings should work fine.
 
-## Bundling I2P in a TheMinerzCoin application
+## Bundling I2P in a Blackcoin application
 
 Please see the "General Guidance for Developers" section in https://geti2p.net/en/docs/api/samv3
-if you are developing a downstream application that may be bundling I2P with TheMinerzCoin.
+if you are developing a downstream application that may be bundling I2P with Blackcoin.

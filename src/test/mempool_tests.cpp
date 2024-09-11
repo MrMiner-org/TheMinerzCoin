@@ -20,7 +20,7 @@ static constexpr auto REMOVAL_REASON_DUMMY = MemPoolRemovalReason::REPLACED;
 class MemPoolTest final : public CTxMemPool
 {
 public:
-    // TheMinerzCoin
+    // Blackcoin
     // using CTxMemPool::GetMinFee;
 };
 
@@ -192,7 +192,7 @@ BOOST_AUTO_TEST_CASE(MempoolIndexingTest)
     CheckSort<descendant_score>(pool, sortedOrder);
 
     CTxMemPool::setEntries setAncestors;
-    setAncestors.insert(pool.GetIter(tx6.GetHash()).value());
+    setAncestors.insert(pool.mapTx.find(tx6.GetHash()));
     CMutableTransaction tx7 = CMutableTransaction();
     tx7.vin.resize(1);
     tx7.vin[0].prevout = COutPoint(tx6.GetHash(), 0);
@@ -224,7 +224,7 @@ BOOST_AUTO_TEST_CASE(MempoolIndexingTest)
     tx8.vout.resize(1);
     tx8.vout[0].scriptPubKey = CScript() << OP_11 << OP_EQUAL;
     tx8.vout[0].nValue = 10 * COIN;
-    setAncestors.insert(pool.GetIter(tx7.GetHash()).value());
+    setAncestors.insert(pool.mapTx.find(tx7.GetHash()));
     pool.addUnchecked(entry.Fee(0LL).Time(NodeSeconds{2s}).FromTx(tx8), setAncestors);
 
     // Now tx8 should be sorted low, but tx6/tx both high
@@ -248,8 +248,8 @@ BOOST_AUTO_TEST_CASE(MempoolIndexingTest)
 
     std::vector<std::string> snapshotOrder = sortedOrder;
 
-    setAncestors.insert(pool.GetIter(tx8.GetHash()).value());
-    setAncestors.insert(pool.GetIter(tx9.GetHash()).value());
+    setAncestors.insert(pool.mapTx.find(tx8.GetHash()));
+    setAncestors.insert(pool.mapTx.find(tx9.GetHash()));
     /* tx10 depends on tx8 and tx9 and has a high fee*/
     CMutableTransaction tx10 = CMutableTransaction();
     tx10.vin.resize(2);
@@ -292,11 +292,11 @@ BOOST_AUTO_TEST_CASE(MempoolIndexingTest)
     BOOST_CHECK_EQUAL(pool.size(), 10U);
 
     // Now try removing tx10 and verify the sort order returns to normal
-    pool.removeRecursive(*Assert(pool.get(tx10.GetHash())), REMOVAL_REASON_DUMMY);
+    pool.removeRecursive(pool.mapTx.find(tx10.GetHash())->GetTx(), REMOVAL_REASON_DUMMY);
     CheckSort<descendant_score>(pool, snapshotOrder);
 
-    pool.removeRecursive(*Assert(pool.get(tx9.GetHash())), REMOVAL_REASON_DUMMY);
-    pool.removeRecursive(*Assert(pool.get(tx8.GetHash())), REMOVAL_REASON_DUMMY);
+    pool.removeRecursive(pool.mapTx.find(tx9.GetHash())->GetTx(), REMOVAL_REASON_DUMMY);
+    pool.removeRecursive(pool.mapTx.find(tx8.GetHash())->GetTx(), REMOVAL_REASON_DUMMY);
 }
 
 BOOST_AUTO_TEST_CASE(MempoolAncestorIndexingTest)
@@ -478,7 +478,7 @@ BOOST_AUTO_TEST_CASE(MempoolSizeLimitTest)
     BOOST_CHECK(!pool.exists(GenTxid::Txid(tx2.GetHash())));
     BOOST_CHECK(!pool.exists(GenTxid::Txid(tx3.GetHash())));
 
-    // TheMinerzCoin
+    // Blackcoin
     /*
     CFeeRate maxFeeRateRemoved(25000, GetVirtualTransactionSize(CTransaction(tx3)) + GetVirtualTransactionSize(CTransaction(tx2)));
     BOOST_CHECK_EQUAL(pool.GetMinFee(1).GetFeePerK(), maxFeeRateRemoved.GetFeePerK() + 1000);
@@ -556,7 +556,7 @@ BOOST_AUTO_TEST_CASE(MempoolSizeLimitTest)
     pool.addUnchecked(entry.Fee(1000LL).FromTx(tx5));
     pool.addUnchecked(entry.Fee(9000LL).FromTx(tx7));
 
-    // TheMinerzCoin
+    // Blackcoin
     /*
     std::vector<CTransactionRef> vtx;
     SetMockTime(42);

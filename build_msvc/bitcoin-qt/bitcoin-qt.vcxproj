@@ -58,7 +58,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <AdditionalDependencies>$(QtReleaseLibraries);%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalOptions>/LTCG:OFF</AdditionalOptions>
+      <AdditionalOptions>/ignore:4206 /LTCG:OFF</AdditionalOptions>
     </Link>
     <ResourceCompile>
       <AdditionalIncludeDirectories>..\..\src;</AdditionalIncludeDirectories>
@@ -72,6 +72,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>$(QtDebugLibraries);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/ignore:4206</AdditionalOptions>
     </Link>
     <ResourceCompile>
       <AdditionalIncludeDirectories>..\..\src;</AdditionalIncludeDirectories>

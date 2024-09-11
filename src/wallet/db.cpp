@@ -45,7 +45,7 @@ std::vector<fs::path> ListDatabases(const fs::path& wallet_dir)
                     // as a wallet.
                     paths.emplace_back();
                 } else {
-                    // Found top-level btree file not called wallet.dat. Current theminerzcoin
+                    // Found top-level btree file not called wallet.dat. Current blackcoin
                     // software will never create these files but will allow them to be
                     // opened in a shared database environment for backwards compatibility.
                     // Add it to the list of available wallets.
@@ -129,9 +129,9 @@ bool IsSQLiteFile(const fs::path& path)
 
     file.close();
 
-    // Check the magic, see https://sqlite.org/fileformat.html
+    // Check the magic, see https://sqlite.org/fileformat2.html
     std::string magic_str(magic, 16);
-    if (magic_str != std::string{"SQLite format 3\000", 16}) {
+    if (magic_str != std::string("SQLite format 3", 16)) {
         return false;
     }
 

@@ -23,15 +23,34 @@
 
 
 namespace wallet {
-std::vector<CRecipient> CreateRecipients(const std::vector<std::pair<CTxDestination, CAmount>>& outputs, const std::set<int>& subtract_fee_outputs)
+static void ParseRecipients(const UniValue& address_amounts, const UniValue& subtract_fee_outputs, std::vector<CRecipient>& recipients)
 {
-    std::vector<CRecipient> recipients;
-    for (size_t i = 0; i < outputs.size(); ++i) {
-        const auto& [destination, amount] = outputs.at(i);
-        CRecipient recipient{destination, amount, subtract_fee_outputs.contains(i)};
+    std::set<CTxDestination> destinations;
+    int i = 0;
+    for (const std::string& address: address_amounts.getKeys()) {
+        CTxDestination dest = DecodeDestination(address);
+        if (!IsValidDestination(dest)) {
+            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, std::string("Invalid Blackcoin address: ") + address);
+        }
+
+        if (destinations.count(dest)) {
+            throw JSONRPCError(RPC_INVALID_PARAMETER, std::string("Invalid parameter, duplicated address: ") + address);
+        }
+        destinations.insert(dest);
+
+        CAmount amount = AmountFromValue(address_amounts[i++]);
+
+        bool subtract_fee = false;
+        for (unsigned int idx = 0; idx < subtract_fee_outputs.size(); idx++) {
+            const UniValue& addr = subtract_fee_outputs[idx];
+            if (addr.get_str() == address) {
+                subtract_fee = true;
+            }
+        }
+
+        CRecipient recipient = {dest, amount, subtract_fee};
         recipients.push_back(recipient);
     }
-    return recipients;
 }
 
 UniValue SendMoneyToScript(CWallet& wallet, const CScript scriptPubKey, CAmount nValue, const CCoinControl &coin_control, mapValue_t map_value)
@@ -75,37 +94,6 @@ UniValue SendMoneyToScript(CWallet& wallet, const CScript scriptPubKey, CAmount 
     const CTransactionRef& tx = res->tx;
     wallet.CommitTransaction(tx, std::move(map_value), {} /* orderForm */);
     return tx->GetHash().GetHex();
-}
-
-std::set<int> InterpretSubtractFeeFromOutputInstructions(const UniValue& sffo_instructions, const std::vector<std::string>& destinations)
-{
-    std::set<int> sffo_set;
-    if (sffo_instructions.isNull()) return sffo_set;
-    if (sffo_instructions.isBool()) {
-        if (sffo_instructions.get_bool()) sffo_set.insert(0);
-        return sffo_set;
-    }
-    for (const auto& sffo : sffo_instructions.getValues()) {
-        if (sffo.isStr()) {
-            for (size_t i = 0; i < destinations.size(); ++i) {
-                if (sffo.get_str() == destinations.at(i)) {
-                    sffo_set.insert(i);
-                    break;
-                }
-            }
-        }
-        if (sffo.isNum()) {
-            int pos = sffo.getInt<int>();
-            if (sffo_set.contains(pos))
-                throw JSONRPCError(RPC_INVALID_PARAMETER, strprintf("Invalid parameter, duplicated position: %d", pos));
-            if (pos < 0)
-                throw JSONRPCError(RPC_INVALID_PARAMETER, strprintf("Invalid parameter, negative position: %d", pos));
-            if (pos >= int(destinations.size()))
-                throw JSONRPCError(RPC_INVALID_PARAMETER, strprintf("Invalid parameter, position too large: %d", pos));
-            sffo_set.insert(pos);
-        }
-    }
-    return sffo_set;
 }
 
 static UniValue FinishTransaction(const std::shared_ptr<CWallet> pwallet, const UniValue& options, const CMutableTransaction& rawTx)
@@ -190,7 +178,8 @@ UniValue SendMoney(CWallet& wallet, const CCoinControl &coin_control, std::vecto
     std::shuffle(recipients.begin(), recipients.end(), FastRandomContext());
 
     // Send
-    auto res = CreateTransaction(wallet, recipients, /*change_pos=*/std::nullopt, coin_control, true);
+    constexpr int RANDOM_CHANGE_POSITION = -1;
+    auto res = CreateTransaction(wallet, recipients, RANDOM_CHANGE_POSITION, coin_control, true);
     if (!res) {
         throw JSONRPCError(RPC_WALLET_INSUFFICIENT_FUNDS, util::ErrorString(res).original);
     }
@@ -205,7 +194,7 @@ UniValue SendMoney(CWallet& wallet, const CCoinControl &coin_control, std::vecto
     return tx->GetHash().GetHex();
 }
 
-// TheMinerzCoin: burn RPC
+// Blackcoin: burn RPC
 RPCHelpMan burn()
 {
     return RPCHelpMan{"burn",
@@ -258,7 +247,7 @@ RPCHelpMan burn()
     };
 }
 
-// TheMinerzCoin: burnwallet RPC
+// Blackcoin: burnwallet RPC
 RPCHelpMan burnwallet()
 {
     return RPCHelpMan{"burnwallet",
@@ -349,7 +338,7 @@ RPCHelpMan optimizeutxoset()
                     {"address", RPCArg::Type::STR, RPCArg::Optional::NO, "The peercoin address to recieve all the new UTXOs. If not provided, new UTOXs will be assigned to the address of the input UTXOs."},
                     {"amount", RPCArg::Type::AMOUNT, RPCArg::Optional::NO, "The " + CURRENCY_UNIT + " amount to set the value of new UTXOs, i.e. make new UTXOs with value of 110. If amount is not provided, hardcoded value will be used."},
                     {"transmit", RPCArg::Type::BOOL, RPCArg::Default{false}, "If true, transmit transaction after generating it."},
-                    {"fromAddress", RPCArg::Type::STR, RPCArg::Optional::OMITTED, "The theminerzcoin address to split coins from. If not provided, all available coins will be used."},
+                    {"fromAddress", RPCArg::Type::STR, RPCArg::Optional::OMITTED, "The blackcoin address to split coins from. If not provided, all available coins will be used."},
                 },
                 {
                     RPCResult{"if transmit is not set or set to false",
@@ -389,7 +378,7 @@ RPCHelpMan optimizeutxoset()
     CTxDestination dest = DecodeDestination(address);
 
     if (!IsValidDestination(dest)) {
-        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, std::string("Invalid TheMinerzCoin address: ") + address);
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, std::string("Invalid Blackcoin address: ") + address);
     }
 
     coin_control.destChange = dest;
@@ -403,7 +392,7 @@ RPCHelpMan optimizeutxoset()
         fromAddress = DecodeDestination(request.params[3].get_str());
 
         if (!IsValidDestination(fromAddress)) {
-            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, std::string("Invalid TheMinerzCoin address: ") + request.params[3].get_str());
+            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, std::string("Invalid Blackcoin address: ") + request.params[3].get_str());
         }
 
         std::vector<COutput> vAvailableCoins = AvailableCoins(*pwallet, &coin_control).All();
@@ -481,7 +470,7 @@ RPCHelpMan sendtoaddress()
                 "\nSend an amount to a given address." +
         HELP_REQUIRING_PASSPHRASE,
                 {
-                    {"address", RPCArg::Type::STR, RPCArg::Optional::NO, "The theminerzcoin address to send to."},
+                    {"address", RPCArg::Type::STR, RPCArg::Optional::NO, "The blackcoin address to send to."},
                     {"amount", RPCArg::Type::AMOUNT, RPCArg::Optional::NO, "The amount in " + CURRENCY_UNIT + " to send. eg 0.1"},
                     {"comment", RPCArg::Type::STR, RPCArg::Optional::OMITTED, "A comment used to store what the transaction is for.\n"
                                          "This is not part of the transaction, just kept in your wallet."},
@@ -536,6 +525,11 @@ RPCHelpMan sendtoaddress()
     if (!request.params[3].isNull() && !request.params[3].get_str().empty())
         mapValue["to"] = request.params[3].get_str();
 
+    bool fSubtractFeeFromAmount = false;
+    if (!request.params[4].isNull()) {
+        fSubtractFeeFromAmount = request.params[4].get_bool();
+    }
+
     CCoinControl coin_control;
 
     coin_control.m_avoid_address_reuse = GetAvoidReuseFlag(*pwallet, request.params[8]);
@@ -547,10 +541,13 @@ RPCHelpMan sendtoaddress()
     UniValue address_amounts(UniValue::VOBJ);
     const std::string address = request.params[0].get_str();
     address_amounts.pushKV(address, request.params[1]);
-    std::vector<CRecipient> recipients = CreateRecipients(
-            ParseOutputs(address_amounts),
-            InterpretSubtractFeeFromOutputInstructions(request.params[4], address_amounts.getKeys())
-    );
+    UniValue subtractFeeFromAmount(UniValue::VARR);
+    if (fSubtractFeeFromAmount) {
+        subtractFeeFromAmount.push_back(address);
+    }
+
+    std::vector<CRecipient> recipients;
+    ParseRecipients(address_amounts, subtractFeeFromAmount, recipients);
     const bool verbose{request.params[10].isNull() ? false : request.params[10].get_bool()};
 
     return SendMoney(*pwallet, coin_control, recipients, mapValue, verbose);
@@ -570,7 +567,7 @@ RPCHelpMan sendmany()
                      }},
                     {"amounts", RPCArg::Type::OBJ_USER_KEYS, RPCArg::Optional::NO, "The addresses and amounts",
                         {
-                            {"address", RPCArg::Type::AMOUNT, RPCArg::Optional::NO, "The theminerzcoin address is the key, the numeric amount (can be string) in " + CURRENCY_UNIT + " is the value"},
+                            {"address", RPCArg::Type::AMOUNT, RPCArg::Optional::NO, "The blackcoin address is the key, the numeric amount (can be string) in " + CURRENCY_UNIT + " is the value"},
                         },
                     },
                     {"minconf", RPCArg::Type::NUM, RPCArg::Optional::OMITTED, "Ignored dummy value"},
@@ -630,12 +627,14 @@ RPCHelpMan sendmany()
     if (!request.params[3].isNull() && !request.params[3].get_str().empty())
         mapValue["comment"] = request.params[3].get_str();
 
+    UniValue subtractFeeFromAmount(UniValue::VARR);
+    if (!request.params[4].isNull())
+        subtractFeeFromAmount = request.params[4].get_array();
+
     CCoinControl coin_control;
 
-    std::vector<CRecipient> recipients = CreateRecipients(
-            ParseOutputs(sendTo),
-            InterpretSubtractFeeFromOutputInstructions(request.params[4], sendTo.getKeys())
-    );
+    std::vector<CRecipient> recipients;
+    ParseRecipients(sendTo, subtractFeeFromAmount, recipients);
     const bool verbose{request.params[9].isNull() ? false : request.params[9].get_bool()};
 
     return SendMoney(*pwallet, coin_control, recipients, std::move(mapValue), verbose);
@@ -716,17 +715,17 @@ static std::vector<RPCArg> FundTxDoc(bool solving_data = true)
     return args;
 }
 
-CreatedTransactionResult FundTransaction(CWallet& wallet, const CMutableTransaction& tx, const std::vector<CRecipient>& recipients, const UniValue& options, CCoinControl& coinControl, bool override_min_fee)
+void FundTransaction(CWallet& wallet, CMutableTransaction& tx, CAmount& fee_out, int& change_position, const UniValue& options, CCoinControl& coinControl, bool override_min_fee)
 {
-    // We want to make sure tx.vout is not used now that we are passing outputs as a vector of recipients.
-    // This sets us up to remove tx completely in a future PR in favor of passing the inputs directly.
-    CHECK_NONFATAL(tx.vout.empty());
     // Make sure the results are valid at least up to the most recent block
     // the user could have gotten from another RPC command prior to now
     wallet.BlockUntilSyncedToCurrentChain();
 
-    std::optional<unsigned int> change_position;
+    change_position = -1;
     bool lockUnspents = false;
+    UniValue subtractFeeFromOutputs;
+    std::set<int> setSubtractFeeFromOutputs;
+
     if (!options.isNull()) {
       if (options.type() == UniValue::VBOOL) {
         // backward compatibility bool only fallback
@@ -768,18 +767,14 @@ CreatedTransactionResult FundTransaction(CWallet& wallet, const CMutableTransact
             CTxDestination dest = DecodeDestination(change_address_str);
 
             if (!IsValidDestination(dest)) {
-                throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Change address must be a valid theminerzcoin address");
+                throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Change address must be a valid blackcoin address");
             }
 
             coinControl.destChange = dest;
         }
 
         if (options.exists("changePosition") || options.exists("change_position")) {
-            int pos = (options.exists("change_position") ? options["change_position"] : options["changePosition"]).getInt<int>();
-            if (pos < 0 || (unsigned int)pos > recipients.size()) {
-                throw JSONRPCError(RPC_INVALID_PARAMETER, "changePosition out of bounds");
-            }
-            change_position = (unsigned int)pos;
+            change_position = (options.exists("change_position") ? options["change_position"] : options["changePosition"]).getInt<int>();
         }
 
         if (options.exists("change_type")) {
@@ -812,21 +807,9 @@ CreatedTransactionResult FundTransaction(CWallet& wallet, const CMutableTransact
             coinControl.fOverrideFeeRate = true;
         }
 
-        if (options.exists("minconf")) {
-            coinControl.m_min_depth = options["minconf"].getInt<int>();
+        if (options.exists("subtractFeeFromOutputs") || options.exists("subtract_fee_from_outputs") )
+            subtractFeeFromOutputs = (options.exists("subtract_fee_from_outputs") ? options["subtract_fee_from_outputs"] : options["subtractFeeFromOutputs"]).get_array();
 
-            if (coinControl.m_min_depth < 0) {
-                throw JSONRPCError(RPC_INVALID_PARAMETER, "Negative minconf");
-            }
-        }
-
-        if (options.exists("maxconf")) {
-            coinControl.m_max_depth = options["maxconf"].getInt<int>();
-
-            if (coinControl.m_max_depth < coinControl.m_min_depth) {
-                throw JSONRPCError(RPC_INVALID_PARAMETER, strprintf("maxconf can't be lower than minconf: %d < %d", coinControl.m_max_depth, coinControl.m_min_depth));
-            }
-        }
       }
     } else {
         // if options is null and not a bool
@@ -883,7 +866,7 @@ CreatedTransactionResult FundTransaction(CWallet& wallet, const CMutableTransact
 
     if (options.exists("input_weights")) {
         for (const UniValue& input : options["input_weights"].get_array().getValues()) {
-            Txid txid = Txid::FromUint256(ParseHashO(input, "txid"));
+            uint256 txid = ParseHashO(input, "txid");
 
             const UniValue& vout_v = input.find_value("vout");
             if (!vout_v.isNum()) {
@@ -912,14 +895,28 @@ CreatedTransactionResult FundTransaction(CWallet& wallet, const CMutableTransact
         }
     }
 
-    if (recipients.empty())
+    if (tx.vout.size() == 0)
         throw JSONRPCError(RPC_INVALID_PARAMETER, "TX must have at least one output");
 
-    auto txr = FundTransaction(wallet, tx, recipients, change_position, lockUnspents, coinControl);
-    if (!txr) {
-        throw JSONRPCError(RPC_WALLET_ERROR, ErrorString(txr).original);
+    if (change_position != -1 && (change_position < 0 || (unsigned int)change_position > tx.vout.size()))
+        throw JSONRPCError(RPC_INVALID_PARAMETER, "changePosition out of bounds");
+
+    for (unsigned int idx = 0; idx < subtractFeeFromOutputs.size(); idx++) {
+        int pos = subtractFeeFromOutputs[idx].getInt<int>();
+        if (setSubtractFeeFromOutputs.count(pos))
+            throw JSONRPCError(RPC_INVALID_PARAMETER, strprintf("Invalid parameter, duplicated position: %d", pos));
+        if (pos < 0)
+            throw JSONRPCError(RPC_INVALID_PARAMETER, strprintf("Invalid parameter, negative position: %d", pos));
+        if (pos >= int(tx.vout.size()))
+            throw JSONRPCError(RPC_INVALID_PARAMETER, strprintf("Invalid parameter, position too large: %d", pos));
+        setSubtractFeeFromOutputs.insert(pos);
     }
-    return *txr;
+
+    bilingual_str error;
+
+    if (!FundTransaction(wallet, tx, fee_out, change_position, error, lockUnspents, setSubtractFeeFromOutputs, coinControl)) {
+        throw JSONRPCError(RPC_WALLET_ERROR, error.original);
+    }
 }
 
 static void SetOptionsInputWeights(const UniValue& inputs, UniValue& options)
@@ -965,7 +962,7 @@ RPCHelpMan fundrawtransaction()
                                                           "If that happens, you will need to fund the transaction with different inputs and republish it."},
                             {"minconf", RPCArg::Type::NUM, RPCArg::Default{0}, "If add_inputs is specified, require inputs with at least this many confirmations."},
                             {"maxconf", RPCArg::Type::NUM, RPCArg::Optional::OMITTED, "If add_inputs is specified, require inputs with at most this many confirmations."},
-                            {"changeAddress", RPCArg::Type::STR, RPCArg::DefaultHint{"automatic"}, "The theminerzcoin address to receive the change"},
+                            {"changeAddress", RPCArg::Type::STR, RPCArg::DefaultHint{"automatic"}, "The blackcoin address to receive the change"},
                             {"changePosition", RPCArg::Type::NUM, RPCArg::DefaultHint{"random"}, "The index of the change output"},
                             {"change_type", RPCArg::Type::STR, RPCArg::DefaultHint{"set by -changetype"}, "The output type to use. Only valid if changeAddress is not specified. Options are \"legacy\", \"p2sh-segwit\", \"bech32\", and \"bech32m\"."},
                             {"includeWatching", RPCArg::Type::BOOL, RPCArg::DefaultHint{"true for watch-only wallets, otherwise false"}, "Also select inputs which are watch only.\n"
@@ -1041,30 +1038,18 @@ RPCHelpMan fundrawtransaction()
     if (!DecodeHexTx(tx, request.params[0].get_str(), try_no_witness, try_witness)) {
         throw JSONRPCError(RPC_DESERIALIZATION_ERROR, "TX decode failed");
     }
-    UniValue options = request.params[1];
-    std::vector<std::pair<CTxDestination, CAmount>> destinations;
-    for (const auto& tx_out : tx.vout) {
-        CTxDestination dest;
-        ExtractDestination(tx_out.scriptPubKey, dest);
-        destinations.emplace_back(dest, tx_out.nValue);
-    }
-    std::vector<std::string> dummy(destinations.size(), "dummy");
-    std::vector<CRecipient> recipients = CreateRecipients(
-            destinations,
-            InterpretSubtractFeeFromOutputInstructions(options["subtractFeeFromOutputs"], dummy)
-    );
+
+    CAmount fee;
+    int change_position;
     CCoinControl coin_control;
     // Automatically select (additional) coins. Can be overridden by options.add_inputs.
     coin_control.m_allow_other_inputs = true;
-    // Clear tx.vout since it is not meant to be used now that we are passing outputs directly.
-    // This sets us up for a future PR to completely remove tx from the function signature in favor of passing inputs directly
-    tx.vout.clear();
-    auto txr = FundTransaction(*pwallet, tx, recipients, options, coin_control, /*override_min_fee=*/true);
+    FundTransaction(*pwallet, tx, fee, change_position, request.params[1], coin_control, /*override_min_fee=*/true);
 
     UniValue result(UniValue::VOBJ);
-    result.pushKV("hex", EncodeHexTx(*txr.tx));
-    result.pushKV("fee", ValueFromAmount(txr.fee));
-    result.pushKV("changepos", txr.change_pos ? (int)*txr.change_pos : -1);
+    result.pushKV("hex", EncodeHexTx(CTransaction(tx)));
+    result.pushKV("fee", ValueFromAmount(fee));
+    result.pushKV("changepos", change_position);
 
     return result;
 },
@@ -1174,7 +1159,7 @@ static std::vector<RPCArg> OutputsDoc()
     {
         {"", RPCArg::Type::OBJ_USER_KEYS, RPCArg::Optional::OMITTED, "",
             {
-                {"address", RPCArg::Type::AMOUNT, RPCArg::Optional::NO, "A key-value pair. The key (string) is the theminerzcoin address,\n"
+                {"address", RPCArg::Type::AMOUNT, RPCArg::Optional::NO, "A key-value pair. The key (string) is the blackcoin address,\n"
                          "the value (float or string) is the amount in " + CURRENCY_UNIT + ""},
             },
         },
@@ -1208,7 +1193,7 @@ RPCHelpMan send()
                     {"minconf", RPCArg::Type::NUM, RPCArg::Default{0}, "If add_inputs is specified, require inputs with at least this many confirmations."},
                     {"maxconf", RPCArg::Type::NUM, RPCArg::Optional::OMITTED, "If add_inputs is specified, require inputs with at most this many confirmations."},
                     {"add_to_wallet", RPCArg::Type::BOOL, RPCArg::Default{true}, "When false, returns a serialized transaction which will not be added to the wallet or broadcast"},
-                    {"change_address", RPCArg::Type::STR, RPCArg::DefaultHint{"automatic"}, "The theminerzcoin address to receive the change"},
+                    {"change_address", RPCArg::Type::STR, RPCArg::DefaultHint{"automatic"}, "The blackcoin address to receive the change"},
                     {"change_position", RPCArg::Type::NUM, RPCArg::DefaultHint{"random"}, "The index of the change output"},
                     {"change_type", RPCArg::Type::STR, RPCArg::DefaultHint{"set by -changetype"}, "The output type to use. Only valid if change_address is not specified. Options are \"legacy\", \"p2sh-segwit\", \"bech32\" and \"bech32m\"."},
                     {"fee_rate", RPCArg::Type::AMOUNT, RPCArg::DefaultHint{"not set, fall back to wallet fee estimation"}, "Specify a fee rate in " + CURRENCY_ATOM + "/vB.", RPCArgOptions{.also_positional = true}},
@@ -1272,24 +1257,17 @@ RPCHelpMan send()
             PreventOutdatedOptions(options);
 
 
-            UniValue outputs(UniValue::VOBJ);
-            outputs = NormalizeOutputs(request.params[0]);
-            std::vector<CRecipient> recipients = CreateRecipients(
-                    ParseOutputs(outputs),
-                    InterpretSubtractFeeFromOutputInstructions(options["subtract_fee_from_outputs"], outputs.getKeys())
-            );
+            CAmount fee;
+            int change_position;
             CMutableTransaction rawTx = ConstructTransaction(options["inputs"], request.params[0], options["locktime"]);
             CCoinControl coin_control;
             // Automatically select coins, unless at least one is manually selected. Can
             // be overridden by options.add_inputs.
             coin_control.m_allow_other_inputs = rawTx.vin.size() == 0;
             SetOptionsInputWeights(options["inputs"], options);
-            // Clear tx.vout since it is not meant to be used now that we are passing outputs directly.
-            // This sets us up for a future PR to completely remove tx from the function signature in favor of passing inputs directly
-            rawTx.vout.clear();
-            auto txr = FundTransaction(*pwallet, rawTx, recipients, options, coin_control, /*override_min_fee=*/false);
+            FundTransaction(*pwallet, rawTx, fee, change_position, options, coin_control, /*override_min_fee=*/false);
 
-            return FinishTransaction(pwallet, options, CMutableTransaction(*txr.tx));
+            return FinishTransaction(pwallet, options, rawTx);
         }
     };
 }
@@ -1656,7 +1634,7 @@ RPCHelpMan walletcreatefundedpsbt()
                                                           "If that happens, you will need to fund the transaction with different inputs and republish it."},
                             {"minconf", RPCArg::Type::NUM, RPCArg::Default{0}, "If add_inputs is specified, require inputs with at least this many confirmations."},
                             {"maxconf", RPCArg::Type::NUM, RPCArg::Optional::OMITTED, "If add_inputs is specified, require inputs with at most this many confirmations."},
-                            {"changeAddress", RPCArg::Type::STR, RPCArg::DefaultHint{"automatic"}, "The theminerzcoin address to receive the change"},
+                            {"changeAddress", RPCArg::Type::STR, RPCArg::DefaultHint{"automatic"}, "The blackcoin address to receive the change"},
                             {"changePosition", RPCArg::Type::NUM, RPCArg::DefaultHint{"random"}, "The index of the change output"},
                             {"change_type", RPCArg::Type::STR, RPCArg::DefaultHint{"set by -changetype"}, "The output type to use. Only valid if changeAddress is not specified. Options are \"legacy\", \"p2sh-segwit\", \"bech32\", and \"bech32m\"."},
                             {"includeWatching", RPCArg::Type::BOOL, RPCArg::DefaultHint{"true for watch-only wallets, otherwise false"}, "Also select inputs which are watch only"},
@@ -1700,25 +1678,18 @@ RPCHelpMan walletcreatefundedpsbt()
 
     UniValue options{request.params[3].isNull() ? UniValue::VOBJ : request.params[3]};
 
+    CAmount fee;
+    int change_position;
     CMutableTransaction rawTx = ConstructTransaction(request.params[0], request.params[1], request.params[2]);
-    UniValue outputs(UniValue::VOBJ);
-    outputs = NormalizeOutputs(request.params[1]);
-    std::vector<CRecipient> recipients = CreateRecipients(
-            ParseOutputs(outputs),
-            InterpretSubtractFeeFromOutputInstructions(options["subtractFeeFromOutputs"], outputs.getKeys())
-    );
     CCoinControl coin_control;
     // Automatically select coins, unless at least one is manually selected. Can
     // be overridden by options.add_inputs.
     coin_control.m_allow_other_inputs = rawTx.vin.size() == 0;
     SetOptionsInputWeights(request.params[0], options);
-    // Clear tx.vout since it is not meant to be used now that we are passing outputs directly.
-    // This sets us up for a future PR to completely remove tx from the function signature in favor of passing inputs directly
-    rawTx.vout.clear();
-    auto txr = FundTransaction(wallet, rawTx, recipients, options, coin_control, /*override_min_fee=*/true);
+    FundTransaction(wallet, rawTx, fee, change_position, options, coin_control, /*override_min_fee=*/true);
 
     // Make a blank psbt
-    PartiallySignedTransaction psbtx(CMutableTransaction(*txr.tx));
+    PartiallySignedTransaction psbtx(rawTx);
 
     // Fill transaction with out data but don't sign
     bool bip32derivs = request.params[4].isNull() ? true : request.params[4].get_bool();
@@ -1734,8 +1705,8 @@ RPCHelpMan walletcreatefundedpsbt()
 
     UniValue result(UniValue::VOBJ);
     result.pushKV("psbt", EncodeBase64(ssTx.str()));
-    result.pushKV("fee", ValueFromAmount(txr.fee));
-    result.pushKV("changepos", txr.change_pos ? (int)*txr.change_pos : -1);
+    result.pushKV("fee", ValueFromAmount(fee));
+    result.pushKV("changepos", change_position);
     return result;
 },
     };

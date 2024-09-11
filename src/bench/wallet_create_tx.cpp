@@ -16,6 +16,7 @@
 
 using wallet::CWallet;
 using wallet::CreateMockableWalletDatabase;
+using wallet::DBErrors;
 using wallet::WALLET_FLAG_DESCRIPTORS;
 
 struct TipBlock
@@ -89,6 +90,7 @@ static void WalletCreateTx(benchmark::Bench& bench, const OutputType output_type
         LOCK(wallet.cs_wallet);
         wallet.SetWalletFlag(WALLET_FLAG_DESCRIPTORS);
         wallet.SetupDescriptorScriptPubKeyMans();
+        if (wallet.LoadWallet() != DBErrors::LOAD_OK) assert(false);
     }
 
     // Generate destinations
@@ -129,7 +131,7 @@ static void WalletCreateTx(benchmark::Bench& bench, const OutputType output_type
 
     bench.epochIterations(5).run([&] {
         LOCK(wallet.cs_wallet);
-        const auto& tx_res = CreateTransaction(wallet, recipients, /*change_pos=*/std::nullopt, coin_control);
+        const auto& tx_res = CreateTransaction(wallet, recipients, -1, coin_control);
         assert(tx_res);
     });
 }
@@ -144,6 +146,7 @@ static void AvailableCoins(benchmark::Bench& bench, const std::vector<OutputType
         LOCK(wallet.cs_wallet);
         wallet.SetWalletFlag(WALLET_FLAG_DESCRIPTORS);
         wallet.SetupDescriptorScriptPubKeyMans();
+        if (wallet.LoadWallet() != DBErrors::LOAD_OK) assert(false);
     }
 
     // Generate destinations

@@ -103,7 +103,7 @@ In order to keep the commit timeline linear
 [squash](https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History#Squashing-Commits)
 your changes down to a single commit and [rebase](https://git-scm.com/docs/git-rebase)
 on google/leveldb/master. This keeps the commit timeline linear and more easily sync'ed
-with the internal repository at Google.  information at GitHub's
+with the internal repository at Google. More information at GitHub's
 [About Git rebase](https://help.github.com/articles/about-git-rebase/) page.
 
 # Performance

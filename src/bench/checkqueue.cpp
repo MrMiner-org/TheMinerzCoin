@@ -37,11 +37,10 @@ static void CCheckQueueSpeedPrevectorJob(benchmark::Bench& bench)
             return true;
         }
     };
-
+    CCheckQueue<PrevectorJob> queue {QUEUE_BATCH_SIZE};
     // The main thread should be counted to prevent thread oversubscription, and
     // to decrease the variance of benchmark results.
-    int worker_threads_num{GetNumCores() - 1};
-    CCheckQueue<PrevectorJob> queue{QUEUE_BATCH_SIZE, worker_threads_num};
+    queue.StartWorkerThreads(GetNumCores() - 1);
 
     // create all the data once, then submit copies in the benchmark.
     FastRandomContext insecure_rand(true);
@@ -62,6 +61,7 @@ static void CCheckQueueSpeedPrevectorJob(benchmark::Bench& bench)
         // it is done explicitly here for clarity
         control.Wait();
     });
+    queue.StopWorkerThreads();
     ECC_Stop();
 }
 BENCHMARK(CCheckQueueSpeedPrevectorJob, benchmark::PriorityLevel::HIGH);

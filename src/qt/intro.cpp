@@ -124,7 +124,7 @@ Intro::Intro(QWidget *parent, int64_t blockchain_size_gb) :
         .arg(PACKAGE_NAME)
         .arg(m_blockchain_size_gb)
         .arg(2014)
-        .arg(tr("TheMinerzCoin"))
+        .arg(tr("Blackcoin"))
     );
     ui->lblExplanation2->setText(ui->lblExplanation2->text().arg(PACKAGE_NAME));
 
@@ -214,7 +214,7 @@ bool Intro::showIfNeeded(bool& did_show_intro)
         settings.setValue("fReset", false);
     }
     /* Only override -datadir if different from the default, to make it possible to
-     * override -datadir in the theminerzcoin.conf file in the default data directory
+     * override -datadir in the blackmore.conf file in the default data directory
      * (to be consistent with bitcoind behavior)
      */
     if(dataDir != GUIUtil::getDefaultDataDirectory()) {

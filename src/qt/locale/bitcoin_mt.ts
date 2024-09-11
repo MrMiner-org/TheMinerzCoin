@@ -699,7 +699,7 @@ L-iffirmar huwa possibbli biss b'indirizzi tat-tip 'legacy'.</translation>
     </message>
     <message>
         <source>Click for more actions.</source>
-        <extracomment>A substring of the tooltip. " actions" are available via the context menu.</extracomment>
+        <extracomment>A substring of the tooltip. "More actions" are available via the context menu.</extracomment>
         <translation type="unfinished">Ikklikkja għal aktar azzjonijiet.</translation>
     </message>
     <message>

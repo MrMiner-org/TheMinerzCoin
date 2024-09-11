@@ -242,7 +242,7 @@ bool Sock::WaitMany(std::chrono::milliseconds timeout, EventsPerSock& events_per
 #endif /* USE_POLL */
 }
 
-void Sock::SendComplete(Span<const unsigned char> data,
+void Sock::SendComplete(const std::string& data,
                         std::chrono::milliseconds timeout,
                         CThreadInterrupt& interrupt) const
 {
@@ -281,13 +281,6 @@ void Sock::SendComplete(Span<const unsigned char> data,
         const auto wait_time = std::min(deadline - now, std::chrono::milliseconds{MAX_WAIT_FOR_IO});
         (void)Wait(wait_time, SEND);
     }
-}
-
-void Sock::SendComplete(Span<const char> data,
-                        std::chrono::milliseconds timeout,
-                        CThreadInterrupt& interrupt) const
-{
-    SendComplete(MakeUCharSpan(data), timeout, interrupt);
 }
 
 std::string Sock::RecvUntilTerminator(uint8_t terminator,

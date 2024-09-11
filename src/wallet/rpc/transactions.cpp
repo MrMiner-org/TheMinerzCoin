@@ -414,8 +414,8 @@ static std::vector<RPCResult> TransactionDescriptionString()
            {
                {RPCResult::Type::STR_HEX, "txid", "The transaction id."},
            }},
-           {RPCResult::Type::STR_HEX, "replaced_by_txid", /*optional=*/true, "Only if 'category' is 'send'. The txid if this tx was replaced."},
-           {RPCResult::Type::STR_HEX, "replaces_txid", /*optional=*/true, "Only if 'category' is 'send'. The txid if this tx replaces another."},
+           {RPCResult::Type::STR_HEX, "replaced_by_txid", /*optional=*/true, "The txid if this tx was replaced."},
+           {RPCResult::Type::STR_HEX, "replaces_txid", /*optional=*/true, "The txid if the tx replaces one."},
            {RPCResult::Type::STR, "to", /*optional=*/true, "If a comment to is associated with the transaction."},
            {RPCResult::Type::NUM_TIME, "time", "The transaction time expressed in " + UNIX_EPOCH_TIME + "."},
            {RPCResult::Type::NUM_TIME, "timereceived", "The time received expressed in " + UNIX_EPOCH_TIME + "."},
@@ -443,7 +443,7 @@ RPCHelpMan listtransactions()
                         {RPCResult::Type::OBJ, "", "", Cat(Cat<std::vector<RPCResult>>(
                         {
                             {RPCResult::Type::BOOL, "involvesWatchonly", /*optional=*/true, "Only returns true if imported addresses were involved in transaction."},
-                            {RPCResult::Type::STR, "address",  /*optional=*/true, "The theminerzcoin address of the transaction (not returned if the output does not have an address, e.g. OP_RETURN null data)."},
+                            {RPCResult::Type::STR, "address",  /*optional=*/true, "The blackcoin address of the transaction (not returned if the output does not have an address, e.g. OP_RETURN null data)."},
                             {RPCResult::Type::STR, "category", "The transaction category.\n"
                                 "\"send\"                  Transactions sent.\n"
                                 "\"receive\"               Non-coinbase transactions received.\n"
@@ -557,7 +557,7 @@ RPCHelpMan listsinceblock()
                             {RPCResult::Type::OBJ, "", "", Cat(Cat<std::vector<RPCResult>>(
                             {
                                 {RPCResult::Type::BOOL, "involvesWatchonly", /*optional=*/true, "Only returns true if imported addresses were involved in transaction."},
-                                {RPCResult::Type::STR, "address",  /*optional=*/true, "The theminerzcoin address of the transaction (not returned if the output does not have an address, e.g. OP_RETURN null data)."},
+                                {RPCResult::Type::STR, "address",  /*optional=*/true, "The blackcoin address of the transaction (not returned if the output does not have an address, e.g. OP_RETURN null data)."},
                                 {RPCResult::Type::STR, "category", "The transaction category.\n"
                                     "\"send\"                  Transactions sent.\n"
                                     "\"receive\"               Non-coinbase and non-coinstake transactions received.\n"
@@ -704,7 +704,7 @@ RPCHelpMan gettransaction()
                             {RPCResult::Type::OBJ, "", "",
                             {
                                 {RPCResult::Type::BOOL, "involvesWatchonly", /*optional=*/true, "Only returns true if imported addresses were involved in transaction."},
-                                {RPCResult::Type::STR, "address", /*optional=*/true, "The theminerzcoin address involved in the transaction."},
+                                {RPCResult::Type::STR, "address", /*optional=*/true, "The blackcoin address involved in the transaction."},
                                 {RPCResult::Type::STR, "category", "The transaction category.\n"
                                     "\"send\"                  Transactions sent.\n"
                                     "\"receive\"               Non-coinbase transactions received.\n"
@@ -784,7 +784,8 @@ RPCHelpMan gettransaction()
     ListTransactions(*pwallet, wtx, 0, false, details, filter, /*filter_label=*/std::nullopt);
     entry.pushKV("details", details);
 
-    entry.pushKV("hex", EncodeHexTx(*wtx.tx));
+    std::string strHex = EncodeHexTx(*wtx.tx, pwallet->chain().rpcSerializationWithoutWitness());
+    entry.pushKV("hex", strHex);
 
     if (verbose) {
         UniValue decoded(UniValue::VOBJ);

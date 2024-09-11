@@ -11,7 +11,6 @@
 #include <policy/fees.h>
 #include <primitives/transaction.h>
 #include <rpc/server.h>
-#include <scheduler.h>
 #include <support/allocators/secure.h>
 #include <sync.h>
 #include <uint256.h>
@@ -24,7 +23,6 @@
 #include <wallet/types.h>
 #include <wallet/load.h>
 #include <wallet/receive.h>
-#include <wallet/rpc/staking.h>
 #include <wallet/rpc/wallet.h>
 #include <wallet/spend.h>
 #include <wallet/wallet.h>
@@ -218,7 +216,7 @@ public:
         }
         return true;
     }
-    std::vector<WalletAddress> getAddresses() override
+    std::vector<WalletAddress> getAddresses() const override
     {
         LOCK(m_wallet->cs_wallet);
         std::vector<WalletAddress> result;
@@ -286,12 +284,12 @@ public:
         CAmount& fee) override
     {
         LOCK(m_wallet->cs_wallet);
-        auto res = CreateTransaction(*m_wallet, recipients, change_pos == -1 ? std::nullopt : std::make_optional(change_pos),
+        auto res = CreateTransaction(*m_wallet, recipients, change_pos,
                                      coin_control, sign);
         if (!res) return util::Error{util::ErrorString(res)};
         const auto& txr = *res;
         fee = txr.fee;
-        change_pos = txr.change_pos ? *txr.change_pos : -1;
+        change_pos = txr.change_pos;
 
         return txr.tx;
     }
@@ -591,7 +589,7 @@ public:
     {
         std::vector<Span<const CRPCCommand>> commands;
         commands.push_back(GetWalletRPCCommands());
-        commands.push_back(GetStakingRPCCommands());
+        commands.push_back(m_context.chain->getStakingRPCCommands());
         for(size_t i = 0; i < commands.size(); i++) {
             for (const CRPCCommand& command : commands[i]) {
                 m_rpc_commands.emplace_back(command.category, command.name, [this, &command](const JSONRPCRequest& request, UniValue& result, bool last_handler) {
@@ -605,15 +603,10 @@ public:
     }
     bool verify() override { return VerifyWallets(m_context); }
     bool load() override { return LoadWallets(m_context); }
-    void start(CScheduler& scheduler) override
-    {
-        m_context.scheduler = &scheduler;
-        return StartWallets(m_context);
-    }
+    void start(CScheduler& scheduler) override { return StartWallets(m_context, scheduler); }
     void flush() override { return FlushWallets(m_context); }
     void stop() override { return StopWallets(m_context); }
     void setMockTime(int64_t time) override { return SetMockTime(time); }
-    void schedulerMockForward(std::chrono::seconds delta) override { Assert(m_context.scheduler)->MockForward(delta); }
 
     //! WalletLoader methods
     util::Result<std::unique_ptr<Wallet>> createWallet(const std::string& name, const SecureString& passphrase, uint64_t wallet_creation_flags, std::vector<bilingual_str>& warnings) override
@@ -627,7 +620,7 @@ public:
         bilingual_str error;
         std::unique_ptr<Wallet> wallet{MakeWallet(m_context, CreateWallet(m_context, name, /*load_on_start=*/true, options, status, error, warnings))};
         if (wallet) {
-            return wallet;
+            return {std::move(wallet)};
         } else {
             return util::Error{error};
         }
@@ -641,7 +634,7 @@ public:
         bilingual_str error;
         std::unique_ptr<Wallet> wallet{MakeWallet(m_context, LoadWallet(m_context, name, /*load_on_start=*/true, options, status, error, warnings))};
         if (wallet) {
-            return wallet;
+            return {std::move(wallet)};
         } else {
             return util::Error{error};
         }
@@ -652,7 +645,7 @@ public:
         bilingual_str error;
         std::unique_ptr<Wallet> wallet{MakeWallet(m_context, RestoreWallet(m_context, backup_file, wallet_name, /*load_on_start=*/true, status, error, warnings))};
         if (wallet) {
-            return wallet;
+            return {std::move(wallet)};
         } else {
             return util::Error{error};
         }
@@ -667,7 +660,7 @@ public:
             .solvables_wallet_name = res->solvables_wallet ? std::make_optional(res->solvables_wallet->GetName()) : std::nullopt,
             .backup_path = res->backup_path,
         };
-        return out;
+        return {std::move(out)}; // std::move to work around clang bug
     }
     std::string getWalletDir() override
     {

@@ -3,10 +3,6 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#if defined(HAVE_CONFIG_H)
-#include <config/bitcoin-config.h>
-#endif
-
 #include <addrdb.h>
 
 #include <addrman.h>
@@ -60,7 +56,7 @@ bool SerializeFileDB(const std::string& prefix, const fs::path& path, const Data
     // open temp output file
     fs::path pathTmp = gArgs.GetDataDirNet() / fs::u8path(tmpfn);
     FILE *file = fsbridge::fopen(pathTmp, "wb");
-    CAutoFile fileout{file};
+    AutoFile fileout{file};
     if (fileout.IsNull()) {
         fileout.fclose();
         remove(pathTmp);
@@ -118,7 +114,7 @@ template <typename Data>
 void DeserializeFileDB(const fs::path& path, Data&& data)
 {
     FILE* file = fsbridge::fopen(path, "rb");
-    CAutoFile filein{file};
+    AutoFile filein{file};
     if (filein.IsNull()) {
         throw DbNotFoundError{};
     }
@@ -213,7 +209,8 @@ util::Result<std::unique_ptr<AddrMan>> LoadAddrman(const NetGroupManager& netgro
         return util::Error{strprintf(_("Invalid or corrupt peers.dat (%s). If you believe this is a bug, please report it to %s. As a workaround, you can move the file (%s) out of the way (rename, move, or delete) to have a new one created on the next start."),
                                      e.what(), PACKAGE_BUGREPORT, fs::quoted(fs::PathToString(path_addr)))};
     }
-    return addrman;
+    return {std::move(addrman)}; // std::move should be unnecessary but is temporarily needed to work around clang bug
+                                 // (https://github.com/bitcoin/bitcoin/pull/25977#issuecomment-1561270092)
 }
 
 void DumpAnchors(const fs::path& anchors_db_path, const std::vector<CAddress>& anchors)

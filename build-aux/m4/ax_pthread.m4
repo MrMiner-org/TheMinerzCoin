@@ -478,7 +478,7 @@ if test "x$ax_pthread_ok" = "xyes"; then
         CFLAGS="$ax_pthread_save_CFLAGS"
         LIBS="$ax_pthread_save_LIBS"
 
-        #  AIX lossage: compile with *_r variant
+        # More AIX lossage: compile with *_r variant
         if test "x$GCC" != "xyes"; then
             case $host_os in
                 aix*)

@@ -45,8 +45,8 @@ SplashScreen::SplashScreen(const NetworkStyle* networkStyle)
     QString versionText     = QString("Version %1").arg(QString::fromStdString(FormatFullVersion()));
 
     QString copyrightTextBitcoin     = QChar(0xA9)+QString(" %1-%2 ").arg(2009).arg(COPYRIGHT_YEAR) + QString("The Bitcoin Core developers");
-    QString copyrightTextBlackcoin   = QChar(0xA9)+QString(" %1-%2 ").arg(2014).arg(2018) + QString("The TheMinerzCoin developers");
-    QString copyrightTextBlackmore   = QChar(0xA9)+QString(" %1-%2 ").arg(2018).arg(COPYRIGHT_YEAR) + QString("The TheMinerzCoin  developers");
+    QString copyrightTextBlackcoin   = QChar(0xA9)+QString(" %1-%2 ").arg(2014).arg(2018) + QString("The Blackcoin developers");
+    QString copyrightTextBlackmore   = QChar(0xA9)+QString(" %1-%2 ").arg(2018).arg(COPYRIGHT_YEAR) + QString("The Blackcoin More developers");
 
     // QString copyrightText   = QString::fromUtf8(CopyrightHolders(strprintf("\xc2\xA9 %u-%u ", 2009, COPYRIGHT_YEAR)).c_str());
     const QString& titleAddText    = networkStyle->getTitleAddText();

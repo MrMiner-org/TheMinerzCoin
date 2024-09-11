@@ -14,6 +14,7 @@
 #include <serialize.h>
 #include <span.h>
 #include <uint256.h>
+#include <version.h>
 
 #include <string>
 #include <vector>
@@ -145,7 +146,7 @@ public:
     }
 };
 
-// TheMinerzCoin: Keep nType
+// Blackcoin: Keep nType
 class CHashWriter : public HashWriter
 {
 private:

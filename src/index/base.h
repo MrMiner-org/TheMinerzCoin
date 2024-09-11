@@ -99,7 +99,7 @@ private:
     bool Rewind(const CBlockIndex* current_tip, const CBlockIndex* new_tip);
 
     /*
-    // TheMinerzCoin
+    // Blackcoin
     virtual bool AllowPrune() const = 0;
     */
 

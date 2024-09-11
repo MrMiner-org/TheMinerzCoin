@@ -3,10 +3,6 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#if defined(HAVE_CONFIG_H)
-#include <config/bitcoin-config.h>
-#endif
-
 #include <chain.h>
 #include <chainparams.h>
 #include <common/system.h>
@@ -32,11 +28,12 @@
 #include <script/descriptor.h>
 #include <script/script.h>
 #include <script/signingprovider.h>
+#include <shutdown.h>
+#include <timedata.h>
 #include <txmempool.h>
 #include <univalue.h>
 #include <util/strencodings.h>
 #include <util/string.h>
-#include <util/time.h>
 #include <util/translation.h>
 #include <validation.h>
 #include <validationinterface.h>
@@ -136,11 +133,11 @@ static bool GenerateBlock(ChainstateManager& chainman, CBlock& block, uint64_t& 
     block_out.reset();
     block.hashMerkleRoot = BlockMerkleRoot(block);
 
-    while (max_tries > 0 && block.nNonce < std::numeric_limits<uint32_t>::max() && !CheckProofOfWork(block.GetPoWHash(), block.nBits, chainman.GetConsensus()) && !chainman.m_interrupt) {
+    while (max_tries > 0 && block.nNonce < std::numeric_limits<uint32_t>::max() && !CheckProofOfWork(block.GetPoWHash(), block.nBits, chainman.GetConsensus()) && !ShutdownRequested()) {
         ++block.nNonce;
         --max_tries;
     }
-    if (max_tries == 0 || chainman.m_interrupt) {
+    if (max_tries == 0 || ShutdownRequested()) {
         return false;
     }
     if (block.nNonce == std::numeric_limits<uint32_t>::max()) {
@@ -161,7 +158,7 @@ static bool GenerateBlock(ChainstateManager& chainman, CBlock& block, uint64_t& 
 static UniValue generateBlocks(ChainstateManager& chainman, const CTxMemPool& mempool, const CScript& coinbase_script, int nGenerate, uint64_t nMaxTries)
 {
     UniValue blockHashes(UniValue::VARR);
-    while (nGenerate > 0 && !chainman.m_interrupt) {
+    while (nGenerate > 0 && !ShutdownRequested()) {
         std::unique_ptr<CBlockTemplate> pblocktemplate(BlockAssembler{chainman.ActiveChainstate(), &mempool}.CreateNewBlock(coinbase_script, nullptr, nullptr));
         if (!pblocktemplate.get())
             throw JSONRPCError(RPC_INTERNAL_ERROR, "Couldn't create new block");
@@ -275,7 +272,7 @@ static RPCHelpMan generatetoaddress()
          RPCExamples{
             "\nGenerate 11 blocks to myaddress\n"
             + HelpExampleCli("generatetoaddress", "11 \"myaddress\"")
-            + "If you are using the " PACKAGE_NAME " wallet, you can get a new address to send the newly generated theminerzcoin to with:\n"
+            + "If you are using the " PACKAGE_NAME " wallet, you can get a new address to send the newly generated blackcoin to with:\n"
             + HelpExampleCli("getnewaddress", "")
                 },
         [&](const RPCHelpMan& self, const JSONRPCRequest& request) -> UniValue
@@ -391,7 +388,7 @@ static RPCHelpMan generateblock()
         LOCK(cs_main);
 
         BlockValidationState state;
-        if (!TestBlockValidity(state, chainman.GetParams(), chainman.ActiveChainstate(), block, chainman.m_blockman.LookupBlockIndex(block.hashPrevBlock), false, false)) {
+        if (!TestBlockValidity(state, chainman.GetParams(), chainman.ActiveChainstate(), block, chainman.m_blockman.LookupBlockIndex(block.hashPrevBlock), GetAdjustedTime, false, false)) {
             throw JSONRPCError(RPC_VERIFY_ERROR, strprintf("TestBlockValidity failed: %s", state.ToString()));
         }
     }
@@ -407,7 +404,7 @@ static RPCHelpMan generateblock()
     obj.pushKV("hash", block_out->GetHash().GetHex());
     if (!process_new_block) {
         CDataStream block_ser(SER_NETWORK);
-        block_ser << TX_WITH_WITNESS(*block_out);
+        block_ser << RPCTxSerParams(*block_out);
         obj.pushKV("hex", HexStr(block_ser));
     }
     return obj;
@@ -448,7 +445,7 @@ static RPCHelpMan getmininginfo()
     obj.pushKV("blocks",           active_chain.Height());
     if (BlockAssembler::m_last_block_weight) obj.pushKV("currentblockweight", *BlockAssembler::m_last_block_weight);
     if (BlockAssembler::m_last_block_num_txs) obj.pushKV("currentblocktx", *BlockAssembler::m_last_block_num_txs);
-    obj.pushKV("difficulty", GetDifficulty(*CHECK_NONFATAL(active_chain.Tip())));
+    obj.pushKV("difficulty",       (double)GetDifficulty(active_chain.Tip()));
     obj.pushKV("networkhashps",    getnetworkhashps().HandleRequest(request));
     obj.pushKV("pooledtx",         (uint64_t)mempool.size());
     obj.pushKV("chain", chainman.GetParams().GetChainTypeString());
@@ -628,7 +625,7 @@ static RPCHelpMan getblocktemplate()
             if (block.hashPrevBlock != pindexPrev->GetBlockHash())
                 return "inconclusive-not-best-prevblk";
             BlockValidationState state;
-            TestBlockValidity(state, chainman.GetParams(), active_chainstate, block, pindexPrev, false, true);
+            TestBlockValidity(state, chainman.GetParams(), active_chainstate, block, pindexPrev, GetAdjustedTime, false, true);
             return BIP22ValidationResult(state);
         }
 
@@ -963,7 +960,7 @@ static RPCHelpMan submitblock()
         }
     }
 
-    // TheMinerzCoin: check block before submitting
+    // Blackcoin: check block before submitting
     BlockValidationState state;
     Chainstate& active_chainstate = chainman.ActiveChainstate();
     if (!CheckBlock(block, state, Params().GetConsensus(), active_chainstate, true, true, false)) {

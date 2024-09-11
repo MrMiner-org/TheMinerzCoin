@@ -20,6 +20,7 @@
 #include <node/context.h>
 #include <node/interface_ui.h>
 #include <noui.h>
+#include <shutdown.h>
 #include <util/check.h>
 #include <util/exception.h>
 #include <util/strencodings.h>
@@ -112,7 +113,7 @@ int fork_daemon(bool nochdir, bool noclose, TokenPipeEnd& endpoint)
 
 static bool ParseArgs(ArgsManager& args, int argc, char* argv[])
 {
-    // If Qt is used, parameters/theminerzcoin.conf are parsed in qt/bitcoin.cpp's main()
+    // If Qt is used, parameters/blackmore.conf are parsed in qt/bitcoin.cpp's main()
     SetupServerArgs(args);
     std::string error;
     if (!args.ParseParameters(argc, argv, error)) {
@@ -271,7 +272,9 @@ MAIN_FUNCTION
     if (ProcessInitCommands(args)) return EXIT_SUCCESS;
 
     // Start application
-    if (!AppInit(node) || !Assert(node.shutdown)->wait()) {
+    if (AppInit(node)) {
+        WaitForShutdown();
+    } else {
         node.exit_status = EXIT_FAILURE;
     }
     Interrupt(node);

@@ -27,7 +27,6 @@
 #include <test/util/transaction_utils.h>
 #include <util/strencodings.h>
 #include <util/string.h>
-#include <util/transaction_identifier.h>
 #include <validation.h>
 
 #include <functional>
@@ -220,7 +219,7 @@ BOOST_AUTO_TEST_CASE(tx_valid)
                     fValid = false;
                     break;
                 }
-                COutPoint outpoint{TxidFromString(vinput[0].get_str()), uint32_t(vinput[1].getInt<int>())};
+                COutPoint outpoint{uint256S(vinput[0].get_str()), uint32_t(vinput[1].getInt<int>())};
                 mapprevOutScriptPubKeys[outpoint] = ParseScript(vinput[2].get_str());
                 if (vinput.size() >= 4)
                 {
@@ -308,7 +307,7 @@ BOOST_AUTO_TEST_CASE(tx_invalid)
                     fValid = false;
                     break;
                 }
-                COutPoint outpoint{TxidFromString(vinput[0].get_str()), uint32_t(vinput[1].getInt<int>())};
+                COutPoint outpoint{uint256S(vinput[0].get_str()), uint32_t(vinput[1].getInt<int>())};
                 mapprevOutScriptPubKeys[outpoint] = ParseScript(vinput[2].get_str());
                 if (vinput.size() >= 4)
                 {
@@ -487,7 +486,8 @@ BOOST_AUTO_TEST_CASE(test_big_witness_transaction)
     CMutableTransaction mtx;
     mtx.nVersion = 1;
 
-    CKey key = GenerateRandomKey(); // Need to use compressed keys in segwit or the signing will fail
+    CKey key;
+    key.MakeNewKey(true); // Need to use compressed keys in segwit or the signing will fail
     FillableSigningProvider keystore;
     BOOST_CHECK(keystore.AddKeyPubKey(key, key.GetPubKey()));
     CKeyID hash = key.GetPubKey().GetID();
@@ -504,7 +504,9 @@ BOOST_AUTO_TEST_CASE(test_big_witness_transaction)
     // create a big transaction of 4500 inputs signed by the same key
     for(uint32_t ij = 0; ij < 4500; ij++) {
         uint32_t i = mtx.vin.size();
-        COutPoint outpoint(TxidFromString("0000000000000000000000000000000000000000000000000000000000000100"), i);
+        uint256 prevId;
+        prevId.SetHex("0000000000000000000000000000000000000000000000000000000000000100");
+        COutPoint outpoint(prevId, i);
 
         mtx.vin.resize(mtx.vin.size() + 1);
         mtx.vin[i].prevout = outpoint;
@@ -528,8 +530,10 @@ BOOST_AUTO_TEST_CASE(test_big_witness_transaction)
 
     // check all inputs concurrently, with the cache
     PrecomputedTransactionData txdata(tx);
-    CCheckQueue<CScriptCheck> scriptcheckqueue(/*batch_size=*/128, /*worker_threads_num=*/20);
+    CCheckQueue<CScriptCheck> scriptcheckqueue(128);
     CCheckQueueControl<CScriptCheck> control(&scriptcheckqueue);
+
+    scriptcheckqueue.StartWorkerThreads(20);
 
     std::vector<Coin> coins;
     for(uint32_t i = 0; i < mtx.vin.size(); i++) {
@@ -549,6 +553,7 @@ BOOST_AUTO_TEST_CASE(test_big_witness_transaction)
 
     bool controlCheck = control.Wait();
     assert(controlCheck);
+    scriptcheckqueue.StopWorkerThreads();
 }
 
 SignatureData CombineSignatures(const CMutableTransaction& input1, const CMutableTransaction& input2, const CTransactionRef tx)
@@ -563,16 +568,18 @@ SignatureData CombineSignatures(const CMutableTransaction& input1, const CMutabl
 BOOST_AUTO_TEST_CASE(test_witness)
 {
     FillableSigningProvider keystore, keystore2;
-    CKey key1 = GenerateRandomKey();
-    CKey key2 = GenerateRandomKey();
-    CKey key3 = GenerateRandomKey();
-    CKey key1L = GenerateRandomKey(/*compressed=*/false);
-    CKey key2L = GenerateRandomKey(/*compressed=*/false);
-    CPubKey pubkey1 = key1.GetPubKey();
-    CPubKey pubkey2 = key2.GetPubKey();
-    CPubKey pubkey3 = key3.GetPubKey();
-    CPubKey pubkey1L = key1L.GetPubKey();
-    CPubKey pubkey2L = key2L.GetPubKey();
+    CKey key1, key2, key3, key1L, key2L;
+    CPubKey pubkey1, pubkey2, pubkey3, pubkey1L, pubkey2L;
+    key1.MakeNewKey(true);
+    key2.MakeNewKey(true);
+    key3.MakeNewKey(true);
+    key1L.MakeNewKey(false);
+    key2L.MakeNewKey(false);
+    pubkey1 = key1.GetPubKey();
+    pubkey2 = key2.GetPubKey();
+    pubkey3 = key3.GetPubKey();
+    pubkey1L = key1L.GetPubKey();
+    pubkey2L = key2L.GetPubKey();
     BOOST_CHECK(keystore.AddKeyPubKey(key1, pubkey1));
     BOOST_CHECK(keystore.AddKeyPubKey(key2, pubkey2));
     BOOST_CHECK(keystore.AddKeyPubKey(key1L, pubkey1L));
@@ -753,7 +760,8 @@ BOOST_AUTO_TEST_CASE(test_IsStandard)
     t.vin[0].scriptSig << std::vector<unsigned char>(65, 0);
     t.vout.resize(1);
     t.vout[0].nValue = 90*CENT;
-    CKey key = GenerateRandomKey();
+    CKey key;
+    key.MakeNewKey(true);
     t.vout[0].scriptPubKey = GetScriptForDestination(PKHash(key.GetPubKey()));
 
     constexpr auto CheckIsStandard = [](const auto& t) {
@@ -786,7 +794,7 @@ BOOST_AUTO_TEST_CASE(test_IsStandard)
     t.nVersion = 0;
     CheckIsNotStandard(t, "version");
 
-    t.nVersion = TX_MAX_STANDARD_VERSION + 1;
+    t.nVersion = 3;
     CheckIsNotStandard(t, "version");
 
     // Allowed nVersion

@@ -28,7 +28,7 @@ BOOST_AUTO_TEST_CASE(get_next_work)
     // reimplementing the same code that is written in pow.cpp. Rather than
     // copy that code, we just hardcode the expected result.
     unsigned int expected_nbits = 0x1e029263;
-    // TheMinerzCoin
+    // Blackcoin
     BOOST_CHECK_EQUAL(CalculateNextTargetRequired(&pindexLast, nLastRetargetTime, chainParams->GetConsensus(), false), expected_nbits);
     // BOOST_CHECK(PermittedDifficultyTransition(chainParams->GetConsensus(), pindexLast.nHeight+1, pindexLast.nBits, expected_nbits));
 }
@@ -43,7 +43,7 @@ BOOST_AUTO_TEST_CASE(get_next_work_pow_limit)
     pindexLast.nTime = 1393345424;  // Block #2015
     pindexLast.nBits = 0x1c06a7a5;
     unsigned int expected_nbits = 0x1d06559e;
-    // TheMinerzCoin
+    // Blackcoin
     BOOST_CHECK_EQUAL(CalculateNextTargetRequired(&pindexLast, nLastRetargetTime, chainParams->GetConsensus(), false), expected_nbits);
     // BOOST_CHECK(PermittedDifficultyTransition(chainParams->GetConsensus(), pindexLast.nHeight+1, pindexLast.nBits, expected_nbits));
 }
@@ -58,7 +58,7 @@ BOOST_AUTO_TEST_CASE(get_next_work_lower_limit_actual)
     pindexLast.nTime = 1397374088;  // Block #68543
     pindexLast.nBits = 0x1d055260;
     unsigned int expected_nbits = 0x1e0428e3;
-    // TheMinerzCoin
+    // Blackcoin
     BOOST_CHECK_EQUAL(CalculateNextTargetRequired(&pindexLast, nLastRetargetTime, chainParams->GetConsensus(), false), expected_nbits);
     /*
     BOOST_CHECK(PermittedDifficultyTransition(chainParams->GetConsensus(), pindexLast.nHeight+1, pindexLast.nBits, expected_nbits));
@@ -78,7 +78,7 @@ BOOST_AUTO_TEST_CASE(get_next_work_upper_limit_actual)
     pindexLast.nTime = 1396132439;  // Block #46367
     pindexLast.nBits = 0x1d045f46;
     unsigned int expected_nbits = 0x1e0fffff;
-    // TheMinerzCoin
+    // Blackcoin
     BOOST_CHECK_EQUAL(CalculateNextTargetRequired(&pindexLast, nLastRetargetTime, chainParams->GetConsensus(), false), expected_nbits);
     /*
     BOOST_CHECK(PermittedDifficultyTransition(chainParams->GetConsensus(), pindexLast.nHeight+1, pindexLast.nBits, expected_nbits));
@@ -181,12 +181,12 @@ void sanity_check_chainparams(const ArgsManager& args, ChainType chain_type)
     pow_compact.SetCompact(chainParams->GenesisBlock().nBits, &neg, &over);
     BOOST_CHECK(!neg && pow_compact != 0);
     BOOST_CHECK(!over);
-    // TheMinerzCoin
+    // Blackcoin
     // BOOST_CHECK(UintToArith256(consensus.powLimit) >= pow_compact);
 
     // check max target * 4*nPowTargetTimespan doesn't overflow -- see pow.cpp:CalculateNextWorkRequired()
     if (!consensus.fPowNoRetargeting) {
-        arith_uint256 targ_max{UintToArith256(uint256S("0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"))};
+        arith_uint256 targ_max("0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
         targ_max /= consensus.nTargetTimespan*4;
         BOOST_CHECK(UintToArith256(consensus.powLimit) < targ_max);
     }

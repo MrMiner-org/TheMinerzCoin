@@ -288,7 +288,7 @@ FUZZ_TARGET(versionbits, .init = initialize)
     assert(stats.count == blocks_sig);
     assert(stats.possible == (stats.count + period >= stats.elapsed + threshold));
 
-    //  interesting is whether the state changed.
+    // More interesting is whether the state changed.
     const ThresholdState state = checker.GetStateFor(current_block);
     const int since = checker.GetStateSinceHeightFor(current_block);
 

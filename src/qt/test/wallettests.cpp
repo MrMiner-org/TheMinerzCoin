@@ -107,7 +107,7 @@ QModelIndex FindTx(const QAbstractItemModel& model, const uint256& txid)
 }
 
 /*
-// TheMinerzCoin
+// Blackcoin
 //! Invoke bumpfee on txid and check results.
 void BumpFee(TransactionView& view, const uint256& txid, bool expectDisabled, std::string expectError, bool cancel)
 {
@@ -288,7 +288,7 @@ void TestGUI(interfaces::Node& node, const std::shared_ptr<CWallet>& wallet)
     // Send two transactions, and verify they are added to transaction list.
     TransactionTableModel* transactionTableModel = walletModel.getTransactionTableModel();
     QCOMPARE(transactionTableModel->rowCount({}), 105);
-    // TheMinerzCoin
+    // Blackcoin
     uint256 txid1 = SendCoins(*wallet.get(), sendCoinsDialog, PKHash(), 5 * COIN);
     uint256 txid2 = SendCoins(*wallet.get(), sendCoinsDialog, PKHash(), 10 * COIN);
     // Transaction table model updates on a QueuedConnection, so process events to ensure it's updated.
@@ -297,7 +297,7 @@ void TestGUI(interfaces::Node& node, const std::shared_ptr<CWallet>& wallet)
     QVERIFY(FindTx(*transactionTableModel, txid1).isValid());
     QVERIFY(FindTx(*transactionTableModel, txid2).isValid());
 
-    // TheMinerzCoin
+    // Blackcoin
     // Call bumpfee. Test disabled, canceled, enabled, then failing cases.
     // BumpFee(transactionView, txid1, /*expectDisabled=*/true, /*expectError=*/"not BIP 125 replaceable", /*cancel=*/false);
     // BumpFee(transactionView, txid2, /*expectDisabled=*/false, /*expectError=*/{}, /*cancel=*/true);
@@ -336,7 +336,7 @@ void TestGUI(interfaces::Node& node, const std::shared_ptr<CWallet>& wallet)
             QCOMPARE(receiveRequestDialog->QObject::findChild<QLabel*>("payment_header")->text(), QString("Payment information"));
             QCOMPARE(receiveRequestDialog->QObject::findChild<QLabel*>("uri_tag")->text(), QString("URI:"));
             QString uri = receiveRequestDialog->QObject::findChild<QLabel*>("uri_content")->text();
-            QCOMPARE(uri.count("theminerzcoin:"), 2);
+            QCOMPARE(uri.count("blackcoin:"), 2);
             QCOMPARE(receiveRequestDialog->QObject::findChild<QLabel*>("address_tag")->text(), QString("Address:"));
             QVERIFY(address.isEmpty());
             address = receiveRequestDialog->QObject::findChild<QLabel*>("address_content")->text();
@@ -418,7 +418,7 @@ void TestGUIWatchOnly(interfaces::Node& node, TestChain100Setup& test)
     timer.setInterval(500);
     QObject::connect(&timer, &QTimer::timeout, [&](){
         for (QWidget* widget : QApplication::topLevelWidgets()) {
-            if (widget->inherits("QMessageBox") && widget->objectName().compare("psbt_copied_message") == 0) {
+            if (widget->inherits("QMessageBox")) {
                 QMessageBox* dialog = qobject_cast<QMessageBox*>(widget);
                 QAbstractButton* button = dialog->button(QMessageBox::Discard);
                 button->setEnabled(true);
@@ -431,7 +431,7 @@ void TestGUIWatchOnly(interfaces::Node& node, TestChain100Setup& test)
     timer.start(500);
 
     // Send tx and verify PSBT copied to the clipboard.
-    // TheMinerzCoin
+    // Blackcoin
     SendCoins(*wallet.get(), sendCoinsDialog, PKHash(), 5 * COIN, QMessageBox::Save);
     const std::string& psbt_string = QApplication::clipboard()->text().toStdString();
     QVERIFY(!psbt_string.empty());

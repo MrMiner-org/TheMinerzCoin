@@ -7,17 +7,18 @@ Test script for symbol-check.py
 '''
 import os
 import subprocess
+from typing import List
 import unittest
 
 from utils import determine_wellknown_cmd
 
-def call_symbol_check(cc: list[str], source, executable, options):
+def call_symbol_check(cc: List[str], source, executable, options):
     # This should behave the same as AC_TRY_LINK, so arrange well-known flags
     # in the same order as autoconf would.
     #
     # See the definitions for ac_link in autoconf's lib/autoconf/c.m4 file for
     # reference.
-    env_flags: list[str] = []
+    env_flags: List[str] = []
     for var in ['CFLAGS', 'CPPFLAGS', 'LDFLAGS']:
         env_flags += filter(None, os.environ.get(var, '').split(' '))
 
@@ -27,7 +28,7 @@ def call_symbol_check(cc: list[str], source, executable, options):
     os.remove(executable)
     return (p.returncode, p.stdout.rstrip())
 
-def get_machine(cc: list[str]):
+def get_machine(cc: List[str]):
     p = subprocess.run([*cc,'-dumpmachine'], stdout=subprocess.PIPE, text=True)
     return p.stdout.rstrip()
 

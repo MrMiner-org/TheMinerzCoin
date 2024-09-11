@@ -6,11 +6,8 @@
 #define BITCOIN_TEST_UTIL_INDEX_H
 
 class BaseIndex;
-namespace util {
-class SignalInterrupt;
-} // namespace util
 
 /** Block until the index is synced to the current chain */
-void IndexWaitSynced(const BaseIndex& index, const util::SignalInterrupt& interrupt);
+void IndexWaitSynced(const BaseIndex& index);
 
 #endif // BITCOIN_TEST_UTIL_INDEX_H

@@ -291,7 +291,7 @@
                <cursorShape>IBeamCursor</cursorShape>
               </property>
               <property name="toolTip">
-               <string>Total donations to the TheMinerzCoin team</string>
+               <string>Total donations to the Blackcoin team</string>
               </property>
               <property name="text">
                <string>0</string>

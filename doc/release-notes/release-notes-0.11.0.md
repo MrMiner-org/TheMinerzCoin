@@ -72,7 +72,7 @@ For example, add the following to `bitcoin.conf`:
     minrelaytxfee=0.00005 
     limitfreerelay=5
 
- robust solutions are being worked on for a follow-up release.
+More robust solutions are being worked on for a follow-up release.
 
 Notable changes
 ===============

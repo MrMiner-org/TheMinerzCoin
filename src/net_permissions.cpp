@@ -111,7 +111,8 @@ bool NetWhitelistPermissions::TryParse(const std::string& str, NetWhitelistPermi
     if (!TryParsePermissionFlags(str, flags, offset, error)) return false;
 
     const std::string net = str.substr(offset);
-    const CSubNet subnet{LookupSubNet(net)};
+    CSubNet subnet;
+    LookupSubNet(net, subnet);
     if (!subnet.IsValid()) {
         error = strprintf(_("Invalid netmask specified in -whitelist: '%s'"), net);
         return false;

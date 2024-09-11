@@ -140,7 +140,7 @@ WalletModel* WalletController::getOrCreateWallet(std::unique_ptr<interfaces::Wal
     // This ensures queued signals sent to the WalletModel object will be
     // handled on the GUI event loop.
     wallet_model->moveToThread(thread());
-    // setParent(parent) must be called in the thread which created the parent object.  details in #18948.
+    // setParent(parent) must be called in the thread which created the parent object. More details in #18948.
     QMetaObject::invokeMethod(this, [wallet_model, this] {
         wallet_model->setParent(this);
     }, GUIUtil::blockingGUIThreadConnection());
@@ -304,7 +304,7 @@ void CreateWalletActivity::create()
         QMessageBox::critical(nullptr, tr("Can't list signers"), e.what());
     }
     if (signers.size() > 1) {
-        QMessageBox::critical(nullptr, tr("Too many external signers found"), QString::fromStdString(" than one external signer found. Please connect only one at a time."));
+        QMessageBox::critical(nullptr, tr("Too many external signers found"), QString::fromStdString("More than one external signer found. Please connect only one at a time."));
         signers.clear();
     }
     m_create_wallet_dialog->setSigners(signers);
@@ -477,10 +477,10 @@ void MigrateWalletActivity::migrate(WalletModel* wallet_model)
         if (res) {
             m_success_message = tr("The wallet '%1' was migrated successfully.").arg(GUIUtil::HtmlEscape(res->wallet->getWalletName()));
             if (res->watchonly_wallet_name) {
-                m_success_message += QChar(' ') + tr("Watchonly scripts have been migrated to a new wallet named '%1'.").arg(GUIUtil::HtmlEscape(res->watchonly_wallet_name.value()));
+                m_success_message += tr(" Watchonly scripts have been migrated to a new wallet named '%1'.").arg(GUIUtil::HtmlEscape(res->watchonly_wallet_name.value()));
             }
             if (res->solvables_wallet_name) {
-                m_success_message += QChar(' ') + tr("Solvable but not watched scripts have been migrated to a new wallet named '%1'.").arg(GUIUtil::HtmlEscape(res->solvables_wallet_name.value()));
+                m_success_message += tr(" Solvable but not watched scripts have been migrated to a new wallet named '%1'.").arg(GUIUtil::HtmlEscape(res->solvables_wallet_name.value()));
             }
             m_wallet_model = m_wallet_controller->getOrCreateWallet(std::move(res->wallet));
         } else {

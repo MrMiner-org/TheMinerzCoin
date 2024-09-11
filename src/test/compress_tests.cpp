@@ -65,7 +65,8 @@ BOOST_AUTO_TEST_CASE(compress_amounts)
 BOOST_AUTO_TEST_CASE(compress_script_to_ckey_id)
 {
     // case CKeyID
-    CKey key = GenerateRandomKey();
+    CKey key;
+    key.MakeNewKey(true);
     CPubKey pubkey = key.GetPubKey();
 
     CScript script = CScript() << OP_DUP << OP_HASH160 << ToByteVector(pubkey.GetID()) << OP_EQUALVERIFY << OP_CHECKSIG;
@@ -100,7 +101,8 @@ BOOST_AUTO_TEST_CASE(compress_script_to_cscript_id)
 
 BOOST_AUTO_TEST_CASE(compress_script_to_compressed_pubkey_id)
 {
-    CKey key = GenerateRandomKey(); // case compressed PubKeyID
+    CKey key;
+    key.MakeNewKey(true); // case compressed PubKeyID
 
     CScript script = CScript() << ToByteVector(key.GetPubKey()) << OP_CHECKSIG; // COMPRESSED_PUBLIC_KEY_SIZE (33)
     BOOST_CHECK_EQUAL(script.size(), 35U);
@@ -117,7 +119,8 @@ BOOST_AUTO_TEST_CASE(compress_script_to_compressed_pubkey_id)
 
 BOOST_AUTO_TEST_CASE(compress_script_to_uncompressed_pubkey_id)
 {
-    CKey key = GenerateRandomKey(/*compressed=*/false); // case uncompressed PubKeyID
+    CKey key;
+    key.MakeNewKey(false); // case uncompressed PubKeyID
     CScript script =  CScript() << ToByteVector(key.GetPubKey()) << OP_CHECKSIG; // PUBLIC_KEY_SIZE (65)
     BOOST_CHECK_EQUAL(script.size(), 67U);                   // 1 char code + 65 char pubkey + OP_CHECKSIG
 

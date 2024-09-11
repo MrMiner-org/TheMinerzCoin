@@ -13,14 +13,14 @@ import json
 import logging
 import os
 import pathlib
-import platform
+import random
 import re
+import sys
 import time
 
 from . import coverage
 from .authproxy import AuthServiceProxy, JSONRPCException
-from collections.abc import Callable
-from typing import Optional
+from typing import Callable, Optional, Tuple
 
 logger = logging.getLogger("TestFramework.utils")
 
@@ -287,6 +287,12 @@ def sha256sum_file(filename):
     return h.digest()
 
 
+# TODO: Remove and use random.randbytes(n) instead, available in Python 3.9
+def random_bytes(n):
+    """Return a random bytes object of length n."""
+    return bytes(random.getrandbits(8) for i in range(n))
+
+
 # RPC/P2P connection constants and functions
 ############################################
 
@@ -358,7 +364,7 @@ def initialize_datadir(dirname, n, chain, disable_autoconnect=True):
     datadir = get_datadir_path(dirname, n)
     if not os.path.isdir(datadir):
         os.makedirs(datadir)
-    write_config(os.path.join(datadir, "theminerzcoin.conf"), n=n, chain=chain, disable_autoconnect=disable_autoconnect)
+    write_config(os.path.join(datadir, "blackmore.conf"), n=n, chain=chain, disable_autoconnect=disable_autoconnect)
     os.makedirs(os.path.join(datadir, 'stderr'), exist_ok=True)
     os.makedirs(os.path.join(datadir, 'stdout'), exist_ok=True)
     return datadir
@@ -409,16 +415,16 @@ def get_datadir_path(dirname, n):
     return pathlib.Path(dirname) / f"node{n}"
 
 
-def get_temp_default_datadir(temp_dir: pathlib.Path) -> tuple[dict, pathlib.Path]:
+def get_temp_default_datadir(temp_dir: pathlib.Path) -> Tuple[dict, pathlib.Path]:
     """Return os-specific environment variables that can be set to make the
     GetDefaultDataDir() function return a datadir path under the provided
     temp_dir, as well as the complete path it would return."""
-    if platform.system() == "Windows":
+    if sys.platform == "win32":
         env = dict(APPDATA=str(temp_dir))
         datadir = temp_dir / "Bitcoin"
     else:
         env = dict(HOME=str(temp_dir))
-        if platform.system() == "Darwin":
+        if sys.platform == "darwin":
             datadir = temp_dir / "Library/Application Support/Bitcoin"
         else:
             datadir = temp_dir / ".bitcoin"
@@ -426,7 +432,7 @@ def get_temp_default_datadir(temp_dir: pathlib.Path) -> tuple[dict, pathlib.Path
 
 
 def append_config(datadir, options):
-    with open(os.path.join(datadir, "theminerzcoin.conf"), 'a', encoding='utf8') as f:
+    with open(os.path.join(datadir, "blackmore.conf"), 'a', encoding='utf8') as f:
         for option in options:
             f.write(option + "\n")
 
@@ -434,8 +440,8 @@ def append_config(datadir, options):
 def get_auth_cookie(datadir, chain):
     user = None
     password = None
-    if os.path.isfile(os.path.join(datadir, "theminerzcoin.conf")):
-        with open(os.path.join(datadir, "theminerzcoin.conf"), 'r', encoding='utf8') as f:
+    if os.path.isfile(os.path.join(datadir, "blackmore.conf")):
+        with open(os.path.join(datadir, "blackmore.conf"), 'r', encoding='utf8') as f:
             for line in f:
                 if line.startswith("rpcuser="):
                     assert user is None  # Ensure that there is only one rpcuser line
@@ -481,6 +487,18 @@ def check_node_connections(*, node, num_in, num_out):
 
 # Transaction/Block functions
 #############################
+
+
+def find_output(node, txid, amount, *, blockhash=None):
+    """
+    Return index to output of txid with value amount
+    Raises exception if there is none.
+    """
+    txdata = node.getrawtransaction(txid, 1, blockhash)
+    for i in range(len(txdata["vout"])):
+        if txdata["vout"][i]["value"] == amount:
+            return i
+    raise RuntimeError("find_output txid %s : %s not found" % (txid, str(amount)))
 
 
 # Create large OP_RETURN txouts that can be appended to a transaction

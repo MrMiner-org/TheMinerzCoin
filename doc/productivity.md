@@ -16,7 +16,7 @@ Table of Contents
    * [Format C/C++ diffs with `clang-format-diff.py`](#format-cc-diffs-with-clang-format-diffpy)
    * [Format Python diffs with `yapf-diff.py`](#format-python-diffs-with-yapf-diffpy)
 * [Rebasing/Merging code](#rebasingmerging-code)
-   * [ conflict context with `merge.conflictstyle diff3`](#more-conflict-context-with-mergeconflictstyle-diff3)
+   * [More conflict context with `merge.conflictstyle diff3`](#more-conflict-context-with-mergeconflictstyle-diff3)
 * [Reviewing code](#reviewing-code)
    * [Reduce mental load with `git diff` options](#reduce-mental-load-with-git-diff-options)
    * [Reference PRs easily with `refspec`s](#reference-prs-easily-with-refspecs)
@@ -135,7 +135,7 @@ Usage is exactly the same as [`clang-format-diff.py`](#format-cc-diffs-with-clan
 Rebasing/Merging code
 -------------
 
-###  conflict context with `merge.conflictstyle diff3`
+### More conflict context with `merge.conflictstyle diff3`
 
 For resolving merge/rebase conflicts, it can be useful to enable diff3 style using `git config merge.conflictstyle diff3`. Instead of
 

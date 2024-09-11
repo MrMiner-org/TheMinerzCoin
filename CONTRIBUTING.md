@@ -1,12 +1,12 @@
-Contributing to TheMinerzCoin 
+Contributing to Blackcoin More
 ============================
 
-The TheMinerzCoin  project operates an open contributor model where anyone is
+The Blackcoin More project operates an open contributor model where anyone is
 welcome to contribute towards development in the form of peer review, testing
 and patches. This document explains the practical process and guidelines for
 contributing.
 
-First, in terms of structure, there is no particular concept of "TheMinerzCoin 
+First, in terms of structure, there is no particular concept of "Blackcoin More
 developers" in the sense of privileged people. Open source often naturally
 revolves around a meritocracy where contributors earn trust from the developer
 community over time. Nevertheless, some hierarchy is necessary for practical
@@ -66,10 +66,9 @@ Discussion about codebase improvements happens in GitHub issues and pull
 requests.
 
 The developer
-[mailing list](https://groups.google.com/g/bitcoindev)
+[mailing list](https://lists.linuxfoundation.org/mailman/listinfo/bitcoin-dev)
 should be used to discuss complicated or controversial consensus or P2P protocol changes before working on
 a patch set.
-Archives can be found on [https://gnusha.org/pi/bitcoindev/](https://gnusha.org/pi/bitcoindev/).
 
 
 Contributor Workflow
@@ -290,11 +289,11 @@ workload on reviewing.
 "Decision Making" Process
 -------------------------
 
-The following applies to code changes to the TheMinerzCoin  project (and related
-projects such as libsecp256k1), and is not to be confused with overall TheMinerzCoin
+The following applies to code changes to the Blackcoin More project (and related
+projects such as libsecp256k1), and is not to be confused with overall Blackcoin
 Network Protocol consensus changes.
 
-Whether a pull request is merged into TheMinerzCoin  rests with the project merge
+Whether a pull request is merged into Blackcoin More rests with the project merge
 maintainers.
 
 Maintainers will take into consideration if a patch is in line with the general
@@ -313,7 +312,7 @@ In general, all pull requests must:
     demonstrating the bug and also proving the fix. This helps prevent regression.
   - Change relevant comments and documentation when behaviour of code changes.
 
-Patches that change TheMinerzCoin consensus rules are considerably more involved than
+Patches that change Blackcoin consensus rules are considerably more involved than
 normal because they affect the entire ecosystem and so must be preceded by
 extensive mailing list discussions and have a numbered BIP. While each case will
 be different, one should be prepared to expend more time and effort than for
@@ -374,7 +373,7 @@ higher in terms of discussion and peer review requirements, keeping in mind that
 mistakes could be very costly to the wider community. This includes refactoring
 of consensus-critical code.
 
-Where a patch set proposes to change the TheMinerzCoin consensus, it must have been
+Where a patch set proposes to change the Blackcoin consensus, it must have been
 discussed extensively on the mailing list and IRC, be accompanied by a widely
 discussed BIP and have a generally widely perceived technical consensus of being
 a worthwhile change based on the judgement of the maintainers.

@@ -1,6 +1,6 @@
 # OpenBSD Build Guide
 
-**Updated for OpenBSD [7.4](https://www.openbsd.org/74.html)**
+**Updated for OpenBSD [7.3](https://www.openbsd.org/73.html)**
 
 This guide describes how to build blackmored, command-line utilities, and GUI on OpenBSD.
 
@@ -17,17 +17,17 @@ pkg_add autoconf automake python
 
 See [dependencies.md](dependencies.md) for a complete overview.
 
-### 2. Clone TheMinerzCoin Repo
-Clone the TheMinerzCoin  repository to a directory. All build scripts and commands will run from this directory.
+### 2. Clone Blackcoin Repo
+Clone the Blackcoin More repository to a directory. All build scripts and commands will run from this directory.
 ``` bash
-git clone https://github.com/CoinBlack/theminerzcoin-more.git
+git clone https://github.com/CoinBlack/blackcoin-more.git
 ```
 
 ### 3. Install Optional Dependencies
 
 #### Wallet Dependencies
 
-It is not necessary to build wallet functionality to run either `blackmored` or `theminerzcoin-qt`.
+It is not necessary to build wallet functionality to run either `blackmored` or `blackmore-qt`.
 
 ###### Descriptor Wallet Support
 
@@ -42,8 +42,6 @@ BerkeleyDB is only required to support legacy wallets.
 
 It is recommended to use Berkeley DB 4.8. You cannot use the BerkeleyDB library
 from ports. However you can build it yourself, [using depends](/depends).
-
-Refer to [depends/README.md](/depends/README.md) for detailed instructions.
 
 ```bash
 gmake -C depends NO_BOOST=1 NO_LIBEVENT=1 NO_QT=1 NO_SQLITE=1 NO_NATPMP=1 NO_UPNP=1 NO_ZMQ=1 NO_USDT=1
@@ -60,13 +58,13 @@ export BDB_PREFIX="/path/to/bitcoin/depends/x86_64-unknown-openbsd"
 #### GUI Dependencies
 ###### Qt5
 
-TheMinerzCoin  includes a GUI built with the cross-platform Qt Framework. To compile the GUI, Qt 5 is required.
+Blackcoin More includes a GUI built with the cross-platform Qt Framework. To compile the GUI, Qt 5 is required.
 
 ```bash
 pkg_add qt5
 ```
 
-## Building TheMinerzCoin 
+## Building Blackcoin More
 
 **Important**: Use `gmake` (the non-GNU `make` will exit with an error).
 
@@ -82,7 +80,7 @@ export AUTOMAKE_VERSION=1.16
 
 ### 1. Configuration
 
-There are many ways to configure TheMinerzCoin , here are a few common examples:
+There are many ways to configure Blackcoin More, here are a few common examples:
 
 ##### Descriptor Wallet and GUI:
 This enables the GUI and descriptor wallet support, assuming `sqlite` and `qt5` are installed.

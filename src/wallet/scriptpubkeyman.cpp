@@ -225,7 +225,7 @@ isminetype LegacyScriptPubKeyMan::IsMine(const CScript& script) const
     assert(false);
 }
 
-bool LegacyScriptPubKeyMan::CheckDecryptionKey(const CKeyingMaterial& master_key)
+bool LegacyScriptPubKeyMan::CheckDecryptionKey(const CKeyingMaterial& master_key, bool accept_no_keys)
 {
     {
         LOCK(cs_KeyStore);
@@ -258,7 +258,7 @@ bool LegacyScriptPubKeyMan::CheckDecryptionKey(const CKeyingMaterial& master_key
             LogPrintf("The wallet is probably corrupted: Some keys decrypt but not all.\n");
             throw std::runtime_error("Error unlocking wallet: some keys decrypt but not all. Your wallet file may be corrupt.");
         }
-        if (keyFail || !keyPass)
+        if (keyFail || (!keyPass && !accept_no_keys))
             return false;
         fDecryptionThoroughlyChecked = true;
     }
@@ -280,7 +280,7 @@ bool LegacyScriptPubKeyMan::Encrypt(const CKeyingMaterial& master_key, WalletBat
     {
         const CKey &key = mKey.second;
         CPubKey vchPubKey = key.GetPubKey();
-        CKeyingMaterial vchSecret{UCharCast(key.begin()), UCharCast(key.end())};
+        CKeyingMaterial vchSecret(key.begin(), key.end());
         std::vector<unsigned char> vchCryptedSecret;
         if (!EncryptSecret(master_key, vchSecret, vchPubKey.GetHash(), vchCryptedSecret)) {
             encrypted_batch = nullptr;
@@ -333,8 +333,7 @@ bool LegacyScriptPubKeyMan::TopUpInactiveHDChain(const CKeyID seed_id, int64_t i
         chain.m_next_external_index = std::max(chain.m_next_external_index, index + 1);
     }
 
-    WalletBatch batch(m_storage.GetDatabase());
-    TopUpChain(batch, chain, 0);
+    TopUpChain(chain, 0);
 
     return true;
 }
@@ -670,6 +669,8 @@ TransactionError LegacyScriptPubKeyMan::FillPSBT(PartiallySignedTransaction& psb
             // There's no UTXO so we can just skip this now
             continue;
         }
+        SignatureData sigdata;
+        input.FillSignatureData(sigdata);
         SignPSBTInput(HidingSigningProvider(this, !sign, !bip32derivs), psbtx, i, &txdata, sighash_type, nullptr, finalize);
 
         bool signed_one = PSBTInputSigned(input);
@@ -826,10 +827,8 @@ bool LegacyScriptPubKeyMan::AddKeyPubKeyInner(const CKey& key, const CPubKey &pu
     }
 
     std::vector<unsigned char> vchCryptedSecret;
-    CKeyingMaterial vchSecret{UCharCast(key.begin()), UCharCast(key.end())};
-    if (!m_storage.WithEncryptionKey([&](const CKeyingMaterial& encryption_key) {
-            return EncryptSecret(encryption_key, vchSecret, pubkey.GetHash(), vchCryptedSecret);
-        })) {
+    CKeyingMaterial vchSecret(key.begin(), key.end());
+    if (!EncryptSecret(m_storage.GetEncryptionKey(), vchSecret, pubkey.GetHash(), vchCryptedSecret)) {
         return false;
     }
 
@@ -1015,9 +1014,7 @@ bool LegacyScriptPubKeyMan::GetKey(const CKeyID &address, CKey& keyOut) const
     {
         const CPubKey &vchPubKey = (*mi).second.first;
         const std::vector<unsigned char> &vchCryptedSecret = (*mi).second.second;
-        return m_storage.WithEncryptionKey([&](const CKeyingMaterial& encryption_key) {
-            return DecryptKey(encryption_key, vchCryptedSecret, vchPubKey, keyOut);
-        });
+        return DecryptKey(m_storage.GetEncryptionKey(), vchCryptedSecret, vchPubKey, keyOut);
     }
     return false;
 }
@@ -1203,7 +1200,8 @@ bool LegacyScriptPubKeyMan::CanGenerateKeys() const
 CPubKey LegacyScriptPubKeyMan::GenerateNewSeed()
 {
     assert(!m_storage.IsWalletFlagSet(WALLET_FLAG_DISABLE_PRIVATE_KEYS));
-    CKey key = GenerateRandomKey();
+    CKey key;
+    key.MakeNewKey(true);
     return DeriveNewSeed(key);
 }
 
@@ -1294,25 +1292,19 @@ bool LegacyScriptPubKeyMan::TopUp(unsigned int kpSize)
         return false;
     }
 
-    WalletBatch batch(m_storage.GetDatabase());
-    if (!batch.TxnBegin()) return false;
-    if (!TopUpChain(batch, m_hd_chain, kpSize)) {
+    if (!TopUpChain(m_hd_chain, kpSize)) {
         return false;
     }
     for (auto& [chain_id, chain] : m_inactive_hd_chains) {
-        if (!TopUpChain(batch, chain, kpSize)) {
+        if (!TopUpChain(chain, kpSize)) {
             return false;
         }
     }
-    if (!batch.TxnCommit()) throw std::runtime_error(strprintf("Error during keypool top up. Cannot commit changes for wallet %s", m_storage.GetDisplayName()));
     NotifyCanGetAddressesChanged();
-    // Note: Unlike with DescriptorSPKM, LegacySPKM does not need to call
-    // m_storage.TopUpCallback() as we do not know what new scripts the LegacySPKM is
-    // watching for. CWallet's scriptPubKey cache is not used for LegacySPKMs.
     return true;
 }
 
-bool LegacyScriptPubKeyMan::TopUpChain(WalletBatch& batch, CHDChain& chain, unsigned int kpSize)
+bool LegacyScriptPubKeyMan::TopUpChain(CHDChain& chain, unsigned int kpSize)
 {
     LOCK(cs_KeyStore);
 
@@ -1344,6 +1336,7 @@ bool LegacyScriptPubKeyMan::TopUpChain(WalletBatch& batch, CHDChain& chain, unsi
         missingInternal = 0;
     }
     bool internal = false;
+    WalletBatch batch(m_storage.GetDatabase());
     for (int64_t i = missingInternal + missingExternal; i--;) {
         if (i < missingInternal) {
             internal = true;
@@ -2068,7 +2061,7 @@ isminetype DescriptorScriptPubKeyMan::IsMine(const CScript& script) const
     return ISMINE_NO;
 }
 
-bool DescriptorScriptPubKeyMan::CheckDecryptionKey(const CKeyingMaterial& master_key)
+bool DescriptorScriptPubKeyMan::CheckDecryptionKey(const CKeyingMaterial& master_key, bool accept_no_keys)
 {
     LOCK(cs_desc_man);
     if (!m_map_keys.empty()) {
@@ -2093,7 +2086,7 @@ bool DescriptorScriptPubKeyMan::CheckDecryptionKey(const CKeyingMaterial& master
         LogPrintf("The wallet is probably corrupted: Some keys decrypt but not all.\n");
         throw std::runtime_error("Error unlocking wallet: some keys decrypt but not all. Your wallet file may be corrupt.");
     }
-    if (keyFail || !keyPass) {
+    if (keyFail || (!keyPass && !accept_no_keys)) {
         return false;
     }
     m_decryption_thoroughly_checked = true;
@@ -2111,7 +2104,7 @@ bool DescriptorScriptPubKeyMan::Encrypt(const CKeyingMaterial& master_key, Walle
     {
         const CKey &key = key_in.second;
         CPubKey pubkey = key.GetPubKey();
-        CKeyingMaterial secret{UCharCast(key.begin()), UCharCast(key.end())};
+        CKeyingMaterial secret(key.begin(), key.end());
         std::vector<unsigned char> crypted_secret;
         if (!EncryptSecret(master_key, secret, pubkey.GetHash(), crypted_secret)) {
             return false;
@@ -2151,9 +2144,7 @@ std::map<CKeyID, CKey> DescriptorScriptPubKeyMan::GetKeys() const
             const CPubKey& pubkey = key_pair.second.first;
             const std::vector<unsigned char>& crypted_secret = key_pair.second.second;
             CKey key;
-            m_storage.WithEncryptionKey([&](const CKeyingMaterial& encryption_key) {
-                return DecryptKey(encryption_key, crypted_secret, pubkey, key);
-            });
+            DecryptKey(m_storage.GetEncryptionKey(), crypted_secret, pubkey, key);
             keys[pubkey.GetID()] = key;
         }
         return keys;
@@ -2163,17 +2154,7 @@ std::map<CKeyID, CKey> DescriptorScriptPubKeyMan::GetKeys() const
 
 bool DescriptorScriptPubKeyMan::TopUp(unsigned int size)
 {
-    WalletBatch batch(m_storage.GetDatabase());
-    if (!batch.TxnBegin()) return false;
-    bool res = TopUpWithDB(batch, size);
-    if (!batch.TxnCommit()) throw std::runtime_error(strprintf("Error during descriptors keypool top up. Cannot commit changes for wallet %s", m_storage.GetDisplayName()));
-    return res;
-}
-
-bool DescriptorScriptPubKeyMan::TopUpWithDB(WalletBatch& batch, unsigned int size)
-{
     LOCK(cs_desc_man);
-    std::set<CScript> new_spks;
     unsigned int target_size;
     if (size > 0) {
         target_size = size;
@@ -2194,6 +2175,7 @@ bool DescriptorScriptPubKeyMan::TopUpWithDB(WalletBatch& batch, unsigned int siz
     FlatSigningProvider provider;
     provider.keys = GetKeys();
 
+    WalletBatch batch(m_storage.GetDatabase());
     uint256 id = GetID();
     for (int32_t i = m_max_cached_index + 1; i < new_range_end; ++i) {
         FlatSigningProvider out_keys;
@@ -2204,7 +2186,6 @@ bool DescriptorScriptPubKeyMan::TopUpWithDB(WalletBatch& batch, unsigned int siz
             if (!m_wallet_descriptor.descriptor->Expand(i, provider, scripts_temp, out_keys, &temp_cache)) return false;
         }
         // Add all of the scriptPubKeys to the scriptPubKey set
-        new_spks.insert(scripts_temp.begin(), scripts_temp.end());
         for (const CScript& script : scripts_temp) {
             m_map_script_pub_keys[script] = i;
         }
@@ -2230,7 +2211,6 @@ bool DescriptorScriptPubKeyMan::TopUpWithDB(WalletBatch& batch, unsigned int siz
     // By this point, the cache size should be the size of the entire range
     assert(m_wallet_descriptor.range_end - 1 == m_max_cached_index);
 
-    m_storage.TopUpCallback(new_spks, this);
     NotifyCanGetAddressesChanged();
     return true;
 }
@@ -2289,10 +2269,8 @@ bool DescriptorScriptPubKeyMan::AddDescriptorKeyWithDB(WalletBatch& batch, const
         }
 
         std::vector<unsigned char> crypted_secret;
-        CKeyingMaterial secret{UCharCast(key.begin()), UCharCast(key.end())};
-        if (!m_storage.WithEncryptionKey([&](const CKeyingMaterial& encryption_key) {
-                return EncryptSecret(encryption_key, secret, pubkey.GetHash(), crypted_secret);
-            })) {
+        CKeyingMaterial secret(key.begin(), key.end());
+        if (!EncryptSecret(m_storage.GetEncryptionKey(), secret, pubkey.GetHash(), crypted_secret)) {
             return false;
         }
 
@@ -2304,7 +2282,7 @@ bool DescriptorScriptPubKeyMan::AddDescriptorKeyWithDB(WalletBatch& batch, const
     }
 }
 
-bool DescriptorScriptPubKeyMan::SetupDescriptorGeneration(WalletBatch& batch, const CExtKey& master_key, OutputType addr_type, bool internal)
+bool DescriptorScriptPubKeyMan::SetupDescriptorGeneration(const CExtKey& master_key, OutputType addr_type, bool internal)
 {
     LOCK(cs_desc_man);
     assert(m_storage.IsWalletFlagSet(WALLET_FLAG_DESCRIPTORS));
@@ -2365,6 +2343,7 @@ bool DescriptorScriptPubKeyMan::SetupDescriptorGeneration(WalletBatch& batch, co
     m_wallet_descriptor = w_desc;
 
     // Store the master private key, and descriptor
+    WalletBatch batch(m_storage.GetDatabase());
     if (!AddDescriptorKeyWithDB(batch, master_key.key, master_key.key.GetPubKey())) {
         throw std::runtime_error(std::string(__func__) + ": writing descriptor master private key failed");
     }
@@ -2373,7 +2352,7 @@ bool DescriptorScriptPubKeyMan::SetupDescriptorGeneration(WalletBatch& batch, co
     }
 
     // TopUp
-    TopUpWithDB(batch);
+    TopUp();
 
     m_storage.UnsetBlankWalletFlag(batch);
     return true;
@@ -2557,6 +2536,8 @@ TransactionError DescriptorScriptPubKeyMan::FillPSBT(PartiallySignedTransaction&
             // There's no UTXO so we can just skip this now
             continue;
         }
+        SignatureData sigdata;
+        input.FillSignatureData(sigdata);
 
         std::unique_ptr<FlatSigningProvider> keys = std::make_unique<FlatSigningProvider>();
         std::unique_ptr<FlatSigningProvider> script_keys = GetSigningProvider(script, /*include_private=*/sign);
@@ -2645,13 +2626,12 @@ std::unique_ptr<CKeyMetadata> DescriptorScriptPubKeyMan::GetMetadata(const CTxDe
 uint256 DescriptorScriptPubKeyMan::GetID() const
 {
     LOCK(cs_desc_man);
-    return m_wallet_descriptor.id;
+    return DescriptorID(*m_wallet_descriptor.descriptor);
 }
 
 void DescriptorScriptPubKeyMan::SetCache(const DescriptorCache& cache)
 {
     LOCK(cs_desc_man);
-    std::set<CScript> new_spks;
     m_wallet_descriptor.cache = cache;
     for (int32_t i = m_wallet_descriptor.range_start; i < m_wallet_descriptor.range_end; ++i) {
         FlatSigningProvider out_keys;
@@ -2660,7 +2640,6 @@ void DescriptorScriptPubKeyMan::SetCache(const DescriptorCache& cache)
             throw std::runtime_error("Error: Unable to expand wallet descriptor from cache");
         }
         // Add all of the scriptPubKeys to the scriptPubKey set
-        new_spks.insert(scripts_temp.begin(), scripts_temp.end());
         for (const CScript& script : scripts_temp) {
             if (m_map_script_pub_keys.count(script) != 0) {
                 throw std::runtime_error(strprintf("Error: Already loaded script at index %d as being at index %d", i, m_map_script_pub_keys[script]));
@@ -2678,8 +2657,6 @@ void DescriptorScriptPubKeyMan::SetCache(const DescriptorCache& cache)
         }
         m_max_cached_index++;
     }
-    // Make sure the wallet knows about our new spks
-    m_storage.TopUpCallback(new_spks, this);
 }
 
 bool DescriptorScriptPubKeyMan::AddKey(const CKeyID& key_id, const CKey& key)
@@ -2703,7 +2680,7 @@ bool DescriptorScriptPubKeyMan::AddCryptedKey(const CKeyID& key_id, const CPubKe
 bool DescriptorScriptPubKeyMan::HasWalletDescriptor(const WalletDescriptor& desc) const
 {
     LOCK(cs_desc_man);
-    return !m_wallet_descriptor.id.IsNull() && !desc.id.IsNull() && m_wallet_descriptor.id == desc.id;
+    return m_wallet_descriptor.descriptor != nullptr && desc.descriptor != nullptr && m_wallet_descriptor.descriptor->ToString() == desc.descriptor->ToString();
 }
 
 void DescriptorScriptPubKeyMan::WriteDescriptor()

@@ -21,7 +21,7 @@ length record is added, the writer must emit a FIRST record (which contains zero
 bytes of user data) to fill up the trailing seven bytes of the block and then
 emit all of the user data in subsequent blocks.
 
- types may be added in the future.  Some Readers may skip record types they
+More types may be added in the future.  Some Readers may skip record types they
 do not understand, others may report that some data was skipped.
 
     FULL == 1

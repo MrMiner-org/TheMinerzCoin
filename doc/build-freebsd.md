@@ -16,16 +16,16 @@ pkg install autoconf automake boost-libs git gmake libevent libtool pkgconf
 
 See [dependencies.md](dependencies.md) for a complete overview.
 
-### 2. Clone TheMinerzCoin Repo
-Now that `git` and all the required dependencies are installed, let's clone the TheMinerzCoin  repository to a directory. All build scripts and commands will run from this directory.
+### 2. Clone Blackcoin Repo
+Now that `git` and all the required dependencies are installed, let's clone the Blackcoin More repository to a directory. All build scripts and commands will run from this directory.
 ``` bash
-git clone https://github.com/CoinBlack/theminerzcoin-more.git
+git clone https://github.com/CoinBlack/blackcoin-more.git
 ```
 
 ### 3. Install Optional Dependencies
 
 #### Wallet Dependencies
-It is not necessary to build wallet functionality to run either `blackmored` or `theminerzcoin-qt`.
+It is not necessary to build wallet functionality to run either `blackmored` or `blackmore-qt`.
 
 ###### Descriptor Wallet Support
 
@@ -93,11 +93,11 @@ pkg install python3 databases/py-sqlite3
 ```
 ---
 
-## Building TheMinerzCoin 
+## Building Blackcoin More
 
 ### 1. Configuration
 
-There are many ways to configure TheMinerzCoin , here are a few common examples:
+There are many ways to configure Blackcoin More, here are a few common examples:
 
 ##### Descriptor Wallet and GUI:
 This explicitly enables the GUI and disables legacy wallet support, assuming `sqlite` and `qt` are installed.

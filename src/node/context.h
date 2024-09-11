@@ -44,7 +44,7 @@ class KernelNotifications;
 //!
 //! This is used by init, rpc, and test code to pass object references around
 //! without needing to declare the same variables and parameters repeatedly, or
-//! to use globals.  variables could be added to this struct (particularly
+//! to use globals. More variables could be added to this struct (particularly
 //! references to validation objects) to eliminate use of globals
 //! and make code more modular and testable. The struct isn't intended to have
 //! any member functions. It should just be a collection of references that can
@@ -54,8 +54,6 @@ struct NodeContext {
     std::unique_ptr<kernel::Context> kernel;
     //! Init interface for initializing current process and connecting to other processes.
     interfaces::Init* init{nullptr};
-    //! Interrupt object used to track whether node shutdown was requested.
-    util::SignalInterrupt* shutdown{nullptr};
     std::unique_ptr<AddrMan> addrman;
     std::unique_ptr<CConnman> connman;
     std::unique_ptr<CTxMemPool> mempool;

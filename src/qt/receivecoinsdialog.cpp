@@ -95,7 +95,7 @@ void ReceiveCoinsDialog::setModel(WalletModel *_model)
         };
         add_address_type(OutputType::LEGACY, tr("Base58 (Legacy)"), tr("Not recommended due to higher fees and less protection against typos."));
 
-        // TheMinerzCoin: hide SegWit address types before SegWit activation
+        // Blackcoin: hide SegWit address types before SegWit activation
         if (!(model->wallet().getDefaultAddressType() == OutputType::LEGACY)) {
             add_address_type(OutputType::P2SH_SEGWIT, tr("Base58 (P2SH-SegWit)"), tr("Generates an address compatible with older wallets."));
             add_address_type(OutputType::BECH32, tr("Bech32 (SegWit)"), tr("Generates a native segwit address (BIP-173). Some old wallets don't support it."));

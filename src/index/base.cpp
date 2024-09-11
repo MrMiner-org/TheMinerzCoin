@@ -13,6 +13,7 @@
 #include <node/context.h>
 #include <node/database_args.h>
 #include <node/interface_ui.h>
+#include <shutdown.h>
 #include <tinyformat.h>
 #include <util/thread.h>
 #include <util/translation.h>
@@ -31,7 +32,7 @@ template <typename... Args>
 void BaseIndex::FatalErrorf(const char* fmt, const Args&... args)
 {
     auto message = tfm::format(fmt, args...);
-    node::AbortNode(m_chain->context()->shutdown, m_chain->context()->exit_status, message);
+    node::AbortNode(m_chain->context()->exit_status, message);
 }
 
 CBlockLocator GetLocator(interfaces::Chain& chain, const uint256& block_hash)
@@ -424,7 +425,7 @@ IndexSummary BaseIndex::GetSummary() const
 void BaseIndex::SetBestBlockIndex(const CBlockIndex* block)
 {
     /*
-    // TheMinerzCoin
+    // Blackcoin
     assert(!m_chainstate->m_blockman.IsPruneMode() || AllowPrune());
 
     if (AllowPrune() && block) {

@@ -667,15 +667,23 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>&amp;Window</source>
-        <translation type="unfinished">&amp;វិនដូ</translation>
+        <translation type="unfinished">វិនដូ(&amp;W)</translation>
+    </message>
+    <message>
+        <source>Main Window</source>
+        <translation type="unfinished">វិនដូចម្បង</translation>
+    </message>
+    <message>
+        <source>%1 client</source>
+        <translation type="unfinished">%1 អតិថិជន</translation>
     </message>
     <message>
         <source>&amp;Hide</source>
-        <translation type="unfinished">&amp;លាក់</translation>
+        <translation type="unfinished">លាក់(&amp;H)</translation>
     </message>
     <message>
         <source>S&amp;how</source>
-        <translation type="unfinished">S&amp;របៀប</translation>
+        <translation type="unfinished">របៀប(&amp;S)</translation>
     </message>
     <message numerus="yes">
         <source>%n active connection(s) to Bitcoin network.</source>
@@ -687,7 +695,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>Click for more actions.</source>
-        <extracomment>A substring of the tooltip. " actions" are available via the context menu.</extracomment>
+        <extracomment>A substring of the tooltip. "More actions" are available via the context menu.</extracomment>
         <translation type="unfinished">ចុចសម្រាប់សកម្មភាពបន្ថែម។</translation>
     </message>
     <message>
@@ -886,6 +894,10 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>Copy fee</source>
         <translation type="unfinished">ចម្លងតម្លៃ</translation>
+    </message>
+    <message>
+        <source>Can vary +/- %1 satoshi(s) per input.</source>
+        <translation type="unfinished">អាច +/- %1 satoshi(s)ច្រើនក្នុងការបញ្ជូលមួយ។</translation>
     </message>
     <message>
         <source>Can vary +/- %1 satoshi(s) per input.</source>
@@ -1404,7 +1416,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>&amp;Window</source>
-        <translation type="unfinished">&amp;វិនដូ</translation>
+        <translation type="unfinished">វិនដូ(&amp;W)</translation>
     </message>
     <message>
         <source>&amp;Display</source>
@@ -1859,7 +1871,7 @@ If you are receiving this error you should request the merchant provide a BIP21 
     </message>
     <message>
         <source>Last block time</source>
-        <translation type="unfinished">ពេវេលាប្លុកជុងក្រោយ</translation>
+        <translation type="unfinished">ពេលវេលាប្លុកចុងក្រោយ</translation>
     </message>
     <message>
         <source>&amp;Network Traffic</source>
@@ -2231,6 +2243,10 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
     <message>
         <source>Copy fee</source>
         <translation type="unfinished">ចម្លងតម្លៃ</translation>
+    </message>
+    <message>
+        <source>Copy change</source>
+        <translation type="unfinished">ចម្លងការផ្លាស់ប្តូរ</translation>
     </message>
     <message>
         <source>Sign on device</source>
@@ -3011,6 +3027,10 @@ Go to File &gt; Open Wallet to load a wallet.
     <message>
         <source>Transaction amounts must not be negative</source>
         <translation type="unfinished">ចំនួនប្រត្តិបត្តិការ មិនអាចអវិជ្ជមានបានទេ</translation>
+    </message>
+    <message>
+        <source>Transaction has too long of a mempool chain</source>
+        <translation type="unfinished">ប្រត្តិបត្តិការមានខ្សែចង្វាក់រងចាំដើម្បីធ្វើការផ្ទៀងផ្ទាត់វែង</translation>
     </message>
     <message>
         <source>Transaction must have at least one recipient</source>

@@ -708,7 +708,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>Click for more actions.</source>
-        <extracomment>A substring of the tooltip. " actions" are available via the context menu.</extracomment>
+        <extracomment>A substring of the tooltip. "More actions" are available via the context menu.</extracomment>
         <translation type="unfinished">Ko'proq sozlamalar uchun bosing.</translation>
     </message>
     <message>

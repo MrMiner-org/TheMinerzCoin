@@ -1,5 +1,5 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-present The Bitcoin Core developers
+// Copyright (c) 2009-2022 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -8,19 +8,18 @@
 
 #include <attributes.h>
 #include <crypto/common.h>
-#include <prevector.h> // IWYU pragma: export
+#include <prevector.h>
 #include <serialize.h>
 #include <uint256.h>
 #include <util/hash_type.h>
 
-#include <cassert>
-#include <cstdint>
-#include <cstring>
+#include <assert.h>
+#include <climits>
 #include <limits>
 #include <stdexcept>
+#include <stdint.h>
+#include <string.h>
 #include <string>
-#include <type_traits>
-#include <utility>
 #include <vector>
 
 // Maximum number of bytes pushable to the stack

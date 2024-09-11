@@ -19,6 +19,7 @@
 #include <streams.h>
 #include <sync.h>
 #include <uint256.h>
+#include <version.h>
 #include <zmq/zmqutil.h>
 
 #include <zmq.h>
@@ -250,7 +251,7 @@ bool CZMQPublishRawBlockNotifier::NotifyBlock(const CBlockIndex *pindex)
         return false;
     }
 
-    ss << TX_WITH_WITNESS(block);
+    ss << RPCTxSerParams(block);
 
     return SendZmqMessage(MSG_RAWBLOCK, &(*ss.begin()), ss.size());
 }
@@ -260,7 +261,7 @@ bool CZMQPublishRawTransactionNotifier::NotifyTransaction(const CTransaction &tr
     uint256 hash = transaction.GetHash();
     LogPrint(BCLog::ZMQ, "Publish rawtx %s to %s\n", hash.GetHex(), this->address);
     CDataStream ss(SER_NETWORK);
-    ss << TX_WITH_WITNESS(transaction);
+    ss << RPCTxSerParams(transaction);
     return SendZmqMessage(MSG_RAWTX, &(*ss.begin()), ss.size());
 }
 

@@ -661,6 +661,14 @@ Cüzdan kilidini aç.</translation>
         <translation type="unfinished">Tüm cüzdanları kapat</translation>
     </message>
     <message>
+        <source>Migrate Wallet</source>
+        <translation type="unfinished">Cüzdanı Taşı</translation>
+    </message>
+    <message>
+        <source>Migrate a wallet</source>
+        <translation type="unfinished">Bir Cüzdanı Taşı</translation>
+    </message>
+    <message>
         <source>&amp;Mask values</source>
         <translation type="unfinished">&amp; Değerleri maskele</translation>
     </message>
@@ -729,13 +737,8 @@ Cüzdan kilidini aç.</translation>
     </message>
     <message>
         <source>Click for more actions.</source>
-        <extracomment>A substring of the tooltip. " actions" are available via the context menu.</extracomment>
+        <extracomment>A substring of the tooltip. "More actions" are available via the context menu.</extracomment>
         <translation type="unfinished">daha fazla seçenek için tıklayın.</translation>
-    </message>
-    <message>
-        <source>Show Peers tab</source>
-        <extracomment>A context menu item. The "Peers tab" is an element of the "Node window".</extracomment>
-        <translation type="unfinished">Eşler sekmesini göster</translation>
     </message>
     <message>
         <source>Disable network activity</source>
@@ -750,6 +753,10 @@ Cüzdan kilidini aç.</translation>
     <message>
         <source>Pre-syncing Headers (%1%)…</source>
         <translation type="unfinished">Üstbilgiler senkronize ediliyor (%1%)...</translation>
+    </message>
+    <message>
+        <source>Error creating wallet</source>
+        <translation type="unfinished">Cüzdan oluşturulurken hata meydana geldi</translation>
     </message>
     <message>
         <source>Error: %1</source>
@@ -1001,6 +1008,37 @@ Cüzdan kilidini aç.</translation>
     </message>
 </context>
 <context>
+    <name>MigrateWalletActivity</name>
+    <message>
+        <source>Migrate wallet</source>
+        <translation type="unfinished">Cüzdanı taşı</translation>
+    </message>
+    <message>
+        <source>Are you sure you wish to migrate the wallet &lt;i&gt;%1&lt;/i&gt;?</source>
+        <translation type="unfinished">Cüzdanı taşımak istediğine emin misin &lt;i&gt;%1&lt;/i&gt;?</translation>
+    </message>
+    <message>
+        <source>Migrate Wallet</source>
+        <translation type="unfinished">Cüzdanı Taşı</translation>
+    </message>
+    <message>
+        <source>Migrating Wallet &lt;b&gt;%1&lt;/b&gt;…</source>
+        <translation type="unfinished">Cüzdan Taşınıyor &lt;b&gt;%1&lt;/b&gt;...</translation>
+    </message>
+    <message>
+        <source>The wallet '%1' was migrated successfully.</source>
+        <translation type="unfinished">Cüzdan '%1' başarıyla taşındı.</translation>
+    </message>
+    <message>
+        <source>Migration failed</source>
+        <translation type="unfinished">Taşıma başarısız oldu</translation>
+    </message>
+    <message>
+        <source>Migration Successful</source>
+        <translation type="unfinished">Taşıma Başarılı</translation>
+    </message>
+</context>
+<context>
     <name>OpenWalletActivity</name>
     <message>
         <source>Open wallet failed</source>
@@ -1081,6 +1119,14 @@ Cüzdan kilidini aç.</translation>
     <message>
         <source>Create Wallet</source>
         <translation type="unfinished">Cüzdan Oluştur</translation>
+    </message>
+    <message>
+        <source>You are one step away from creating your new wallet!</source>
+        <translation type="unfinished">Yeni cüzdanını yaratmaktan bir adım uzaktasın!</translation>
+    </message>
+    <message>
+        <source>Please provide a name and, if desired, enable any advanced options</source>
+        <translation type="unfinished">Lütfen bir isim sağla ve, isteğe bağlı olarak, gelişmiş seçenekleri etkinleştir.</translation>
     </message>
     <message>
         <source>Wallet Name</source>
@@ -1308,7 +1354,7 @@ Cüzdan kilidini aç.</translation>
     </message>
     <message>
         <source>Do not shut down the computer until this window disappears.</source>
-        <translation type="unfinished">Bu pencere kapanıncaya dek bilgisayarı kapatmayınız.</translation>
+        <translation type="unfinished">Bu pencere kalkıncaya dek bilgisayarı kapatmayınız.</translation>
     </message>
 </context>
 <context>
@@ -1621,11 +1667,6 @@ Cüzdan kilidini aç.</translation>
         <source>Client restart required to activate changes.</source>
         <extracomment>Text explaining that the settings changed will not come into effect until the client is restarted.</extracomment>
         <translation type="unfinished">Değişikliklerin uygulanması için istemcinin yeniden başlatılması lazımdır.</translation>
-    </message>
-    <message>
-        <source>Current settings will be backed up at "%1".</source>
-        <extracomment>Text explaining to the user that the client's current settings will be backed up at a specific location. %1 is a stand-in argument for the backup location's path.</extracomment>
-        <translation type="unfinished">Mevcut ayarlar şu adreste yedeklenecek: "%1".</translation>
     </message>
     <message>
         <source>Client will be shut down. Do you want to proceed?</source>
@@ -2056,8 +2097,16 @@ Cüzdan kilidini aç.</translation>
         <translation type="unfinished">Ayrıntılı bilgi görmek için bir eş seçin.</translation>
     </message>
     <message>
+        <source>The transport layer version: %1</source>
+        <translation type="unfinished">Taşıma katmanı versiyonu: %1</translation>
+    </message>
+    <message>
         <source>Transport</source>
         <translation type="unfinished">Aktar</translation>
+    </message>
+    <message>
+        <source>Session ID</source>
+        <translation type="unfinished">Oturum ID</translation>
     </message>
     <message>
         <source>Version</source>
@@ -2224,6 +2273,21 @@ Cüzdan kilidini aç.</translation>
     <message>
         <source>Out:</source>
         <translation type="unfinished">Dışarı:</translation>
+    </message>
+    <message>
+        <source>detecting: peer could be v1 or v2</source>
+        <extracomment>Explanatory text for "detecting" transport type.</extracomment>
+        <translation type="unfinished">keşfediliyor: eş v1 veya v2 olabilir</translation>
+    </message>
+    <message>
+        <source>v1: unencrypted, plaintext transport protocol</source>
+        <extracomment>Explanatory text for v1 transport type.</extracomment>
+        <translation type="unfinished">v1: şifrelenmemiş, açık metin taşıma protokolü</translation>
+    </message>
+    <message>
+        <source>v2: BIP324 encrypted transport protocol</source>
+        <extracomment>Explanatory text for v2 transport type.</extracomment>
+        <translation type="unfinished">v2: BIP324 şifrelenmiş taşıma protokolü</translation>
     </message>
     <message>
         <source>&amp;Copy address</source>
@@ -3045,6 +3109,10 @@ Cüzdan kilidini aç.</translation>
         <translation type="unfinished">Çıktı indeksi</translation>
     </message>
     <message>
+        <source> (Certificate was not verified)</source>
+        <translation type="unfinished">(Sertifika doğrulanmadı)</translation>
+    </message>
+    <message>
         <source>Merchant</source>
         <translation type="unfinished">Tüccar</translation>
     </message>
@@ -3601,6 +3669,10 @@ Cüzdan yedeği geri yüklenemiyor.</translation>
         <translation type="unfinished">Başlatma sırasında cüzdanı yeniden tarama işlemi başarısız oldu</translation>
     </message>
     <message>
+        <source>Failed to start indexes, shutting down..</source>
+        <translation type="unfinished">Endekslerin başlatılması başarısız oldu, kapatılıyor..</translation>
+    </message>
+    <message>
         <source>Failed to verify database</source>
         <translation type="unfinished">Veritabanı doğrulanamadı</translation>
     </message>
@@ -3743,6 +3815,10 @@ Cüzdan yedeği geri yüklenemiyor.</translation>
     <message>
         <source>Transaction change output index out of range</source>
         <translation type="unfinished">İşlem değişikliği çıktı endeksi aralık dışında</translation>
+    </message>
+    <message>
+        <source>Transaction has too long of a mempool chain</source>
+        <translation type="unfinished">İşlem çok uzun bir mempool zincirine sahip</translation>
     </message>
     <message>
         <source>Transaction must have at least one recipient</source>

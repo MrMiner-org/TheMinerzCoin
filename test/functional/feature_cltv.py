@@ -92,7 +92,7 @@ class BIP65Test(BitcoinTestFramework):
         self.rpc_timeout = 480
 
     def test_cltv_info(self, *, is_active):
-        # TheMinerzCoin: assume that CLTV is always active
+        # Blackcoin: assume that CLTV is always active
         pass
 
     def run_test(self):

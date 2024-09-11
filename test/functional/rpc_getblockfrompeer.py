@@ -79,7 +79,7 @@ class GetBlockFromPeerTest(BitcoinTestFramework):
             assert_raises_rpc_error(-1, "Peer does not exist", self.nodes[0].getblockfrompeer, short_tip, peer_id)
 
         '''
-        # TheMinerzCoin: enable the test after SegWit activation
+        # Blackcoin: enable the test after SegWit activation
         self.log.info("Fetching from pre-segwit peer generates error")
         self.nodes[0].add_p2p_connection(P2PInterface(), services=P2P_SERVICES & ~NODE_WITNESS)
         peers = self.nodes[0].getpeerinfo()

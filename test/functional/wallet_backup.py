@@ -165,7 +165,7 @@ class WalletBackupTest(BitcoinTestFramework):
             for node_num in range(3):
                 self.nodes[node_num].dumpwallet(self.nodes[node_num].datadir_path / 'wallet.dump')
 
-        self.log.info(" transactions")
+        self.log.info("More transactions")
         for _ in range(5):
             self.do_one_round()
 

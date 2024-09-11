@@ -765,7 +765,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>Click for more actions.</source>
-        <extracomment>A substring of the tooltip. " actions" are available via the context menu.</extracomment>
+        <extracomment>A substring of the tooltip. "More actions" are available via the context menu.</extracomment>
         <translation type="unfinished">Klikněte pro více možností.</translation>
     </message>
     <message>
@@ -1734,6 +1734,18 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Použít samostatnou SOCKS&amp;5 proxy ke spojení s protějšky přes skryté služby v Toru:</translation>
     </message>
     <message>
+        <source>Monospaced font in the Overview tab:</source>
+        <translation type="unfinished">Písmo s pevnou šířkou v panelu Přehled:</translation>
+    </message>
+    <message>
+        <source>embedded "%1"</source>
+        <translation type="unfinished">zahrnuto "%1"</translation>
+    </message>
+    <message>
+        <source>closest matching "%1"</source>
+        <translation type="unfinished">nejbližší shoda "%1"</translation>
+    </message>
+    <message>
         <source>&amp;OK</source>
         <translation type="unfinished">&amp;Budiž</translation>
     </message>
@@ -1975,8 +1987,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">PSBT uložena na disk.</translation>
     </message>
     <message>
-        <source>own address</source>
-        <translation type="unfinished">vlastní adresa</translation>
+        <source> * Sends %1 to %2</source>
+        <translation type="unfinished"> * Odešle %1 na %2</translation>
     </message>
     <message>
         <source>own address</source>
@@ -2986,6 +2998,10 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
         <translation type="unfinished">Vytvořit částečně podepsanou Bitcoin transakci (Partially Signed Bitcoin Transaction - PSBT) k použtí kupříkladu s offline %1 peněženkou nebo s jinou kompatibilní PSBT hardware peněženkou.</translation>
     </message>
     <message>
+        <source> from wallet '%1'</source>
+        <translation type="unfinished">z peněženky '%1'</translation>
+    </message>
+    <message>
         <source>%1 to '%2'</source>
         <translation type="unfinished">%1 do '%2'</translation>
     </message>
@@ -3505,6 +3521,10 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
         <translation type="unfinished">Pořadí výstupu</translation>
     </message>
     <message>
+        <source> (Certificate was not verified)</source>
+        <translation type="unfinished">(Certifikát nebyl ověřen)</translation>
+    </message>
+    <message>
         <source>Merchant</source>
         <translation type="unfinished">Obchodník</translation>
     </message>
@@ -4004,7 +4024,7 @@ Ověřuji peněženku.</translation>
         <translation type="unfinished">Neplatný nebo poškozený soubor peers.dat (%s). Pokud věříš, že se jedná o chybu, prosím nahlas ji na %s. Jako řešení lze přesunout soubor (%s) z cesty (přejmenovat, přesunout nebo odstranit), aby se při dalším spuštění vytvořil nový.</translation>
     </message>
     <message>
-        <source> than one onion bind address is provided. Using %s for the automatically created Tor onion service.</source>
+        <source>More than one onion bind address is provided. Using %s for the automatically created Tor onion service.</source>
         <translation type="unfinished">Byla zadána více než jedna onion adresa. Použiju %s pro automaticky vytvořenou službu sítě Tor.</translation>
     </message>
     <message>
@@ -4150,6 +4170,12 @@ Ověřuji peněženku.</translation>
     <message>
         <source>Error loading %s: External signer wallet being loaded without external signer support compiled</source>
         <translation type="unfinished">Chyba při načtení %s: Externí podepisovací peněženka se načítá bez zkompilované podpory externího podpisovatele.</translation>
+    </message>
+    <message>
+        <source>Error reading %s! All keys read correctly, but transaction data or address metadata may be missing or incorrect.</source>
+        <translation type="unfinished">Nastala chyba při čtení souboru %s! Všechny klíče se přečetly správně, ale data o transakcích nebo záznamy v adresáři moho
+u chybět či být nesprávné.
+</translation>
     </message>
     <message>
         <source>Error: Address book data in wallet cannot be identified to belong to migrated wallets</source>
@@ -4342,6 +4368,14 @@ Nelze obnovit zálohu peněženky.</translation>
         <translation type="unfinished">Chyba: Nelze extrahovat cíl z generovaného scriptpubkey</translation>
     </message>
     <message>
+        <source>Error: Could not add watchonly tx to watchonly wallet</source>
+        <translation type="unfinished">Chyba: Nelze přidat pouze-sledovací tx do peněženky pro čtení</translation>
+    </message>
+    <message>
+        <source>Error: Could not delete watchonly transactions</source>
+        <translation type="unfinished">Chyba: Nelze odstranit transakce které jsou pouze pro čtení</translation>
+    </message>
+    <message>
         <source>Error: Couldn't create cursor into database</source>
         <translation type="unfinished">Chyba: nebylo možno vytvořit kurzor do databáze</translation>
     </message>
@@ -4376,6 +4410,10 @@ Nelze obnovit zálohu peněženky.</translation>
     <message>
         <source>Error: No %s addresses available.</source>
         <translation type="unfinished">Chyba: Žádné %s adresy nejsou dostupné.</translation>
+    </message>
+    <message>
+        <source>Error: Not all watchonly txs could be deleted</source>
+        <translation type="unfinished">Chyba: Ne všechny pouze-sledovací tx bylo možné smazat</translation>
     </message>
     <message>
         <source>Error: This wallet already uses SQLite</source>
@@ -4652,6 +4690,10 @@ Nelze obnovit zálohu peněženky.</translation>
     <message>
         <source>Transaction change output index out of range</source>
         <translation type="unfinished">Výstupní index změny transakce mimo rozsah</translation>
+    </message>
+    <message>
+        <source>Transaction has too long of a mempool chain</source>
+        <translation type="unfinished">Transakce má v transakčním zásobníku příliš dlouhý řetězec</translation>
     </message>
     <message>
         <source>Transaction must have at least one recipient</source>

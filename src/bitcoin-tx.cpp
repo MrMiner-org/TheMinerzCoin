@@ -101,14 +101,14 @@ static int AppInitRawTx(int argc, char* argv[])
 
     if (argc < 2 || HelpRequested(gArgs) || gArgs.IsArgSet("-version")) {
         // First part of help message is specific to this utility
-        std::string strUsage = PACKAGE_NAME " theminerzcoin-tx utility version " + FormatFullVersion() + "\n";
+        std::string strUsage = PACKAGE_NAME " blackmore-tx utility version " + FormatFullVersion() + "\n";
 
         if (gArgs.IsArgSet("-version")) {
             strUsage += FormatParagraph(LicenseInfo());
         } else {
             strUsage += "\n"
-                "Usage:  theminerzcoin-tx [options] <hex-tx> [commands]  Update hex-encoded theminerzcoin transaction\n"
-                "or:     theminerzcoin-tx [options] -create [commands]   Create hex-encoded theminerzcoin transaction\n"
+                "Usage:  blackmore-tx [options] <hex-tx> [commands]  Update hex-encoded blackcoin transaction\n"
+                "or:     blackmore-tx [options] -create [commands]   Create hex-encoded blackcoin transaction\n"
                 "\n";
             strUsage += gArgs.GetHelpMessage();
         }
@@ -219,8 +219,6 @@ static void MutateTxLocktime(CMutableTransaction& tx, const std::string& cmdVal)
     tx.nLockTime = (unsigned int) newLocktime;
 }
 
-
-
 static void MutateTxTime(CMutableTransaction& tx, const std::string& cmdVal)
 {
     int64_t newTime;
@@ -270,7 +268,7 @@ static void MutateTxAddInput(CMutableTransaction& tx, const std::string& strInpu
     }
 
     // append to transaction input list
-    CTxIn txin(Txid::FromUint256(txid), vout, CScript(), nSequenceIn);
+    CTxIn txin(txid, vout, CScript(), nSequenceIn);
     tx.vin.push_back(txin);
 }
 
@@ -619,7 +617,7 @@ static void MutateTxSign(CMutableTransaction& tx, const std::string& flagStr)
             if (nOut < 0)
                 throw std::runtime_error("vout cannot be negative");
 
-            COutPoint out(Txid::FromUint256(txid), nOut);
+            COutPoint out(txid, nOut);
             std::vector<unsigned char> pkData(ParseHexUV(prevOut["scriptPubKey"], "scriptPubKey"));
             CScript scriptPubKey(pkData.begin(), pkData.end());
 

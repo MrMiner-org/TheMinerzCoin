@@ -39,7 +39,7 @@ RPCHelpMan importmulti();
 RPCHelpMan dumpwallet();
 RPCHelpMan importwallet();
 
-// TheMinerzCoin
+// Blackcoin
 /*
 // Ensure that fee levels defined in the wallet are at least as high
 // as the default levels for node policy.
@@ -187,7 +187,7 @@ BOOST_FIXTURE_TEST_CASE(importmulti_rescan, TestChain100Setup)
     CreateAndProcessBlock({}, GetScriptForRawPubKey(coinbaseKey.GetPubKey()));
     CBlockIndex* newTip = m_node.chainman->ActiveChain().Tip();
 
-    // TheMinerzCoin
+    // Blackcoin
     /*
     // Prune the older block file.
     int file_number;
@@ -219,7 +219,8 @@ BOOST_FIXTURE_TEST_CASE(importmulti_rescan, TestChain100Setup)
         keys.push_back(key);
         key.clear();
         key.setObject();
-        CKey futureKey = GenerateRandomKey();
+        CKey futureKey;
+        futureKey.MakeNewKey(true);
         key.pushKV("scriptPubKey", HexStr(GetScriptForRawPubKey(futureKey.GetPubKey())));
         key.pushKV("timestamp", newTip->GetBlockTimeMax() + TIMESTAMP_WINDOW + 1);
         key.pushKV("internal", UniValue(true));
@@ -433,11 +434,9 @@ BOOST_FIXTURE_TEST_CASE(LoadReceiveRequests, TestingSetup)
             auto requests = wallet->GetAddressReceiveRequests();
             auto erequests = {"val_rr11", "val_rr20"};
             BOOST_CHECK_EQUAL_COLLECTIONS(requests.begin(), requests.end(), std::begin(erequests), std::end(erequests));
-            RunWithinTxn(wallet->GetDatabase(), /*process_desc*/"test", [](WalletBatch& batch){
-                BOOST_CHECK(batch.WriteAddressPreviouslySpent(PKHash(), false));
-                BOOST_CHECK(batch.EraseAddressData(ScriptHash()));
-                return true;
-            });
+            WalletBatch batch{wallet->GetDatabase()};
+            BOOST_CHECK(batch.WriteAddressPreviouslySpent(PKHash(), false));
+            BOOST_CHECK(batch.EraseAddressData(ScriptHash()));
         });
         TestLoadWallet(name, format, [](std::shared_ptr<CWallet> wallet) EXCLUSIVE_LOCKS_REQUIRED(wallet->cs_wallet) {
             BOOST_CHECK(!wallet->IsAddressPreviouslySpent(PKHash()));
@@ -547,7 +546,8 @@ public:
         CTransactionRef tx;
         CCoinControl dummy;
         {
-            auto res = CreateTransaction(*wallet, {recipient}, /*change_pos=*/std::nullopt, dummy);
+            constexpr int RANDOM_CHANGE_POSITION = -1;
+            auto res = CreateTransaction(*wallet, {recipient}, RANDOM_CHANGE_POSITION, dummy);
             BOOST_CHECK(res);
             tx = res->tx;
         }
@@ -693,7 +693,8 @@ BOOST_FIXTURE_TEST_CASE(wallet_disableprivkeys, TestChain100Setup)
 static size_t CalculateNestedKeyhashInputSize(bool use_max_sig)
 {
     // Generate ephemeral valid pubkey
-    CKey key = GenerateRandomKey();
+    CKey key;
+    key.MakeNewKey(true);
     CPubKey pubkey = key.GetPubKey();
 
     // Generate pubkey hash
@@ -777,7 +778,8 @@ BOOST_FIXTURE_TEST_CASE(CreateWallet, TestChain100Setup)
     context.args = &m_args;
     context.chain = m_node.chain.get();
     auto wallet = TestLoadWallet(context);
-    CKey key = GenerateRandomKey();
+    CKey key;
+    key.MakeNewKey(true);
     AddKey(*wallet, key);
     TestUnloadWallet(std::move(wallet));
 
@@ -878,14 +880,15 @@ BOOST_FIXTURE_TEST_CASE(CreateWalletWithoutChain, BasicTestingSetup)
     UnloadWallet(std::move(wallet));
 }
 
-BOOST_FIXTURE_TEST_CASE(RemoveTxs, TestChain100Setup)
+BOOST_FIXTURE_TEST_CASE(ZapSelectTx, TestChain100Setup)
 {
     m_args.ForceSetArg("-unsafesqlitesync", "1");
     WalletContext context;
     context.args = &m_args;
     context.chain = m_node.chain.get();
     auto wallet = TestLoadWallet(context);
-    CKey key = GenerateRandomKey();
+    CKey key;
+    key.MakeNewKey(true);
     AddKey(*wallet, key);
 
     std::string error;
@@ -903,8 +906,8 @@ BOOST_FIXTURE_TEST_CASE(RemoveTxs, TestChain100Setup)
         BOOST_CHECK(wallet->HasWalletSpend(prev_tx));
         BOOST_CHECK_EQUAL(wallet->mapWallet.count(block_hash), 1u);
 
-        std::vector<uint256> vHashIn{ block_hash };
-        BOOST_CHECK(wallet->RemoveTxs(vHashIn));
+        std::vector<uint256> vHashIn{ block_hash }, vHashOut;
+        BOOST_CHECK_EQUAL(wallet->ZapSelectTx(vHashIn, vHashOut), DBErrors::LOAD_OK);
 
         BOOST_CHECK(!wallet->HasWalletSpend(prev_tx));
         BOOST_CHECK_EQUAL(wallet->mapWallet.count(block_hash), 0u);
@@ -931,7 +934,7 @@ BOOST_FIXTURE_TEST_CASE(wallet_sync_tx_invalid_state_test, TestingSetup)
 
     CMutableTransaction mtx;
     mtx.vout.emplace_back(COIN, GetScriptForDestination(op_dest));
-    mtx.vin.emplace_back(Txid::FromUint256(g_insecure_rand_ctx.rand256()), 0);
+    mtx.vin.emplace_back(g_insecure_rand_ctx.rand256(), 0);
     const auto& tx_id_to_spend = wallet.AddToWallet(MakeTransactionRef(mtx), TxStateInMempool{})->GetHash();
 
     {
@@ -948,12 +951,12 @@ BOOST_FIXTURE_TEST_CASE(wallet_sync_tx_invalid_state_test, TestingSetup)
     mtx.vin.clear();
     mtx.vin.emplace_back(tx_id_to_spend, 0);
     wallet.transactionAddedToMempool(MakeTransactionRef(mtx));
-    const auto good_tx_id{mtx.GetHash()};
+    const uint256& good_tx_id = mtx.GetHash();
 
     {
         // Verify balance update for the new tx and the old one
         LOCK(wallet.cs_wallet);
-        const CWalletTx* new_wtx = wallet.GetWalletTx(good_tx_id.ToUint256());
+        const CWalletTx* new_wtx = wallet.GetWalletTx(good_tx_id);
         BOOST_CHECK_EQUAL(CachedTxGetAvailableCredit(wallet, *new_wtx), 1 * COIN);
 
         // Now the old wtx

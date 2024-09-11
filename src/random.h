@@ -11,7 +11,6 @@
 #include <span.h>
 #include <uint256.h>
 
-#include <bit>
 #include <cassert>
 #include <chrono>
 #include <cstdint>
@@ -204,7 +203,7 @@ public:
     {
         assert(range);
         --range;
-        int bits = std::bit_width(range);
+        int bits = CountBits(range);
         while (true) {
             uint64_t ret = randbits(bits);
             if (ret <= range) return ret;
@@ -251,7 +250,7 @@ public:
     inline uint64_t operator()() noexcept { return rand64(); }
 };
 
-/**  efficient than using std::shuffle on a FastRandomContext.
+/** More efficient than using std::shuffle on a FastRandomContext.
  *
  * This is more efficient as std::shuffle will consume entropy in groups of
  * 64 bits at the time and throw away most.

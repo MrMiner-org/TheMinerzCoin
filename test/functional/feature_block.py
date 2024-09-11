@@ -983,7 +983,7 @@ class FullBlockTest(BitcoinTestFramework):
         b67 = self.update_block(67, [tx1, tx2, tx3])
         self.send_blocks([b67], success=False, reject_reason='bad-txns-inputs-missingorspent', reconnect=True)
 
-        #  tests of block subsidy
+        # More tests of block subsidy
         #
         # -> b64 (18) -> b65 (19) -> b69 (20)
         #                        \-> b68 (20)
@@ -1262,10 +1262,6 @@ class FullBlockTest(BitcoinTestFramework):
         b89a = self.update_block("89a", [tx])
         self.send_blocks([b89a], success=False, reject_reason='bad-txns-inputs-missingorspent', reconnect=True)
 
-        # Don't use v2transport for the large reorg, which is too slow with the unoptimized python ChaCha20 implementation
-        if self.options.v2transport:
-            self.nodes[0].disconnect_p2ps()
-            self.helper_peer = self.nodes[0].add_p2p_connection(P2PDataStore(), supports_v2_p2p=False)
         self.log.info("Test a re-org of one week's worth of blocks (1088 blocks)")
 
         self.move_tip(88)

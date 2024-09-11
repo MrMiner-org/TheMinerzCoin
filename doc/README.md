@@ -1,30 +1,30 @@
-TheMinerzCoin 
+Blackcoin More
 =============
 
 Setup
 ---------------------
-TheMinerzCoin  is the original TheMinerzCoin client and it builds the backbone of the network. It downloads and, by default, stores the entire history of TheMinerzCoin transactions, which requires a few hundred gigabytes of disk space. Depending on the speed of your computer and network connection, the synchronization process can take anywhere from a few hours to a day or more.
+Blackcoin More is the original Blackcoin client and it builds the backbone of the network. It downloads and, by default, stores the entire history of Blackcoin transactions, which requires a few hundred gigabytes of disk space. Depending on the speed of your computer and network connection, the synchronization process can take anywhere from a few hours to a day or more.
 
-To download TheMinerzCoin , visit [blackcoinmore.org](https://blackcoinmore.org).
+To download Blackcoin More, visit [blackcoinmore.org](https://blackcoinmore.org).
 
 Running
 ---------------------
-The following are some helpful notes on how to run TheMinerzCoin  on your native platform.
+The following are some helpful notes on how to run Blackcoin More on your native platform.
 
 ### Unix
 
 Unpack the files into a directory and run:
 
-- `bin/theminerzcoin-qt` (GUI) or
+- `bin/blackmore-qt` (GUI) or
 - `bin/blackmored` (headless)
 
 ### Windows
 
-Unpack the files into a directory, and then run theminerzcoin-qt.exe.
+Unpack the files into a directory, and then run blackmore-qt.exe.
 
 ### macOS
 
-Drag TheMinerzCoin  to your applications folder, and then run TheMinerzCoin .
+Drag Blackcoin More to your applications folder, and then run Blackcoin More.
 
 ### Need Help?
 
@@ -79,7 +79,6 @@ The Bitcoin repo's [root README](/README.md) contains relevant information on th
 - [Init Scripts (systemd/upstart/openrc)](init.md)
 - [Managing Wallets](managing-wallets.md)
 - [Multisig Tutorial](multisig-tutorial.md)
-- [Offline Signing Tutorial](offline-signing-tutorial.md)
 - [P2P bad ports definition and list](p2p-bad-ports.md)
 - [PSBT support](psbt.md)
 - [Reduce Memory](reduce-memory.md)

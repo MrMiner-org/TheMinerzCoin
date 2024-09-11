@@ -1,9 +1,9 @@
 WINDOWS BUILD NOTES
 ====================
 
-Below are some notes on how to build TheMinerzCoin  for Windows.
+Below are some notes on how to build Blackcoin More for Windows.
 
-The options known to work for building TheMinerzCoin  on Windows are:
+The options known to work for building Blackcoin More on Windows are:
 
 * On Linux, using the [Mingw-w64](https://www.mingw-w64.org/) cross compiler tool chain.
 * On Windows, using [Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/about) and Mingw-w64.
@@ -42,21 +42,28 @@ If you want to build the windows installer with `make deploy` you need [NSIS](ht
 
 Acquire the source in the usual way:
 
-    git clone https://github.com/CoinBlack/theminerzcoin-more.git
-    cd theminerzcoin-more
+    git clone https://github.com/CoinBlack/blackcoin-more.git
+    cd blackcoin-more
 
 ## Building for 64-bit Windows
 
 The first step is to install the mingw-w64 cross-compilation tool chain:
+  - on modern systems (Ubuntu 21.04 Hirsute Hippo or newer, Debian 11 Bullseye or newer):
 
 ```sh
 sudo apt install g++-mingw-w64-x86-64-posix
 ```
 
+  - on older systems:
+
+```sh
+sudo apt install g++-mingw-w64-x86-64
+```
+
 Once the toolchain is installed the build steps are common:
 
-Note that for WSL the TheMinerzCoin  source path MUST be somewhere in the default mount file system, for
-example /usr/src/theminerzcoin, AND not under /mnt/d/. If this is not the case the dependency autoconf scripts will fail.
+Note that for WSL the Blackcoin More source path MUST be somewhere in the default mount file system, for
+example /usr/src/blackmore, AND not under /mnt/d/. If this is not the case the dependency autoconf scripts will fail.
 This means you cannot use a directory that is located directly on the host Windows file system to perform the build.
 
 Additional WSL Note: WSL support for [launching Win32 applications](https://learn.microsoft.com/en-us/archive/blogs/wsl/windows-and-ubuntu-interoperability#launching-win32-applications-from-within-wsl)
@@ -86,9 +93,9 @@ Installation
 After building using the Windows subsystem it can be useful to copy the compiled
 executables to a directory on the Windows drive in the same directory structure
 as they appear in the release `.zip` archive. This can be done in the following
-way. This will install to `c:\workspace\theminerzcoin`, for example:
+way. This will install to `c:\workspace\blackmore`, for example:
 
-    make install DESTDIR=/mnt/c/workspace/theminerzcoin
+    make install DESTDIR=/mnt/c/workspace/blackmore
 
 You can also create an installer using:
 

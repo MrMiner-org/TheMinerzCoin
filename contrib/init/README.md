@@ -5,7 +5,7 @@ Upstart: blackmored.conf
 OpenRC:  blackmored.openrc
          blackmored.openrcconf
 CentOS:  blackmored.init
-macOS:   org.theminerzcoin.blackmored.plist
+macOS:   org.blackcoin.blackmored.plist
 ```
 have been made available to assist packagers in creating node packages here.
 

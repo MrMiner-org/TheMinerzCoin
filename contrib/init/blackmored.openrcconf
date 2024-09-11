@@ -1,7 +1,7 @@
 # /etc/conf.d/blackmored: config file for /etc/init.d/blackmored
 
 # Config file location
-#BITCOIND_CONFIGFILE="/etc/theminerzcoin/theminerzcoin.conf"
+#BITCOIND_CONFIGFILE="/etc/blackmore/blackmore.conf"
 
 # What directory to write pidfile to?  (created and owned by $BITCOIND_USER)
 #BITCOIND_PIDDIR="/var/run/blackmored"
@@ -13,8 +13,8 @@
 #BITCOIND_DATADIR="/var/lib/blackmored"
 
 # User and group to own blackmored process
-#BITCOIND_USER="theminerzcoin"
-#BITCOIND_GROUP="theminerzcoin"
+#BITCOIND_USER="blackcoin"
+#BITCOIND_GROUP="blackcoin"
 
 # Path to bitcoind executable
 #BITCOIND_BIN="/usr/bin/blackmored"

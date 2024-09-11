@@ -2,10 +2,6 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#if defined(HAVE_CONFIG_H)
-#include <config/bitcoin-config.h>
-#endif
-
 #include <chain.h>
 #include <clientversion.h>
 #include <core_io.h>
@@ -225,7 +221,7 @@ RPCHelpMan importaddress()
             "Note: Use \"getwalletinfo\" to query the scanning progress.\n"
             "Note: This command is only compatible with legacy wallets. Use \"importdescriptors\" for descriptor wallets.\n",
                 {
-                    {"address", RPCArg::Type::STR, RPCArg::Optional::NO, "The TheMinerzCoin address (or hex-encoded script)"},
+                    {"address", RPCArg::Type::STR, RPCArg::Optional::NO, "The Blackcoin address (or hex-encoded script)"},
                     {"label", RPCArg::Type::STR, RPCArg::Default{""}, "An optional label"},
                     {"rescan", RPCArg::Type::BOOL, RPCArg::Default{true}, "Scan the chain and mempool for wallet transactions."},
                     {"p2sh", RPCArg::Type::BOOL, RPCArg::Default{false}, "Add the P2SH version of the script as well"},
@@ -291,7 +287,7 @@ RPCHelpMan importaddress()
 
             pwallet->ImportScriptPubKeys(strLabel, scripts, /*have_solving_data=*/false, /*apply_label=*/true, /*timestamp=*/1);
         } else {
-            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid TheMinerzCoin address or script");
+            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid Blackcoin address or script");
         }
     }
     if (fRescan)
@@ -537,7 +533,7 @@ RPCHelpMan dumpprivkey()
                 "Then the importprivkey can be used with this output\n"
                 "Note: This command is only compatible with legacy wallets.\n",
                 {
-                    {"address", RPCArg::Type::STR, RPCArg::Optional::NO, "The theminerzcoin address for the private key"},
+                    {"address", RPCArg::Type::STR, RPCArg::Optional::NO, "The blackcoin address for the private key"},
                 },
                 RPCResult{
                     RPCResult::Type::STR, "key", "The private key"
@@ -561,7 +557,7 @@ RPCHelpMan dumpprivkey()
     std::string strAddress = request.params[0].get_str();
     CTxDestination dest = DecodeDestination(strAddress);
     if (!IsValidDestination(dest)) {
-        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid TheMinerzCoin address");
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid Blackcoin address");
     }
     if (pwallet->m_wallet_unlock_staking_only)
         throw JSONRPCError(RPC_WALLET_UNLOCK_NEEDED, "Wallet is unlocked for staking only");
@@ -625,7 +621,7 @@ RPCHelpMan dumpwallet()
      * It may also avoid other security issues.
      */
     if (fs::exists(filepath)) {
-        throw JSONRPCError(RPC_INVALID_PARAMETER, filepath.utf8string() + " already exists. If you are sure this is what you want, move it out of the way first");
+        throw JSONRPCError(RPC_INVALID_PARAMETER, filepath.u8string() + " already exists. If you are sure this is what you want, move it out of the way first");
     }
 
     std::ofstream file;
@@ -719,7 +715,7 @@ RPCHelpMan dumpwallet()
     file.close();
 
     UniValue reply(UniValue::VOBJ);
-    reply.pushKV("filename", filepath.utf8string());
+    reply.pushKV("filename", filepath.u8string());
 
     return reply;
 },

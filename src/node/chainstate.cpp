@@ -17,7 +17,6 @@
 #include <txdb.h>
 #include <uint256.h>
 #include <util/fs.h>
-#include <util/signalinterrupt.h>
 #include <util/time.h>
 #include <util/translation.h>
 #include <validation.h>
@@ -52,12 +51,12 @@ static ChainstateLoadResult CompleteChainstateInitialization(
         pblocktree->WriteReindexing(true);
     }
 
-    if (chainman.m_interrupt) return {ChainstateLoadStatus::INTERRUPTED, {}};
+    if (options.check_interrupt && options.check_interrupt()) return {ChainstateLoadStatus::INTERRUPTED, {}};
 
     // Note that LoadBlockIndex sets fReindex global based on the disk flag!
     // From here on, fReindex and options.reindex values may be different!
     if (!chainman.LoadBlockIndex()) {
-        if (chainman.m_interrupt) return {ChainstateLoadStatus::INTERRUPTED, {}};
+        if (options.check_interrupt && options.check_interrupt()) return {ChainstateLoadStatus::INTERRUPTED, {}};
         return {ChainstateLoadStatus::FAILURE, _("Error loading block database")};
     }
 

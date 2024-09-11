@@ -15,19 +15,19 @@
     </message>
     <message>
         <source>Copy the currently selected address to the system clipboard</source>
-        <translation type="unfinished">አሁን የተመረጠውን አድራሻ ወደ ስርዓቱ ቅንጥብ ሰሌዳ ይቅዱ</translation>
+        <translation type="unfinished">አሁን የተመረጠውን አድራሻ ወደ ስርዓቱ ቅንጥብ ሰሌዳ ቅዳ</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
-        <translation type="unfinished">&amp;ይቅዱ</translation>
+        <translation type="unfinished">&amp;ቅዳ</translation>
     </message>
     <message>
         <source>C&amp;lose</source>
-        <translation type="unfinished">ይዝጉ</translation>
+        <translation type="unfinished">ዝጋ</translation>
     </message>
     <message>
         <source>Delete the currently selected address from the list</source>
-        <translation type="unfinished">አሁን የተመረጠውን አድራሻ ከዝርዝሩ ውስጥ ያጥፉ</translation>
+        <translation type="unfinished">አሁን የተመረጠውን አድራሻ ከዝርዝሩ ውስጥ አጥፋ</translation>
     </message>
     <message>
         <source>Enter address or label to search</source>
@@ -35,15 +35,15 @@
     </message>
     <message>
         <source>Export the data in the current tab to a file</source>
-        <translation type="unfinished">በዚህ ማውጫ ውስጥ ያለውን ውሂብ ወደ ፋይል አዛውረው ያስቀምጡ</translation>
+        <translation type="unfinished">በዚህ ማውጫ ውስጥ ያለውን ውሂብ ወደ አንድ ፋይል ቀይረህ አስቀምጥ</translation>
     </message>
     <message>
         <source>&amp;Export</source>
-        <translation type="unfinished">&amp;ይላኩ</translation>
+        <translation type="unfinished">&amp;ላክ</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;ይሰርዙ</translation>
+        <translation type="unfinished">&amp;ሰርዝ</translation>
     </message>
     <message>
         <source>Choose the address to send coins to</source>
@@ -756,11 +756,11 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <name>WalletView</name>
     <message>
         <source>&amp;Export</source>
-        <translation type="unfinished">&amp;ይላኩ</translation>
+        <translation type="unfinished">&amp;ላክ</translation>
     </message>
     <message>
         <source>Export the data in the current tab to a file</source>
-        <translation type="unfinished">በዚህ ማውጫ ውስጥ ያለውን ውሂብ ወደ ፋይል አዛውረው ያስቀምጡ</translation>
+        <translation type="unfinished">በዚህ ማውጫ ውስጥ ያለውን ውሂብ ወደ አንድ ፋይል ቀይረህ አስቀምጥ</translation>
     </message>
     </context>
 </TS>

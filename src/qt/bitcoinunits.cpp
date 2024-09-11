@@ -121,7 +121,7 @@ QString BitcoinUnits::format(Unit unit, const CAmount& nIn, bool fPlus, Separato
 
 
 // NOTE: Using formatWithUnit in an HTML context risks wrapping
-// quantities at the thousands separator.  subtly, it also results
+// quantities at the thousands separator. More subtly, it also results
 // in a standard space rather than a thin space, due to a bug in Qt's
 // XML whitespace canonicalisation
 //
@@ -164,7 +164,7 @@ bool BitcoinUnits::parse(Unit unit, const QString& value, CAmount* val_out)
 
     if(parts.size() > 2)
     {
-        return false; //  than one dot
+        return false; // More than one dot
     }
     QString whole = parts[0];
     QString decimals;

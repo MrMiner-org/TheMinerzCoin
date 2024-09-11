@@ -2,6 +2,10 @@
 <context>
     <name>AddressBookPage</name>
     <message>
+        <source>Right-click to edit address or label</source>
+        <translation type="unfinished">Ünvana və ya etiketə düzəliş etmək üçün sağ düyməni klikləyin</translation>
+    </message>
+    <message>
         <source>Create a new address</source>
         <translation type="unfinished">Yeni ünvan yaradın</translation>
     </message>
@@ -281,43 +285,43 @@ Daxil olma, yalnız 'qanuni' tipli ünvanlar ilə mümkündür.</translation>
     <message numerus="yes">
         <source>%n second(s)</source>
         <translation type="unfinished">
-            <numerusform />
-            <numerusform />
+            <numerusform>%n second(s)</numerusform>
+            <numerusform>%n second(s)</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>%n minute(s)</source>
         <translation type="unfinished">
-            <numerusform />
-            <numerusform />
+            <numerusform>%n minute(s)</numerusform>
+            <numerusform>%n minute(s)</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>%n hour(s)</source>
         <translation type="unfinished">
-            <numerusform />
-            <numerusform />
+            <numerusform>%n hour(s)</numerusform>
+            <numerusform>%n hour(s)</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>%n day(s)</source>
         <translation type="unfinished">
-            <numerusform />
-            <numerusform />
+            <numerusform>%n day(s)</numerusform>
+            <numerusform>%n day(s)</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>%n week(s)</source>
         <translation type="unfinished">
-            <numerusform />
-            <numerusform />
+            <numerusform>%n week(s)</numerusform>
+            <numerusform>%n week(s)</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>%n year(s)</source>
         <translation type="unfinished">
-            <numerusform />
-            <numerusform />
+            <numerusform>%n year(s)</numerusform>
+            <numerusform>%n year(s)</numerusform>
         </translation>
     </message>
     </context>
@@ -687,7 +691,7 @@ Daxil olma, yalnız 'qanuni' tipli ünvanlar ilə mümkündür.</translation>
     </message>
     <message>
         <source>Click for more actions.</source>
-        <extracomment>A substring of the tooltip. " actions" are available via the context menu.</extracomment>
+        <extracomment>A substring of the tooltip. "More actions" are available via the context menu.</extracomment>
         <translation type="unfinished">Daha çıx əməllər üçün vurun.</translation>
     </message>
     <message>
@@ -1136,30 +1140,30 @@ Daxil olma, yalnız 'qanuni' tipli ünvanlar ilə mümkündür.</translation>
     <message numerus="yes">
         <source>%n GB of space available</source>
         <translation type="unfinished">
-            <numerusform />
-            <numerusform />
+            <numerusform>%n GB of space available</numerusform>
+            <numerusform>%n GB of space available</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>(of %n GB needed)</source>
         <translation type="unfinished">
-            <numerusform />
-            <numerusform />
+            <numerusform>(of %n GB needed)</numerusform>
+            <numerusform>(of %n GB needed)</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>(%n GB needed for full chain)</source>
         <translation type="unfinished">
-            <numerusform />
-            <numerusform />
+            <numerusform>(%n GB needed for full chain)</numerusform>
+            <numerusform>(%n GB needed for full chain)</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>(sufficient to restore backups %n day(s) old)</source>
         <extracomment>Explanatory text on the capability of the current prune target.</extracomment>
         <translation type="unfinished">
-            <numerusform />
-            <numerusform />
+            <numerusform>(sufficient to restore backups %n day(s) old)</numerusform>
+            <numerusform>(sufficient to restore backups %n day(s) old)</numerusform>
         </translation>
     </message>
     <message>
@@ -1457,8 +1461,8 @@ Daxil olma, yalnız 'qanuni' tipli ünvanlar ilə mümkündür.</translation>
     <message numerus="yes">
         <source>Estimated to begin confirmation within %n block(s).</source>
         <translation type="unfinished">
-            <numerusform />
-            <numerusform />
+            <numerusform>Estimated to begin confirmation within %n block(s).</numerusform>
+            <numerusform>Estimated to begin confirmation within %n block(s).</numerusform>
         </translation>
     </message>
     <message>
@@ -1479,8 +1483,8 @@ Daxil olma, yalnız 'qanuni' tipli ünvanlar ilə mümkündür.</translation>
     <message numerus="yes">
         <source>matures in %n more block(s)</source>
         <translation type="unfinished">
-            <numerusform />
-            <numerusform />
+            <numerusform>matures in %n more block(s)</numerusform>
+            <numerusform>matures in %n more block(s)</numerusform>
         </translation>
     </message>
     <message>

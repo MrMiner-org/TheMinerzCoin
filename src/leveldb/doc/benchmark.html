@@ -327,7 +327,7 @@ better without compression than with compression.  Presumably this is
 because TreeDB's compression library (LZO) is more expensive than
 LevelDB's compression library (Snappy).<p>
 
-<h3>E. Using  Memory</h3>
+<h3>E. Using More Memory</h3>
 <p>We increased the overall cache size for each database to 128 MB. For LevelDB, we partitioned 128 MB into a 120 MB write buffer and 8 MB of cache (up from 2 MB of write buffer and 2 MB of cache). For SQLite3, we kept the page size at 1024 bytes, but increased the number of pages to 131,072 (up from 4096). For TreeDB, we also kept the page size at 1024 bytes, but increased the cache size to 128 MB (up from 4 MB).</p>
 <h4>Sequential Writes</h4>
 <table class="bn">

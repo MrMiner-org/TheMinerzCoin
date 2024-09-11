@@ -4,32 +4,23 @@
 
 #include <node/blockstorage.h>
 
-#include <arith_uint256.h>
 #include <chain.h>
-#include <consensus/params.h>
+#include <clientversion.h>
 #include <consensus/validation.h>
 #include <dbwrapper.h>
 #include <flatfile.h>
 #include <hash.h>
-#include <kernel/blockmanager_opts.h>
+#include <kernel/chain.h>
 #include <kernel/chainparams.h>
 #include <kernel/messagestartchars.h>
-#include <kernel/notifications_interface.h>
 #include <logging.h>
 #include <pow.h>
-#include <primitives/block.h>
-#include <primitives/transaction.h>
 #include <reverse_iterator.h>
-#include <serialize.h>
 #include <signet.h>
-#include <span.h>
 #include <streams.h>
 #include <sync.h>
-#include <tinyformat.h>
-#include <uint256.h>
 #include <undo.h>
 #include <util/batchpriority.h>
-#include <util/check.h>
 #include <util/fs.h>
 #include <util/signalinterrupt.h>
 #include <util/strencodings.h>
@@ -133,7 +124,7 @@ bool BlockTreeDB::LoadBlockIndexGuts(const Consensus::Params& consensusParams, s
                 pindexNew->nStatus        = diskindex.nStatus;
                 pindexNew->nTx            = diskindex.nTx;
 
-                // peercoin/theminerzcoin related block index fields
+                // peercoin/blackcoin related block index fields
                 pindexNew->nFlags         = diskindex.nFlags;
                 pindexNew->nStakeModifier = diskindex.nStakeModifier;
 
@@ -574,6 +565,7 @@ bool BlockManager::FlushUndoFile(int block_file, bool finalize)
 bool BlockManager::FlushBlockFile(int blockfile_num, bool fFinalize, bool finalize_undo)
 {
     bool success = true;
+    LOCK(cs_LastBlockFile);
 
     if (m_blockfile_info.size() < 1) {
         // Return if we haven't loaded any blockfiles yet. This happens during
@@ -735,7 +727,7 @@ bool BlockManager::FindBlockPos(FlatFilePos& pos, unsigned int nAddSize, unsigne
     if (!fKnown) {
         bool out_of_space;
         size_t bytes_allocated = BlockFileSeq().Allocate(pos, nAddSize, out_of_space);
-        // TheMinerzCoin: unused variable intentionally, used for setting out_of_space value
+        // Blackcoin: unused variable intentionally, used for setting out_of_space value
         static_cast<void>(bytes_allocated);
         if (out_of_space) {
             m_opts.notifications.fatalError("Disk space is too low!", _("Disk space is too low!"));
@@ -759,7 +751,7 @@ bool BlockManager::FindUndoPos(BlockValidationState& state, int nFile, FlatFileP
 
     bool out_of_space;
     size_t bytes_allocated = UndoFileSeq().Allocate(pos, nAddSize, out_of_space);
-    // TheMinerzCoin: unused variable intentionally, used for setting out_of_space value
+    // Blackcoin: unused variable intentionally, used for setting out_of_space value
     static_cast<void>(bytes_allocated);
     if (out_of_space) {
         return FatalError(m_opts.notifications, state, "Disk space is too low!", _("Disk space is too low!"));

@@ -19,6 +19,7 @@ import sys
 import tempfile
 import time
 
+from typing import List
 from .address import create_deterministic_address_bcrt1_p2tr_op_true
 from .authproxy import JSONRPCException
 from . import coverage
@@ -29,7 +30,6 @@ from .util import (
     PortSeed,
     assert_equal,
     check_json_precision,
-    find_vout_for_address,
     get_datadir_path,
     initialize_datadir,
     p2p_port,
@@ -96,7 +96,7 @@ class BitcoinTestFramework(metaclass=BitcoinTestMetaClass):
         """Sets test framework defaults. Do not override this method. Instead, override the set_test_params() method"""
         self.chain: str = 'regtest'
         self.setup_clean_chain: bool = False
-        self.nodes: list[TestNode] = []
+        self.nodes: List[TestNode] = []
         self.extra_args = None
         self.network_thread = None
         self.rpc_timeout = 60  # Wait for up to 60 seconds for the RPC server to respond
@@ -232,9 +232,9 @@ class BitcoinTestFramework(metaclass=BitcoinTestMetaClass):
 
         binaries = {
             "blackmored": ("bitcoind", "BITCOIND"),
-            "theminerzcoin-cli": ("bitcoincli", "BITCOINCLI"),
-            "theminerzcoin-util": ("bitcoinutil", "BITCOINUTIL"),
-            "theminerzcoin-wallet": ("bitcoinwallet", "BITCOINWALLET"),
+            "blackmore-cli": ("bitcoincli", "BITCOINCLI"),
+            "blackmore-util": ("bitcoinutil", "BITCOINUTIL"),
+            "blackmore-wallet": ("bitcoinwallet", "BITCOINWALLET"),
         }
         for binary, [attribute_name, env_variable_name] in binaries.items():
             default_filename = os.path.join(
@@ -499,7 +499,7 @@ class BitcoinTestFramework(metaclass=BitcoinTestMetaClass):
         if binary is None:
             binary = [get_bin_from_version(v, 'blackmored', self.options.bitcoind) for v in versions]
         if binary_cli is None:
-            binary_cli = [get_bin_from_version(v, 'theminerzcoin-cli', self.options.bitcoincli) for v in versions]
+            binary_cli = [get_bin_from_version(v, 'blackmore-cli', self.options.bitcoincli) for v in versions]
         assert_equal(len(extra_confs), num_nodes)
         assert_equal(len(extra_args), num_nodes)
         assert_equal(len(versions), num_nodes)
@@ -507,6 +507,8 @@ class BitcoinTestFramework(metaclass=BitcoinTestMetaClass):
         assert_equal(len(binary_cli), num_nodes)
         for i in range(num_nodes):
             args = list(extra_args[i])
+            if self.options.v2transport and ("-v2transport=0" not in args):
+                args.append("-v2transport=1")
             test_node_i = TestNode(
                 i,
                 get_datadir_path(self.options.tmpdir, i),
@@ -525,7 +527,6 @@ class BitcoinTestFramework(metaclass=BitcoinTestMetaClass):
                 start_perf=self.options.perf,
                 use_valgrind=self.options.valgrind,
                 descriptors=self.options.descriptors,
-                v2transport=self.options.v2transport,
             )
             self.nodes.append(test_node_i)
             if not test_node_i.version_is_at_least(170000):
@@ -600,12 +601,12 @@ class BitcoinTestFramework(metaclass=BitcoinTestMetaClass):
         ip_port = "127.0.0.1:" + str(p2p_port(b))
 
         if peer_advertises_v2 is None:
-            peer_advertises_v2 = from_connection.use_v2transport
+            peer_advertises_v2 = self.options.v2transport
 
-        if peer_advertises_v2 != from_connection.use_v2transport:
-            from_connection.addnode(node=ip_port, command="onetry", v2transport=peer_advertises_v2)
+        if peer_advertises_v2:
+            from_connection.addnode(node=ip_port, command="onetry", v2transport=True)
         else:
-            # skip the optional third argument if it matches the default, for
+            # skip the optional third argument (default false) for
             # compatibility with older clients
             from_connection.addnode(ip_port, "onetry")
 
@@ -695,22 +696,6 @@ class BitcoinTestFramework(metaclass=BitcoinTestMetaClass):
         blocks = generator.generatetodescriptor(*args, invalid_call=False, **kwargs)
         sync_fun() if sync_fun else self.sync_all()
         return blocks
-
-    def create_outpoints(self, node, *, outputs):
-        """Send funds to a given list of `{address: amount}` targets using the bitcoind
-        wallet and return the corresponding outpoints as a list of dictionaries
-        `[{"txid": txid, "vout": vout1}, {"txid": txid, "vout": vout2}, ...]`.
-        The result can be used to specify inputs for RPCs like `createrawtransaction`,
-        `createpsbt`, `lockunspent` etc."""
-        assert all(len(output.keys()) == 1 for output in outputs)
-        send_res = node.send(outputs)
-        assert send_res["complete"]
-        utxos = []
-        for output in outputs:
-            address = list(output.keys())[0]
-            vout = find_vout_for_address(node, send_res["txid"], address)
-            utxos.append({"txid": send_res["txid"], "vout": vout})
-        return utxos
 
     def sync_blocks(self, nodes=None, wait=1, timeout=60):
         """
@@ -840,7 +825,7 @@ class BitcoinTestFramework(metaclass=BitcoinTestMetaClass):
             # This is needed so that we are out of IBD when the test starts,
             # see the tip age check in IsInitialBlockDownload().
             '''
-            # TheMinerzCoin: disable Taproot address for now
+            # Blackcoin: disable Taproot address for now
             # gen_addresses = [k.address for k in TestNode.PRIV_KEYS][:3] + [create_deterministic_address_bcrt1_p2tr_op_true()[0]]
             # assert_equal(len(gen_addresses), 4)
             '''
@@ -871,8 +856,8 @@ class BitcoinTestFramework(metaclass=BitcoinTestMetaClass):
             self.log.debug("Copy cache directory {} to node {}".format(cache_node_dir, i))
             to_dir = get_datadir_path(self.options.tmpdir, i)
             shutil.copytree(cache_node_dir, to_dir)
-            initialize_datadir(self.options.tmpdir, i, self.chain)  # Overwrite port/rpcport in theminerzcoin.conf
-            initialize_datadir(self.options.tmpdir, i, self.chain, self.disable_autoconnect)  # Overwrite port/rpcport in theminerzcoin.conf
+            initialize_datadir(self.options.tmpdir, i, self.chain)  # Overwrite port/rpcport in blackmore.conf
+            initialize_datadir(self.options.tmpdir, i, self.chain, self.disable_autoconnect)  # Overwrite port/rpcport in blackmore.conf
 
     def _initialize_chain_clean(self):
         """Initialize empty blockchain for use by the test.
@@ -1027,4 +1012,5 @@ class BitcoinTestFramework(metaclass=BitcoinTestMetaClass):
         return self.config["components"].getboolean("USE_BDB")
 
     def has_blockfile(self, node, filenum: str):
-        return (node.blocks_path/ f"blk{filenum}.dat").is_file()
+        blocksdir = node.datadir_path / self.chain / 'blocks'
+        return (blocksdir / f"blk{filenum}.dat").is_file()

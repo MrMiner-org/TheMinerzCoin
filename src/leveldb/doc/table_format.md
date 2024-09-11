@@ -30,7 +30,7 @@ is formatted according to the code in `block_builder.cc`, and then
 optionally compressed.
 
 2. After the data blocks we store a bunch of meta blocks.  The
-supported meta block types are described below.   meta block types
+supported meta block types are described below.  More meta block types
 may be added in the future.  Each meta block is again formatted using
 `block_builder.cc` and then optionally compressed.
 

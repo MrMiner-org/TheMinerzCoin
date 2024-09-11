@@ -9,10 +9,6 @@
 #include <optional>
 #include <string>
 
-namespace util {
-class SignalInterrupt;
-} // namespace util
-
 static const int DEFAULT_HTTP_THREADS=4;
 static const int DEFAULT_HTTP_WORKQUEUE=16;
 static const int DEFAULT_HTTP_SERVER_TIMEOUT=30;
@@ -25,7 +21,7 @@ class HTTPRequest;
 /** Initialize HTTP server.
  * Call this before RegisterHTTPHandler or EventBase().
  */
-bool InitHTTPServer(const util::SignalInterrupt& interrupt);
+bool InitHTTPServer();
 /** Start HTTP server.
  * This is separate from InitHTTPServer to give users race-condition-free time
  * to register their handlers between InitHTTPServer and StartHTTPServer.
@@ -61,11 +57,10 @@ class HTTPRequest
 {
 private:
     struct evhttp_request* req;
-    const util::SignalInterrupt& m_interrupt;
     bool replySent;
 
 public:
-    explicit HTTPRequest(struct evhttp_request* req, const util::SignalInterrupt& interrupt, bool replySent = false);
+    explicit HTTPRequest(struct evhttp_request* req, bool replySent = false);
     ~HTTPRequest();
 
     enum RequestMethod {

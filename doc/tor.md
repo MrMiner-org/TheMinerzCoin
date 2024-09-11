@@ -1,6 +1,6 @@
 # TOR SUPPORT IN BITCOIN
 
-It is possible to run TheMinerzCoin  as a Tor onion service, and connect to such services.
+It is possible to run Blackcoin More as a Tor onion service, and connect to such services.
 
 The following directions assume you have a Tor proxy running on port 9050. Many distributions default to having a SOCKS proxy listening on port 9050, but others may not. In particular, the Tor Browser Bundle defaults to listening on port 9150.
 ## Compatibility

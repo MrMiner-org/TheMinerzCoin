@@ -40,7 +40,7 @@ private:
     [[nodiscard]] bool ReverseBlock(const CBlock& block, const CBlockIndex* pindex);
 
     /*
-    // TheMinerzCoin
+    // Blackcoin
     bool AllowPrune() const override { return true; }
     */
 

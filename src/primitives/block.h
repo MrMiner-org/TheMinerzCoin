@@ -86,7 +86,7 @@ public:
 
     // network and disk
     std::vector<unsigned char> vchBlockSig;
-    
+
     // Memory-only flags for caching expensive checks
     mutable bool fChecked;                            // CheckBlock()
     mutable bool m_checked_witness_commitment{false}; // CheckWitnessCommitment()

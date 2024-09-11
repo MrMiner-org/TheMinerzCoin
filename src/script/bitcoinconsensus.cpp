@@ -8,6 +8,7 @@
 #include <primitives/transaction.h>
 #include <pubkey.h>
 #include <script/interpreter.h>
+#include <version.h>
 
 namespace {
 

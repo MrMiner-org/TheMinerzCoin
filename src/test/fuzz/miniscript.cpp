@@ -1131,7 +1131,7 @@ void TestNode(const MsCtx script_ctx, const NodeRef& node, FuzzedDataProvider& p
         bool res = VerifyScript(DUMMY_SCRIPTSIG, script_pubkey, &witness_nonmal, STANDARD_SCRIPT_VERIFY_FLAGS, CHECKER_CTX, &serror);
         // Non-malleable satisfactions are guaranteed to be valid if ValidSatisfactions().
         if (node->ValidSatisfactions()) assert(res);
-        //  detailed: non-malleable satisfactions must be valid, or could fail with ops count error (if CheckOpsLimit failed),
+        // More detailed: non-malleable satisfactions must be valid, or could fail with ops count error (if CheckOpsLimit failed),
         // or with a stack size error (if CheckStackSize check failed).
         assert(res ||
                (!node->CheckOpsLimit() && serror == ScriptError::SCRIPT_ERR_OP_COUNT) ||

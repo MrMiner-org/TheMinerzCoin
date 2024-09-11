@@ -5,7 +5,7 @@ This is a bugfix-only release.
 
 This release includes 13 translations, including 5 new translations:
 Italian, Hungarian, Ukranian, Portuguese (Brazilian) and Simplified Chinese.
- translations are welcome; join the project at Transifex if you can help:
+More translations are welcome; join the project at Transifex if you can help:
 https://www.transifex.net/projects/p/bitcoin/
 
 Please report bugs using the issue tracker at github:

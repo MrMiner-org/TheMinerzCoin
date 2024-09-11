@@ -315,7 +315,7 @@ Wallet
 
 - The `-zapwallettxes` startup option has been removed and its functionality
   removed from the wallet.  This option was originally intended to allow for
-  rescuing wallets which were affected by a malleability attack.  recently,
+  rescuing wallets which were affected by a malleability attack. More recently,
   it has been used in the fee bumping of transactions that did not signal RBF.
   This functionality has been superseded with the abandon transaction feature. (#19671)
 
@@ -920,7 +920,7 @@ Tests
 - #18691 Add `wait_for_cookie_credentials()` to framework for rpcwait tests (jonatack)
 - #18672 Add further BIP37 size limit checks to `p2p_filter.py` (theStack)
 - #18721 Fix linter issue (hebasto)
-- #18384  specific `feature_segwit` test error messages and fixing incorrect comments (gzhao408)
+- #18384 More specific `feature_segwit` test error messages and fixing incorrect comments (gzhao408)
 - #18575 bench: Remove requirement that all benches use same testing setup (MarcoFalke)
 - #18690 Check object hashes in `wait_for_getdata` (robot-visions)
 - #18712 display command line options passed to `send_cli()` in debug log (jonatack)
@@ -1097,7 +1097,7 @@ Tests
 - #18443 lockedpool: avoid sensitive data in core files (FreeBSD) (vasild)
 - #18885 contrib: Move optimize-pngs.py script to the maintainer repo (MarcoFalke)
 - #18317 Serialization improvements step 6 (all except wallet/gui) (sipa)
-- #16127  thread safety annotation coverage (ajtowns)
+- #16127 More thread safety annotation coverage (ajtowns)
 - #19228 Update libsecp256k1 subtree (sipa)
 - #19277 util: Add assert identity function (MarcoFalke)
 - #19491 util: Make assert work with any value (MarcoFalke)

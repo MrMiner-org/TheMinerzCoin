@@ -22,15 +22,15 @@ user inputs. Such environments include the Python3 command line interpreter or
 * Python3
 * `blackmored` built in the same repository as the `TestShell`.
 
-## 2. Importing `TestShell` from the TheMinerzCoin  repository
+## 2. Importing `TestShell` from the Blackcoin More repository
 
-We can import the `TestShell` by adding the path of the TheMinerzCoin 
+We can import the `TestShell` by adding the path of the Blackcoin More
 `test_framework` module to the beginning of the PATH variable, and then
 importing the `TestShell` class from the `test_shell` sub-package.
 
 ```
 >>> import sys
->>> sys.path.insert(0, "/path/to/theminerzcoin-more/test/functional")
+>>> sys.path.insert(0, "/path/to/blackcoin-more/test/functional")
 >>> from test_framework.test_shell import TestShell
 ```
 
@@ -155,7 +155,7 @@ To prevent the logs from being removed after a shutdown, simply set the
 The following utility consolidates logs from the blackmored nodes and the
 underlying `BitcoinTestFramework`:
 
-* `/path/to/theminerzcoin-more/test/functional/combine_logs.py
+* `/path/to/blackcoin-more/test/functional/combine_logs.py
   '/path/to/blackcoin_func_test_XXXXXXX'`
 
 ## 6. Custom `TestShell` parameters
@@ -170,9 +170,9 @@ can be called after the TestShell is shut down.
 | Test parameter key | Default Value | Description |
 |---|---|---|
 | `bind_to_localhost_only` | `True` | Binds blackmored RPC services to `127.0.0.1` if set to `True`.|
-| `cachedir` | `"/path/to/theminerzcoin-more/test/cache"` | Sets the blackmored datadir directory. |
+| `cachedir` | `"/path/to/blackcoin-more/test/cache"` | Sets the blackmored datadir directory. |
 | `chain`  | `"regtest"` | Sets the chain-type for the underlying test blackmored processes. |
-| `configfile` | `"/path/to/theminerzcoin-more/test/config.ini"` | Sets the location of the test framework config file. |
+| `configfile` | `"/path/to/blackcoin-more/test/config.ini"` | Sets the location of the test framework config file. |
 | `coveragedir` | `None` | Records blackmored RPC test coverage into this directory if set. |
 | `loglevel` | `INFO` | Logs events at this level and higher. Can be set to `DEBUG`, `INFO`, `WARNING`, `ERROR` or `CRITICAL`. |
 | `nocleanup` | `False` | Cleans up temporary test directory if set to `True` during `shutdown`. |
@@ -182,7 +182,7 @@ can be called after the TestShell is shut down.
 | `rpc_timeout` | `60` | Sets the RPC server timeout for the underlying blackmored processes. |
 | `setup_clean_chain` | `False` | A 200-block-long chain is initialized from cache by default. Instead, `setup_clean_chain` initializes an empty blockchain if set to `True`. |
 | `randomseed` | Random Integer | `TestShell().options.randomseed` is a member of `TestShell` which can be accessed during a test to seed a random generator. User can override default with a constant value for reproducible test runs. |
-| `supports_cli` | `False` | Whether the theminerzcoin-cli utility is compiled and available for the test. |
+| `supports_cli` | `False` | Whether the blackmore-cli utility is compiled and available for the test. |
 | `tmpdir` | `"/var/folders/.../"` | Sets directory for test logs. Will be deleted upon a successful test run unless `nocleanup` is set to `True` |
 | `trace_rpc` | `False` | Logs all RPC calls if set to `True`. |
-| `usecli` | `False` | Uses the theminerzcoin-cli interface for all blackmored commands instead of directly calling the RPC server. Requires `supports_cli`. |
+| `usecli` | `False` | Uses the blackmore-cli interface for all blackmored commands instead of directly calling the RPC server. Requires `supports_cli`. |

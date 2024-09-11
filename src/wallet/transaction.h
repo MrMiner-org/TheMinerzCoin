@@ -5,26 +5,21 @@
 #ifndef BITCOIN_WALLET_TRANSACTION_H
 #define BITCOIN_WALLET_TRANSACTION_H
 
-#include <attributes.h>
+#include <bitset>
+#include <cstdint>
 #include <consensus/amount.h>
 #include <primitives/transaction.h>
+#include <serialize.h>
+#include <wallet/types.h>
+#include <threadsafety.h>
 #include <tinyformat.h>
-#include <uint256.h>
 #include <util/overloaded.h>
 #include <util/strencodings.h>
 #include <util/string.h>
-#include <wallet/types.h>
 
-#include <bitset>
-#include <cstdint>
-#include <map>
-#include <utility>
+#include <list>
 #include <variant>
 #include <vector>
-
-namespace interfaces {
-class Chain;
-} // namespace interfaces
 
 namespace wallet {
 //! State of transaction confirmed in a block.
@@ -207,13 +202,13 @@ public:
      * transaction added as part of a block, or else the time when the
      * transaction was received if it wasn't part of a block, with the timestamp
      * adjusted in both cases so timestamp order matches the order transactions
-     * were added to the wallet.  details can be found in
+     * were added to the wallet. More details can be found in
      * CWallet::ComputeTimeSmart().
      */
     unsigned int nTimeSmart;
     /**
      * From me flag is set to 1 for transactions that were created by the wallet
-     * on this theminerzcoin node, and set to 0 for transactions that were created
+     * on this blackcoin node, and set to 0 for transactions that were created
      * externally and came in through the network or sendrawtransaction RPC.
      */
     bool fFromMe;
@@ -326,17 +321,13 @@ public:
     template<typename T> const T* state() const { return std::get_if<T>(&m_state); }
     template<typename T> T* state() { return std::get_if<T>(&m_state); }
 
-    //! Update transaction state when attaching to a chain, filling in heights
-    //! of conflicted and confirmed blocks
-    void updateState(interfaces::Chain& chain);
-
     bool isAbandoned() const { return state<TxStateInactive>() && state<TxStateInactive>()->abandoned; }
     bool isConflicted() const { return state<TxStateConflicted>(); }
     bool isInactive() const { return state<TxStateInactive>(); }
     bool isUnconfirmed() const { return !isAbandoned() && !isConflicted() && !isConfirmed(); }
     bool isConfirmed() const { return state<TxStateConfirmed>(); }
-    const Txid& GetHash() const LIFETIMEBOUND { return tx->GetHash(); }
-    const Wtxid& GetWitnessHash() const LIFETIMEBOUND { return tx->GetWitnessHash(); }
+    const Txid& GetHash() const { return tx->GetHash(); }
+    const Wtxid& GetWitnessHash() const { return tx->GetWitnessHash(); }
     bool IsCoinBase() const { return tx->IsCoinBase(); }
     bool IsCoinStake() const { return tx->IsCoinStake(); }
 

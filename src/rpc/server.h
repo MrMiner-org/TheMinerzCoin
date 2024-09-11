@@ -16,6 +16,8 @@
 
 #include <univalue.h>
 
+static const unsigned int DEFAULT_RPC_SERIALIZE_VERSION = 0;
+
 class CRPCCommand;
 class ChainstateManager;
 
@@ -183,5 +185,15 @@ void StartRPC();
 void InterruptRPC();
 void StopRPC();
 std::string JSONRPCExecBatch(const JSONRPCRequest& jreq, const UniValue& vReq);
+
+// Drop witness when serializing for RPC?
+bool RPCSerializationWithoutWitness();
+
+template<typename T>
+auto RPCTxSerParams(T&& t)
+{
+    if (RPCSerializationWithoutWitness()) return TX_NO_WITNESS(t);
+    return TX_WITH_WITNESS(t);
+}
 
 #endif // BITCOIN_RPC_SERVER_H

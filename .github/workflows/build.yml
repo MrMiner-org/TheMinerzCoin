@@ -149,7 +149,7 @@ jobs:
       - name: Build depends
         run: |
           make -j $MAKEJOBS -C depends HOST=${{ matrix.host }} ${{ matrix.dep-opts }}
-      - name: Build TheMinerzCoin
+      - name: Build Blackcoin
         run: |
           ./autogen.sh
           ./configure --prefix=`pwd`/depends/${{ matrix.host }} ${{ matrix.config-opts }} --enable-reduce-exports || ( cat config.log && false)
@@ -166,9 +166,9 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: theminerzcoin-${{ github.sha }}-${{ matrix.name }}
+          name: blackmore-${{ github.sha }}-${{ matrix.name }}
           path: |
-            depends/${{ matrix.host }}/bin/theminerzcoin*
+            depends/${{ matrix.host }}/bin/blackmore*
             dist/Blackmore-Qt.app
           if-no-files-found: error
           retention-days: 7
@@ -176,4 +176,4 @@ jobs:
       - name: Download artifacts
         uses: actions/download-artifact@v3
         with:
-          name: theminerzcoin-${{ github.sha }}-${{ matrix.name }}
+          name: blackmore-${{ github.sha }}-${{ matrix.name }}

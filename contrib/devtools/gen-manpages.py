@@ -9,11 +9,11 @@ import tempfile
 
 BINARIES = [
 'src/blackmored',
-'src/theminerzcoin-cli',
-'src/theminerzcoin-tx',
-'src/theminerzcoin-wallet',
-'src/theminerzcoin-util',
-'src/qt/theminerzcoin-qt',
+'src/blackmore-cli',
+'src/blackmore-tx',
+'src/blackmore-wallet',
+'src/blackmore-util',
+'src/qt/blackmore-qt',
 ]
 
 # Paths to external utilities.

@@ -37,10 +37,6 @@ don't have test cases for.
   `set_test_params()`, `add_options()` and `setup_xxxx()` methods at the top of
   the subclass, then locally-defined helper methods, then the `run_test()` method.
 - Use `f'{x}'` for string formatting in preference to `'{}'.format(x)` or `'%s' % x`.
-- Use `platform.system()` for detecting the running operating system and `os.name` to
-  check whether it's a POSIX system (see also the `skip_if_platform_not_{linux,posix}`
-  methods in the `BitcoinTestFramework` class, which can be used to skip a whole test
-  depending on the platform).
 
 #### Naming guidelines
 
@@ -108,7 +104,7 @@ implements the test logic.
 
 - `P2PConnection` is the class used to connect to a blackmored.  `P2PInterface`
 contains the higher level logic for processing P2P payloads and connecting to
-the TheMinerzCoin  node application logic. For custom behaviour, subclass the
+the Blackcoin More node application logic. For custom behaviour, subclass the
 P2PInterface object and override the callback methods.
 
 `P2PConnection`s can be used as such:
@@ -126,7 +122,7 @@ contains the list of test framework `p2p` objects connected to itself
 node.p2ps[0].sync_with_ping()
 ```
 
- examples can be found in [p2p_unrequested_blocks.py](p2p_unrequested_blocks.py),
+More examples can be found in [p2p_unrequested_blocks.py](p2p_unrequested_blocks.py),
 [p2p_compactblocks.py](p2p_compactblocks.py).
 
 #### Prototyping tests

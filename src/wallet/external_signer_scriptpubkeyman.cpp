@@ -16,7 +16,7 @@
 #include <vector>
 
 namespace wallet {
-bool ExternalSignerScriptPubKeyMan::SetupDescriptor(WalletBatch& batch, std::unique_ptr<Descriptor> desc)
+bool ExternalSignerScriptPubKeyMan::SetupDescriptor(std::unique_ptr<Descriptor> desc)
 {
     LOCK(cs_desc_man);
     assert(m_storage.IsWalletFlagSet(WALLET_FLAG_DESCRIPTORS));
@@ -29,12 +29,13 @@ bool ExternalSignerScriptPubKeyMan::SetupDescriptor(WalletBatch& batch, std::uni
     m_wallet_descriptor = w_desc;
 
     // Store the descriptor
+    WalletBatch batch(m_storage.GetDatabase());
     if (!batch.WriteDescriptor(GetID(), m_wallet_descriptor)) {
         throw std::runtime_error(std::string(__func__) + ": writing descriptor failed");
     }
 
     // TopUp
-    TopUpWithDB(batch);
+    TopUp();
 
     m_storage.UnsetBlankWalletFlag(batch);
     return true;
@@ -47,7 +48,7 @@ ExternalSigner ExternalSignerScriptPubKeyMan::GetExternalSigner() {
     ExternalSigner::Enumerate(command, signers, Params().GetChainTypeString());
     if (signers.empty()) throw std::runtime_error(std::string(__func__) + ": No external signers found");
     // TODO: add fingerprint argument instead of failing in case of multiple signers.
-    if (signers.size() > 1) throw std::runtime_error(std::string(__func__) + ":  than one external signer found. Please connect only one at a time.");
+    if (signers.size() > 1) throw std::runtime_error(std::string(__func__) + ": More than one external signer found. Please connect only one at a time.");
     return signers[0];
 }
 

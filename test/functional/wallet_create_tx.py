@@ -48,7 +48,7 @@ class CreateTxWalletTest(BitcoinTestFramework):
         assert 0 < tx['locktime'] <= 201
 
     def test_tx_size_too_large(self):
-        #  than 10kB of outputs, so that we hit -maxtxfee with a high feerate
+        # More than 10kB of outputs, so that we hit -maxtxfee with a high feerate
         outputs = {self.nodes[0].getnewaddress(address_type='bech32'): 0.000025 for _ in range(400)}
         raw_tx = self.nodes[0].createrawtransaction(inputs=[], outputs=outputs)
 

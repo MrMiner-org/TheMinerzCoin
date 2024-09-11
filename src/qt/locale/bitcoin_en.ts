@@ -77,7 +77,7 @@
     <message>
         <location line="+6"/>
         <source>These are your Bitcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>These are your TheMinerzCoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</translation>
+        <translation>These are your Blackcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -427,7 +427,7 @@ Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+417"/>
+        <location line="+412"/>
         <source>Network activity disabled.</source>
         <extracomment>A substring of the tooltip.</extracomment>
         <translation type="unfinished"></translation>
@@ -438,9 +438,9 @@ Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1199"/>
+        <location line="-1194"/>
         <source>Send coins to a Bitcoin address</source>
-        <translation>Send coins to a TheMinerzCoin address</translation>
+        <translation>Send coins to a Blackcoin address</translation>
     </message>
     <message>
         <location line="+53"/>
@@ -495,7 +495,7 @@ Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
     <message>
         <location line="+1"/>
         <source>Sign messages with your Bitcoin addresses to prove you own them</source>
-        <translation>Sign messages with your TheMinerzCoin addresses to prove you own them</translation>
+        <translation>Sign messages with your Blackcoin addresses to prove you own them</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -505,7 +505,7 @@ Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
     <message>
         <location line="+1"/>
         <source>Verify messages to ensure they were signed with specified Bitcoin addresses</source>
-        <translation>Verify messages to ensure they were signed with specified TheMinerzCoin addresses</translation>
+        <translation>Verify messages to ensure they were signed with specified Blackcoin addresses</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -553,7 +553,7 @@ Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
         <translation>Tabs toolbar</translation>
     </message>
     <message>
-        <location line="+481"/>
+        <location line="+476"/>
         <source>Syncing Headers (%1%)…</source>
         <translation type="unfinished"></translation>
     </message>
@@ -578,9 +578,9 @@ Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-857"/>
+        <location line="-852"/>
         <source>Request payments (generates QR codes and bitcoin: URIs)</source>
-        <translation>Request payments (generates QR codes and theminerzcoin: URIs)</translation>
+        <translation>Request payments (generates QR codes and blackcoin: URIs)</translation>
     </message>
     <message>
         <location line="+65"/>
@@ -598,7 +598,7 @@ Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location line="+769"/>
+        <location line="+764"/>
         <source>Processed %n block(s) of transaction history.</source>
         <translation>
             <numerusform>Processed %n block of transaction history.</numerusform>
@@ -646,14 +646,14 @@ Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
         <translation>Up to date</translation>
     </message>
     <message>
-        <location line="-842"/>
+        <location line="-837"/>
         <source>Ctrl+Q</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+26"/>
         <source>Load Partially Signed Bitcoin Transaction</source>
-        <translation>Load Partially Signed TheMinerzCoin Transaction</translation>
+        <translation>Load Partially Signed Blackcoin Transaction</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -663,7 +663,7 @@ Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
     <message>
         <location line="+1"/>
         <source>Load Partially Signed Bitcoin Transaction from clipboard</source>
-        <translation>Load Partially Signed TheMinerzCoin Transaction from clipboard</translation>
+        <translation>Load Partially Signed Blackcoin Transaction from clipboard</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -688,7 +688,7 @@ Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
     <message>
         <location line="+4"/>
         <source>Open a bitcoin: URI</source>
-        <translation>Open a theminerzcoin: URI</translation>
+        <translation>Open a blackcoin: URI</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -735,7 +735,7 @@ Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
     <message>
         <location line="+4"/>
         <source>Show the %1 help message to get a list with possible Bitcoin command-line options</source>
-        <translation>Show the %1 help message to get a list with possible TheMinerzCoin command-line options</translation>
+        <translation>Show the %1 help message to get a list with possible Blackcoin command-line options</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -802,7 +802,7 @@ Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+279"/>
+        <location line="+274"/>
         <source>%1 client</source>
         <translation type="unfinished"></translation>
     </message>
@@ -821,14 +821,14 @@ Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
         <source>%n active connection(s) to Bitcoin network.</source>
         <extracomment>A substring of the tooltip.</extracomment>
         <translation>
-            <numerusform>%n active connection to TheMinerzCoin network.</numerusform>
-            <numerusform>%n active connections to TheMinerzCoin network.</numerusform>
+            <numerusform>%n active connection to Blackcoin network.</numerusform>
+            <numerusform>%n active connections to Blackcoin network.</numerusform>
         </translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Click for more actions.</source>
-        <extracomment>A substring of the tooltip. &quot; actions&quot; are available via the context menu.</extracomment>
+        <extracomment>A substring of the tooltip. &quot;More actions&quot; are available via the context menu.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1099,7 +1099,7 @@ Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+165"/>
+        <location line="+153"/>
         <source>Can vary +/- %1 satoshi(s) per input.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1284,7 +1284,7 @@ Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
     <message>
         <location line="+77"/>
         <source>The entered address &quot;%1&quot; is not a valid Bitcoin address.</source>
-        <translation>The entered address &quot;%1&quot; is not a valid TheMinerzCoin address.</translation>
+        <translation>The entered address &quot;%1&quot; is not a valid Blackcoin address.</translation>
     </message>
     <message>
         <location line="+33"/>
@@ -1413,10 +1413,10 @@ Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
     <message>
         <location filename="../intro.cpp" line="+30"/>
         <source>Bitcoin</source>
-        <translation>TheMinerzCoin</translation>
+        <translation>Blackcoin</translation>
     </message>
     <message numerus="yes">
-        <location line="+164"/>
+        <location line="+162"/>
         <source>%n GB of space available</source>
         <translation type="unfinished">
             <numerusform>%n GB of space available</numerusform>
@@ -1466,7 +1466,7 @@ Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
     <message>
         <location line="+2"/>
         <source>%1 will download and store a copy of the Bitcoin block chain.</source>
-        <translation>%1 will download and store a copy of the TheMinerzCoin block chain.</translation>
+        <translation>%1 will download and store a copy of the Blackcoin block chain.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -1537,12 +1537,12 @@ The migration process will create a backup of the wallet before migrating. This 
     </message>
     <message>
         <location line="+2"/>
-        <source>Watchonly scripts have been migrated to a new wallet named &apos;%1&apos;.</source>
+        <source> Watchonly scripts have been migrated to a new wallet named &apos;%1&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>Solvable but not watched scripts have been migrated to a new wallet named &apos;%1&apos;.</source>
+        <source> Solvable but not watched scripts have been migrated to a new wallet named &apos;%1&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1566,7 +1566,7 @@ The migration process will create a backup of the wallet before migrating. This 
     <message>
         <location line="+119"/>
         <source>Recent transactions may not yet be visible, and therefore your wallet&apos;s balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the bitcoin network, as detailed below.</source>
-        <translation>Recent transactions may not yet be visible, and therefore your wallet&apos;s balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the theminerzcoin network, as detailed below.</translation>
+        <translation>Recent transactions may not yet be visible, and therefore your wallet&apos;s balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the blackcoin network, as detailed below.</translation>
     </message>
     <message>
         <location line="+19"/>
@@ -1642,7 +1642,7 @@ The migration process will create a backup of the wallet before migrating. This 
     <message>
         <location filename="../forms/openuridialog.ui" line="+14"/>
         <source>Open bitcoin URI</source>
-        <translation>Open theminerzcoin URI</translation>
+        <translation>Open blackcoin URI</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -1747,12 +1747,7 @@ The migration process will create a backup of the wallet before migrating. This 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+107"/>
-        <source>Font in the Overview tab: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+45"/>
+        <location line="+227"/>
         <source>Options set in this dialog are overridden by the command line:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1777,7 +1772,7 @@ The migration process will create a backup of the wallet before migrating. This 
         <translation>&amp;Reset Options</translation>
     </message>
     <message>
-        <location line="-570"/>
+        <location line="-645"/>
         <source>&amp;Network</source>
         <translation>&amp;Network</translation>
     </message>
@@ -1892,7 +1887,7 @@ The migration process will create a backup of the wallet before migrating. This 
     <message>
         <location line="+42"/>
         <source>Automatically open the Bitcoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Automatically open the TheMinerzCoin client port on the router. This only works when your router supports UPnP and it is enabled.</translation>
+        <translation>Automatically open the Blackcoin client port on the router. This only works when your router supports UPnP and it is enabled.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1902,7 +1897,7 @@ The migration process will create a backup of the wallet before migrating. This 
     <message>
         <location line="+7"/>
         <source>Automatically open the Bitcoin client port on the router. This only works when your router supports NAT-PMP and it is enabled. The external port could be random.</source>
-        <translation>Automatically open the TheMinerzCoin client port on the router. This only works when your router supports NAT-PMP and it is enabled. The external port could be random.</translation>
+        <translation>Automatically open the Blackcoin client port on the router. This only works when your router supports NAT-PMP and it is enabled. The external port could be random.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1922,7 +1917,7 @@ The migration process will create a backup of the wallet before migrating. This 
     <message>
         <location line="+7"/>
         <source>Connect to the Bitcoin network through a SOCKS5 proxy.</source>
-        <translation>Connect to the TheMinerzCoin network through a SOCKS5 proxy.</translation>
+        <translation>Connect to the Blackcoin network through a SOCKS5 proxy.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2041,7 +2036,7 @@ The migration process will create a backup of the wallet before migrating. This 
     <message>
         <location line="+300"/>
         <source>Connect to the Bitcoin network through a separate SOCKS5 proxy for Tor onion services.</source>
-        <translation>Connect to the TheMinerzCoin network through a separate SOCKS5 proxy for Tor onion services.</translation>
+        <translation>Connect to the Blackcoin network through a separate SOCKS5 proxy for Tor onion services.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2049,7 +2044,22 @@ The migration process will create a backup of the wallet before migrating. This 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+424"/>
+        <location line="+236"/>
+        <source>Monospaced font in the Overview tab:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>embedded &quot;%1&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+49"/>
+        <source>closest matching &quot;%1&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+206"/>
         <source>&amp;OK</source>
         <translation>&amp;OK</translation>
     </message>
@@ -2059,7 +2069,7 @@ The migration process will create a backup of the wallet before migrating. This 
         <translation>&amp;Cancel</translation>
     </message>
     <message>
-        <location filename="../optionsdialog.cpp" line="+152"/>
+        <location filename="../optionsdialog.cpp" line="+96"/>
         <source>Compiled without external signing support (required for external signing)</source>
         <extracomment>&quot;External signing&quot; means using devices such as hardware wallets.</extracomment>
         <translation type="unfinished"></translation>
@@ -2070,25 +2080,25 @@ The migration process will create a backup of the wallet before migrating. This 
         <translation>default</translation>
     </message>
     <message>
-        <location line="+74"/>
+        <location line="+86"/>
         <source>none</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+109"/>
+        <location line="+107"/>
         <source>Confirm options reset</source>
         <extracomment>Window title text of pop-up window shown when the user has chosen to reset options.</extracomment>
         <translation>Confirm options reset</translation>
     </message>
     <message>
         <location line="-9"/>
-        <location line="+81"/>
+        <location line="+79"/>
         <source>Client restart required to activate changes.</source>
         <extracomment>Text explaining that the settings changed will not come into effect until the client is restarted.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-77"/>
+        <location line="-75"/>
         <source>Current settings will be backed up at &quot;%1&quot;.</source>
         <extracomment>Text explaining to the user that the client&apos;s current settings will be backed up at a specific location. %1 is a stand-in argument for the backup location&apos;s path.</extracomment>
         <translation type="unfinished"></translation>
@@ -2132,7 +2142,7 @@ The migration process will create a backup of the wallet before migrating. This 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+42"/>
+        <location line="+40"/>
         <source>This change would require a client restart.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2145,7 +2155,7 @@ The migration process will create a backup of the wallet before migrating. This 
 <context>
     <name>OptionsModel</name>
     <message>
-        <location filename="../optionsmodel.cpp" line="+230"/>
+        <location filename="../optionsmodel.cpp" line="+198"/>
         <source>Could not read setting &quot;%1&quot;, %2.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2161,7 +2171,7 @@ The migration process will create a backup of the wallet before migrating. This 
         <location line="+62"/>
         <location line="+335"/>
         <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Bitcoin network after a connection is established, but this process has not completed yet.</source>
-        <translation>The displayed information may be out of date. Your wallet automatically synchronizes with the TheMinerzCoin network after a connection is established, but this process has not completed yet.</translation>
+        <translation>The displayed information may be out of date. Your wallet automatically synchronizes with the Blackcoin network after a connection is established, but this process has not completed yet.</translation>
     </message>
     <message>
         <location line="-127"/>
@@ -2348,8 +2358,8 @@ The migration process will create a backup of the wallet before migrating. This 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+17"/>
-        <source>Sends %1 to %2</source>
+        <location line="+16"/>
+        <source> * Sends %1 to %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2428,7 +2438,7 @@ The migration process will create a backup of the wallet before migrating. This 
     <message>
         <location line="+1"/>
         <source>Cannot start bitcoin: click-to-pay handler</source>
-        <translation>Cannot start theminerzcoin: click-to-pay handler</translation>
+        <translation>Cannot start blackcoin: click-to-pay handler</translation>
     </message>
     <message>
         <location line="+48"/>
@@ -2441,7 +2451,7 @@ The migration process will create a backup of the wallet before migrating. This 
     <message>
         <location line="-29"/>
         <source>&apos;bitcoin://&apos; is not a valid URI. Use &apos;bitcoin:&apos; instead.</source>
-        <translation>&apos;theminerzcoin://&apos; is not a valid URI. Use &apos;theminerzcoin:&apos; instead.</translation>
+        <translation>&apos;blackcoin://&apos; is not a valid URI. Use &apos;blackcoin:&apos; instead.</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -2547,7 +2557,7 @@ If you are receiving this error you should request the merchant provide a BIP21 
     <message>
         <location filename="../guiutil.cpp" line="+133"/>
         <source>Enter a Bitcoin address (e.g. %1)</source>
-        <translation>Enter a TheMinerzCoin address (e.g. %1)</translation>
+        <translation>Enter a Blackcoin address (e.g. %1)</translation>
     </message>
     <message>
         <location line="+288"/>
@@ -2637,7 +2647,7 @@ If you are receiving this error you should request the merchant provide a BIP21 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+13"/>
         <location line="+12"/>
         <source>%1 d</source>
         <translation type="unfinished"></translation>
@@ -2737,7 +2747,7 @@ If you are receiving this error you should request the merchant provide a BIP21 
     </message>
     <message>
         <location line="+2"/>
-        <location filename="../rpcconsole.cpp" line="+1006"/>
+        <location filename="../rpcconsole.cpp" line="+1004"/>
         <source>%1 kB</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2765,33 +2775,18 @@ If you are receiving this error you should request the merchant provide a BIP21 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+423"/>
+        <location line="+395"/>
         <source>Error: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+73"/>
+        <location line="+70"/>
         <source>%1 didn&apos;t yet exit safely…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../modaloverlay.cpp" line="-40"/>
         <source>unknown</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../optionsdialog.cpp" line="-389"/>
-        <source>Embedded &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Default system font &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Custom…</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3298,7 +3293,7 @@ If you are receiving this error you should request the merchant provide a BIP21 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../rpcconsole.cpp" line="-475"/>
+        <location filename="../rpcconsole.cpp" line="-473"/>
         <source>Inbound: initiated by peer</source>
         <extracomment>Explanatory text for an inbound peer connection.</extracomment>
         <translation type="unfinished"></translation>
@@ -3391,7 +3386,7 @@ If you are receiving this error you should request the merchant provide a BIP21 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+153"/>
+        <location line="+151"/>
         <source>&amp;Copy address</source>
         <extracomment>Context menu action to copy the address of a peer.</extracomment>
         <translation type="unfinished"></translation>
@@ -3463,12 +3458,7 @@ If you are receiving this error you should request the merchant provide a BIP21 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+18"/>
-        <source>Node window - [%1]</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="-348"/>
+        <location line="-330"/>
         <source>Executing command using &quot;%1&quot; wallet</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3526,7 +3516,7 @@ For more information on using this console, type %6.
     <message>
         <location line="-3"/>
         <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Bitcoin network.</source>
-        <translation>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the TheMinerzCoin network.</translation>
+        <translation>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Blackcoin network.</translation>
     </message>
     <message>
         <location line="+30"/>
@@ -3947,7 +3937,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of &quot;100 
     <message>
         <location line="+35"/>
         <source>When there is less transaction volume than space in the blocks, miners as well as relaying nodes may enforce a minimum fee. Paying only this minimum fee is just fine, but be aware that this can result in a never confirming transaction once there is more demand for bitcoin transactions than the network can process.</source>
-        <translation>When there is less transaction volume than space in the blocks, miners as well as relaying nodes may enforce a minimum fee. Paying only this minimum fee is just fine, but be aware that this can result in a never confirming transaction once there is more demand for theminerzcoin transactions than the network can process.</translation>
+        <translation>When there is less transaction volume than space in the blocks, miners as well as relaying nodes may enforce a minimum fee. Paying only this minimum fee is just fine, but be aware that this can result in a never confirming transaction once there is more demand for blackcoin transactions than the network can process.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -4054,10 +4044,15 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of &quot;100 
     <message>
         <location line="+1"/>
         <source>Creates a Partially Signed Bitcoin Transaction (PSBT) for use with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
-        <translation>Creates a Partially Signed TheMinerzCoin Transaction (PSBT) for use with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</translation>
+        <translation>Creates a Partially Signed Blackcoin Transaction (PSBT) for use with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</translation>
     </message>
     <message>
-        <location line="+103"/>
+        <location line="+92"/>
+        <source> from wallet &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+11"/>
         <source>%1 to &apos;%2&apos;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4124,15 +4119,10 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of &quot;100 
         <location line="-31"/>
         <source>Please, review your transaction proposal. This will produce a Partially Signed Bitcoin Transaction (PSBT) which you can save or copy and then sign with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
         <extracomment>Text to inform a user attempting to create a transaction of their current options. At this stage, a user can only create a PSBT. This string is displayed when private keys are disabled and an external signer is not available.</extracomment>
-        <translation>Please, review your transaction proposal. This will produce a Partially Signed TheMinerzCoin Transaction (PSBT) which you can save or copy and then sign with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</translation>
+        <translation>Please, review your transaction proposal. This will produce a Partially Signed Blackcoin Transaction (PSBT) which you can save or copy and then sign with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</translation>
     </message>
     <message>
-        <location line="-30"/>
-        <source>%1 from wallet &apos;%2&apos;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+24"/>
+        <location line="-6"/>
         <source>Do you want to create this transaction?</source>
         <extracomment>Message displayed when attempting to create a transaction. Cautionary text to prompt the user to verify that the displayed transaction details represent the transaction the user intends to create.</extracomment>
         <translation type="unfinished"></translation>
@@ -4141,7 +4131,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of &quot;100 
         <location line="+11"/>
         <source>Please, review your transaction. You can create and send this transaction or create a Partially Signed Bitcoin Transaction (PSBT), which you can save or copy and then sign with, e.g., an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
         <extracomment>Text to inform a user attempting to create a transaction of their current options. At this stage, a user can send their transaction or create a PSBT. This string is displayed when both private keys and PSBT controls are enabled.</extracomment>
-        <translation>Please, review your transaction. You can create and send this transaction or create a Partially Signed TheMinerzCoin Transaction (PSBT), which you can save or copy and then sign with, e.g., an offline %1 wallet, or a PSBT-compatible hardware wallet.</translation>
+        <translation>Please, review your transaction. You can create and send this transaction or create a Partially Signed Blackcoin Transaction (PSBT), which you can save or copy and then sign with, e.g., an offline %1 wallet, or a PSBT-compatible hardware wallet.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -4250,7 +4240,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of &quot;100 
     <message>
         <location line="+95"/>
         <source>Warning: Invalid Bitcoin address</source>
-        <translation>Warning: Invalid TheMinerzCoin address</translation>
+        <translation>Warning: Invalid Blackcoin address</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -4298,7 +4288,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of &quot;100 
     <message>
         <location line="-7"/>
         <source>The Bitcoin address to send the payment to</source>
-        <translation>The TheMinerzCoin address to send the payment to</translation>
+        <translation>The Blackcoin address to send the payment to</translation>
     </message>
     <message>
         <location line="+23"/>
@@ -4354,7 +4344,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of &quot;100 
     <message>
         <location line="+58"/>
         <source>A message that was attached to the bitcoin: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Bitcoin network.</source>
-        <translation>A message that was attached to the theminerzcoin: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the TheMinerzCoin network.</translation>
+        <translation>A message that was attached to the blackcoin: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Blackcoin network.</translation>
     </message>
 </context>
 <context>
@@ -4373,7 +4363,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of &quot;100 
 <context>
     <name>ShutdownWindow</name>
     <message>
-        <location filename="../utilitydialog.cpp" line="+86"/>
+        <location filename="../utilitydialog.cpp" line="+85"/>
         <source>%1 is shutting down…</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4403,7 +4393,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of &quot;100 
     <message>
         <location line="+18"/>
         <source>The Bitcoin address to sign the message with</source>
-        <translation>The TheMinerzCoin address to sign the message with</translation>
+        <translation>The Blackcoin address to sign the message with</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -4446,7 +4436,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of &quot;100 
     <message>
         <location line="+21"/>
         <source>Sign the message to prove you own this Bitcoin address</source>
-        <translation>Sign the message to prove you own this TheMinerzCoin address</translation>
+        <translation>Sign the message to prove you own this Blackcoin address</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -4477,7 +4467,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of &quot;100 
     <message>
         <location line="+21"/>
         <source>The Bitcoin address the message was signed with</source>
-        <translation>The TheMinerzCoin address the message was signed with</translation>
+        <translation>The Blackcoin address the message was signed with</translation>
     </message>
     <message>
         <location line="+29"/>
@@ -4494,7 +4484,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of &quot;100 
     <message>
         <location line="+9"/>
         <source>Verify the message to ensure it was signed with the specified Bitcoin address</source>
-        <translation>Verify the message to ensure it was signed with the specified TheMinerzCoin address</translation>
+        <translation>Verify the message to ensure it was signed with the specified Blackcoin address</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -4781,7 +4771,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of &quot;100 
     </message>
     <message>
         <location line="+16"/>
-        <source>%1 (Certificate was not verified)</source>
+        <source> (Certificate was not verified)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4810,7 +4800,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of &quot;100 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location line="+21"/>
         <source>Amount</source>
         <translation type="unfinished">Amount</translation>
     </message>
@@ -5149,7 +5139,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of &quot;100 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+173"/>
+        <location line="+170"/>
         <source>Range:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5245,13 +5235,13 @@ Go to File &gt; Open Wallet to load a wallet.
 <context>
     <name>WalletModel</name>
     <message>
-        <location filename="../walletmodel.cpp" line="+227"/>
+        <location filename="../walletmodel.cpp" line="+228"/>
         <location line="+13"/>
         <source>Send Coins</source>
         <translation type="unfinished">Send Coins</translation>
     </message>
     <message>
-        <location line="+254"/>
+        <location line="+247"/>
         <location line="+55"/>
         <location line="+15"/>
         <location line="+5"/>
@@ -5390,7 +5380,7 @@ Go to File &gt; Open Wallet to load a wallet.
     <message>
         <location line="+1"/>
         <source>%s corrupt. Try using the wallet tool bitcoin-wallet to salvage or restoring a backup.</source>
-        <translation>%s corrupt. Try using the wallet tool theminerzcoin-wallet to salvage or restoring a backup.</translation>
+        <translation>%s corrupt. Try using the wallet tool blackcoin-wallet to salvage or restoring a backup.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -5450,7 +5440,7 @@ Go to File &gt; Open Wallet to load a wallet.
     <message>
         <location line="+2"/>
         <source>Error: Dumpfile version is not supported. This version of bitcoin-wallet only supports version 1 dumpfiles. Got dumpfile with version %s</source>
-        <translation>Error: Dumpfile version is not supported. This version of theminerzcoin-wallet only supports version 1 dumpfiles. Got dumpfile with version %s</translation>
+        <translation>Error: Dumpfile version is not supported. This version of blackcoin-wallet only supports version 1 dumpfiles. Got dumpfile with version %s</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -5474,7 +5464,7 @@ Go to File &gt; Open Wallet to load a wallet.
     </message>
     <message>
         <location line="+4"/>
-        <source> than one onion bind address is provided. Using %s for the automatically created Tor onion service.</source>
+        <source>More than one onion bind address is provided. Using %s for the automatically created Tor onion service.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5843,11 +5833,6 @@ Unable to restore backup of wallet.</source>
     </message>
     <message>
         <location line="+1"/>
-        <source>Error committing db txn for wallet transactions removal</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
         <source>Error creating %s</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5908,16 +5893,21 @@ Unable to restore backup of wallet.</source>
     </message>
     <message>
         <location line="+1"/>
-        <source>Error starting db txn for wallet transactions removal</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
         <source>Error: Cannot extract destination from the generated scriptpubkey</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+1"/>
+        <source>Error: Could not add watchonly tx to watchonly wallet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Error: Could not delete watchonly transactions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>Error: Couldn&apos;t create cursor into database</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5963,6 +5953,11 @@ Unable to restore backup of wallet.</source>
     </message>
     <message>
         <location line="+1"/>
+        <source>Error: Not all watchonly txs could be deleted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>Error: This wallet already uses SQLite</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5993,37 +5988,12 @@ Unable to restore backup of wallet.</source>
     </message>
     <message>
         <location line="+1"/>
-        <source>Error: Unable to read wallet&apos;s best block locator record</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
         <source>Error: Unable to remove watchonly address book data</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Error: Unable to write record to new wallet</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Error: Unable to write solvable wallet best block locator record</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Error: Unable to write watchonly wallet best block locator record</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Error: address book copy failed for wallet %s</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Error: database transaction cannot be executed for wallet %s</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6044,11 +6014,6 @@ Unable to restore backup of wallet.</source>
     <message>
         <location line="+1"/>
         <source>Failed to verify database</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Failure removing transaction: %s</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6328,11 +6293,6 @@ Unable to restore backup of wallet.</source>
     </message>
     <message>
         <location line="+1"/>
-        <source>Transaction %s does not belong to this wallet</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
         <source>Transaction amount too small</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6344,6 +6304,11 @@ Unable to restore backup of wallet.</source>
     <message>
         <location line="+1"/>
         <source>Transaction change output index out of range</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Transaction has too long of a mempool chain</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6447,32 +6412,17 @@ Unable to restore backup of wallet.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+5"/>
-        <source>Wallet file creation failed: %s</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+2"/>
+        <location line="+6"/>
         <source>acceptstalefeeestimates is not supported on %s chain.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-6"/>
+        <location line="-5"/>
         <source>Unsupported logging category %s=%s.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-110"/>
-        <source>Error: Could not add watchonly tx %s to watchonly wallet</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location line="+1"/>
-        <source>Error: Could not delete watchonly transactions. </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+110"/>
         <source>User Agent comment (%s) contains unsafe characters.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6487,12 +6437,12 @@ Unable to restore backup of wallet.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+1"/>
         <source>Wallet needed to be rewritten: restart %s to complete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-45"/>
+        <location line="-44"/>
         <source>Settings file could not be read</source>
         <translation type="unfinished"></translation>
     </message>

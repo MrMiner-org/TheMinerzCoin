@@ -327,7 +327,7 @@ public Q_SLOTS:
     void updateStakingIcon();
 #endif
 
-    /** called by a timer to check if shutdown has been requested */
+    /** called by a timer to check if ShutdownRequested() has been set **/
     void detectShutdown();
 
     /** Show progress dialog e.g. for verifychain */

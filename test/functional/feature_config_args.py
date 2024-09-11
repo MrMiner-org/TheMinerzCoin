@@ -6,8 +6,8 @@
 
 import os
 from pathlib import Path
-import platform
 import re
+import sys
 import tempfile
 import time
 
@@ -40,7 +40,7 @@ class ConfArgsTest(BitcoinTestFramework):
             expected_msg=conf_in_config_file_err,
         )
         inc_conf_file_path = self.nodes[0].datadir_path / 'include.conf'
-        with open(self.nodes[0].datadir_path / 'theminerzcoin.conf', 'a', encoding='utf-8') as conf:
+        with open(self.nodes[0].datadir_path / 'blackmore.conf', 'a', encoding='utf-8') as conf:
             conf.write(f'includeconf={inc_conf_file_path}\n')
         with open(inc_conf_file_path, 'w', encoding='utf-8') as conf:
             conf.write('conf=some.conf\n')
@@ -98,7 +98,7 @@ class ConfArgsTest(BitcoinTestFramework):
         self.nodes[0].assert_start_raises_init_error(expected_msg='Error: Error reading configuration file: parse error on line 4, using # in rpcpassword can be ambiguous and should be avoided')
 
         inc_conf_file2_path = self.nodes[0].datadir_path / 'include2.conf'
-        with open(self.nodes[0].datadir_path / 'theminerzcoin.conf', 'a', encoding='utf-8') as conf:
+        with open(self.nodes[0].datadir_path / 'blackmore.conf', 'a', encoding='utf-8') as conf:
             conf.write(f'includeconf={inc_conf_file2_path}\n')
 
         with open(inc_conf_file_path, 'w', encoding='utf-8') as conf:
@@ -116,7 +116,7 @@ class ConfArgsTest(BitcoinTestFramework):
     def test_config_file_log(self):
         # Disable this test for windows currently because trying to override
         # the default datadir through the environment does not seem to work.
-        if platform.system() == "Windows":
+        if sys.platform == "win32":
             return
 
         self.log.info('Test that correct configuration path is changed when configuration file changes the datadir')
@@ -339,7 +339,7 @@ class ConfArgsTest(BitcoinTestFramework):
     def test_ignored_default_conf(self):
         # Disable this test for windows currently because trying to override
         # the default datadir through the environment does not seem to work.
-        if platform.system() == "Windows":
+        if sys.platform == "win32":
             return
 
         self.log.info('Test error is triggered when bitcoin.conf in the default data directory sets another datadir '
@@ -402,7 +402,7 @@ class ConfArgsTest(BitcoinTestFramework):
         self.nodes[0].assert_start_raises_init_error([f'-datadir={new_data_dir}'], f'Error: Specified data directory "{new_data_dir}" does not exist.')
 
         # Check that using non-existent datadir in conf file fails
-        conf_file = default_data_dir / "theminerzcoin.conf"
+        conf_file = default_data_dir / "blackmore.conf"
 
         # datadir needs to be set before [chain] section
         with open(conf_file, encoding='utf8') as f:

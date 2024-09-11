@@ -78,7 +78,7 @@ BOOST_AUTO_TEST_CASE(manythreads)
     UninterruptibleSleep(std::chrono::microseconds{600});
     now = std::chrono::steady_clock::now();
 
-    //  threads and more tasks:
+    // More threads and more tasks:
     for (int i = 0; i < 5; i++)
         microThreads.emplace_back(std::bind(&CScheduler::serviceQueue, &microTasks));
     for (int i = 0; i < 100; i++) {

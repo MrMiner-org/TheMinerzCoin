@@ -21,7 +21,7 @@
 
 BOOST_FIXTURE_TEST_SUITE(validation_tests, TestingSetup)
 
-// TheMinerzCoin
+// Blackcoin
 /*
 static void TestBlockSubsidyHalvings(const Consensus::Params& consensusParams)
 {
@@ -228,17 +228,18 @@ BOOST_AUTO_TEST_CASE(block_malleation)
         block.vtx.push_back(MakeTransactionRef(CMutableTransaction{}));
         BOOST_CHECK(is_mutated(block, /*check_witness_root=*/false));
         HashWriter hasher;
-        hasher.write(block.vtx[0]->GetHash());
-        hasher.write(block.vtx[1]->GetHash());
+        hasher.write(Span(reinterpret_cast<const std::byte*>(block.vtx[0]->GetHash().data()), 32));
+        hasher.write(Span(reinterpret_cast<const std::byte*>(block.vtx[1]->GetHash().data()), 32));
         block.hashMerkleRoot = hasher.GetHash();
         BOOST_CHECK(is_not_mutated(block, /*check_witness_root=*/false));
 
         // Block with two transactions is mutated if any node is duplicate.
         {
             block.vtx[1] = block.vtx[0];
+            BOOST_CHECK(is_mutated(block, /*check_witness_root=*/false));
             HashWriter hasher;
-            hasher.write(block.vtx[0]->GetHash());
-            hasher.write(block.vtx[1]->GetHash());
+            hasher.write(Span(reinterpret_cast<const std::byte*>(block.vtx[0]->GetHash().data()), 32));
+            hasher.write(Span(reinterpret_cast<const std::byte*>(block.vtx[1]->GetHash().data()), 32));
             block.hashMerkleRoot = hasher.GetHash();
             BOOST_CHECK(is_mutated(block, /*check_witness_root=*/false));
         }
@@ -286,8 +287,8 @@ BOOST_AUTO_TEST_CASE(block_malleation)
         {
             // Verify that double_sha256(txid1||txid2) == txid3
             HashWriter hasher;
-            hasher.write(tx1.GetHash());
-            hasher.write(tx2.GetHash());
+            hasher.write(Span(reinterpret_cast<const std::byte*>(tx1.GetHash().data()), 32));
+            hasher.write(Span(reinterpret_cast<const std::byte*>(tx2.GetHash().data()), 32));
             assert(hasher.GetHash() == tx3.GetHash());
             // Verify that tx3 is 64 bytes in size (without witness).
             assert(GetSerializeSize(TX_NO_WITNESS(tx3)) == 64);

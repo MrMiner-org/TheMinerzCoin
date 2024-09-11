@@ -33,7 +33,7 @@ class MempoolUpdateFromBlockTest(BitcoinTestFramework):
             - has N-K descendants (including this one), and
             - has K+1 ancestors (including this one)
 
-         details: https://en.wikipedia.org/wiki/Tournament_(graph_theory)
+        More details: https://en.wikipedia.org/wiki/Tournament_(graph_theory)
         """
         wallet = MiniWallet(self.nodes[0])
         first_block_hash = ''

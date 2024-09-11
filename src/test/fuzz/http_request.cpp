@@ -7,7 +7,6 @@
 #include <test/fuzz/FuzzedDataProvider.h>
 #include <test/fuzz/fuzz.h>
 #include <test/fuzz/util.h>
-#include <util/signalinterrupt.h>
 #include <util/strencodings.h>
 
 #include <event2/buffer.h>
@@ -48,8 +47,7 @@ FUZZ_TARGET(http_request)
         return;
     }
 
-    util::SignalInterrupt interrupt;
-    HTTPRequest http_request{evreq, interrupt, true};
+    HTTPRequest http_request{evreq, true};
     const HTTPRequest::RequestMethod request_method = http_request.GetRequestMethod();
     (void)RequestMethodString(request_method);
     (void)http_request.GetURI();

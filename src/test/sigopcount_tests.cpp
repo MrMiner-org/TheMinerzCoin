@@ -50,7 +50,8 @@ BOOST_AUTO_TEST_CASE(GetSigOpCount)
     std::vector<CPubKey> keys;
     for (int i = 0; i < 3; i++)
     {
-        CKey k = GenerateRandomKey();
+        CKey k;
+        k.MakeNewKey(true);
         keys.push_back(k.GetPubKey());
     }
     CScript s2 = GetScriptForMultisig(1, keys);
@@ -119,7 +120,8 @@ BOOST_AUTO_TEST_CASE(GetTxSigOpCost)
     CCoinsView coinsDummy;
     CCoinsViewCache coins(&coinsDummy);
     // Create key
-    CKey key = GenerateRandomKey();
+    CKey key;
+    key.MakeNewKey(true);
     CPubKey pubkey = key.GetPubKey();
     // Default flags
     const uint32_t flags{SCRIPT_VERIFY_WITNESS | SCRIPT_VERIFY_P2SH};

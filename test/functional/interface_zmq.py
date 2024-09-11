@@ -392,7 +392,7 @@ class ZMQTest (BitcoinTestFramework):
         orig_tx = self.wallet.send_self_transfer(from_node=self.nodes[0])
         orig_txid = orig_tx['txid']
 
-        #  to be simply mined
+        # More to be simply mined
         more_tx = []
         for _ in range(5):
             more_tx.append(self.wallet.send_self_transfer(from_node=self.nodes[0]))
@@ -417,7 +417,7 @@ class ZMQTest (BitcoinTestFramework):
 
         # Added original tx
         assert_equal(label, "A")
-        #  transactions to be simply mined
+        # More transactions to be simply mined
         for i in range(len(more_tx)):
             assert_equal((more_tx[i]['txid'], "A", mempool_seq), seq.receive_sequence())
             mempool_seq += 1

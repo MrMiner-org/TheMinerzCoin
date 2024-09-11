@@ -10,7 +10,7 @@
 #include <span.h>
 #include <support/allocators/zeroafterfree.h>
 #include <util/overflow.h>
-#include <node/protocol_version.h> // for INIT_PROTO_VERSION
+#include <version.h> // for INIT_PROTO_VERSION
 
 #include <algorithm>
 #include <assert.h>
@@ -50,10 +50,10 @@ inline void Xor(Span<std::byte> write, Span<const std::byte> key, size_t key_off
  *
  * The referenced vector will grow as necessary
  */
-// TheMinerzCoin: Keep nType
+// Blackcoin: Keep nType
 class VectorWriter
 {
-public:
+ public:
 /*
  * @param[in]  vchDataIn  Referenced byte vector to overwrite/append
  * @param[in]  nPosIn Starting position. Vector index where writes should start. The vector will initially
@@ -85,7 +85,7 @@ public:
         }
         nPos += src.size();
     }
-    template <typename T>
+    template<typename T>
     VectorWriter& operator<<(const T& obj)
     {
         ::Serialize(*this, obj);
@@ -136,11 +136,6 @@ public:
         }
         memcpy(dst.data(), m_data.data(), dst.size());
         m_data = m_data.subspan(dst.size());
-    }
-
-    void ignore(size_t n)
-    {
-        m_data = m_data.subspan(n);
     }
 };
 
@@ -289,17 +284,23 @@ class CDataStream : public DataStream
 {
 private:
     int nType;
+    int nVersion;
 
 public:
-    explicit CDataStream() {}
-    explicit CDataStream(int nTypeIn) : nType{nTypeIn} {}
+    explicit CDataStream(int nTypeIn)
+        : nType{nTypeIn}, nVersion{INIT_PROTO_VERSION} {}
+
     explicit CDataStream(Span<const uint8_t> sp, int type) : CDataStream{AsBytes(sp), type} {}
     explicit CDataStream(Span<const value_type> sp, int nTypeIn)
         : DataStream{sp},
-          nType{nTypeIn} {}
+          nType{nTypeIn},
+          nVersion{INIT_PROTO_VERSION} {}
 
     void SetType(int n)          { nType = n; }
     int GetType() const          { return nType; }
+    void SetVersion(int n)       { nVersion = n; }
+    int GetVersion() const       { return nVersion; }
+
     template <typename T>
     CDataStream& operator<<(const T& obj)
     {
@@ -493,7 +494,7 @@ public:
     }
 };
 
-// TheMinerzCoin: Keep nType
+// Blackcoin: Keep nType
 class CAutoFile : public AutoFile
 {
 private:
@@ -525,7 +526,7 @@ public:
  *  Will automatically close the file when it goes out of scope if not null.
  *  If you need to close the file early, use file.fclose() instead of fclose(file).
  */
-// TheMinerzCoin: Keep nType
+// Blackcoin: Keep nType
 class BufferedFile
 {
 private:

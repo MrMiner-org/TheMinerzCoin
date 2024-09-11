@@ -12,6 +12,7 @@
 #include <streams.h>
 #include <util/result.h>
 #include <util/strencodings.h>
+#include <version.h>
 
 #include <algorithm>
 #include <string>

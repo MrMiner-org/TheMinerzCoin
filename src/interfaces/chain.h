@@ -7,9 +7,8 @@
 
 #include <blockfilter.h>
 #include <common/settings.h>
-#include <net.h> // For ConnectionDirection
 #include <primitives/transaction.h> // For CTransactionRef
-#include <util/result.h>
+#include <netbase.h>                // For ConnectionDirection
 
 #include <functional>
 #include <memory>
@@ -39,9 +38,11 @@ class CTxMemPool;
 class CBlockIndex;
 class CCoinsViewCache;
 
+#ifdef ENABLE_WALLET
 namespace wallet {
 class CWallet;
 } // namespace wallet
+#endif
 
 namespace interfaces {
 
@@ -255,7 +256,7 @@ public:
     //  outputs in the same transaction) or have shared ancestry, the bump fees are calculated
     //  independently, i.e. as if only one of them is spent. This may result in double-fee-bumping. This
     //  caveat can be rectified per use of the sister-function CalculateCombinedBumpFee(…).
-    virtual std::map<COutPoint, CAmount> calculateIndividualBumpFees(const std::vector<COutPoint>& outpoints, const CFeeRate& target_feerate) = 0;
+    virtual std::map<COutPoint, CAmount> CalculateIndividualBumpFees(const std::vector<COutPoint>& outpoints, const CFeeRate& target_feerate) = 0;
 
     //! Calculate the combined bump fee for an input set per the same strategy
     //  as in CalculateIndividualBumpFees(…).
@@ -263,7 +264,7 @@ public:
     //  bump fees per outpoint, but a single bump fee for the shared ancestry.
     //  The combined bump fee may be used to correct overestimation due to
     //  shared ancestry by multiple UTXOs after coin selection.
-    virtual std::optional<CAmount> calculateCombinedBumpFee(const std::vector<COutPoint>& outpoints, const CFeeRate& target_feerate) = 0;
+    virtual std::optional<CAmount> CalculateCombinedBumpFee(const std::vector<COutPoint>& outpoints, const CFeeRate& target_feerate) = 0;
 
     //! Get the node's package limits.
     //! Currently only returns the ancestor and descendant count limits, but could be enhanced to
@@ -271,7 +272,7 @@ public:
     virtual void getPackageLimits(unsigned int& limit_ancestor_count, unsigned int& limit_descendant_count) = 0;
 
     //! Check if transaction will pass the mempool's chain limits.
-    virtual util::Result<void> checkChainLimits(const CTransactionRef& tx) = 0;
+    virtual bool checkChainLimits(const CTransactionRef& tx) = 0;
 
     //! Relay current minimum fee (from -minrelaytxfee settings).
     virtual CFeeRate relayMinFee() = 0;
@@ -330,6 +331,9 @@ public:
     //! Run function after given number of seconds. Cancel any previous calls with same name.
     virtual void rpcRunLater(const std::string& name, std::function<void()> fn, int64_t seconds) = 0;
 
+    //! Current RPC serialization flags.
+    virtual bool rpcSerializationWithoutWitness() = 0;
+
     //! Get settings value.
     virtual common::SettingsValue getSetting(const std::string& arg) = 0;
 
@@ -372,6 +376,7 @@ public:
     //! Get number of connections.
     virtual size_t getNodeCount(ConnectionDirection flags) = 0;
 
+#ifdef ENABLE_WALLET
     //! Start staking.
     virtual void startStake(wallet::CWallet& wallet) = 0;
 
@@ -380,6 +385,10 @@ public:
 
     //! Get stake weight.
     virtual uint64_t getStakeWeight(const wallet::CWallet& wallet) = 0;
+
+    //! Get staking RPC commands.
+    virtual Span<const CRPCCommand> getStakingRPCCommands() = 0;
+#endif
 };
 
 //! Interface to let node manage chain clients (wallets, or maybe tools for
@@ -409,9 +418,6 @@ public:
 
     //! Set mock time.
     virtual void setMockTime(int64_t time) = 0;
-
-    //! Mock the scheduler to fast forward in time.
-    virtual void schedulerMockForward(std::chrono::seconds delta_seconds) = 0;
 };
 
 //! Return implementation of Chain interface.

@@ -319,7 +319,7 @@ in the Low-level Changes section below.
   specify the start and end of the range to import. Descriptors with key
   origin information imported through `importmulti` will have their key
   origin information stored in the wallet for use with creating PSBTs.
-   information about descriptors can be found
+  More information about descriptors can be found
   [here](https://github.com/bitcoin/bitcoin/blob/master/doc/descriptors.md).
 
 - `listunspent` has been modified so that it also returns

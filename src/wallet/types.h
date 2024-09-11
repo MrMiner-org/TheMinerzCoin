@@ -7,7 +7,7 @@
 //! (e.g. by src/wallet and src/interfaces and src/qt code).
 //!
 //! File is home for simple enum and struct definitions that don't deserve
-//! separate header files.  complicated wallet public types like
+//! separate header files. More complicated wallet public types like
 //! CCoinControl that are used externally can have separate headers.
 
 #ifndef BITCOIN_WALLET_TYPES_H

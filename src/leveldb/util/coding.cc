@@ -90,7 +90,7 @@ const char* GetVarint32PtrFallback(const char* p, const char* limit,
     uint32_t byte = *(reinterpret_cast<const uint8_t*>(p));
     p++;
     if (byte & 128) {
-      //  bytes are present
+      // More bytes are present
       result |= ((byte & 127) << shift);
     } else {
       result |= (byte << shift);
@@ -119,7 +119,7 @@ const char* GetVarint64Ptr(const char* p, const char* limit, uint64_t* value) {
     uint64_t byte = *(reinterpret_cast<const uint8_t*>(p));
     p++;
     if (byte & 128) {
-      //  bytes are present
+      // More bytes are present
       result |= ((byte & 127) << shift);
     } else {
       result |= (byte << shift);

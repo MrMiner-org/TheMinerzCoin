@@ -3,7 +3,7 @@
     <name>AddressBookPage</name>
     <message>
         <source>Right-click to edit address or label</source>
-        <translation type="unfinished">pindutin lamang ang kanang pindutan upang i-edit ang address o label</translation>
+        <translation type="unfinished">pindutin lamang ang kanang pindutan upang i-edit ang address o label.</translation>
     </message>
     <message>
         <source>Create a new address</source>
@@ -23,7 +23,7 @@
     </message>
     <message>
         <source>C&amp;lose</source>
-        <translation type="unfinished">Isara</translation>
+        <translation type="unfinished">(Do you mean: Close?) :isara, sarado </translation>
     </message>
     <message>
         <source>Delete the currently selected address from the list</source>
@@ -55,7 +55,7 @@
     </message>
     <message>
         <source>C&amp;hoose</source>
-        <translation type="unfinished">&amp;Pumili</translation>
+        <translation type="unfinished">(do you mean: CHOOSE?) ;Pumili,Piliin.</translation>
     </message>
     <message>
         <source>These are your Bitcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
@@ -645,7 +645,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>Click for more actions.</source>
-        <extracomment>A substring of the tooltip. " actions" are available via the context menu.</extracomment>
+        <extracomment>A substring of the tooltip. "More actions" are available via the context menu.</extracomment>
         <translation type="unfinished">Mag-click para sa marami pang gagawin.</translation>
     </message>
     <message>

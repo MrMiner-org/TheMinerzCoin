@@ -790,7 +790,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>Click for more actions.</source>
-        <extracomment>A substring of the tooltip. " actions" are available via the context menu.</extracomment>
+        <extracomment>A substring of the tooltip. "More actions" are available via the context menu.</extracomment>
         <translation type="unfinished">추가 작업을 하려면 클릭하세요.</translation>
     </message>
     <message>
@@ -1752,6 +1752,18 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Tor onion 서비스를 통해 피어에 도달하려면 별도의 SOCKS &amp; 5 프록시를 사용하십시오.</translation>
     </message>
     <message>
+        <source>Monospaced font in the Overview tab:</source>
+        <translation type="unfinished">개요 탭의 고정 폭 글꼴:</translation>
+    </message>
+    <message>
+        <source>embedded "%1"</source>
+        <translation type="unfinished">%1 포함됨</translation>
+    </message>
+    <message>
+        <source>closest matching "%1"</source>
+        <translation type="unfinished">가장 가까운 의미 "1%1"</translation>
+    </message>
+    <message>
         <source>&amp;OK</source>
         <translation type="unfinished">확인(&amp;O)</translation>
     </message>
@@ -1973,8 +1985,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">PSBT가 디스크에 저장 됨</translation>
     </message>
     <message>
-        <source>own address</source>
-        <translation type="unfinished">자신의 주소</translation>
+        <source> * Sends %1 to %2</source>
+        <translation type="unfinished">* %1을 %2로 보냅니다.</translation>
     </message>
     <message>
         <source>own address</source>
@@ -2955,6 +2967,10 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
         <translation type="unfinished">오프라인 %1 지갑 또는 PSBT가 호환되는 하드웨어 지갑과의 사용을 위한 '부분적으로 서명 된 비트 코인 트랜잭션(PSBT)'를 생성합니다.</translation>
     </message>
     <message>
+        <source> from wallet '%1'</source>
+        <translation type="unfinished">'%1' 지갑에서</translation>
+    </message>
+    <message>
         <source>%1 to '%2'</source>
         <translation type="unfinished">%1을 '%2'로</translation>
     </message>
@@ -3444,6 +3460,10 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
     <message>
         <source>Output index</source>
         <translation type="unfinished">출력 인덱스</translation>
+    </message>
+    <message>
+        <source> (Certificate was not verified)</source>
+        <translation type="unfinished">(인증서가 확인되지 않았습니다)</translation>
     </message>
     <message>
         <source>Merchant</source>
@@ -3948,7 +3968,7 @@ Go to File &gt; Open Wallet to load a wallet.
         <translation type="unfinished">유효하지 않거나 손상된 peers.dat(%s). 만약 이게 버그인 경우에, %s이쪽으로 리포트해주세요.  새로 만들어서 시작하기 위한 해결방법으로 %s파일을 옮길 수 있습니다. (이름 재설정, 파일 옮기기 혹은 삭제).</translation>
     </message>
     <message>
-        <source> than one onion bind address is provided. Using %s for the automatically created Tor onion service.</source>
+        <source>More than one onion bind address is provided. Using %s for the automatically created Tor onion service.</source>
         <translation type="unfinished">하나 이상의 양파 바인딩 주소가 제공됩니다. 자동으로 생성 된 Tor onion 서비스에 %s 사용.</translation>
     </message>
     <message>
@@ -4324,6 +4344,10 @@ Go to File &gt; Open Wallet to load a wallet.
     <message>
         <source>Transaction amounts must not be negative</source>
         <translation type="unfinished">거래액은 반드시 0보다 큰 값이어야 합니다.</translation>
+    </message>
+    <message>
+        <source>Transaction has too long of a mempool chain</source>
+        <translation type="unfinished">거래가 너무 긴 메모리 풀 체인을 갖고 있습니다</translation>
     </message>
     <message>
         <source>Transaction must have at least one recipient</source>

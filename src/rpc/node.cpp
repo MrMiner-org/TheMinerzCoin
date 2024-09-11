@@ -3,10 +3,6 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#if defined(HAVE_CONFIG_H)
-#include <config/bitcoin-config.h>
-#endif
-
 #include <chainparams.h>
 #include <httpserver.h>
 #include <index/blockfilterindex.h>
@@ -98,9 +94,6 @@ static RPCHelpMan mockscheduler()
     const NodeContext& node_context{EnsureAnyNodeContext(request.context)};
     CHECK_NONFATAL(node_context.scheduler)->MockForward(std::chrono::seconds{delta_seconds});
     SyncWithValidationInterfaceQueue();
-    for (const auto& chain_client : node_context.chain_clients) {
-        chain_client->schedulerMockForward(std::chrono::seconds(delta_seconds));
-    }
 
     return UniValue::VNULL;
 },
@@ -329,7 +322,7 @@ static RPCHelpMan echoipc()
                 // and spawn bitcoin-echo below instead of bitcoin-node. But
                 // using bitcoin-node avoids the need to build and install a
                 // new executable just for this one test.
-                auto init = ipc->spawnProcess("theminerzcoin-node");
+                auto init = ipc->spawnProcess("blackmore-node");
                 echo = init->makeEcho();
                 ipc->addCleanup(*echo, [init = init.release()] { delete init; });
             } else {

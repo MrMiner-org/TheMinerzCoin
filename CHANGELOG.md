@@ -1,5 +1,10 @@
 # Changelog
 
+## v26.2.0-beta-1 (2024-08-07)
+- Updated to Bitcoin Core 26.2
+- Activated Segwit on regtest
+- New mempool.dat format (backport of Core's PR28207)
+
 ## v26.1.0-beta-1 (2024-05-24)
 - Updated to Bitcoin Core 26.1
 - Create V2 transactions by default
@@ -20,7 +25,7 @@
 ## v25.1.0-alpha-3 (2024-01-30)
 - Set mainnet hard fork date to April 24, 2024
 - Use virtual transaction size in minimum fee calculation
-- Fixed a bug with header syncing between  25.1 nodes
+- Fixed a bug with header syncing between More 25.1 nodes
 - Fixed windows build
 - Enabled flushing of orphaned stakes also on wallet start
 - Enabled staking with P2WPKH inputs
@@ -104,7 +109,7 @@
 ## v2.13.2.6 (2020-07-21)
 - Fix staking memory leak (by JJ12880 from Radium Core)
 - Updated fixed seeds
-- Added secondary TheMinerzCoin DNS seeder
+- Added secondary Blackcoin DNS seeder
 
 ## v2.13.2.5 (2020-04-28)
 - Updated Berkeley DB to 6.2.38
@@ -151,7 +156,7 @@
 - Proof-of-stake related code optimized and refactored
 
 ## v2.12.1.1 (2018-10-01)
-- Rebranded to TheMinerzCoin 
+- Rebranded to Blackcoin More
 - Some small fixes and updates from Bitcoin Core 0.13.x branch
 - Added "Use available balance" button in send coins dialog (backport of Core's PR11316)
 - Added a button to open the config file in a text editor (backport of Core's PR9890)

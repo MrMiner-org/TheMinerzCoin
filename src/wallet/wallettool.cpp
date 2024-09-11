@@ -20,7 +20,7 @@ namespace wallet {
 namespace WalletTool {
 
 // The standard wallet deleter function blocks on the validation interface
-// queue, which doesn't exist for the theminerzcoin-wallet. Define our own
+// queue, which doesn't exist for the blackmore-wallet. Define our own
 // deleter here.
 static void WalletToolReleaseWallet(CWallet* wallet)
 {
@@ -68,6 +68,7 @@ static std::shared_ptr<CWallet> MakeWallet(const std::string& name, const fs::pa
     }
 
     if (load_wallet_ret != DBErrors::LOAD_OK) {
+        wallet_instance = nullptr;
         if (load_wallet_ret == DBErrors::CORRUPT) {
             tfm::format(std::cerr, "Error loading %s: Wallet corrupted", name);
             return nullptr;
@@ -193,20 +194,15 @@ bool ExecuteWalletToolFunc(const ArgsManager& args, const std::string& command)
         DatabaseOptions options;
         ReadDatabaseArgs(args, options);
         options.require_existing = true;
-        DatabaseStatus status;
+        const std::shared_ptr<CWallet> wallet_instance = MakeWallet(name, path, options);
+        if (!wallet_instance) return false;
         bilingual_str error;
-        std::unique_ptr<WalletDatabase> database = MakeDatabase(path, options, status, error);
-        if (!database) {
-            tfm::format(std::cerr, "%s\n", error.original);
-            return false;
-        }
-
-        bool ret = DumpWallet(args, *database, error);
+        bool ret = DumpWallet(args, *wallet_instance, error);
         if (!ret && !error.empty()) {
             tfm::format(std::cerr, "%s\n", error.original);
             return ret;
         }
-        tfm::format(std::cout, "The dumpfile may contain private keys. To ensure the safety of your TheMinerzCoin, do not share the dumpfile.\n");
+        tfm::format(std::cout, "The dumpfile may contain private keys. To ensure the safety of your Blackcoin, do not share the dumpfile.\n");
         return ret;
     } else if (command == "createfromdump") {
         bilingual_str error;

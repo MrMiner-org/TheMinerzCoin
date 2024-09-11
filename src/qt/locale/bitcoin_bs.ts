@@ -633,7 +633,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>Click for more actions.</source>
-        <extracomment>A substring of the tooltip. " actions" are available via the context menu.</extracomment>
+        <extracomment>A substring of the tooltip. "More actions" are available via the context menu.</extracomment>
         <translation type="unfinished">Klikni za još radnji</translation>
     </message>
     <message>
@@ -814,6 +814,10 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>(%1 locked)</source>
         <translation type="unfinished">(%1 zaključano)</translation>
+    </message>
+    <message>
+        <source>Can vary +/- %1 satoshi(s) per input.</source>
+        <translation type="unfinished">Može varirati +/- %1 satoshi (a) po upisu vrijednosti.</translation>
     </message>
     <message>
         <source>Can vary +/- %1 satoshi(s) per input.</source>
@@ -1621,6 +1625,10 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>Transaction amounts must not be negative</source>
         <translation type="unfinished">Iznosi transakcija ne smiju biti negativni</translation>
+    </message>
+    <message>
+        <source>Transaction has too long of a mempool chain</source>
+        <translation type="unfinished">Transakcija ima predugačak mempool lanac </translation>
     </message>
     <message>
         <source>Transaction must have at least one recipient</source>

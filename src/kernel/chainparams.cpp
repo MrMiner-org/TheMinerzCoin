@@ -105,7 +105,9 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nStartTime = Consensus::BIP9Deployment::NEVER_ACTIVE;
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nTimeout = Consensus::BIP9Deployment::NO_TIMEOUT;
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].min_activation_height = 0; // No activation delay
-
+		consensus.nMaxPoWHeight = 82000 + 755359744;  // PoW endet nach 755.359.744 Blöcken nach Block 82.000
+		consensus.nMaxPoSHeight = 82000 + 755359744;  // PoS endet nach 755.359.744 Blöcken nach Block 82.000
+		
         // Deployment of SegWit (BIP141, BIP143, and BIP147)
         consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].bit = 1;
         consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nStartTime = Consensus::BIP9Deployment::NEVER_ACTIVE;

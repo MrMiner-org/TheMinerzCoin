@@ -381,6 +381,10 @@ Ní féidir síniú ach le seoltaí 'oidhreachta'.</translation>
         <translation type="unfinished">Cruthaigh sparán nua</translation>
     </message>
     <message>
+        <source>&amp;Minimize</source>
+        <translation type="unfinished">&amp;Íoslaghdaigh</translation>
+    </message>
+    <message>
         <source>Wallet:</source>
         <translation type="unfinished">Sparán:</translation>
     </message>
@@ -1311,6 +1315,10 @@ Ní féidir síniú ach le seoltaí 'oidhreachta'.</translation>
         <translation type="unfinished">Úsáid seachfhreastalaí SOCKS5 ar leith chun sroicheadh piaraí trí sheirbhísí Tor oinniún:</translation>
     </message>
     <message>
+        <source>embedded "%1"</source>
+        <translation type="unfinished">leabaithe "%1"</translation>
+    </message>
+    <message>
         <source>&amp;OK</source>
         <translation type="unfinished">&amp;Togha</translation>
     </message>
@@ -1514,8 +1522,8 @@ Ní féidir síniú ach le seoltaí 'oidhreachta'.</translation>
         <translation type="unfinished">IBSP sábháilte ar dhiosca.</translation>
     </message>
     <message>
-        <source>own address</source>
-        <translation type="unfinished">seoladh féin</translation>
+        <source> * Sends %1 to %2</source>
+        <translation type="unfinished"> * Seolann %1 chuig %2</translation>
     </message>
     <message>
         <source>own address</source>
@@ -1599,6 +1607,11 @@ Ní féidir síniú ach le seoltaí 'oidhreachta'.</translation>
         <source>User Agent</source>
         <extracomment>Title of Peers Table column which contains the peer's User Agent string.</extracomment>
         <translation type="unfinished">Gníomhaire Úsáideora</translation>
+    </message>
+    <message>
+        <source>Age</source>
+        <extracomment>Title of Peers Table column which indicates the duration (length of time) since the peer connection started.</extracomment>
+        <translation type="unfinished">Aois</translation>
     </message>
     <message>
         <source>Direction</source>
@@ -2267,6 +2280,10 @@ Ní féidir síniú ach le seoltaí 'oidhreachta'.</translation>
         <translation type="unfinished">Cruthaíonn Idirbheart Bitcoin Sínithe go Páirteach (IBSP) le húsáid le e.g. sparán as líne %1, nó sparán crua-earraí atá comhoiriúnach le IBSP.</translation>
     </message>
     <message>
+        <source> from wallet '%1'</source>
+        <translation type="unfinished">ó sparán '%1'</translation>
+    </message>
+    <message>
         <source>%1 to '%2'</source>
         <translation type="unfinished">%1 go '%2'</translation>
     </message>
@@ -2714,6 +2731,10 @@ Ní féidir síniú ach le seoltaí 'oidhreachta'.</translation>
         <translation type="unfinished">Innéacs aschuir</translation>
     </message>
     <message>
+        <source> (Certificate was not verified)</source>
+        <translation type="unfinished">(Níor fíoraíodh teastas)</translation>
+    </message>
+    <message>
         <source>Merchant</source>
         <translation type="unfinished">Ceannaí</translation>
     </message>
@@ -3105,7 +3126,7 @@ Téigh go Comhad &gt; Oscail Sparán chun sparán a lódáil.
         <translation type="unfinished">Dáilte faoin gceadúnas bogearraí MIT, féach na comhad atá in éindí %s nó %s</translation>
     </message>
     <message>
-        <source> than one onion bind address is provided. Using %s for the automatically created Tor onion service.</source>
+        <source>More than one onion bind address is provided. Using %s for the automatically created Tor onion service.</source>
         <translation type="unfinished">Tá níos mó ná seoladh ceangail oinniún amháin curtha ar fáil. Ag baint úsáide as %s don tseirbhís Tor oinniún a cruthaíodh go huathoibríoch.</translation>
     </message>
     <message>
@@ -3419,6 +3440,10 @@ Téigh go Comhad &gt; Oscail Sparán chun sparán a lódáil.
     <message>
         <source>Transaction amounts must not be negative</source>
         <translation type="unfinished">Níor cheart go mbeadh suimeanna idirbhirt diúltach</translation>
+    </message>
+    <message>
+        <source>Transaction has too long of a mempool chain</source>
+        <translation type="unfinished">Tá slabhra mempool ró-fhada ag an idirbheart</translation>
     </message>
     <message>
         <source>Transaction must have at least one recipient</source>

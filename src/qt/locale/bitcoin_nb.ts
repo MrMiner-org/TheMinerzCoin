@@ -729,7 +729,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>Click for more actions.</source>
-        <extracomment>A substring of the tooltip. " actions" are available via the context menu.</extracomment>
+        <extracomment>A substring of the tooltip. "More actions" are available via the context menu.</extracomment>
         <translation type="unfinished">Trykk for flere valg.</translation>
     </message>
     <message>
@@ -1564,6 +1564,14 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Bruk separate SOCKS&amp;5 proxy for å nå peers via Tor onion tjenester:</translation>
     </message>
     <message>
+        <source>embedded "%1"</source>
+        <translation type="unfinished">Innebygd "%1"</translation>
+    </message>
+    <message>
+        <source>closest matching "%1"</source>
+        <translation type="unfinished">nærmeste treff "%1"</translation>
+    </message>
+    <message>
         <source>&amp;Cancel</source>
         <translation type="unfinished">&amp;Avbryt</translation>
     </message>
@@ -1781,8 +1789,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">PSBT lagret til disk.</translation>
     </message>
     <message>
-        <source>own address</source>
-        <translation type="unfinished">egen adresse</translation>
+        <source> * Sends %1 to %2</source>
+        <translation type="unfinished">* Sender %1 til %2</translation>
     </message>
     <message>
         <source>own address</source>
@@ -3160,6 +3168,10 @@ Hvis du får denne feilen burde du be forretningsdrivende om å tilby en BIP21 k
         <translation type="unfinished">Outputindeks</translation>
     </message>
     <message>
+        <source> (Certificate was not verified)</source>
+        <translation type="unfinished">(sertifikatet ble ikke bekreftet)</translation>
+    </message>
+    <message>
         <source>Merchant</source>
         <translation type="unfinished">Forretningsdrivende</translation>
     </message>
@@ -3612,7 +3624,7 @@ Gå til Fil &gt; Åpne lommebok for å laste en lommebok.
         <translation type="unfinished">Filen %s eksisterer allerede. Hvis du er sikker på at det er dette du vil, flytt den vekk først.</translation>
     </message>
     <message>
-        <source> than one onion bind address is provided. Using %s for the automatically created Tor onion service.</source>
+        <source>More than one onion bind address is provided. Using %s for the automatically created Tor onion service.</source>
         <translation type="unfinished">Mer enn en onion adresse har blitt gitt. Bruker %s for den automatisk lagde Tor onion tjenesten.</translation>
     </message>
     <message>
@@ -4009,6 +4021,10 @@ Mangler løsningsdata for å estimere transaksjonsstørrelse</translation>
     <message>
         <source>Transaction amounts must not be negative</source>
         <translation type="unfinished">Transaksjonsbeløpet kan ikke være negativt</translation>
+    </message>
+    <message>
+        <source>Transaction has too long of a mempool chain</source>
+        <translation type="unfinished">Transaksjonen har for lang minnepoolkjede</translation>
     </message>
     <message>
         <source>Transaction must have at least one recipient</source>

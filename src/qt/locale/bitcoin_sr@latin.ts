@@ -224,12 +224,20 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Pristupna fraza za dekriptovanje novčanika nije tačna.</translation>
     </message>
     <message>
+        <source>The passphrase entered for the wallet decryption is incorrect. It contains a null character (ie - a zero byte). If the passphrase was set with a version of this software prior to 25.0, please try again with only the characters up to — but not including — the first null character. If this is successful, please set a new passphrase to avoid this issue in the future.</source>
+        <translation type="unfinished">Приступна фраза унета за дешифровање новчаника је нетачна. Садржи нулти карактер (тј. - нулти бајт). Ако је приступна фраза постављена са верзијом овог софтвера старијом од 25.0, покушајте поново само са знаковима до — али не укључујући — првог нултог знака. Ако је ово успешно, поставите нову приступну фразу да бисте избегли овај проблем у будућности.</translation>
+    </message>
+    <message>
         <source>Wallet passphrase was successfully changed.</source>
         <translation type="unfinished">Pristupna fraza novčanika je uspešno promenjena.</translation>
     </message>
     <message>
         <source>Passphrase change failed</source>
         <translation type="unfinished">Promena lozinke nije uspela</translation>
+    </message>
+    <message>
+        <source>The old passphrase entered for the wallet decryption is incorrect. It contains a null character (ie - a zero byte). If the passphrase was set with a version of this software prior to 25.0, please try again with only the characters up to — but not including — the first null character.</source>
+        <translation type="unfinished">Стара приступна фраза унета за дешифровање новчаника је нетачна. Садржи нулти карактер (тј. - нулти бајт). Ако је приступна фраза постављена са верзијом овог софтвера старијом од 25.0, покушајте поново са само знаковима до — али не укључујући — првог нултог знака.</translation>
     </message>
     <message>
         <source>Warning: The Caps Lock key is on!</source>
@@ -245,6 +253,10 @@ Signing is only possible with addresses of the type 'legacy'.</source>
 </context>
 <context>
     <name>BitcoinApplication</name>
+    <message>
+        <source>Settings file %1 might be corrupt or invalid.</source>
+        <translation type="unfinished">Датотека подешавања %1 је можда оштећена или неважећа.</translation>
+    </message>
     <message>
         <source>Runaway exception</source>
         <translation type="unfinished">Изузетак покретања</translation>
@@ -802,6 +814,10 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Учитај делимично потписану Bitcoin трансакцију</translation>
     </message>
     <message>
+        <source>Load PSBT from &amp;clipboard…</source>
+        <translation type="unfinished">Учитај ”PSBT” из привремене меморије</translation>
+    </message>
+    <message>
         <source>Load Partially Signed Bitcoin Transaction from clipboard</source>
         <translation type="unfinished">Учитај делимично потписану Bitcoin трансакцију из clipboard-a</translation>
     </message>
@@ -880,6 +896,11 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Подаци Новчаника</translation>
     </message>
     <message>
+        <source>Load Wallet Backup</source>
+        <extracomment>The title for Restore Wallet File Windows</extracomment>
+        <translation type="unfinished">Учитај резевну копију новчаника</translation>
+    </message>
+    <message>
         <source>Restore Wallet</source>
         <extracomment>Title of pop-up window shown when the user is attempting to restore a wallet.</extracomment>
         <translation type="unfinished">Поврати Новчаник</translation>
@@ -920,7 +941,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>Click for more actions.</source>
-        <extracomment>A substring of the tooltip. " actions" are available via the context menu.</extracomment>
+        <extracomment>A substring of the tooltip. "More actions" are available via the context menu.</extracomment>
         <translation type="unfinished">Клик за више акција</translation>
     </message>
     <message>
@@ -1043,6 +1064,10 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>Fee:</source>
         <translation type="unfinished">Naknada:</translation>
+    </message>
+    <message>
+        <source>Dust:</source>
+        <translation type="unfinished">Прашина:</translation>
     </message>
     <message>
         <source>After Fee:</source>
@@ -1797,6 +1822,18 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Користите посебан СОЦКС&amp;5 прокси да бисте дошли до вршњака преко услуга Тор онион:</translation>
     </message>
     <message>
+        <source>Monospaced font in the Overview tab:</source>
+        <translation type="unfinished">Једноразредни фонт на картици Преглед:</translation>
+    </message>
+    <message>
+        <source>embedded "%1"</source>
+        <translation type="unfinished">уграђено ”%1”</translation>
+    </message>
+    <message>
+        <source>closest matching "%1"</source>
+        <translation type="unfinished">Најближа сличност ”%1”</translation>
+    </message>
+    <message>
         <source>&amp;OK</source>
         <translation type="unfinished">&amp;Уреду</translation>
     </message>
@@ -2018,8 +2055,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">ПСБТ је сачуван на диску.</translation>
     </message>
     <message>
-        <source>own address</source>
-        <translation type="unfinished">sopstvena adresa</translation>
+        <source> * Sends %1 to %2</source>
+        <translation type="unfinished">*Шаље %1 до %2</translation>
     </message>
     <message>
         <source>own address</source>
@@ -2974,6 +3011,10 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
         <translation type="unfinished">Креира делимично потписану Биткоин трансакцију (PSBT) за коришћење са нпр. офлајн %1 новчаником, или PSBT компатибилним хардверским новчаником. </translation>
     </message>
     <message>
+        <source> from wallet '%1'</source>
+        <translation type="unfinished">из новчаника '%1'</translation>
+    </message>
+    <message>
         <source>%1 to '%2'</source>
         <translation type="unfinished">%1 до '%2'</translation>
     </message>
@@ -3463,6 +3504,10 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
         <translation type="unfinished">Излазни индекс</translation>
     </message>
     <message>
+        <source> (Certificate was not verified)</source>
+        <translation type="unfinished">(Сертификат још није проверен)</translation>
+    </message>
+    <message>
         <source>Merchant</source>
         <translation type="unfinished">Trgovac</translation>
     </message>
@@ -3630,6 +3675,10 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
     <message>
         <source>Sent to</source>
         <translation type="unfinished">Poslat</translation>
+    </message>
+    <message>
+        <source>To yourself</source>
+        <translation type="unfinished">Теби</translation>
     </message>
     <message>
         <source>Mined</source>
@@ -4145,6 +4194,10 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
     <message>
         <source>Transaction amounts must not be negative</source>
         <translation type="unfinished">Износ трансакције не може бити негативан</translation>
+    </message>
+    <message>
+        <source>Transaction has too long of a mempool chain</source>
+        <translation type="unfinished">Трансакција има предугачак ланац у удруженој меморији</translation>
     </message>
     <message>
         <source>Transaction must have at least one recipient</source>

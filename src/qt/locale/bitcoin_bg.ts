@@ -780,7 +780,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>Click for more actions.</source>
-        <extracomment>A substring of the tooltip. " actions" are available via the context menu.</extracomment>
+        <extracomment>A substring of the tooltip. "More actions" are available via the context menu.</extracomment>
         <translation type="unfinished">Клик за повече действия</translation>
     </message>
     <message>
@@ -1500,7 +1500,11 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <source>Unknown. Syncing Headers (%1, %2%)…</source>
         <translation type="unfinished">Неизвестно. Синхронизиране на Глави (%1, %2%)...</translation>
     </message>
-    </context>
+    <message>
+        <source>Unknown. Pre-syncing Headers (%1, %2%)…</source>
+        <translation type="unfinished">Неизвестно. Предварителна синхронизация на хедъри (%1, %2%)…</translation>
+    </message>
+</context>
 <context>
     <name>OpenURIDialog</name>
     <message>
@@ -1734,6 +1738,10 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>Whether to show coin control features or not.</source>
         <translation type="unfinished">Дали да покаже възможностите за контрол на монетите или не.</translation>
+    </message>
+    <message>
+        <source>Monospaced font in the Overview tab:</source>
+        <translation type="unfinished">Моноширинен шрифт в раздела Общ преглед:</translation>
     </message>
     <message>
         <source>&amp;OK</source>

@@ -43,7 +43,7 @@ private:
     std::unordered_map<uint256, uint256, FilterHeaderHasher> m_headers_cache GUARDED_BY(m_cs_headers_cache);
 
     /*
-    // TheMinerzCoin
+    // Blackcoin
     bool AllowPrune() const override { return true; }
     */
 

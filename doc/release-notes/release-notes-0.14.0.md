@@ -367,7 +367,7 @@ and git merge commit are mentioned.
 - #8421 `b77bb95` httpserver: drop boost dependency (theuni)
 - #8638 `f061415` rest.cpp: change `HTTP_INTERNAL_SERVER_ERROR` to `HTTP_BAD_REQUEST` (djpnewton)
 - #8272 `91990ee` Make the dummy argument to getaddednodeinfo optional (sipa)
-- #8722 `bb843ad` bitcoin-cli:  detailed error reporting (laanwj)
+- #8722 `bb843ad` bitcoin-cli: More detailed error reporting (laanwj)
 - #6996 `7f71a3c` Add preciousblock RPC (sipa)
 - #8788 `97c7f73` Give RPC commands more information about the RPC request (jonasschnelli)
 - #7948 `5d2c8e5` Augment getblockchaininfo bip9\_softforks data (mruddy)

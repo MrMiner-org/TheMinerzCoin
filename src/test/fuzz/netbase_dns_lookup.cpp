@@ -59,6 +59,9 @@ FUZZ_TARGET(netbase_dns_lookup)
         assert(!resolved_service.IsInternal());
     }
     {
-        (void)LookupSubNet(name);
+        CSubNet resolved_subnet;
+        if (LookupSubNet(name, resolved_subnet)) {
+            assert(resolved_subnet.IsValid());
+        }
     }
 }

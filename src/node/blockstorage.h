@@ -8,26 +8,21 @@
 #include <attributes.h>
 #include <chain.h>
 #include <dbwrapper.h>
-#include <flatfile.h>
 #include <kernel/blockmanager_opts.h>
+#include <kernel/chain.h>
 #include <kernel/chainparams.h>
 #include <kernel/cs_main.h>
 #include <kernel/messagestartchars.h>
-#include <primitives/block.h>
-#include <streams.h>
 #include <sync.h>
-#include <uint256.h>
 #include <util/fs.h>
 #include <util/hasher.h>
 
-#include <array>
 #include <atomic>
 #include <cstdint>
 #include <functional>
 #include <limits>
 #include <map>
 #include <memory>
-#include <optional>
 #include <set>
 #include <string>
 #include <unordered_map>
@@ -35,9 +30,14 @@
 #include <vector>
 
 class BlockValidationState;
+class CAutoFile;
+class CBlock;
 class CBlockUndo;
+class CChainParams;
 class Chainstate;
 class ChainstateManager;
+struct CCheckpointData;
+struct FlatFilePos;
 namespace Consensus {
 struct Params;
 }
@@ -214,7 +214,7 @@ private:
      * below will be pruned, but callers should avoid assuming any particular buffer size.
      */
     /*
-    // TheMinerzCoin
+    // Blackcoin
     std::unordered_map<std::string, PruneLockInfo> m_prune_locks GUARDED_BY(::cs_main);
     */
 

@@ -1560,6 +1560,10 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
         <translation type="unfinished">कॉपी बाइट्स</translation>
     </message>
     <message>
+        <source>Copy change</source>
+        <translation type="unfinished">कॉपी चैंज</translation>
+    </message>
+    <message>
         <source>%1 (%2 blocks)</source>
         <translation type="unfinished">%1 (%2 ब्लाकस)</translation>
     </message>
@@ -1584,6 +1588,10 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
     <message>
         <source>Creates a Partially Signed Bitcoin Transaction (PSBT) for use with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
         <translation type="unfinished">उदाहरण के लिए उपयोग के लिए आंशिक रूप से हस्ताक्षरित बिटकॉइन लेनदेन (PSBT) बनाता है। एक ऑफ़लाइन% 1 %1  वॉलेट, या एक PSBT-संगत हार्डवेयर वॉलेट।</translation>
+    </message>
+    <message>
+        <source> from wallet '%1'</source>
+        <translation type="unfinished">वॉलिट से '%1'</translation>
     </message>
     <message>
         <source>%1 to '%2'</source>
@@ -2111,6 +2119,10 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
         <translation type="unfinished">आउटपुट इंडेक्स</translation>
     </message>
     <message>
+        <source> (Certificate was not verified)</source>
+        <translation type="unfinished">(प्रमाणपत्र सत्यापित नहीं किया गया था)</translation>
+    </message>
+    <message>
         <source>Merchant</source>
         <translation type="unfinished">सौदागर</translation>
     </message>
@@ -2334,7 +2346,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
     </message>
     <message>
         <source>Exporting Failed</source>
-        <translation type="unfinished">एक्सपोर्ट नहीं हो पाया</translation>
+        <translation type="unfinished">निर्यात विफल हो गया है</translation>
     </message>
     </context>
 <context>
@@ -2364,7 +2376,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 satos
     </message>
     <message>
         <source>Export the data in the current tab to a file</source>
-        <translation type="unfinished">मौजूदा टैब में डेटा को फ़ाइल में एक्सपोर्ट करें</translation>
+        <translation type="unfinished">मौजूदा टैब में डेटा को फ़ाइल में निर्यात करें</translation>
     </message>
     </context>
 <context>

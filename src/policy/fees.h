@@ -12,7 +12,6 @@
 #include <threadsafety.h>
 #include <uint256.h>
 #include <util/fs.h>
-#include <validationinterface.h>
 
 #include <array>
 #include <chrono>

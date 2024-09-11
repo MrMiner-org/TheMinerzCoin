@@ -30,16 +30,15 @@ SignalInterrupt::operator bool() const
     return m_flag;
 }
 
-bool SignalInterrupt::reset()
+void SignalInterrupt::reset()
 {
     // Cancel existing interrupt by waiting for it, this will reset condition flags and remove
     // the token from the pipe.
-    if (*this && !wait()) return false;
+    if (*this) wait();
     m_flag = false;
-    return true;
 }
 
-bool SignalInterrupt::operator()()
+void SignalInterrupt::operator()()
 {
 #ifdef WIN32
     std::unique_lock<std::mutex> lk(m_mutex);
@@ -53,14 +52,13 @@ bool SignalInterrupt::operator()()
         // Write an arbitrary byte to the write end of the pipe.
         int res = m_pipe_w.TokenWrite('x');
         if (res != 0) {
-            return false;
+            throw std::ios_base::failure("Could not write interrupt token");
         }
     }
 #endif
-    return true;
 }
 
-bool SignalInterrupt::wait()
+void SignalInterrupt::wait()
 {
 #ifdef WIN32
     std::unique_lock<std::mutex> lk(m_mutex);
@@ -68,10 +66,9 @@ bool SignalInterrupt::wait()
 #else
     int res = m_pipe_r.TokenRead();
     if (res != 'x') {
-        return false;
+        throw std::ios_base::failure("Did not read expected interrupt token");
     }
 #endif
-    return true;
 }
 
 } // namespace util

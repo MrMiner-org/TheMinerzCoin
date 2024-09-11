@@ -3,14 +3,18 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include <base58.h>
+#include <core_io.h>
 #include <key.h>
 #include <key_io.h>
+#include <node/context.h>
 #include <primitives/block.h>
 #include <primitives/transaction.h>
 #include <psbt.h>
+#include <rpc/blockchain.h>
 #include <rpc/client.h>
 #include <rpc/request.h>
 #include <rpc/server.h>
+#include <rpc/util.h>
 #include <span.h>
 #include <streams.h>
 #include <test/fuzz/FuzzedDataProvider.h>
@@ -18,23 +22,19 @@
 #include <test/fuzz/util.h>
 #include <test/util/setup_common.h>
 #include <tinyformat.h>
-#include <uint256.h>
 #include <univalue.h>
+#include <util/chaintype.h>
 #include <util/strencodings.h>
 #include <util/string.h>
 #include <util/time.h>
 
-#include <algorithm>
-#include <cassert>
 #include <cstdint>
-#include <cstdlib>
-#include <exception>
 #include <iostream>
 #include <memory>
 #include <optional>
 #include <stdexcept>
+#include <string>
 #include <vector>
-enum class ChainType;
 
 namespace {
 struct RPCFuzzTestingSetup : public TestingSetup {
@@ -180,7 +180,7 @@ const std::vector<std::string> RPC_COMMANDS_SAFE_FOR_FUZZING{
     "waitfornewblock",
 };
 
-std::string ConsumeScalarRPCArgument(FuzzedDataProvider& fuzzed_data_provider, bool& good_data)
+std::string ConsumeScalarRPCArgument(FuzzedDataProvider& fuzzed_data_provider)
 {
     const size_t max_string_length = 4096;
     const size_t max_base58_bytes_length{64};
@@ -247,7 +247,6 @@ std::string ConsumeScalarRPCArgument(FuzzedDataProvider& fuzzed_data_provider, b
             // hex encoded block
             std::optional<CBlock> opt_block = ConsumeDeserializable<CBlock>(fuzzed_data_provider, TX_WITH_WITNESS);
             if (!opt_block) {
-                good_data = false;
                 return;
             }
             CDataStream data_stream{SER_NETWORK};
@@ -258,7 +257,6 @@ std::string ConsumeScalarRPCArgument(FuzzedDataProvider& fuzzed_data_provider, b
             // hex encoded block header
             std::optional<CBlockHeader> opt_block_header = ConsumeDeserializable<CBlockHeader>(fuzzed_data_provider);
             if (!opt_block_header) {
-                good_data = false;
                 return;
             }
             CDataStream data_stream{SER_NETWORK};
@@ -269,7 +267,6 @@ std::string ConsumeScalarRPCArgument(FuzzedDataProvider& fuzzed_data_provider, b
             // hex encoded tx
             std::optional<CMutableTransaction> opt_tx = ConsumeDeserializable<CMutableTransaction>(fuzzed_data_provider, TX_WITH_WITNESS);
             if (!opt_tx) {
-                good_data = false;
                 return;
             }
             DataStream data_stream;
@@ -281,7 +278,6 @@ std::string ConsumeScalarRPCArgument(FuzzedDataProvider& fuzzed_data_provider, b
             // base64 encoded psbt
             std::optional<PartiallySignedTransaction> opt_psbt = ConsumeDeserializable<PartiallySignedTransaction>(fuzzed_data_provider);
             if (!opt_psbt) {
-                good_data = false;
                 return;
             }
             CDataStream data_stream{SER_NETWORK};
@@ -292,7 +288,6 @@ std::string ConsumeScalarRPCArgument(FuzzedDataProvider& fuzzed_data_provider, b
             // base58 encoded key
             CKey key = ConsumePrivateKey(fuzzed_data_provider);
             if (!key.IsValid()) {
-                good_data = false;
                 return;
             }
             r = EncodeSecret(key);
@@ -301,7 +296,6 @@ std::string ConsumeScalarRPCArgument(FuzzedDataProvider& fuzzed_data_provider, b
             // hex encoded pubkey
             CKey key = ConsumePrivateKey(fuzzed_data_provider);
             if (!key.IsValid()) {
-                good_data = false;
                 return;
             }
             r = HexStr(key.GetPubKey());
@@ -309,19 +303,18 @@ std::string ConsumeScalarRPCArgument(FuzzedDataProvider& fuzzed_data_provider, b
     return r;
 }
 
-std::string ConsumeArrayRPCArgument(FuzzedDataProvider& fuzzed_data_provider, bool& good_data)
+std::string ConsumeArrayRPCArgument(FuzzedDataProvider& fuzzed_data_provider)
 {
     std::vector<std::string> scalar_arguments;
-    LIMITED_WHILE(good_data && fuzzed_data_provider.ConsumeBool(), 100)
-    {
-        scalar_arguments.push_back(ConsumeScalarRPCArgument(fuzzed_data_provider, good_data));
+    LIMITED_WHILE(fuzzed_data_provider.ConsumeBool(), 100) {
+        scalar_arguments.push_back(ConsumeScalarRPCArgument(fuzzed_data_provider));
     }
     return "[\"" + Join(scalar_arguments, "\",\"") + "\"]";
 }
 
-std::string ConsumeRPCArgument(FuzzedDataProvider& fuzzed_data_provider, bool& good_data)
+std::string ConsumeRPCArgument(FuzzedDataProvider& fuzzed_data_provider)
 {
-    return fuzzed_data_provider.ConsumeBool() ? ConsumeScalarRPCArgument(fuzzed_data_provider, good_data) : ConsumeArrayRPCArgument(fuzzed_data_provider, good_data);
+    return fuzzed_data_provider.ConsumeBool() ? ConsumeScalarRPCArgument(fuzzed_data_provider) : ConsumeArrayRPCArgument(fuzzed_data_provider);
 }
 
 RPCFuzzTestingSetup* InitializeRPCFuzzTestingSetup()
@@ -357,7 +350,6 @@ void initialize_rpc()
 FUZZ_TARGET(rpc, .init = initialize_rpc)
 {
     FuzzedDataProvider fuzzed_data_provider{buffer.data(), buffer.size()};
-    bool good_data{true};
     SetMockTime(ConsumeTime(fuzzed_data_provider));
     const std::string rpc_command = fuzzed_data_provider.ConsumeRandomLengthString(64);
     if (!g_limit_to_rpc_command.empty() && rpc_command != g_limit_to_rpc_command) {
@@ -368,15 +360,16 @@ FUZZ_TARGET(rpc, .init = initialize_rpc)
         return;
     }
     std::vector<std::string> arguments;
-    LIMITED_WHILE(good_data && fuzzed_data_provider.ConsumeBool(), 100)
-    {
-        arguments.push_back(ConsumeRPCArgument(fuzzed_data_provider, good_data));
+    LIMITED_WHILE(fuzzed_data_provider.ConsumeBool(), 100) {
+        arguments.push_back(ConsumeRPCArgument(fuzzed_data_provider));
     }
     try {
         rpc_testing_setup->CallRPC(rpc_command, arguments);
     } catch (const UniValue& json_rpc_error) {
         const std::string error_msg{json_rpc_error.find_value("message").get_str()};
-        if (error_msg.starts_with("Internal bug detected")) {
+        // Once c++20 is allowed, starts_with can be used.
+        // if (error_msg.starts_with("Internal bug detected")) {
+        if (0 == error_msg.rfind("Internal bug detected", 0)) {
             // Only allow the intentional internal bug
             assert(error_msg.find("trigger_internal_bug") != std::string::npos);
         }

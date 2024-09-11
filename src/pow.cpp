@@ -88,7 +88,7 @@ unsigned int CalculateNextTargetRequired(const CBlockIndex* pindexLast, int64_t 
 // or decrease beyond the permitted limits.
 bool PermittedDifficultyTransition(const Consensus::Params& params, int64_t height, uint32_t old_nbits, uint32_t new_nbits)
 {
-    // TheMinerzCoin: skip this check as we are using different difficulty adjustment algo
+    // Blackcoin: skip this check as we are using different difficulty adjustment algo
     return true;
 }
 

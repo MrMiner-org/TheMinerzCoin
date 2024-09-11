@@ -53,7 +53,7 @@ FUZZ_TARGET(golomb_rice)
         }
         VectorWriter stream{0, golomb_rice_data, 0};
         WriteCompactSize(stream, static_cast<uint32_t>(elements.size()));
-        BitStreamWriter bitwriter{stream};
+        BitStreamWriter<VectorWriter> bitwriter(stream);
         if (!elements.empty()) {
             uint64_t last_value = 0;
             for (const uint64_t value : BuildHashedSet(elements, static_cast<uint64_t>(elements.size()) * static_cast<uint64_t>(BASIC_FILTER_M))) {

@@ -2,10 +2,6 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#if defined(HAVE_CONFIG_H)
-#include <config/bitcoin-config.h>
-#endif
-
 #include <qt/bitcoingui.h>
 
 #include <qt/bitcoinunits.h>
@@ -694,7 +690,7 @@ void BitcoinGUI::setClientModel(ClientModel *_clientModel, interfaces::BlockAndH
             walletFrame->setClientModel(nullptr);
         }
 #endif // ENABLE_WALLET
-        // TheMinerzCoin: Disable unit control
+        // Blackcoin: Disable unit control
         // unitDisplayControl->setOptionsModel(nullptr);
         // Disable top bar menu actions
         appMenuBar->clear();
@@ -704,10 +700,8 @@ void BitcoinGUI::setClientModel(ClientModel *_clientModel, interfaces::BlockAndH
 #ifdef ENABLE_WALLET
 void BitcoinGUI::enableHistoryAction(bool privacy)
 {
-    if (walletFrame->currentWalletModel()) {
-        historyAction->setEnabled(!privacy);
-        if (historyAction->isChecked()) gotoOverviewPage();
-    }
+    historyAction->setEnabled(!privacy);
+    if (historyAction->isChecked()) gotoOverviewPage();
 }
 
 void BitcoinGUI::setWalletController(WalletController* wallet_controller, bool show_loading_minimized)
@@ -1018,7 +1012,6 @@ void BitcoinGUI::gotoLoadPSBT(bool from_clipboard)
 
 void BitcoinGUI::updateNetworkState()
 {
-    if (!clientModel) return;
     int count = clientModel->getNumConnections();
     QString icon;
     switch(count)
@@ -1043,7 +1036,7 @@ void BitcoinGUI::updateNetworkState()
 
     // Don't word-wrap this (fixed-width) tooltip
     tooltip = QLatin1String("<nobr>") + tooltip + QLatin1String("<br>") +
-              //: A substring of the tooltip. " actions" are available via the context menu.
+              //: A substring of the tooltip. "More actions" are available via the context menu.
               tr("Click for more actions.") + QLatin1String("</nobr>");
     connectionsControl->setToolTip(tooltip);
 
@@ -1550,7 +1543,7 @@ void BitcoinGUI::toggleHidden()
 void BitcoinGUI::updateStakingIcon()
 {
     /*
-    // TheMinerzCoin ToDo: find out why it is not possible anymore to simply call m_node.shutdownRequested()
+    // Blackcoin ToDo: find out why it is not possible anymore to simply call m_node.shutdownRequested()
     // and adjust
     if (m_node.shutdownRequested() || !clientModel)
         return;

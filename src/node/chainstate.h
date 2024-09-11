@@ -32,11 +32,12 @@ struct ChainstateLoadOptions {
     bool require_full_verification{true};
     int64_t check_blocks{DEFAULT_CHECKBLOCKS};
     int64_t check_level{DEFAULT_CHECKLEVEL};
+    std::function<bool()> check_interrupt;
     std::function<void()> coins_error_cb;
 };
 
 //! Chainstate load status. Simple applications can just check for the success
-//! case, and treat other cases as errors.  complex applications may want to
+//! case, and treat other cases as errors. More complex applications may want to
 //! try reindexing in the generic failure case, and pass an interrupt callback
 //! and exit cleanly in the interrupted case.
 enum class ChainstateLoadStatus {

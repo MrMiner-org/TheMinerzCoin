@@ -27,11 +27,13 @@
 #include <pos.h>
 #include <pow.h>
 #include <primitives/transaction.h>
+#include <shutdown.h> // ShutdownRequested()
 #include <timedata.h>
 #include <util/exception.h>
 #include <util/moneystr.h>
 #include <util/thread.h>
 #include <util/threadnames.h>
+#include <validation.h>
 #include <warnings.h>
 #include <wallet/coincontrol.h>
 #include <wallet/spend.h>
@@ -262,7 +264,7 @@ std::unique_ptr<CBlockTemplate> BlockAssembler::CreateNewBlock(const CScript& sc
 
     BlockValidationState state;
     if (!pblock->IsProofOfStake() && m_options.test_block_validity && !TestBlockValidity(state, chainparams, m_chainstate, *pblock, pindexPrev,
-                                                            /*fCheckPOW=*/false, /*fCheckMerkleRoot=*/false)) {
+                                                  GetAdjustedTime, /*fCheckPOW=*/false, /*fCheckMerkleRoot=*/false)) {
         throw std::runtime_error(strprintf("%s: TestBlockValidity failed: %s", __func__, state.ToString()));
     }
     const auto time_2{SteadyClock::now()};
@@ -279,7 +281,7 @@ void BlockAssembler::onlyUnconfirmed(CTxMemPool::setEntries& testSet)
 {
     for (CTxMemPool::setEntries::iterator iit = testSet.begin(); iit != testSet.end(); ) {
         // Only test txs not already in the block
-        if (inBlock.count((*iit)->GetSharedTx()->GetHash())) {
+        if (inBlock.count(*iit)) {
             testSet.erase(iit++);
         } else {
             iit++;
@@ -330,7 +332,7 @@ void BlockAssembler::AddToBlock(CTxMemPool::txiter iter)
     ++nBlockTx;
     nBlockSigOpsCost += iter->GetSigOpCost();
     nFees += iter->GetFee();
-    inBlock.insert(iter->GetSharedTx()->GetHash());
+    inBlock.insert(iter);
 
     bool fPrintPriority = gArgs.GetBoolArg("-printpriority", DEFAULT_PRINTPRIORITY);
     if (fPrintPriority) {
@@ -399,7 +401,7 @@ void BlockAssembler::addPackageTxs(const CTxMemPool& mempool, int& nPackagesSele
     // because some of their txs are already in the block
     indexed_modified_transaction_set mapModifiedTx;
     // Keep track of entries that failed inclusion, to avoid duplicate work
-    std::set<Txid> failedTx;
+    CTxMemPool::setEntries failedTx;
 
     CTxMemPool::indexed_transaction_set::index<ancestor_score>::type::iterator mi = mempool.mapTx.get<ancestor_score>().begin();
     CTxMemPool::txiter iter;
@@ -427,7 +429,7 @@ void BlockAssembler::addPackageTxs(const CTxMemPool& mempool, int& nPackagesSele
         if (mi != mempool.mapTx.get<ancestor_score>().end()) {
             auto it = mempool.mapTx.project<0>(mi);
             assert(it != mempool.mapTx.end());
-            if (mapModifiedTx.count(it) || inBlock.count(it->GetSharedTx()->GetHash()) || failedTx.count(it->GetSharedTx()->GetHash())) {
+            if (mapModifiedTx.count(it) || inBlock.count(it) || failedTx.count(it)) {
                 ++mi;
                 continue;
             }
@@ -461,7 +463,7 @@ void BlockAssembler::addPackageTxs(const CTxMemPool& mempool, int& nPackagesSele
 
         // We skip mapTx entries that are inBlock, and mapModifiedTx shouldn't
         // contain anything that is inBlock.
-        assert(!inBlock.count(iter->GetSharedTx()->GetHash()));
+        assert(!inBlock.count(iter));
 
         uint64_t packageSize = iter->GetSizeWithAncestors();
         CAmount packageFees = iter->GetModFeesWithAncestors();
@@ -483,7 +485,7 @@ void BlockAssembler::addPackageTxs(const CTxMemPool& mempool, int& nPackagesSele
                 // we must erase failed entries so that we can consider the
                 // next best entry on the next loop iteration
                 mapModifiedTx.get<ancestor_score>().erase(modit);
-                failedTx.insert(iter->GetSharedTx()->GetHash());
+                failedTx.insert(iter);
             }
 
             ++nConsecutiveFailed;
@@ -505,7 +507,7 @@ void BlockAssembler::addPackageTxs(const CTxMemPool& mempool, int& nPackagesSele
         if (!TestPackageTransactions(ancestors, nTime)) {
             if (fUsingModified) {
                 mapModifiedTx.get<ancestor_score>().erase(modit);
-                failedTx.insert(iter->GetSharedTx()->GetHash());
+                failedTx.insert(iter);
             }
             continue;
         }
@@ -548,7 +550,7 @@ void IncrementExtraNonce(CBlock* pblock, const CBlockIndex* pindexPrev, unsigned
     pblock->hashMerkleRoot = BlockMerkleRoot(*pblock);
 }
 
-// Peercoin/TheMinerzCoin
+// Peercoin/Blackcoin
 static bool ProcessBlockFound(const CBlock* pblock, ChainstateManager& chainman)
 {
     LogPrintf("%s", pblock->ToString());
@@ -645,7 +647,7 @@ bool SignBlock(CBlock& block, const CWallet& keystore)
 void PoSMiner(CWallet *pwallet)
 {
     pwallet->WalletLogPrintf("PoSMiner started for proof-of-stake\n");
-    util::ThreadRename(strprintf("theminerzcoin-stake-miner-%s", pwallet->GetName()));
+    util::ThreadRename(strprintf("blackcoin-stake-miner-%s", pwallet->GetName()));
 
     unsigned int nExtraNonce = 0;
 

@@ -2,6 +2,10 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
+#if defined(HAVE_CONFIG_H)
+#include <config/bitcoin-config.h>
+#endif
+
 #include <qt/paymentserver.h>
 
 #include <qt/bitcoinunits.h>
@@ -33,7 +37,7 @@
 #include <QUrlQuery>
 
 const int BITCOIN_IPC_CONNECT_TIMEOUT = 1000; // milliseconds
-const QString BITCOIN_IPC_PREFIX("theminerzcoin:");
+const QString BITCOIN_IPC_PREFIX("blackcoin:");
 
 //
 // Create a name that is unique for:
@@ -126,7 +130,7 @@ PaymentServer::PaymentServer(QObject* parent, bool startLocalServer)
     : QObject(parent)
 {
     // Install global event filter to catch QFileOpenEvents
-    // on Mac: sent when you click theminerzcoin: links
+    // on Mac: sent when you click blackcoin: links
     // other OSes: helpful when dealing with payment request files
     if (parent)
         parent->installEventFilter(this);
@@ -143,7 +147,7 @@ PaymentServer::PaymentServer(QObject* parent, bool startLocalServer)
         if (!uriServer->listen(name)) {
             // constructor is called early in init, so don't use "Q_EMIT message()" here
             QMessageBox::critical(nullptr, tr("Payment request error"),
-                tr("Cannot start theminerzcoin: click-to-pay handler"));
+                tr("Cannot start blackcoin: click-to-pay handler"));
         }
         else {
             connect(uriServer, &QLocalServer::newConnection, this, &PaymentServer::handleURIConnection);
@@ -154,7 +158,7 @@ PaymentServer::PaymentServer(QObject* parent, bool startLocalServer)
 PaymentServer::~PaymentServer() = default;
 
 //
-// OSX-specific way of handling theminerzcoin: URIs
+// OSX-specific way of handling blackcoin: URIs
 //
 bool PaymentServer::eventFilter(QObject *object, QEvent *event)
 {
@@ -189,12 +193,12 @@ void PaymentServer::handleURIOrFile(const QString& s)
         return;
     }
 
-    if (s.startsWith("theminerzcoin://", Qt::CaseInsensitive))
+    if (s.startsWith("blackcoin://", Qt::CaseInsensitive))
     {
-        Q_EMIT message(tr("URI handling"), tr("'theminerzcoin://' is not a valid URI. Use 'theminerzcoin:' instead."),
+        Q_EMIT message(tr("URI handling"), tr("'blackcoin://' is not a valid URI. Use 'blackcoin:' instead."),
             CClientUIInterface::MSG_ERROR);
     }
-    else if (s.startsWith(BITCOIN_IPC_PREFIX, Qt::CaseInsensitive)) // theminerzcoin: URI
+    else if (s.startsWith(BITCOIN_IPC_PREFIX, Qt::CaseInsensitive)) // blackcoin: URI
     {
         QUrlQuery uri((QUrl(s)));
         // normal URI
@@ -221,7 +225,7 @@ void PaymentServer::handleURIOrFile(const QString& s)
             }
             else
                 Q_EMIT message(tr("URI handling"),
-                    tr("URI cannot be parsed! This can be caused by an invalid TheMinerzCoin address or malformed URI parameters."),
+                    tr("URI cannot be parsed! This can be caused by an invalid Blackcoin address or malformed URI parameters."),
                     CClientUIInterface::ICON_WARNING);
 
             return;

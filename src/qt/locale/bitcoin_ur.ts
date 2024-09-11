@@ -2,12 +2,12 @@
 <context>
     <name>AddressBookPage</name>
     <message>
-        <source>Create a new address</source>
-        <translation type="unfinished">نیا پتہ تخلیق کریں</translation>
+        <source>Right-click to edit address or label</source>
+        <translation type="unfinished">ایڈریس یا لیبل میں ترمیم کرنے کے لیے رائیٹ کلک کریں</translation>
     </message>
     <message>
-        <source>&amp;New</source>
-        <translation type="unfinished">اور نیا</translation>
+        <source>Create a new address</source>
+        <translation type="unfinished">نیا ایڈریس بنائیں</translation>
     </message>
     <message>
         <source>Copy the currently selected address to the system clipboard</source>
@@ -653,7 +653,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>Click for more actions.</source>
-        <extracomment>A substring of the tooltip. " actions" are available via the context menu.</extracomment>
+        <extracomment>A substring of the tooltip. "More actions" are available via the context menu.</extracomment>
         <translation type="unfinished">مزید کارروائی کے لیے کلک کریں۔</translation>
     </message>
     <message>

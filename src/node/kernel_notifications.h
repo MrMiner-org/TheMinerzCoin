@@ -16,10 +16,6 @@ class CBlockIndex;
 enum class SynchronizationState;
 struct bilingual_str;
 
-namespace util {
-class SignalInterrupt;
-} // namespace util
-
 namespace node {
 
 static constexpr int DEFAULT_STOPATHEIGHT{0};
@@ -27,7 +23,7 @@ static constexpr int DEFAULT_STOPATHEIGHT{0};
 class KernelNotifications : public kernel::Notifications
 {
 public:
-    KernelNotifications(util::SignalInterrupt& shutdown, std::atomic<int>& exit_status) : m_shutdown(shutdown), m_exit_status{exit_status} {}
+    KernelNotifications(std::atomic<int>& exit_status) : m_exit_status{exit_status} {}
 
     [[nodiscard]] kernel::InterruptResult blockTip(SynchronizationState state, CBlockIndex& index) override;
 
@@ -46,7 +42,6 @@ public:
     //! Useful for tests, can be set to false to avoid shutdown on fatal error.
     bool m_shutdown_on_fatal_error{true};
 private:
-    util::SignalInterrupt& m_shutdown;
     std::atomic<int>& m_exit_status;
 };
 

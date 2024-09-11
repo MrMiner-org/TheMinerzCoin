@@ -925,7 +925,7 @@ Support for Python 2 has been discontinued for all test files and tools.
 - #13402 `43fa355` Document validationinterace callback blocking deadlock potential (TheBlueMatt)
 - #13488 `d6cf4bd` Improve readability of "Squashing commits" (wodry)
 - #13531 `ee02deb` Clarify that mempool txiter is `const_iterator` (MarcoFalke)
-- #13418 `01f9098`  precise explanation of parameter onlynet (wodry)
+- #13418 `01f9098` More precise explanation of parameter onlynet (wodry)
 - #13592 `1756cb4` Modify policy to not translate command-line help (ken2812221)
 - #13588 `b77c38e` Improve doc of options addnode, connect, seednode (wodry)
 - #13614 `17e9106` Update command line help for -printtoconsole and -debuglogfile (satwo, fanquake)

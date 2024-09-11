@@ -126,7 +126,7 @@ BOOST_AUTO_TEST_CASE(siphash)
     CMutableTransaction tx;
     // Note these tests were originally written with tx.nVersion=1
     // and the test would be affected by default tx version bumps if not fixed.
-    // TheMinerzCoin: use tx.nVersion=2 to avoid mutating tx.nTime
+    // Blackcoin: use tx.nVersion=2 to avoid mutating tx.nTime
     tx.nVersion = 2;
     ss << TX_WITH_WITNESS(tx);
     BOOST_CHECK_EQUAL(SipHashUint256(1, 2, ss.GetHash()), 0x79751e980c2a0a35ULL);

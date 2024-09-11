@@ -5,11 +5,14 @@
 #ifndef BITCOIN_NETBASE_H
 #define BITCOIN_NETBASE_H
 
+#if defined(HAVE_CONFIG_H)
+#include <config/bitcoin-config.h>
+#endif
+
 #include <compat/compat.h>
 #include <netaddress.h>
 #include <serialize.h>
 #include <util/sock.h>
-#include <util/threadinterrupt.h>
 
 #include <functional>
 #include <memory>
@@ -224,9 +227,11 @@ CService LookupNumeric(const std::string& name, uint16_t portDefault = 0, DNSLoo
  * @param[in]  subnet_str  A string representation of a subnet of the form
  *                         `network address [ "/", ( CIDR-style suffix | netmask ) ]`
  *                         e.g. "2001:db8::/32", "192.0.2.0/255.255.255.0" or "8.8.8.8".
- * @returns a CSubNet object (that may or may not be valid).
+ * @param[out] subnet_out  Internal subnet representation, if parsable/resolvable
+ *                         from `subnet_str`.
+ * @returns whether the operation succeeded or not.
  */
-CSubNet LookupSubNet(const std::string& subnet_str);
+bool LookupSubNet(const std::string& subnet_str, CSubNet& subnet_out);
 
 /**
  * Create a TCP socket in the given address family.
@@ -271,10 +276,7 @@ bool ConnectSocketDirectly(const CService &addrConnect, const Sock& sock, int nT
  */
 bool ConnectThroughProxy(const Proxy& proxy, const std::string& strDest, uint16_t port, const Sock& sock, int nTimeout, bool& outProxyConnectionFailed);
 
-/**
- * Interrupt SOCKS5 reads or writes.
- */
-extern CThreadInterrupt g_socks5_interrupt;
+void InterruptSocks5(bool interrupt);
 
 /**
  * Connect to a specified destination service through an already connected

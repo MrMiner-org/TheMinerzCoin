@@ -23,7 +23,7 @@ private:
     const std::unique_ptr<DB> m_db;
 
     /*
-    // TheMinerzCoin
+    // Blackcoin
     bool AllowPrune() const override { return false; }
     */
 

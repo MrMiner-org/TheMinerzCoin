@@ -15,9 +15,7 @@
 #include <net_types.h> // For banmap_t
 #include <netbase.h>
 #include <node/context.h>
-#include <node/protocol_version.h>
 #include <policy/settings.h>
-#include <protocol.h>
 #include <rpc/blockchain.h>
 #include <rpc/protocol.h>
 #include <rpc/server_util.h>
@@ -30,6 +28,7 @@
 #include <util/time.h>
 #include <util/translation.h>
 #include <validation.h>
+#include <version.h>
 #include <warnings.h>
 
 #include <optional>
@@ -97,18 +96,6 @@ static RPCHelpMan ping()
     return UniValue::VNULL;
 },
     };
-}
-
-/** Returns, given services flags, a list of humanly readable (known) network services */
-static UniValue GetServicesNames(ServiceFlags services)
-{
-    UniValue servicesNames(UniValue::VARR);
-
-    for (const auto& flag : serviceFlagsToStr(services)) {
-        servicesNames.push_back(flag);
-    }
-
-    return servicesNames;
 }
 
 static RPCHelpMan getpeerinfo()
@@ -313,7 +300,7 @@ static RPCHelpMan addnode()
                 {
                     {"node", RPCArg::Type::STR, RPCArg::Optional::NO, "The address of the peer to connect to"},
                     {"command", RPCArg::Type::STR, RPCArg::Optional::NO, "'add' to add a node to the list, 'remove' to remove a node from the list, 'onetry' to try a connection to the node once"},
-                    {"v2transport", RPCArg::Type::BOOL, RPCArg::DefaultHint{"set by -v2transport"}, "Attempt to connect using BIP324 v2 transport protocol (ignored for 'remove' command)"},
+                    {"v2transport", RPCArg::Type::BOOL, RPCArg::Default{false}, "Attempt to connect using BIP324 v2 transport protocol (ignored for 'remove' command)"},
                 },
                 RPCResult{RPCResult::Type::NONE, "", ""},
                 RPCExamples{
@@ -332,10 +319,9 @@ static RPCHelpMan addnode()
     CConnman& connman = EnsureConnman(node);
 
     const std::string node_arg{request.params[0].get_str()};
-    bool node_v2transport = connman.GetLocalServices() & NODE_P2P_V2;
-    bool use_v2transport = self.MaybeArg<bool>(2).value_or(node_v2transport);
+    bool use_v2transport = self.Arg<bool>(2);
 
-    if (use_v2transport && !node_v2transport) {
+    if (use_v2transport && !(node.connman->GetLocalServices() & NODE_P2P_V2)) {
         throw JSONRPCError(RPC_INVALID_PARAMETER, "Error: v2transport requested but not enabled (see -v2transport)");
     }
 
@@ -371,7 +357,6 @@ static RPCHelpMan addconnection()
         {
             {"address", RPCArg::Type::STR, RPCArg::Optional::NO, "The IP address and port to attempt connecting to."},
             {"connection_type", RPCArg::Type::STR, RPCArg::Optional::NO, "Type of connection to open (\"outbound-full-relay\", \"block-relay-only\", \"addr-fetch\" or \"feeler\")."},
-            {"v2transport", RPCArg::Type::BOOL, RPCArg::Optional::NO, "Attempt to connect using BIP324 v2 transport protocol"},
         },
         RPCResult{
             RPCResult::Type::OBJ, "", "",
@@ -380,8 +365,8 @@ static RPCHelpMan addconnection()
                 { RPCResult::Type::STR, "connection_type", "Type of connection opened." },
             }},
         RPCExamples{
-            HelpExampleCli("addconnection", "\"192.168.0.6:15714\" \"outbound-full-relay\" true")
-            + HelpExampleRpc("addconnection", "\"192.168.0.6:15714\" \"outbound-full-relay\" true")
+            HelpExampleCli("addconnection", "\"192.168.0.6:15714\" \"outbound-full-relay\"")
+            + HelpExampleRpc("addconnection", "\"192.168.0.6:15714\" \"outbound-full-relay\"")
         },
         [&](const RPCHelpMan& self, const JSONRPCRequest& request) -> UniValue
 {
@@ -403,16 +388,11 @@ static RPCHelpMan addconnection()
     } else {
         throw JSONRPCError(RPC_INVALID_PARAMETER, self.ToString());
     }
-    bool use_v2transport = self.Arg<bool>(2);
 
     NodeContext& node = EnsureAnyNodeContext(request.context);
     CConnman& connman = EnsureConnman(node);
 
-    if (use_v2transport && !(connman.GetLocalServices() & NODE_P2P_V2)) {
-        throw JSONRPCError(RPC_INVALID_PARAMETER, "Error: Adding v2transport connections requires -v2transport init flag to be set.");
-    }
-
-    const bool success = connman.AddConnection(address, conn_type, use_v2transport);
+    const bool success = connman.AddConnection(address, conn_type);
     if (!success) {
         throw JSONRPCError(RPC_CLIENT_NODE_CAPACITY_REACHED, "Error: Already at capacity for specified connection type.");
     }
@@ -491,7 +471,7 @@ static RPCHelpMan getaddednodeinfo()
                             {
                                 {RPCResult::Type::OBJ, "", "",
                                 {
-                                    {RPCResult::Type::STR, "address", "The theminerzcoin server IP and port we're connected to"},
+                                    {RPCResult::Type::STR, "address", "The blackcoin server IP and port we're connected to"},
                                     {RPCResult::Type::STR, "connected", "connection, inbound or outbound"},
                                 }},
                             }},
@@ -507,7 +487,7 @@ static RPCHelpMan getaddednodeinfo()
     NodeContext& node = EnsureAnyNodeContext(request.context);
     const CConnman& connman = EnsureConnman(node);
 
-    std::vector<AddedNodeInfo> vInfo = connman.GetAddedNodeInfo(/*include_connected=*/true);
+    std::vector<AddedNodeInfo> vInfo = connman.GetAddedNodeInfo();
 
     if (!request.params[0].isNull()) {
         bool found = false;
@@ -752,7 +732,7 @@ static RPCHelpMan setban()
         }
     }
     else
-        subNet = LookupSubNet(request.params[0].get_str());
+        LookupSubNet(request.params[0].get_str(), subNet);
 
     if (! (isSubnet ? subNet.IsValid() : netAddr.IsValid()) )
         throw JSONRPCError(RPC_CLIENT_INVALID_IP_OR_SUBNET, "Error: Invalid IP/Subnet");

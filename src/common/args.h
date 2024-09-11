@@ -180,7 +180,6 @@ protected:
      * Return config file path (read-only)
      */
     fs::path GetConfigFilePath() const;
-    void SetConfigFilePath(fs::path);
     [[nodiscard]] bool ReadConfigFiles(std::string& error, bool ignore_invalid_keys = false);
 
     /**
@@ -215,21 +214,21 @@ protected:
      *
      * @return Blocks path which is network specific
      */
-    fs::path GetBlocksDirPath() const;
+    const fs::path& GetBlocksDirPath() const;
 
     /**
      * Get data directory path
      *
      * @return Absolute path on success, otherwise an empty path when a non-directory path would be returned
      */
-    fs::path GetDataDirBase() const { return GetDataDir(false); }
+    const fs::path& GetDataDirBase() const { return GetDataDir(false); }
 
     /**
      * Get data directory path with appended network identifier
      *
      * @return Absolute path on success, otherwise an empty path when a non-directory path would be returned
      */
-    fs::path GetDataDirNet() const { return GetDataDir(true); }
+    const fs::path& GetDataDirNet() const { return GetDataDir(true); }
 
     /**
      * Clear cached directory paths
@@ -420,7 +419,7 @@ private:
      * @param net_specific Append network identifier to the returned path
      * @return Absolute path on success, otherwise an empty path when a non-directory path would be returned
      */
-    fs::path GetDataDir(bool net_specific) const;
+    const fs::path& GetDataDir(bool net_specific) const;
 
     /**
      * Return -regtest/-signet/-testnet/-chain= setting as a ChainType enum if a

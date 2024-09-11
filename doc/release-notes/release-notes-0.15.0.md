@@ -62,7 +62,7 @@ Current SegWit support
 
 Version 0.15.0 supports adding a segregated witness address via the `addwitnessaddress` RPC, but
 please note that this is a testing/expert RPC, which does not guarantee recovery from backup. Only use
-this RPC if you know what you are doing.  complete wallet support for segregated witness is coming
+this RPC if you know what you are doing. More complete wallet support for segregated witness is coming
 in a next version.
 
 Rescanning with encrypted wallets
@@ -125,7 +125,7 @@ Fee estimation has been significantly improved in version 0.15, with more accura
 - Estimates can now be *conservative* or *economical*. *Conservative* estimates use longer time horizons to produce an estimate which is less susceptible to rapid changes in fee conditions. *Economical* estimates use shorter time horizons and will be more affected by short-term changes in fee conditions. Economical estimates may be considerably lower during periods of low transaction activity (for example over weekends), but may result in transactions being unconfirmed if prevailing fees increase rapidly.
 - By default, the wallet will use conservative fee estimates to increase the reliability of transactions being confirmed within the desired target. For transactions that are marked as replaceable, the wallet will use an economical estimate by default, since the fee can be 'bumped' if the fee conditions change rapidly (See [PR 10589](https://github.com/bitcoin/bitcoin/pull/10589)).
 - Estimates can now be made for confirmation targets up to 1008 blocks (one week).
--  data on historical fee rates is stored, leading to more precise fee estimates.
+- More data on historical fee rates is stored, leading to more precise fee estimates.
 - Transactions which leave the mempool due to eviction or other non-confirmed reasons are now taken into account by the fee estimation logic, leading to more accurate fee estimates.
 - The fee estimation logic will make sure enough data has been gathered to return a meaningful estimate. If there is insufficient data, a fallback default fee is used.
 
@@ -342,7 +342,7 @@ Low-level RPC changes
 - #10683 `d81bec7` rpc: Move the `generate` RPC call to rpcwallet (laanwj)
 - #10710 `30bc0f6` REST/RPC example update (Mirobit)
 - #10747 `9edda0c` [rpc] fix verbose argument for getblock in bitcoin-cli (jnewbery)
-- #10589 `104f5f2`  economical fee estimates for RBF and RPC options to control (morcos)
+- #10589 `104f5f2` More economical fee estimates for RBF and RPC options to control (morcos)
 - #10543 `b27b004` Change API to estimaterawfee (morcos)
 - #10807 `afd2fca` getbalance example covers at least 6 confirms (instagibbs)
 - #10707 `75b5643` Better API for estimatesmartfee RPC  (morcos)

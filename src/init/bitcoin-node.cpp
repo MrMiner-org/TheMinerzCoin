@@ -2,7 +2,7 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <init.h>
+#include <common/args.h>
 #include <interfaces/chain.h>
 #include <interfaces/echo.h>
 #include <interfaces/init.h>
@@ -16,7 +16,7 @@
 
 namespace init {
 namespace {
-const char* EXE_NAME = "theminerzcoin-node";
+const char* EXE_NAME = "blackmore-node";
 
 class BitcoinNodeInit : public interfaces::Init
 {
@@ -25,7 +25,7 @@ public:
         : m_node(node),
           m_ipc(interfaces::MakeIpc(EXE_NAME, arg0, *this))
     {
-        InitContext(m_node);
+        m_node.args = &gArgs;
         m_node.init = this;
     }
     std::unique_ptr<interfaces::Node> makeNode() override { return interfaces::MakeNode(m_node); }

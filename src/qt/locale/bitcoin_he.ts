@@ -766,7 +766,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>Click for more actions.</source>
-        <extracomment>A substring of the tooltip. " actions" are available via the context menu.</extracomment>
+        <extracomment>A substring of the tooltip. "More actions" are available via the context menu.</extracomment>
         <translation type="unfinished">נא ללחוץ כאן לפעולות נוספות.</translation>
     </message>
     <message>
@@ -1763,8 +1763,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">PSBT נשמרה לדיסק.</translation>
     </message>
     <message>
-        <source>own address</source>
-        <translation type="unfinished">כתובת עצמית</translation>
+        <source> * Sends %1 to %2</source>
+        <translation type="unfinished"> * שליחת %1 אל %2</translation>
     </message>
     <message>
         <source>own address</source>
@@ -2530,6 +2530,10 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">יוצר עסקת ביטקוין חתומה חלקית (PSBT) לשימוש עם ארנק %1 לא מחובר למשל, או עם PSBT ארנק חומרה תואם.</translation>
     </message>
     <message>
+        <source> from wallet '%1'</source>
+        <translation type="unfinished">מתוך ארנק "%1"</translation>
+    </message>
+    <message>
         <source>%1 to '%2'</source>
         <translation type="unfinished">%1 אל "%2"</translation>
     </message>
@@ -2977,6 +2981,10 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>Output index</source>
         <translation type="unfinished">מפתח פלט</translation>
+    </message>
+    <message>
+        <source> (Certificate was not verified)</source>
+        <translation type="unfinished">(האישור לא אומת)</translation>
     </message>
     <message>
         <source>Merchant</source>
@@ -3677,6 +3685,10 @@ Go to File &gt; Open Wallet to load a wallet.
     <message>
         <source>Transaction amounts must not be negative</source>
         <translation type="unfinished">סכומי ההעברה לא יכולים להיות שליליים</translation>
+    </message>
+    <message>
+        <source>Transaction has too long of a mempool chain</source>
+        <translation type="unfinished">לעסקה יש שרשרת ארוכה מדי של mempool </translation>
     </message>
     <message>
         <source>Transaction must have at least one recipient</source>

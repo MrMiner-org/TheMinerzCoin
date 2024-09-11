@@ -388,7 +388,7 @@ void TestSatisfy(const KeyConverter& converter, const std::string& testcase, con
                 bool res = VerifyScript(CScript(), script_pubkey, &witness_nonmal, STANDARD_SCRIPT_VERIFY_FLAGS, checker, &serror);
                 // Non-malleable satisfactions are guaranteed to be valid if ValidSatisfactions().
                 if (node->ValidSatisfactions()) BOOST_CHECK(res);
-                //  detailed: non-malleable satisfactions must be valid, or could fail with ops count error (if CheckOpsLimit failed),
+                // More detailed: non-malleable satisfactions must be valid, or could fail with ops count error (if CheckOpsLimit failed),
                 // or with a stack size error (if CheckStackSize check fails).
                 BOOST_CHECK(res ||
                             (!node->CheckOpsLimit() && serror == ScriptError::SCRIPT_ERR_OP_COUNT) ||

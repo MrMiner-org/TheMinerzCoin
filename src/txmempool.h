@@ -305,7 +305,7 @@ protected:
 
     mutable int64_t lastRollingFeeUpdate GUARDED_BY(cs){GetTime()};
     mutable bool blockSinceLastRollingFeeBump GUARDED_BY(cs){false};
-    // TheMinerzCoin
+    // Blackcoin
     // mutable double rollingMinimumFeeRate GUARDED_BY(cs){0}; //!< minimum fee to get into the pool, decreases exponentially
     mutable Epoch m_epoch GUARDED_BY(cs){};
 
@@ -319,7 +319,7 @@ protected:
     bool m_load_tried GUARDED_BY(cs){false};
 
     /*
-    // TheMinerzCoin
+    // Blackcoin
     CFeeRate GetMinFee(size_t sizelimit) const;
     */
 
@@ -390,7 +390,7 @@ public:
     indexed_transaction_set mapTx GUARDED_BY(cs);
 
     using txiter = indexed_transaction_set::nth_index<0>::type::const_iterator;
-    std::vector<CTransactionRef> txns_randomized GUARDED_BY(cs); //!< All transactions in mapTx, in random order
+    std::vector<std::pair<uint256, txiter>> vTxHashes GUARDED_BY(cs); //!< All tx witness hashes/entries in mapTx, in random order
 
     typedef std::set<txiter, CompareIteratorByHash> setEntries;
 
@@ -437,7 +437,7 @@ public:
 
     const int64_t m_max_size_bytes;
     const std::chrono::seconds m_expiry;
-    // TheMinerzCoin
+    // Blackcoin
     // const CFeeRate m_incremental_relay_feerate;
     const CFeeRate m_min_relay_feerate;
     const CFeeRate m_dust_relay_feerate;
@@ -470,13 +470,13 @@ public:
     // Note that addUnchecked is ONLY called from ATMP outside of tests
     // and any other callers may break wallet's in-mempool tracking (due to
     // lack of CValidationInterface::TransactionAddedToMempool callbacks).
-    void addUnchecked(const CTxMemPoolEntry& entry) EXCLUSIVE_LOCKS_REQUIRED(cs, cs_main);
-    void addUnchecked(const CTxMemPoolEntry& entry, setEntries& setAncestors) EXCLUSIVE_LOCKS_REQUIRED(cs, cs_main);
+    void addUnchecked(const CTxMemPoolEntry& entry, bool validFeeEstimate = true) EXCLUSIVE_LOCKS_REQUIRED(cs, cs_main);
+    void addUnchecked(const CTxMemPoolEntry& entry, setEntries& setAncestors, bool validFeeEstimate = true) EXCLUSIVE_LOCKS_REQUIRED(cs, cs_main);
 
     void removeRecursive(const CTransaction& tx, MemPoolRemovalReason reason) EXCLUSIVE_LOCKS_REQUIRED(cs);
     /** After reorg, filter the entries that would no longer be valid in the next block, and update
      * the entries' cached LockPoints if needed.  The mempool does not have any knowledge of
-     * consensus rules. It just applies the callable function and removes the ones for which it
+     * consensus rules. It just appplies the callable function and removes the ones for which it
      * returns true.
      * @param[in]   filter_final_and_mature   Predicate that checks the relevant validation rules
      *                                        and updates an entry's LockPoints.
@@ -486,6 +486,7 @@ public:
     void removeForBlock(const std::vector<CTransactionRef>& vtx, unsigned int nBlockHeight) EXCLUSIVE_LOCKS_REQUIRED(cs);
 
     bool CompareDepthAndScore(const uint256& hasha, const uint256& hashb, bool wtxid=false);
+    void queryHashes(std::vector<uint256>& vtxid) const;
     bool isSpent(const COutPoint& outpoint) const;
     unsigned int GetTransactionsUpdated() const;
     void AddTransactionsUpdated(unsigned int n);
@@ -522,7 +523,7 @@ public:
     /** Translate a set of hashes into a set of pool iterators to avoid repeated lookups.
      * Does not require that all of the hashes correspond to actual transactions in the mempool,
      * only returns the ones that exist. */
-    setEntries GetIterSet(const std::set<Txid>& hashes) const EXCLUSIVE_LOCKS_REQUIRED(cs);
+    setEntries GetIterSet(const std::set<uint256>& hashes) const EXCLUSIVE_LOCKS_REQUIRED(cs);
 
     /** Translate a list of hashes into a list of mempool iterators to avoid repeated lookups.
      * The nth element in txids becomes the nth element in the returned vector. If any of the txids
@@ -605,10 +606,11 @@ public:
      *                                          to mempool. The transactions need not be direct
      *                                          ancestors/descendants of each other.
      * @param[in]       total_vsize             Sum of virtual sizes for all transactions in package.
-     * @returns {} or the error reason if a limit is hit.
+     * @param[out]      errString               Populated with error reason if a limit is hit.
      */
-    util::Result<void> CheckPackageLimits(const Package& package,
-                                          int64_t total_vsize) const EXCLUSIVE_LOCKS_REQUIRED(cs);
+    bool CheckPackageLimits(const Package& package,
+                            int64_t total_vsize,
+                            std::string &errString) const EXCLUSIVE_LOCKS_REQUIRED(cs);
 
     /** Populate setDescendants with all in-mempool descendants of hash.
      *  Assumes that setDescendants includes all in-mempool descendants of anything
@@ -622,7 +624,7 @@ public:
      *  would otherwise be half of this, it is set to 0 instead.
      */
     /*
-    // TheMinerzCoin
+    // Blackcoin
     CFeeRate GetMinFee() const {
         return GetMinFee(m_max_size_bytes);
     }
@@ -683,8 +685,6 @@ public:
         }
         return (mapTx.count(gtxid.GetHash()) != 0);
     }
-
-    const CTxMemPoolEntry* GetEntry(const Txid& txid) const LIFETIMEBOUND EXCLUSIVE_LOCKS_REQUIRED(cs);
 
     CTransactionRef get(const uint256& hash) const;
     txiter get_iter_from_wtxid(const uint256& wtxid) const EXCLUSIVE_LOCKS_REQUIRED(cs)

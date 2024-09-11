@@ -2,10 +2,6 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#if defined(HAVE_CONFIG_H)
-#include <config/bitcoin-config.h>
-#endif
-
 #include <qt/guiutil.h>
 
 #include <qt/bitcoinaddressvalidator.h>
@@ -148,7 +144,7 @@ void AddButtonShortcut(QAbstractButton* button, const QKeySequence& shortcut)
 bool parseBitcoinURI(const QUrl &uri, SendCoinsRecipient *out)
 {
     // return if URI is not valid or is no bitcoin: URI
-    if(!uri.isValid() || uri.scheme() != QString("theminerzcoin"))
+    if(!uri.isValid() || uri.scheme() != QString("blackcoin"))
         return false;
 
     SendCoinsRecipient rv;
@@ -211,7 +207,7 @@ QString formatBitcoinURI(const SendCoinsRecipient &info)
 {
     bool bech_32 = info.address.startsWith(QString::fromStdString(Params().Bech32HRP() + "1"));
 
-    QString ret = QString("theminerzcoin:%1").arg(bech_32 ? info.address.toUpper() : info.address);
+    QString ret = QString("blackcoin:%1").arg(bech_32 ? info.address.toUpper() : info.address);
     int paramCount = 0;
 
     if (info.amount)
@@ -446,7 +442,7 @@ bool openBitcoinConf()
 
     configFile.close();
 
-    /* Open theminerzcoin.conf with the associated application */
+    /* Open blackmore.conf with the associated application */
     bool res = QDesktopServices::openUrl(QUrl::fromLocalFile(PathToQString(pathConfig)));
 #ifdef Q_OS_MACOS
     // Workaround for macOS-specific behavior; see #15409.
@@ -593,8 +589,8 @@ fs::path static GetAutostartFilePath()
 {
     ChainType chain = gArgs.GetChainType();
     if (chain == ChainType::MAIN)
-        return GetAutostartDir() / "theminerzcoin.desktop";
-    return GetAutostartDir() / fs::u8path(strprintf("theminerzcoin-%s.desktop", ChainTypeToString(chain)));
+        return GetAutostartDir() / "blackmore.desktop";
+    return GetAutostartDir() / fs::u8path(strprintf("blackmore-%s.desktop", ChainTypeToString(chain)));
 }
 
 bool GetStartOnSystemStartup()
@@ -635,13 +631,13 @@ bool SetStartOnSystemStartup(bool fAutoStart)
         if (!optionFile.good())
             return false;
         ChainType chain = gArgs.GetChainType();
-        // Write a theminerzcoin.desktop file to the autostart directory:
+        // Write a blackmore.desktop file to the autostart directory:
         optionFile << "[Desktop Entry]\n";
         optionFile << "Type=Application\n";
         if (chain == ChainType::MAIN)
-            optionFile << "Name=TheMinerzCoin\n";
+            optionFile << "Name=Blackcoin\n";
         else
-            optionFile << strprintf("Name=TheMinerzCoin (%s)\n", ChainTypeToString(chain));
+            optionFile << strprintf("Name=Blackcoin (%s)\n", ChainTypeToString(chain));
         optionFile << "Exec=" << pszExePath << strprintf(" -min -chain=%s\n", ChainTypeToString(chain));
         optionFile << "Terminal=false\n";
         optionFile << "Hidden=false\n";
@@ -673,7 +669,7 @@ fs::path QStringToPath(const QString &path)
 
 QString PathToQString(const fs::path &path)
 {
-    return QString::fromStdString(path.utf8string());
+    return QString::fromStdString(path.u8string());
 }
 
 QString NetworkToQString(Network net)
@@ -727,7 +723,8 @@ QString ConnectionTypeToQString(ConnectionType conn_type, bool prepend_direction
 
 QString formatDurationStr(std::chrono::seconds dur)
 {
-    const auto d{std::chrono::duration_cast<std::chrono::days>(dur)};
+    using days = std::chrono::duration<int, std::ratio<86400>>; // can remove this line after C++20
+    const auto d{std::chrono::duration_cast<days>(dur)};
     const auto h{std::chrono::duration_cast<std::chrono::hours>(dur - d)};
     const auto m{std::chrono::duration_cast<std::chrono::minutes>(dur - d - h)};
     const auto s{std::chrono::duration_cast<std::chrono::seconds>(dur - d - h - m)};

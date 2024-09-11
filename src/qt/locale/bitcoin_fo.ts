@@ -7,7 +7,7 @@
     </message>
     <message>
         <source>Create a new address</source>
-        <translation type="unfinished">Stovna adressu</translation>
+        <translation type="unfinished">Mynda nýggja adressu</translation>
     </message>
     <message>
         <source>Delete the currently selected address from the list</source>
@@ -66,7 +66,7 @@
     <message>
         <source>Do you want to reset settings to default values, or to abort without making changes?</source>
         <extracomment>Explanatory text shown on startup when the settings file cannot be read. Prompts user to make a choice between resetting or aborting.</extracomment>
-        <translation type="unfinished">Ynskir tú at endurstilla stillingar til upprunaligar stillingar, ella at avlýsa broytingar?</translation>
+        <translation type="unfinished">Ynskir tú at endurstilla stillingar til sjálvsettar, ella at avbróta uttan at hava broytt stillingar?</translation>
     </message>
     <message>
         <source>Error: %1</source>
@@ -173,7 +173,7 @@
     </message>
     <message>
         <source>Modify configuration options for %1</source>
-        <translation type="unfinished">Broyt uppsetanarstillingar fyri %1</translation>
+        <translation type="unfinished">Broyt uppsetan fyri %1</translation>
     </message>
     <message>
         <source>Network activity disabled.</source>
@@ -181,16 +181,20 @@
         <translation type="unfinished">Net-virksemi óvirkijað.</translation>
     </message>
     <message>
+        <source>&amp;Receive</source>
+        <translation type="unfinished">&amp;Móttak</translation>
+    </message>
+    <message>
         <source>Sign &amp;message…</source>
-        <translation type="unfinished">&amp;Undirrita  boð</translation>
+        <translation type="unfinished">&amp;Undirskriva  boðini</translation>
     </message>
     <message>
         <source>Sign messages with your Bitcoin addresses to prove you own them</source>
-        <translation type="unfinished">Undirrita boðini við tíni Bitcoin-adressu fyri at prógva at tey eru tíni</translation>
+        <translation type="unfinished">Undirskriva boðini við tíni Bitcoin-adressu til tess at prógva at tey eru tíni</translation>
     </message>
     <message>
         <source>&amp;File</source>
-        <translation type="unfinished">&amp;Fíla</translation>
+        <translation type="unfinished">&amp;Fíl</translation>
     </message>
     <message>
         <source>&amp;Settings</source>
@@ -282,7 +286,7 @@
     </message>
     <message>
         <source>Bytes:</source>
-        <translation type="unfinished">Byte:</translation>
+        <translation type="unfinished">Být:</translation>
     </message>
     <message>
         <source>Amount:</source>
@@ -576,6 +580,10 @@
         <translation type="unfinished">Goym...</translation>
     </message>
     <message>
+        <source> * Sends %1 to %2</source>
+        <translation type="unfinished">* Sendir %1 til %2</translation>
+    </message>
+    <message>
         <source>own address</source>
         <translation type="unfinished">egin adressa</translation>
     </message>
@@ -860,7 +868,7 @@
     </message>
     <message>
         <source>Bytes:</source>
-        <translation type="unfinished">Byte:</translation>
+        <translation type="unfinished">Být:</translation>
     </message>
     <message>
         <source>Amount:</source>
@@ -877,6 +885,10 @@
     <message>
         <source>Custom change address</source>
         <translation type="unfinished">Adressa til vekslipening</translation>
+    </message>
+    <message>
+        <source>per kilobyte</source>
+        <translation type="unfinished">per kilobýt</translation>
     </message>
     <message>
         <source>Hide</source>
@@ -1306,7 +1318,7 @@
     </message>
     <message>
         <source>Error: Got value that was not hex: %s</source>
-        <translation type="unfinished">Villa: Fekk virði ið ikki er sekstandatal: %s</translation>
+        <translation type="unfinished">Villa: Læs virði ið ikki er sekstandatal: %s</translation>
     </message>
     <message>
         <source>Error: No %s addresses available.</source>
@@ -1314,7 +1326,7 @@
     </message>
     <message>
         <source>Error: Unable to begin reading all records in the database</source>
-        <translation type="unfinished">Villa: Bar ikki til at byrja at innlesa skrásetingar í dátugrunninum</translation>
+        <translation type="unfinished">Villa: Bar ikki til at byrja at lesa allar skrásetingar í dátugrunninum</translation>
     </message>
     <message>
         <source>Error: Unable to parse version %u as a uint32_t</source>
@@ -1322,15 +1334,11 @@
     </message>
     <message>
         <source>Error: Unable to read all records in the database</source>
-        <translation type="unfinished">Villa: Bar ikki til at innlesa allar skrásetingar í dátugrunninum</translation>
+        <translation type="unfinished">Villa: Bar ikki til at lesa allar skrásetingar í dátugrunninum</translation>
     </message>
     <message>
         <source>Failed to listen on any port. Use -listen=0 if you want this.</source>
-        <translation type="unfinished">Miseydnaðist at lurta á nøkrum portri. Brúka -listen=0 um tú ikki ynskir at lurta á nøkrum portri.</translation>
-    </message>
-    <message>
-        <source>Listening for incoming connections failed (listen returned error %s)</source>
-        <translation type="unfinished">Lurtingin eftir inngangandi sambondum miseydnaðist (lurtingin gav villuna %s)</translation>
+        <translation type="unfinished">Miseydnaðist at lurta á portri. Brúka -listen=0 um tú ynskir hetta.</translation>
     </message>
     <message>
         <source>Listening for incoming connections failed (listen returned error %s)</source>
@@ -1354,7 +1362,7 @@
     </message>
     <message>
         <source>Settings file could not be read</source>
-        <translation type="unfinished">Lesing av uppsetanarfílu miseydnaðist</translation>
+        <translation type="unfinished">Lesing av uppsetanarfílu miseydnaðist.</translation>
     </message>
     <message>
         <source>Settings file could not be written</source>

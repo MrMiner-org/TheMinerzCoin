@@ -1,4 +1,4 @@
-// Copyright (c) 2020-present The Bitcoin Core developers
+// Copyright (c) 2020-2022 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -6,8 +6,6 @@
 #include <net.h>
 #include <net_processing.h>
 #include <protocol.h>
-#include <script/script.h>
-#include <sync.h>
 #include <test/fuzz/FuzzedDataProvider.h>
 #include <test/fuzz/fuzz.h>
 #include <test/fuzz/util.h>
@@ -16,13 +14,8 @@
 #include <test/util/net.h>
 #include <test/util/setup_common.h>
 #include <test/util/validation.h>
-#include <util/time.h>
+#include <validation.h>
 #include <validationinterface.h>
-
-#include <ios>
-#include <string>
-#include <utility>
-#include <vector>
 
 namespace {
 const TestingSetup* g_setup;
@@ -62,8 +55,7 @@ FUZZ_TARGET(process_messages, .init = initialize_process_messages)
         connman.AddTestNode(p2p_node);
     }
 
-    LIMITED_WHILE(fuzzed_data_provider.ConsumeBool(), 30)
-    {
+    LIMITED_WHILE(fuzzed_data_provider.ConsumeBool(), 10000) {
         const std::string random_message_type{fuzzed_data_provider.ConsumeBytesAsString(CMessageHeader::COMMAND_SIZE).c_str()};
 
         const auto mock_time = ConsumeTime(fuzzed_data_provider);
@@ -71,23 +63,19 @@ FUZZ_TARGET(process_messages, .init = initialize_process_messages)
 
         CSerializedNetMsg net_msg;
         net_msg.m_type = random_message_type;
-        net_msg.data = ConsumeRandomLengthByteVector(fuzzed_data_provider, MAX_PROTOCOL_MESSAGE_LENGTH);
+        net_msg.data = ConsumeRandomLengthByteVector(fuzzed_data_provider);
 
         CNode& random_node = *PickValue(fuzzed_data_provider, peers);
 
         connman.FlushSendBuffer(random_node);
         (void)connman.ReceiveMsgFrom(random_node, std::move(net_msg));
+        random_node.fPauseSend = false;
 
-        bool more_work{true};
-        while (more_work) { // Ensure that every message is eventually processed in some way or another
-            random_node.fPauseSend = false;
-
-            try {
-                more_work = connman.ProcessMessagesOnce(random_node);
-            } catch (const std::ios_base::failure&) {
-            }
-            g_setup->m_node.peerman->SendMessages(&random_node);
+        try {
+            connman.ProcessMessagesOnce(random_node);
+        } catch (const std::ios_base::failure&) {
         }
+        g_setup->m_node.peerman->SendMessages(&random_node);
     }
     SyncWithValidationInterfaceQueue();
     g_setup->m_node.connman->StopNodes();

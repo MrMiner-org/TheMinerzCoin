@@ -117,14 +117,14 @@ we do not want a transaction's fees to be double-counted.
 *Rationale*: Packages are intended for incentive-compatible fee-bumping: transaction B is a
 "legitimate" fee-bump for transaction A only if B is a descendant of A and has a *higher* feerate
 than A. We want to prevent "parents pay for children" behavior; fees of parents should not help
-their children, since the parents can be mined without the child.   generally, if transaction A
+their children, since the parents can be mined without the child.  More generally, if transaction A
 is not needed in order for transaction B to be mined, A's fees cannot help B. In a
 child-with-parents package, simply excluding any parent transactions that meet feerate requirements
 individually is sufficient to ensure this.
 
 *Rationale*: We must not allow a low-feerate child to prevent its parent from being accepted; fees
 of children should not negatively impact their parents, since they are not necessary for the parents
-to be mined.  generally, if transaction B is not needed in order for transaction A to be mined,
+to be mined. More generally, if transaction B is not needed in order for transaction A to be mined,
 B's fees cannot harm A. In a child-with-parents package, simply validating parents individually
 first is sufficient to ensure this.
 

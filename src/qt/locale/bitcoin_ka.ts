@@ -694,7 +694,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>Click for more actions.</source>
-        <extracomment>A substring of the tooltip. " actions" are available via the context menu.</extracomment>
+        <extracomment>A substring of the tooltip. "More actions" are available via the context menu.</extracomment>
         <translation type="unfinished">მეტი...</translation>
     </message>
     <message>
@@ -2080,6 +2080,14 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     <message>
         <source>Inputs…</source>
         <translation type="unfinished">შეყვანები…</translation>
+    </message>
+    <message>
+        <source>Choose…</source>
+        <translation type="unfinished">აირჩიეთ…</translation>
+    </message>
+    <message>
+        <source>Hide transaction fee settings</source>
+        <translation type="unfinished">ტრანზაქციის საკომისიოს პარამეტრების დამალვა</translation>
     </message>
     <message>
         <source>Choose…</source>

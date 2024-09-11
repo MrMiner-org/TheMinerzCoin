@@ -2,10 +2,6 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#if defined(HAVE_CONFIG_H)
-#include <config/bitcoin-config.h>
-#endif
-
 #include <test/data/script_tests.json.h>
 #include <test/data/bip341_wallet_vectors.json.h>
 
@@ -1055,9 +1051,10 @@ sign_multisig(const CScript& scriptPubKey, const CKey& key, const CTransaction& 
 BOOST_AUTO_TEST_CASE(script_CHECKMULTISIG12)
 {
     ScriptError err;
-    CKey key1 = GenerateRandomKey();
-    CKey key2 = GenerateRandomKey(/*compressed=*/false);
-    CKey key3 = GenerateRandomKey();
+    CKey key1, key2, key3;
+    key1.MakeNewKey(true);
+    key2.MakeNewKey(false);
+    key3.MakeNewKey(true);
 
     CScript scriptPubKey12;
     scriptPubKey12 << OP_1 << ToByteVector(key1.GetPubKey()) << ToByteVector(key2.GetPubKey()) << OP_2 << OP_CHECKMULTISIG;
@@ -1084,10 +1081,11 @@ BOOST_AUTO_TEST_CASE(script_CHECKMULTISIG12)
 BOOST_AUTO_TEST_CASE(script_CHECKMULTISIG23)
 {
     ScriptError err;
-    CKey key1 = GenerateRandomKey();
-    CKey key2 = GenerateRandomKey(/*compressed=*/false);
-    CKey key3 = GenerateRandomKey();
-    CKey key4 = GenerateRandomKey(/*compressed=*/false);
+    CKey key1, key2, key3, key4;
+    key1.MakeNewKey(true);
+    key2.MakeNewKey(false);
+    key3.MakeNewKey(true);
+    key4.MakeNewKey(false);
 
     CScript scriptPubKey23;
     scriptPubKey23 << OP_2 << ToByteVector(key1.GetPubKey()) << ToByteVector(key2.GetPubKey()) << ToByteVector(key3.GetPubKey()) << OP_3 << OP_CHECKMULTISIG;
@@ -1114,7 +1112,7 @@ BOOST_AUTO_TEST_CASE(script_CHECKMULTISIG23)
     BOOST_CHECK_MESSAGE(err == SCRIPT_ERR_OK, ScriptErrorString(err));
 
     keys.clear();
-    keys.push_back(key2); keys.push_back(key2); // Can't reuse sig
+    keys.push_back(key2); keys.push_back(key2); // Can't re-use sig
     CScript badsig1 = sign_multisig(scriptPubKey23, keys, CTransaction(txTo23));
     BOOST_CHECK(!VerifyScript(badsig1, scriptPubKey23, nullptr, gFlags, MutableTransactionSignatureChecker(&txTo23, 0, txFrom23.vout[0].nValue, MissingDataBehavior::ASSERT_FAIL), &err));
     BOOST_CHECK_MESSAGE(err == SCRIPT_ERR_EVAL_FALSE, ScriptErrorString(err));
@@ -1167,7 +1165,8 @@ BOOST_AUTO_TEST_CASE(script_combineSigs)
     std::vector<CPubKey> pubkeys;
     for (int i = 0; i < 3; i++)
     {
-        CKey key = GenerateRandomKey(/*compressed=*/i%2 == 1);
+        CKey key;
+        key.MakeNewKey(i%2 == 1);
         keys.push_back(key);
         pubkeys.push_back(key.GetPubKey());
         BOOST_CHECK(keystore.AddKey(key));

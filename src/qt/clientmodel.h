@@ -58,8 +58,6 @@ public:
     explicit ClientModel(interfaces::Node& node, OptionsModel *optionsModel, QObject *parent = nullptr);
     ~ClientModel();
 
-    void stop();
-
     interfaces::Node& node() const { return m_node; }
     OptionsModel *getOptionsModel();
     PeerTableModel *getPeerTableModel();
@@ -97,7 +95,13 @@ public:
 
 private:
     interfaces::Node& m_node;
-    std::vector<std::unique_ptr<interfaces::Handler>> m_event_handlers;
+    std::unique_ptr<interfaces::Handler> m_handler_show_progress;
+    std::unique_ptr<interfaces::Handler> m_handler_notify_num_connections_changed;
+    std::unique_ptr<interfaces::Handler> m_handler_notify_network_active_changed;
+    std::unique_ptr<interfaces::Handler> m_handler_notify_alert_changed;
+    std::unique_ptr<interfaces::Handler> m_handler_banned_list_changed;
+    std::unique_ptr<interfaces::Handler> m_handler_notify_block_tip;
+    std::unique_ptr<interfaces::Handler> m_handler_notify_header_tip;
     OptionsModel *optionsModel;
     PeerTableModel* peerTableModel{nullptr};
     PeerTableSortProxy* m_peer_table_sort_proxy{nullptr};

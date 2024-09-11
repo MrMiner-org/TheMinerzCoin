@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2023 The TheMinerzCoin developers
+// Copyright (c) 2014-2023 The Blackcoin developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -81,7 +81,7 @@ static RPCHelpMan getstakinginfo()
     if (BlockAssembler::m_last_block_num_txs) obj.pushKV("currentblocktx", *BlockAssembler::m_last_block_num_txs);
     obj.pushKV("pooledtx", (uint64_t)mempool.size());
 
-    obj.pushKV("difficulty", GetDifficulty(*CHECK_NONFATAL(GetLastBlockIndex(chainman.m_best_header, true))));
+    obj.pushKV("difficulty", GetDifficulty(GetLastBlockIndex(chainman.m_best_header, true)));
 
     obj.pushKV("search-interval", (int)lastCoinStakeSearchInterval);
     obj.pushKV("weight", (uint64_t)nWeight);
@@ -288,7 +288,7 @@ static RPCHelpMan checkkernel()
         if (nOutput < 0)
             throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid parameter, vout must be positive");
 
-        COutPoint cInput(Txid::FromUint256(uint256S(txid)), nOutput);
+        COutPoint cInput(uint256S(txid), nOutput);
         if (CheckKernel(pindexPrev, nBits, nTime, cInput, active_chainstate.CoinsTip()))
         {
             kernel = cInput;
@@ -326,7 +326,7 @@ static RPCHelpMan checkkernel()
     pblock->vtx[0] = MakeTransactionRef(std::move(coinstakeTx));
 
     CDataStream ss(SER_DISK);
-    ss << TX_WITH_WITNESS(*pblock);
+    ss << RPCTxSerParams(*pblock);
 
     result.pushKV("blocktemplate", HexStr(ss));
     result.pushKV("blocktemplatefees", nFees);

@@ -30,9 +30,9 @@ class SignalInterrupt
 public:
     SignalInterrupt();
     explicit operator bool() const;
-    [[nodiscard]] bool operator()();
-    [[nodiscard]] bool reset();
-    [[nodiscard]] bool wait();
+    void operator()();
+    void reset();
+    void wait();
 
 private:
     std::atomic<bool> m_flag;

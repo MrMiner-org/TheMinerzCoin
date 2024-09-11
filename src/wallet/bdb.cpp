@@ -42,7 +42,7 @@ namespace {
 //!
 //! BerkeleyDB generates unique fileids by default
 //! (https://docs.oracle.com/cd/E17275_01/html/programmer_reference/program_copy.html),
-//! so theminerzcoin should never create different databases with the same fileid, but
+//! so blackcoin should never create different databases with the same fileid, but
 //! this error can be triggered if users manually copy database files.
 void CheckUniqueFileid(const BerkeleyEnvironment& env, const std::string& filename, Db& db, WalletDatabaseFileId& fileid)
 {
@@ -149,7 +149,7 @@ bool BerkeleyEnvironment::Open(bilingual_str& err)
 
     fs::path pathIn = fs::PathFromString(strPath);
     TryCreateDirectories(pathIn);
-    if (util::LockDirectory(pathIn, ".walletlock") != util::LockResult::Success) {
+    if (!LockDirectory(pathIn, ".walletlock")) {
         LogPrintf("Cannot obtain a lock on wallet directory %s. Another instance may be using it.\n", strPath);
         err = strprintf(_("Error initializing wallet database environment %s!"), fs::quoted(fs::PathToString(Directory())));
         return false;
@@ -326,7 +326,7 @@ bool BerkeleyDatabase::Verify(bilingual_str& errorStr)
         const std::string strFile = fs::PathToString(m_filename);
         int result = db.verify(strFile.c_str(), nullptr, nullptr, 0);
         if (result != 0) {
-            errorStr = strprintf(_("%s corrupt. Try using the wallet tool theminerzcoin-wallet to salvage or restoring a backup."), fs::quoted(fs::PathToString(file_path)));
+            errorStr = strprintf(_("%s corrupt. Try using the wallet tool blackmore-wallet to salvage or restoring a backup."), fs::quoted(fs::PathToString(file_path)));
             return false;
         }
     }
@@ -887,12 +887,7 @@ bool BerkeleyBatch::HasKey(DataStream&& key)
 
 bool BerkeleyBatch::ErasePrefix(Span<const std::byte> prefix)
 {
-    // Because this function erases records one by one, ensure that it is executed within a txn context.
-    // Otherwise, consistency is at risk; it's possible that certain records are removed while others
-    // remain due to an internal failure during the procedure.
-    // Additionally, the Dbc::del() cursor delete call below would fail without an active transaction.
-    if (!Assume(activeTxn)) return false;
-
+    if (!TxnBegin()) return false;
     auto cursor{std::make_unique<BerkeleyCursor>(m_database, *this)};
     // const_cast is safe below even though prefix_key is an in/out parameter,
     // because we are not using the DB_DBT_USERMEM flag, so BDB will allocate
@@ -906,7 +901,7 @@ bool BerkeleyBatch::ErasePrefix(Span<const std::byte> prefix)
         ret = cursor->dbc()->del(0);
     }
     cursor.reset();
-    return ret == 0 || ret == DB_NOTFOUND;
+    return TxnCommit() && (ret == 0 || ret == DB_NOTFOUND);
 }
 
 void BerkeleyDatabase::AddRef()

@@ -25,7 +25,7 @@ static const int STATUSBAR_ICONSIZE = 16;
 static const bool DEFAULT_SPLASHSCREEN = true;
 
 /* Invalid field background style */
-#define STYLE_INVALID "border: 3px solid #FF8080"
+#define STYLE_INVALID "background:#FF8080"
 
 /* Transaction list -- unconfirmed transaction */
 #define COLOR_UNCONFIRMED QColor(128, 128, 128)
@@ -46,8 +46,8 @@ static const int TOOLTIP_WRAP_THRESHOLD = 80;
 /* Number of frames in spinner animation */
 #define SPINNER_FRAMES 36
 
-#define QAPP_ORG_NAME "TheMinerzCoin"
-#define QAPP_ORG_DOMAIN "theminerzcoin.org"
+#define QAPP_ORG_NAME "Blackcoin"
+#define QAPP_ORG_DOMAIN "blackcoin.org"
 #define QAPP_APP_NAME_DEFAULT "Blackmore-Qt"
 #define QAPP_APP_NAME_TESTNET "Blackmore-Qt-testnet"
 #define QAPP_APP_NAME_SIGNET "Blackmore-Qt-signet"

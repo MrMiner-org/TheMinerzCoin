@@ -59,7 +59,7 @@ class BIP66Test(BitcoinTestFramework):
         return self.miniwallet.create_self_transfer(utxo_to_spend=utxo_to_spend)['tx']
 
     def test_dersig_info(self, *, is_active):
-        # TheMinerzCoin: assume that DERSIG is always active
+        # Blackcoin: assume that DERSIG is always active
         pass
 
     def run_test(self):

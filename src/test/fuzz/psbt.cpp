@@ -11,6 +11,7 @@
 #include <script/script.h>
 #include <streams.h>
 #include <util/check.h>
+#include <version.h>
 
 #include <cstdint>
 #include <optional>

@@ -6,7 +6,7 @@
 #define BITCOIN_QT_PAYMENTSERVER_H
 
 // This class handles payment requests from clicking on
-// theminerzcoin: URIs
+// blackcoin: URIs
 //
 // This is somewhat tricky, because we have to deal with
 // the situation where the user clicks on a link during
@@ -32,6 +32,10 @@
 // sends them to the server.
 //
 
+#if defined(HAVE_CONFIG_H)
+#include <config/bitcoin-config.h>
+#endif
+
 #include <qt/sendcoinsrecipient.h>
 
 #include <QObject>
@@ -49,8 +53,6 @@ class QByteArray;
 class QLocalServer;
 class QUrl;
 QT_END_NAMESPACE
-
-extern const QString BITCOIN_IPC_PREFIX;
 
 class PaymentServer : public QObject
 {

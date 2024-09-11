@@ -46,7 +46,7 @@ or using a regex filter to only run certain benchmarks.
 
 Notes
 ---------------------
- benchmarks are needed for, in no particular order:
+More benchmarks are needed for, in no particular order:
 - Script Validation
 - Coins database
 - Memory pool

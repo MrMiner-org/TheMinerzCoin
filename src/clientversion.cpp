@@ -2,10 +2,6 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#if defined(HAVE_CONFIG_H)
-#include <config/bitcoin-config.h>
-#endif
-
 #include <clientversion.h>
 #include <util/translation.h>
 
@@ -17,10 +13,10 @@
 
 /**
  * Name of client reported in the 'version' message. Report the same name
- * for both blackmored and theminerzcoin-qt, to make it harder for attackers to
+ * for both blackmored and blackmore-qt, to make it harder for attackers to
  * target servers or GUI users specifically.
  */
-const std::string CLIENT_NAME("TheMinerzCoin ");
+const std::string CLIENT_NAME("Blackcoin More");
 
 
 #ifdef HAVE_BUILD_INFO
@@ -33,7 +29,7 @@ const std::string CLIENT_NAME("TheMinerzCoin ");
 #endif
 
 //! git will put "#define GIT_COMMIT_ID ..." on the next line inside archives. 
-#define GIT_COMMIT_ID "7aa9724026b46eac29904766ef97072923c0b0f0"
+#define GIT_COMMIT_ID "4a0b004391d48c50dea798ae608ad4f86e26b245"
 
 #ifdef BUILD_GIT_TAG
     #define BUILD_DESC BUILD_GIT_TAG
@@ -96,20 +92,20 @@ std::string CopyrightHolders(const std::string& strPrefix)
 
     std::string strCopyrightHolders =
         strPrefix + "The Bitcoin Core developers" +
-        "\n" + strPrefix + "The TheMinerzCoin developers" +
-        "\n" + strPrefix + "The TheMinerzCoin  developers";
+        "\n" + strPrefix + "The Blackcoin developers" +
+        "\n" + strPrefix + "The Blackcoin More developers";
     return strCopyrightHolders;
 }
 
 std::string LicenseInfo()
 {
-    const std::string URL_SOURCE_CODE = "<https://github.com/CoinBlack/theminerzcoin-more>";
+    const std::string URL_SOURCE_CODE = "<https://github.com/CoinBlack/blackcoin-more>";
 
     return strprintf(_("Copyright (C) 2009-%i The Bitcoin Core Developers").translated, COPYRIGHT_YEAR) +
            "\n" +
-           strprintf(_("Copyright (C) 2014-%i The TheMinerzCoin Developers").translated, 2018) +
+           strprintf(_("Copyright (C) 2014-%i The Blackcoin Developers").translated, 2018) +
            "\n" +
-           strprintf(_("Copyright (C) 2018-%i The TheMinerzCoin  Developers").translated, COPYRIGHT_YEAR) +
+           strprintf(_("Copyright (C) 2018-%i The Blackcoin More Developers").translated, COPYRIGHT_YEAR) +
            "\n" +
            "\n" +
            strprintf(_("Please contribute if you find %s useful. "

@@ -26,7 +26,7 @@ bool VerifyWallets(WalletContext& context);
 bool LoadWallets(WalletContext& context);
 
 //! Complete startup of wallets.
-void StartWallets(WalletContext& context);
+void StartWallets(WalletContext& context, CScheduler& scheduler);
 
 //! Flush all wallets in preparation for shutdown.
 void FlushWallets(WalletContext& context);

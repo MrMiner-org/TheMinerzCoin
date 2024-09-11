@@ -9,6 +9,7 @@
 #include <test/util/random.h>
 #include <test/util/setup_common.h>
 #include <uint256.h>
+#include <version.h>
 
 #include <vector>
 

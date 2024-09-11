@@ -1,16 +1,5 @@
 <TS version="2.1" language="fa">
 <context>
-    <name>AddressBookPage</name>
-    <message>
-        <source>Create a new address</source>
-        <translation type="unfinished">یک آدرس جدید ایجاد کنید</translation>
-    </message>
-    <message>
-        <source>Copy the currently selected address to the system clipboard</source>
-        <translation type="unfinished">کپی آدرسی که اکنون انتخاب کردید در کلیپ بورد سیستم</translation>
-    </message>
-    </context>
-<context>
     <name>AskPassphraseDialog</name>
     <message>
         <source>Your wallet is about to be encrypted. </source>
@@ -52,6 +41,14 @@
     <message>
         <source>The passphrase entered for the wallet decryption is incorrect. It contains a null character (ie - a zero byte). If the passphrase was set with a version of this software prior to 25.0, please try again with only the characters up to — but not including — the first null character. If this is successful, please set a new passphrase to avoid this issue in the future.</source>
         <translation type="unfinished">عبارت عبور وارد شده برای رمزگشایی کیف پول نادرست است. این شامل یک کاراکتر تهی (به معنی صفر بایت) است.  اگر عبارت عبور را در نسخه ای از این نرم افزار که قدیمی تر نسخه 25.0 است تنظیم کرده اید ، لطفا عبارت را تا آنجایی که اولین کاراکتر تهی قرار دارد امتحان کنید ( خود کاراکتر تهی را درج نکنید ) و دوباره امتحان کنید. اگر این کار موفقیت آمیز بود ، لطفا یک عبارت عبور جدید تنظیم کنید تا دوباره به این مشکل بر نخورید.</translation>
+    </message>
+    <message>
+        <source>Passphrase change failed</source>
+        <translation type="unfinished">تغییر عبارت عبور ناموفق بود.</translation>
+    </message>
+    <message>
+        <source>The old passphrase entered for the wallet decryption is incorrect. It contains a null character (ie - a zero byte). If the passphrase was set with a version of this software prior to 25.0, please try again with only the characters up to — but not including — the first null character.</source>
+        <translation type="unfinished">عبارت عبور قدیمی وارد شده برای رمزگشایی کیف پول نادرست است. این عبارت عبور شامل یک کاراکتر تهی (به عنوان مثال - کاراکتری با حجم صفر بایت) است . اگر عبارت عبور خود را در نسخه ای از این نرم افزار تا قبل از نسخه  25.0 تنظیم کرده اید ،لطفا دوباره عبارت عبور را تا قبل از کاراکتر تهی یا NULL امتحان کنید ( خود کاراکتر تهی را درج نکنید ).</translation>
     </message>
     <message>
         <source>Warning: The Caps Lock key is on!</source>
@@ -576,7 +573,7 @@
     </message>
     <message>
         <source>Click for more actions.</source>
-        <extracomment>A substring of the tooltip. " actions" are available via the context menu.</extracomment>
+        <extracomment>A substring of the tooltip. "More actions" are available via the context menu.</extracomment>
         <translation type="unfinished">برای عملیات‌های بیشتر کلیک کنید.</translation>
     </message>
     <message>
@@ -1422,6 +1419,18 @@
         <source>Whether to show coin control features or not.</source>
         <translation type="unfinished">آیا ویژگی های کنترل سکه را نشان می دهد یا خیر.
  </translation>
+    </message>
+    <message>
+        <source>Monospaced font in the Overview tab:</source>
+        <translation type="unfinished">فونت تک فضا(منو اسپیس) در برگه مرور کلی </translation>
+    </message>
+    <message>
+        <source>embedded "%1"</source>
+        <translation type="unfinished">تعبیه شده%1</translation>
+    </message>
+    <message>
+        <source>closest matching "%1"</source>
+        <translation type="unfinished">%1نزدیک ترین تطابق</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -3654,6 +3663,11 @@ The wallet might have been tampered with or created with malicious intent.
     <message>
         <source>Transaction amounts must not be negative</source>
         <translation type="unfinished">مقدار تراکنش نمی‌تواند منفی باشد.</translation>
+    </message>
+    <message>
+        <source>Transaction has too long of a mempool chain</source>
+        <translation type="unfinished">معاملات بسیار طولانی از یک زنجیره ممپول است
+ </translation>
     </message>
     <message>
         <source>Transaction must have at least one recipient</source>

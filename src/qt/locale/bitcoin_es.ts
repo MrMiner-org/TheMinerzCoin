@@ -3,7 +3,7 @@
     <name>AddressBookPage</name>
     <message>
         <source>Right-click to edit address or label</source>
-        <translation type="unfinished">Haz clic derecho para editar dirección o etiqueta</translation>
+        <translation type="unfinished">Hacer clic derecho para editar la dirección o etiqueta</translation>
     </message>
     <message>
         <source>Create a new address</source>
@@ -299,18 +299,6 @@ Solo es posible firmar con direcciones de tipo "legacy".</translation>
         <translation type="unfinished">desconocido</translation>
     </message>
     <message>
-        <source>Embedded "%1"</source>
-        <translation type="unfinished">"%1" insertado</translation>
-    </message>
-    <message>
-        <source>Default system font "%1"</source>
-        <translation type="unfinished">Fuente predeterminada del sistema "%1"</translation>
-    </message>
-    <message>
-        <source>Custom…</source>
-        <translation type="unfinished">Personalizada...</translation>
-    </message>
-    <message>
         <source>Amount</source>
         <translation type="unfinished">Importe</translation>
     </message>
@@ -500,7 +488,7 @@ Solo es posible firmar con direcciones de tipo "legacy".</translation>
     </message>
     <message>
         <source>&amp;Encrypt Wallet…</source>
-        <translation type="unfinished">&amp;Cifrar monedero…</translation>
+        <translation type="unfinished">&amp;Cifrar monedero...</translation>
     </message>
     <message>
         <source>Encrypt the private keys that belong to your wallet</source>
@@ -520,7 +508,7 @@ Solo es posible firmar con direcciones de tipo "legacy".</translation>
     </message>
     <message>
         <source>Sign messages with your Bitcoin addresses to prove you own them</source>
-        <translation type="unfinished">Firmar mensajes con tus direcciones Bitcoin para probar la propiedad</translation>
+        <translation type="unfinished">Firmar mensajes con tus direcciones de Bitcoin para probar la propiedad</translation>
     </message>
     <message>
         <source>&amp;Verify message…</source>
@@ -705,7 +693,7 @@ Solo es posible firmar con direcciones de tipo "legacy".</translation>
     </message>
     <message>
         <source>Show the %1 help message to get a list with possible Bitcoin command-line options</source>
-        <translation type="unfinished">Muestra el mensaje de ayuda %1 para obtener una lista con posibles opciones de línea de comandos de Bitcoin.</translation>
+        <translation type="unfinished">Muestra el mensaje %1 de ayuda para obtener un listado con las opciones posibles de la línea de instrucciones de Bitcoin.</translation>
     </message>
     <message>
         <source>&amp;Mask values</source>
@@ -713,7 +701,7 @@ Solo es posible firmar con direcciones de tipo "legacy".</translation>
     </message>
     <message>
         <source>Mask the values in the Overview tab</source>
-        <translation type="unfinished">Ocultar los valores de la ventana de previsualización</translation>
+        <translation type="unfinished">Esconder los valores de la ventana de previsualización</translation>
     </message>
     <message>
         <source>default wallet</source>
@@ -731,7 +719,7 @@ Solo es posible firmar con direcciones de tipo "legacy".</translation>
     <message>
         <source>Load Wallet Backup</source>
         <extracomment>The title for Restore Wallet File Windows</extracomment>
-        <translation type="unfinished">Cargar copia de seguridad del monedero</translation>
+        <translation type="unfinished">Cargar respaldo del monedero</translation>
     </message>
     <message>
         <source>Restore Wallet</source>
@@ -746,10 +734,6 @@ Solo es posible firmar con direcciones de tipo "legacy".</translation>
     <message>
         <source>&amp;Window</source>
         <translation type="unfinished">&amp;Ventana</translation>
-    </message>
-    <message>
-        <source>Zoom</source>
-        <translation type="unfinished">Acercar</translation>
     </message>
     <message>
         <source>Main Window</source>
@@ -777,18 +761,18 @@ Solo es posible firmar con direcciones de tipo "legacy".</translation>
     </message>
     <message>
         <source>Click for more actions.</source>
-        <extracomment>A substring of the tooltip. " actions" are available via the context menu.</extracomment>
-        <translation type="unfinished">Haz clic para ver más acciones.</translation>
+        <extracomment>A substring of the tooltip. "More actions" are available via the context menu.</extracomment>
+        <translation type="unfinished">Pulse para ver más acciones.</translation>
     </message>
     <message>
         <source>Show Peers tab</source>
         <extracomment>A context menu item. The "Peers tab" is an element of the "Node window".</extracomment>
-        <translation type="unfinished">Mostrar pestaña de pares</translation>
+        <translation type="unfinished">Mostrar pestaña de parejas</translation>
     </message>
     <message>
         <source>Disable network activity</source>
         <extracomment>A context menu item.</extracomment>
-        <translation type="unfinished">Desactivar la actividad de la red</translation>
+        <translation type="unfinished">Deshabilita la actividad de la red</translation>
     </message>
     <message>
         <source>Enable network activity</source>
@@ -798,14 +782,6 @@ Solo es posible firmar con direcciones de tipo "legacy".</translation>
     <message>
         <source>Pre-syncing Headers (%1%)…</source>
         <translation type="unfinished">Presincronizando encabezados (%1%)...</translation>
-    </message>
-    <message>
-        <source>Error creating wallet</source>
-        <translation type="unfinished">Error al crear monedero</translation>
-    </message>
-    <message>
-        <source>Cannot create new wallet, the software was compiled without sqlite support (required for descriptor wallets)</source>
-        <translation type="unfinished">No se puede crear un nuevo monedero, ya que el software se compiló sin compatibilidad con sqlite (requerido para monederos basados en descriptores)</translation>
     </message>
     <message>
         <source>Error creating wallet</source>
@@ -1103,12 +1079,12 @@ El proceso de migración creará una copia de seguridad del monedero antes de mi
         <translation type="unfinished">La migración del monedero "%1" se realizó correctamente.</translation>
     </message>
     <message>
-        <source>Watchonly scripts have been migrated to a new wallet named '%1'.</source>
-        <translation type="unfinished">Los scripts solo de observación se han migrado a un nuevo monedero llamado "%1".</translation>
+        <source> Watchonly scripts have been migrated to a new wallet named '%1'.</source>
+        <translation type="unfinished">Los scripts solo de observación se migraron a un nuevo monedero llamado "%1".</translation>
     </message>
     <message>
-        <source>Solvable but not watched scripts have been migrated to a new wallet named '%1'.</source>
-        <translation type="unfinished">Los scripts solucionables pero no de observación se han migrado a un nuevo monedero llamado "%1".</translation>
+        <source> Solvable but not watched scripts have been migrated to a new wallet named '%1'.</source>
+        <translation type="unfinished">Los scripts solucionables pero no de observación se migraron a un nuevo monedero llamado "%1".</translation>
     </message>
     <message>
         <source>Migration failed</source>
@@ -1131,12 +1107,12 @@ El proceso de migración creará una copia de seguridad del monedero antes de mi
     </message>
     <message>
         <source>default wallet</source>
-        <translation type="unfinished">monedero predeterminado</translation>
+        <translation type="unfinished">Monedero predeterminado</translation>
     </message>
     <message>
         <source>Open Wallet</source>
         <extracomment>Title of window indicating the progress of opening of a wallet.</extracomment>
-        <translation type="unfinished">Abrir monedero</translation>
+        <translation type="unfinished">Abrir Monedero</translation>
     </message>
     <message>
         <source>Opening Wallet &lt;b&gt;%1&lt;/b&gt;…</source>
@@ -1210,16 +1186,8 @@ El proceso de migración creará una copia de seguridad del monedero antes de mi
         <translation type="unfinished">Escribe un nombre y, si lo deseas, activa las opciones avanzadas.</translation>
     </message>
     <message>
-        <source>You are one step away from creating your new wallet!</source>
-        <translation type="unfinished">Estás a un paso de crear tu nuevo monedero.</translation>
-    </message>
-    <message>
-        <source>Please provide a name and, if desired, enable any advanced options</source>
-        <translation type="unfinished">Escribe un nombre y, si lo deseas, activa las opciones avanzadas.</translation>
-    </message>
-    <message>
         <source>Wallet Name</source>
-        <translation type="unfinished">Nombre del monedero</translation>
+        <translation type="unfinished">Nombre del Monedero</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -1272,7 +1240,7 @@ El proceso de migración creará una copia de seguridad del monedero antes de mi
     <message>
         <source>Compiled without external signing support (required for external signing)</source>
         <extracomment>"External signing" means using devices such as hardware wallets.</extracomment>
-        <translation type="unfinished">Compilado sin soporte de firma externa (necesario para la firma externa)</translation>
+        <translation type="unfinished">Compilado sin compatibilidad con firma externa (se requiere para la firma externa)</translation>
     </message>
 </context>
 <context>
@@ -1429,10 +1397,6 @@ El proceso de migración creará una copia de seguridad del monedero antes de mi
         <translation type="unfinished">Revertir este parámetro requiere volver a descargar la cadena de bloques completa. Es más rápido descargar primero la cadena completa y podarla después. Se desactivan algunas funciones avanzadas.</translation>
     </message>
     <message>
-        <source>Reverting this setting requires re-downloading the entire blockchain. It is faster to download the full chain first and prune it later. Disables some advanced features.</source>
-        <translation type="unfinished">Revertir este parámetro requiere volver a descargar la cadena de bloques completa. Es más rápido descargar primero la cadena completa y podarla después. Se desactivan algunas funciones avanzadas.</translation>
-    </message>
-    <message>
         <source>This initial synchronisation is very demanding, and may expose hardware problems with your computer that had previously gone unnoticed. Each time you run %1, it will continue downloading where it left off.</source>
         <translation type="unfinished">La sincronización inicial consume muchos recursos y es posible que exponga problemas de hardware en el equipo que anteriormente habían pasado desapercibidos. Cada vez que ejecutes %1, seguirá descargando desde el punto en el que quedó.</translation>
     </message>
@@ -1495,7 +1459,7 @@ El proceso de migración creará una copia de seguridad del monedero antes de mi
     </message>
     <message>
         <source>Number of blocks left</source>
-        <translation type="unfinished">Número de bloques pendientes</translation>
+        <translation type="unfinished">Numero de bloques pendientes</translation>
     </message>
     <message>
         <source>Unknown…</source>
@@ -1523,7 +1487,7 @@ El proceso de migración creará una copia de seguridad del monedero antes de mi
     </message>
     <message>
         <source>Hide</source>
-        <translation type="unfinished">Ocultar</translation>
+        <translation type="unfinished">Ocultar </translation>
     </message>
     <message>
         <source>%1 is currently syncing.  It will download headers and blocks from peers and validate them until reaching the tip of the block chain.</source>
@@ -1594,7 +1558,7 @@ El proceso de migración creará una copia de seguridad del monedero antes de mi
     </message>
     <message>
         <source>IP address of the proxy (e.g. IPv4: 127.0.0.1 / IPv6: ::1)</source>
-        <translation type="unfinished">Dirección IP del proxy (por ejemplo, IPv4: 127.0.0.1 / IPv6: ::1)</translation>
+        <translation type="unfinished">Dirección IP del proxy (p. ej., IPv4: 127.0.0.1 / IPv6: ::1)</translation>
     </message>
     <message>
         <source>Shows if the supplied default SOCKS5 proxy is used to reach peers via this network type.</source>
@@ -1602,11 +1566,7 @@ El proceso de migración creará una copia de seguridad del monedero antes de mi
     </message>
     <message>
         <source>Minimize instead of exit the application when the window is closed. When this option is enabled, the application will be closed only after selecting Exit in the menu.</source>
-        <translation type="unfinished">Minimizar en vez de salir de la aplicación cuando la ventana está cerrada. Cuando se activa esta opción, la aplicación sólo se cerrará después de seleccionar "Salir" en el menú.</translation>
-    </message>
-    <message>
-        <source>Font in the Overview tab: </source>
-        <translation type="unfinished">Fuente en la pestaña de vista general:</translation>
+        <translation type="unfinished">Minimizar en vez de salir de la aplicación cuando la ventana esté cerrada. Cuando se activa esta opción, la aplicación solo se cerrará después de seleccionar "Salir" en el menú.</translation>
     </message>
     <message>
         <source>Options set in this dialog are overridden by the command line:</source>
@@ -1643,7 +1603,7 @@ El proceso de migración creará una copia de seguridad del monedero antes de mi
     <message>
         <source>Maximum database cache size. A larger cache can contribute to faster sync, after which the benefit is less pronounced for most use cases. Lowering the cache size will reduce memory usage. Unused mempool memory is shared for this cache.</source>
         <extracomment>Tooltip text for Options window setting that sets the size of the database cache. Explains the corresponding effects of increasing/decreasing this value.</extracomment>
-        <translation type="unfinished">Tamaño máximo de la caché de la base de datos. Una caché más grande puede contribuir a una sincronización más rápida, después de lo cual el beneficio es menos pronunciado para la mayoría de los casos de uso. Disminuir el tamaño de la caché reducirá el uso de la memoria. La memoria mempool no utilizada se comparte para esta caché.</translation>
+        <translation type="unfinished">Tamaño máximo de la caché de la base de datos. Una caché más grande puede contribuir a una sincronización más rápida, después de lo cual el beneficio es menos pronunciado para la mayoría de los casos de uso. Disminuir el tamaño de la caché reducirá el uso de la memoria. La memoria del mempool no utilizada se comparte para esta caché.</translation>
     </message>
     <message>
         <source>Set the number of script verification threads. Negative values correspond to the number of cores you want to leave free to the system.</source>
@@ -1684,7 +1644,7 @@ El proceso de migración creará una copia de seguridad del monedero antes de mi
     </message>
     <message>
         <source>Enable coin &amp;control features</source>
-        <translation type="unfinished">Habilitar funciones de &amp;control de monedas</translation>
+        <translation type="unfinished">Habilitar funciones de &amp;control de monedas.</translation>
     </message>
     <message>
         <source>If you disable the spending of unconfirmed change, the change from a transaction cannot be used until that transaction has at least one confirmation. This also affects how your balance is computed.</source>
@@ -1697,12 +1657,12 @@ El proceso de migración creará una copia de seguridad del monedero antes de mi
     <message>
         <source>Enable &amp;PSBT controls</source>
         <extracomment>An options window setting to enable PSBT controls.</extracomment>
-        <translation type="unfinished">Activar controles &amp;TBPF</translation>
+        <translation type="unfinished">Activar controles de &amp;TBPF</translation>
     </message>
     <message>
         <source>Whether to show PSBT controls.</source>
         <extracomment>Tooltip text for options window setting that enables PSBT controls.</extracomment>
-        <translation type="unfinished">Establecer si se muestran los controles TBPF</translation>
+        <translation type="unfinished">Establecer si se muestran los controles de TBPF</translation>
     </message>
     <message>
         <source>External Signer (e.g. hardware wallet)</source>
@@ -1726,7 +1686,7 @@ El proceso de migración creará una copia de seguridad del monedero antes de mi
     </message>
     <message>
         <source>Map port using NA&amp;T-PMP</source>
-        <translation type="unfinished">Asignar puerto usando NA&amp;T-PMP</translation>
+        <translation type="unfinished">Asignar puerto mediante NA&amp;T-PMP</translation>
     </message>
     <message>
         <source>Accept connections from outside.</source>
@@ -1798,15 +1758,15 @@ El proceso de migración creará una copia de seguridad del monedero antes de mi
     </message>
     <message>
         <source>&amp;Unit to show amounts in:</source>
-        <translation type="unfinished">&amp;Unidad en la que se muestran los importes:</translation>
+        <translation type="unfinished">&amp;Unidad en la que mostrar importes:</translation>
     </message>
     <message>
         <source>Choose the default subdivision unit to show in the interface and when sending coins.</source>
-        <translation type="unfinished">Elegir la unidad de subdivisión predeterminada para mostrar en la interfaz y al enviar monedas.</translation>
+        <translation type="unfinished">Elegir la subdivisión predeterminada para mostrar cantidades en la interfaz y cuando se envían monedas.</translation>
     </message>
     <message>
         <source>Third-party URLs (e.g. a block explorer) that appear in the transactions tab as context menu items. %s in the URL is replaced by transaction hash. Multiple URLs are separated by vertical bar |.</source>
-        <translation type="unfinished">URL de terceros (por ejemplo, un explorador de bloques) que aparecen en la pestaña de transacciones como elementos del menú contextual. %s en la URL se sustituye por el hash de la transacción. Las URL múltiples se separan con una barra vertical |.</translation>
+        <translation type="unfinished">URL de terceros (por ejemplo, un explorador de bloques) que aparecen en la pestaña de transacciones como elementos del menú contextual. %s en la URL se sustituye por el hash de la transacción. Las URL múltiples se separan con una barra vertical (|).</translation>
     </message>
     <message>
         <source>&amp;Third-party transaction URLs</source>
@@ -1818,11 +1778,23 @@ El proceso de migración creará una copia de seguridad del monedero antes de mi
     </message>
     <message>
         <source>Connect to the Bitcoin network through a separate SOCKS5 proxy for Tor onion services.</source>
-        <translation type="unfinished">Conectarse a la red de Bitcoin a través de un proxy SOCKS5 independiente para los servicios onion de Tor.</translation>
+        <translation type="unfinished">Conectar a la red de Bitcoin a través de un proxy SOCKS5 diferente para los servicios anónimos de Tor.</translation>
     </message>
     <message>
         <source>Use separate SOCKS&amp;5 proxy to reach peers via Tor onion services:</source>
         <translation type="unfinished">Usar proxy SOCKS&amp;5 para conectar a pares a través de los servicios anónimos de Tor:</translation>
+    </message>
+    <message>
+        <source>Monospaced font in the Overview tab:</source>
+        <translation type="unfinished">Fuente monoespaciada en la pestaña de vista general:</translation>
+    </message>
+    <message>
+        <source>embedded "%1"</source>
+        <translation type="unfinished">"%1" insertado</translation>
+    </message>
+    <message>
+        <source>closest matching "%1"</source>
+        <translation type="unfinished">"%1" con la coincidencia más aproximada</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -1835,7 +1807,7 @@ El proceso de migración creará una copia de seguridad del monedero antes de mi
     <message>
         <source>Compiled without external signing support (required for external signing)</source>
         <extracomment>"External signing" means using devices such as hardware wallets.</extracomment>
-        <translation type="unfinished">Compilado sin soporte de firma externa (requerido para la firma externa)</translation>
+        <translation type="unfinished">Compilado sin compatibilidad con firma externa (se requiere para la firma externa)</translation>
     </message>
     <message>
         <source>default</source>
@@ -1873,7 +1845,7 @@ El proceso de migración creará una copia de seguridad del monedero antes de mi
     <message>
         <source>The configuration file is used to specify advanced user options which override GUI settings. Additionally, any command-line options will override this configuration file.</source>
         <extracomment>Explanatory text about the priority order of instructions considered by client. The order from high to low being: command-line, configuration file, GUI settings.</extracomment>
-        <translation type="unfinished">El archivo de configuración se usa para especificar opciones avanzadas del usuario, que remplazan la configuración de la GUI. Además, las opciones de la línea de comandos remplazarán este archivo de configuración.</translation>
+        <translation type="unfinished">El archivo de configuración se utiliza para especificar opciones de usuario avanzadas que anulan la configuración de la GUI. Además, cualquier opción de línea de comandos anulará este archivo de configuración.</translation>
     </message>
     <message>
         <source>Continue</source>
@@ -1935,7 +1907,7 @@ El proceso de migración creará una copia de seguridad del monedero antes de mi
     </message>
     <message>
         <source>Immature:</source>
-        <translation type="unfinished">Inmadura:</translation>
+        <translation type="unfinished">Inmaduro:</translation>
     </message>
     <message>
         <source>Mined balance that has not yet matured</source>
@@ -1982,7 +1954,7 @@ El proceso de migración creará una copia de seguridad del monedero antes de mi
     <name>PSBTOperationsDialog</name>
     <message>
         <source>PSBT Operations</source>
-        <translation type="unfinished">Operaciones TBPF</translation>
+        <translation type="unfinished">Operaciones de TBPF</translation>
     </message>
     <message>
         <source>Sign Tx</source>
@@ -2058,12 +2030,8 @@ El proceso de migración creará una copia de seguridad del monedero antes de mi
         <translation type="unfinished">TBPF guardada en disco.</translation>
     </message>
     <message>
-        <source>Sends %1 to %2</source>
-        <translation type="unfinished">Envía %1 a %2</translation>
-    </message>
-    <message>
-        <source>own address</source>
-        <translation type="unfinished">dirección propia</translation>
+        <source> * Sends %1 to %2</source>
+        <translation type="unfinished">* Envía %1 a %2</translation>
     </message>
     <message>
         <source>own address</source>
@@ -2075,7 +2043,7 @@ El proceso de migración creará una copia de seguridad del monedero antes de mi
     </message>
     <message>
         <source>Pays transaction fee: </source>
-        <translation type="unfinished">Pagar comisión por transacción:</translation>
+        <translation type="unfinished">Pagar comisión de transacción:</translation>
     </message>
     <message>
         <source>Total Amount</source>
@@ -2099,7 +2067,7 @@ El proceso de migración creará una copia de seguridad del monedero antes de mi
     </message>
     <message>
         <source>(But no wallet is loaded.)</source>
-        <translation type="unfinished">(No existe ningún monedero cargado).</translation>
+        <translation type="unfinished">(No hay ningún monedero cargado).</translation>
     </message>
     <message>
         <source>(But this wallet cannot sign transactions.)</source>
@@ -2150,7 +2118,7 @@ Si recibes este error, debes solicitar al comerciante que te proporcione un URI 
     </message>
     <message>
         <source>Payment request file handling</source>
-        <translation type="unfinished">Gestión del archivo de solicitud de pago</translation>
+        <translation type="unfinished">Gestión de archivos de solicitud de pago</translation>
     </message>
 </context>
 <context>
@@ -2270,10 +2238,6 @@ Si recibes este error, debes solicitar al comerciante que te proporcione un URI 
         <translation type="unfinished">Directorio de bloques</translation>
     </message>
     <message>
-        <source>Blocksdir</source>
-        <translation type="unfinished">Directorio de bloques</translation>
-    </message>
-    <message>
         <source>To specify a non-default location of the blocks directory use the '%1' option.</source>
         <translation type="unfinished">Para especificar una localización personalizada del directorio de bloques, usa la opción "%1". </translation>
     </message>
@@ -2340,22 +2304,6 @@ Si recibes este error, debes solicitar al comerciante que te proporcione un URI 
     <message>
         <source>Select a peer to view detailed information.</source>
         <translation type="unfinished">Selecciona un par para ver la información detallada.</translation>
-    </message>
-    <message>
-        <source>The transport layer version: %1</source>
-        <translation type="unfinished">Versión de la capa de transporte: %1</translation>
-    </message>
-    <message>
-        <source>Transport</source>
-        <translation type="unfinished">Transporte</translation>
-    </message>
-    <message>
-        <source>The BIP324 session ID string in hex, if any.</source>
-        <translation type="unfinished">Cadena de identificación de la sesión BIP324 en formato hexadecimal, si existe.</translation>
-    </message>
-    <message>
-        <source>Session ID</source>
-        <translation type="unfinished">Identificador de sesión</translation>
     </message>
     <message>
         <source>The transport layer version: %1</source>
@@ -2618,21 +2566,6 @@ Si recibes este error, debes solicitar al comerciante que te proporcione un URI 
         <translation type="unfinished">v2: protocolo de transporte cifrado BIP324</translation>
     </message>
     <message>
-        <source>detecting: peer could be v1 or v2</source>
-        <extracomment>Explanatory text for "detecting" transport type.</extracomment>
-        <translation type="unfinished">Detectando: el par puede ser v1 o v2</translation>
-    </message>
-    <message>
-        <source>v1: unencrypted, plaintext transport protocol</source>
-        <extracomment>Explanatory text for v1 transport type.</extracomment>
-        <translation type="unfinished">v1: protocolo de transporte de texto simple sin cifrar</translation>
-    </message>
-    <message>
-        <source>v2: BIP324 encrypted transport protocol</source>
-        <extracomment>Explanatory text for v2 transport type.</extracomment>
-        <translation type="unfinished">v2: protocolo de transporte cifrado BIP324</translation>
-    </message>
-    <message>
         <source>we selected the peer for high bandwidth relay</source>
         <translation type="unfinished">Seleccionamos el par para la retransmisión de banda ancha</translation>
     </message>
@@ -2685,10 +2618,6 @@ Si recibes este error, debes solicitar al comerciante que te proporcione un URI 
     <message>
         <source>Executing command without any wallet</source>
         <translation type="unfinished">Ejecutar comando sin monedero</translation>
-    </message>
-    <message>
-        <source>Node window - [%1]</source>
-        <translation type="unfinished">Ventana de nodo - [%1]</translation>
     </message>
     <message>
         <source>Executing command using "%1" wallet</source>
@@ -3014,7 +2943,7 @@ Para obtener más información sobre cómo usar esta consola, escribe %6.
     </message>
     <message>
         <source>Hide</source>
-        <translation type="unfinished">Ocultar</translation>
+        <translation type="unfinished">Ocultar </translation>
     </message>
     <message>
         <source>Recommended:</source>
@@ -3127,7 +3056,7 @@ Nota: Dado que la comisión se calcula por byte, una tasa de "100 satoshis por k
     <message>
         <source>Sign on device</source>
         <extracomment>"device" usually means a hardware wallet.</extracomment>
-        <translation type="unfinished">Firmar en el dispositivo</translation>
+        <translation type="unfinished">Firmar en un dispositivo</translation>
     </message>
     <message>
         <source>Connect your hardware wallet first.</source>
@@ -3145,6 +3074,10 @@ Nota: Dado que la comisión se calcula por byte, una tasa de "100 satoshis por k
     <message>
         <source>Creates a Partially Signed Bitcoin Transaction (PSBT) for use with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
         <translation type="unfinished">Crea una transacción de Bitcoin parcialmente firmada (TBPF) para usarla, por ejemplo, con un monedero %1 sin conexión o un monedero de hardware compatible con TBPF.</translation>
+    </message>
+    <message>
+        <source> from wallet '%1'</source>
+        <translation type="unfinished">desde el monedero "%1"</translation>
     </message>
     <message>
         <source>%1 to '%2'</source>
@@ -3165,12 +3098,12 @@ Nota: Dado que la comisión se calcula por byte, una tasa de "100 satoshis por k
     <message>
         <source>External signer not found</source>
         <extracomment>"External signer" means using devices such as hardware wallets.</extracomment>
-        <translation type="unfinished">No se encontró el dispositivo firmante externo</translation>
+        <translation type="unfinished">Dispositivo externo de firma no encontrado</translation>
     </message>
     <message>
         <source>External signer failure</source>
         <extracomment>"External signer" means using devices such as hardware wallets.</extracomment>
-        <translation type="unfinished">Error de firmante externo</translation>
+        <translation type="unfinished">Error de dispositivo de firma externo</translation>
     </message>
     <message>
         <source>Save Transaction Data</source>
@@ -3179,7 +3112,7 @@ Nota: Dado que la comisión se calcula por byte, una tasa de "100 satoshis por k
     <message>
         <source>Partially Signed Transaction (Binary)</source>
         <extracomment>Expanded name of the binary PSBT file format. See: BIP 174.</extracomment>
-        <translation type="unfinished">Transacción parcialmente firmada (binario)</translation>
+        <translation type="unfinished">Transacción parcialmente firmada (binario) </translation>
     </message>
     <message>
         <source>PSBT saved</source>
@@ -3202,10 +3135,6 @@ Nota: Dado que la comisión se calcula por byte, una tasa de "100 satoshis por k
         <source>Please, review your transaction proposal. This will produce a Partially Signed Bitcoin Transaction (PSBT) which you can save or copy and then sign with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
         <extracomment>Text to inform a user attempting to create a transaction of their current options. At this stage, a user can only create a PSBT. This string is displayed when private keys are disabled and an external signer is not available.</extracomment>
         <translation type="unfinished">Revisa por favor la propuesta de transacción. Esto producirá una transacción de Bitcoin parcialmente firmada (TBPF) que puedes guardar o copiar y, luego, firmar; por ejemplo, con un monedero %1 fuera de línea o un monedero de hardware compatible con TBPF.</translation>
-    </message>
-    <message>
-        <source>%1 from wallet '%2'</source>
-        <translation type="unfinished">%1 desde el monedero "%2"</translation>
     </message>
     <message>
         <source>Do you want to create this transaction?</source>
@@ -3246,7 +3175,7 @@ Nota: Dado que la comisión se calcula por byte, una tasa de "100 satoshis por k
     </message>
     <message>
         <source>PSBT saved to disk</source>
-        <translation type="unfinished">TBPF guardada en disco</translation>
+        <translation type="unfinished">TBPF guardada en el disco</translation>
     </message>
     <message>
         <source>Confirm send coins</source>
@@ -3348,7 +3277,7 @@ Nota: Dado que la comisión se calcula por byte, una tasa de "100 satoshis por k
     </message>
     <message>
         <source>The fee will be deducted from the amount being sent. The recipient will receive less bitcoins than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
-        <translation type="unfinished">La comisión se deducirá del monto del envío. El destinatario recibirá menos bitcoins que los que ingreses en el campo de cantidad. Si se seleccionan varios destinatarios, la comisión se divide por igual.</translation>
+        <translation type="unfinished">La comisión se deducirá del importe que se envía. El destinatario recibirá menos bitcoins que los que ingreses en el campo del importe. Si se seleccionan varios destinatarios, la comisión se dividirá por igual.</translation>
     </message>
     <message>
         <source>S&amp;ubtract fee from amount</source>
@@ -3364,7 +3293,7 @@ Nota: Dado que la comisión se calcula por byte, una tasa de "100 satoshis por k
     </message>
     <message>
         <source>Enter a label for this address to add it to the list of used addresses</source>
-        <translation type="unfinished">Ingresar una etiqueta para esta dirección a fin de agregarla a la lista de direcciones utilizadas</translation>
+        <translation type="unfinished">Introduce una etiqueta para esta dirección a fin de añadirla al listado de direcciones utilizadas</translation>
     </message>
     <message>
         <source>A message that was attached to the bitcoin: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Bitcoin network.</source>
@@ -3418,11 +3347,11 @@ Nota: Dado que la comisión se calcula por byte, una tasa de "100 satoshis por k
     </message>
     <message>
         <source>Copy the current signature to the system clipboard</source>
-        <translation type="unfinished">Copiar la dirección seleccionada actualmente al portapapeles del sistema</translation>
+        <translation type="unfinished">Copiar la firma actual al portapapeles del sistema</translation>
     </message>
     <message>
         <source>Sign the message to prove you own this Bitcoin address</source>
-        <translation type="unfinished">Firmar el mensaje para demostrar que esta dirección de Bitcoin te pertenece</translation>
+        <translation type="unfinished">Firma el mensaje para demostrar que esta dirección de Bitcoin te pertenece</translation>
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -3615,8 +3544,8 @@ Nota: Dado que la comisión se calcula por byte, una tasa de "100 satoshis por k
     <message numerus="yes">
         <source>matures in %n more block(s)</source>
         <translation type="unfinished">
-            <numerusform>madura en %n bloque más</numerusform>
-            <numerusform>madura en %n bloques más</numerusform>
+            <numerusform>madura en %n bloque</numerusform>
+            <numerusform>madura en %n bloques</numerusform>
         </translation>
     </message>
     <message>
@@ -3653,7 +3582,7 @@ Nota: Dado que la comisión se calcula por byte, una tasa de "100 satoshis por k
     </message>
     <message>
         <source>Transaction ID</source>
-        <translation type="unfinished">ID de transacción</translation>
+        <translation type="unfinished">Identificador de transacción</translation>
     </message>
     <message>
         <source>Transaction total size</source>
@@ -3668,8 +3597,8 @@ Nota: Dado que la comisión se calcula por byte, una tasa de "100 satoshis por k
         <translation type="unfinished">Índice de salida</translation>
     </message>
     <message>
-        <source>%1 (Certificate was not verified)</source>
-        <translation type="unfinished">%1 (El certificado no fue verificado)</translation>
+        <source> (Certificate was not verified)</source>
+        <translation type="unfinished"> (No se ha verificado el certificado)</translation>
     </message>
     <message>
         <source>Merchant</source>
@@ -3751,7 +3680,7 @@ Nota: Dado que la comisión se calcula por byte, una tasa de "100 satoshis por k
     </message>
     <message>
         <source>Immature (%1 confirmations, will be available after %2)</source>
-        <translation type="unfinished">Inmadura (%1 confirmaciones; estará disponibles después de %2)</translation>
+        <translation type="unfinished">Inmadura (%1 confirmaciones, estará disponible después de %2)</translation>
     </message>
     <message>
         <source>Generated but not accepted</source>
@@ -3776,6 +3705,10 @@ Nota: Dado que la comisión se calcula por byte, una tasa de "100 satoshis por k
     <message>
         <source>watch-only</source>
         <translation type="unfinished">Solo de observación</translation>
+    </message>
+    <message>
+        <source>(n/a)</source>
+        <translation type="unfinished">(n/d)</translation>
     </message>
     <message>
         <source>(n/a)</source>
@@ -4135,10 +4068,6 @@ Ve a "Archivo &gt; Abrir monedero" para cargar uno.
         <translation type="unfinished">%s no pudo validar el estado de la instantánea -assumeutxo. Esto indica un problema de hardware, un error en el software o una modificación incorrecta del software que permitió que se cargara una instantánea inválida. Por consiguiente, el nodo se apagará y dejará de utilizar cualquier estado basado en la instantánea, restableciendo la altura de la cadena de %d a %d. En el siguiente reinicio, el nodo reanudará la sincronización desde %d sin usar datos de instantánea. Reporta este incidente a %s, indicando cómo obtuviste la instantánea. Se dejó el estado de cadena de la instantánea inválida en el disco por si resulta útil para diagnosticar el problema que causó este error.</translation>
     </message>
     <message>
-        <source>%s failed to validate the -assumeutxo snapshot state. This indicates a hardware problem, or a bug in the software, or a bad software modification that allowed an invalid snapshot to be loaded. As a result of this, the node will shut down and stop using any state that was built on the snapshot, resetting the chain height from %d to %d. On the next restart, the node will resume syncing from %d without using any snapshot data. Please report this incident to %s, including how you obtained the snapshot. The invalid snapshot chainstate will be left on disk in case it is helpful in diagnosing the issue that caused this error.</source>
-        <translation type="unfinished">%s no pudo validar el estado de la instantánea -assumeutxo. Esto indica un problema de hardware, un error en el software o una modificación incorrecta del software que permitió que se cargara una instantánea no válida. Por consiguiente, el nodo se apagará y dejará de utilizar cualquier estado basado en la instantánea, restableciendo la altura de la cadena de %d a %d. En el siguiente reinicio, el nodo reanudará la sincronización desde %d sin usar datos de instantánea. Comunique este incidente a %s, indicando cómo obtuvo la instantánea. Se dejó el estado de encadenamiento de la instantánea no válida en el disco por si resulta útil para diagnosticar el problema que causó este error.</translation>
-    </message>
-    <message>
         <source>%s request to listen on port %u. This port is considered "bad" and thus it is unlikely that any peer will connect to it. See doc/p2p-bad-ports.md for details and a full list.</source>
         <translation type="unfinished">%s solicitud para escuchar en el puerto %u. Este puerto se considera "malo" y, por lo tanto, es poco probable que algún par se conecte a él. Consulta doc/p2p-bad-ports.md para obtener detalles y una lista completa.</translation>
     </message>
@@ -4199,16 +4128,16 @@ Ve a "Archivo &gt; Abrir monedero" para cargar uno.
         <translation type="unfinished">Archivo peers.dat inválido o corrupto (%s). Si crees que se trata de un error, infórmalo a %s. Como alternativa, puedes quitar el archivo %s (renombrarlo, moverlo o eliminarlo) para que se cree uno nuevo en el siguiente inicio.</translation>
     </message>
     <message>
-        <source> than one onion bind address is provided. Using %s for the automatically created Tor onion service.</source>
+        <source>More than one onion bind address is provided. Using %s for the automatically created Tor onion service.</source>
         <translation type="unfinished">Se proporciona más de una dirección de enlace onion. Se está usando %s para el servicio onion de Tor creado automáticamente.</translation>
     </message>
     <message>
         <source>No dump file provided. To use createfromdump, -dumpfile=&lt;filename&gt; must be provided.</source>
-        <translation type="unfinished">No se proporcionó ningún archivo de volcado. Para usar createfromdump, se debe proporcionar  -dumpfile=&lt;filename&gt;.</translation>
+        <translation type="unfinished">No se ha proporcionado ningún archivo de volcado. Para usar createfromdump, se debe proporcionar  -dumpfile=&lt;filename&gt;.</translation>
     </message>
     <message>
         <source>No dump file provided. To use dump, -dumpfile=&lt;filename&gt; must be provided.</source>
-        <translation type="unfinished">No se proporcionó ningún archivo de volcado. Para usar createfromdump, se debe proporcionar  -dumpfile=&lt;filename&gt;.</translation>
+        <translation type="unfinished">No se ha proporcionado ningún archivo de volcado. Para usar el volcado, debe proporcionarse -dumpfile=&lt;filename&gt;.</translation>
     </message>
     <message>
         <source>No wallet file format provided. To use createfromdump, -format=&lt;format&gt; must be provided.</source>
@@ -4237,10 +4166,6 @@ Ve a "Archivo &gt; Abrir monedero" para cargar uno.
     <message>
         <source>Rename of '%s' -&gt; '%s' failed. You should resolve this by manually moving or deleting the invalid snapshot directory %s, otherwise you will encounter the same error again on the next startup.</source>
         <translation type="unfinished">Error al cambiar el nombre de "%s" a "%s". Para resolverlo, mueve o elimina manualmente el directorio %s de la instantánea no válida. De lo contrario, encontrarás el mismo error de nuevo en el siguiente inicio.</translation>
-    </message>
-    <message>
-        <source>Rename of '%s' -&gt; '%s' failed. You should resolve this by manually moving or deleting the invalid snapshot directory %s, otherwise you will encounter the same error again on the next startup.</source>
-        <translation type="unfinished">Error de renombrado de «%s» → «%s». Debería resolver esto manualmente moviendo o borrando el directorio %s de la instantánea no válida, en otro caso encontrará el mismo error de nuevo en el arranque siguiente.</translation>
     </message>
     <message>
         <source>SQLiteDatabase: Unknown sqlite wallet schema version %d. Only version %d is supported</source>
@@ -4280,7 +4205,7 @@ Ve a "Archivo &gt; Abrir monedero" para cargar uno.
     </message>
     <message>
         <source>Unable to replay blocks. You will need to rebuild the database using -reindex-chainstate.</source>
-        <translation type="unfinished">No se pueden reproducir bloques. Tendrás que reconstruir la base de datos usando -reindex-chainstate.</translation>
+        <translation type="unfinished">No se pudieron reproducir bloques. Tendrás que reconstruir la base de datos usando -reindex-chainstate.</translation>
     </message>
     <message>
         <source>Unknown wallet file format "%s" provided. Please provide one of "bdb" or "sqlite".</source>
@@ -4289,10 +4214,6 @@ Ve a "Archivo &gt; Abrir monedero" para cargar uno.
     <message>
         <source>Unsupported category-specific logging level %1$s=%2$s. Expected %1$s=&lt;category&gt;:&lt;loglevel&gt;. Valid categories: %3$s. Valid loglevels: %4$s.</source>
         <translation type="unfinished">El nivel de registro de la categoría específica no es compatible: %1$s=%2$s. Se esperaba %1$s=&lt;category&gt;:&lt;loglevel&gt;. Categorías válidas: %3$s. Niveles de registro válidos: %4 $s.</translation>
-    </message>
-    <message>
-        <source>Unsupported category-specific logging level %1$s=%2$s. Expected %1$s=&lt;category&gt;:&lt;loglevel&gt;. Valid categories: %3$s. Valid loglevels: %4$s.</source>
-        <translation type="unfinished">Nivel de boletín del acceso especificado en categoría no mantenida en %1$s=%2$s. Se esperaba %1$s=&lt;category&gt;:&lt;loglevel&gt;. Categorías válidas: %3$s. Niveles de boletín válidos: %4 $s.</translation>
     </message>
     <message>
         <source>Unsupported chainstate database format found. Please restart with -reindex-chainstate. This will rebuild the chainstate database.</source>
@@ -4305,10 +4226,6 @@ Ve a "Archivo &gt; Abrir monedero" para cargar uno.
     <message>
         <source>Wallet loaded successfully. The legacy wallet type is being deprecated and support for creating and opening legacy wallets will be removed in the future. Legacy wallets can be migrated to a descriptor wallet with migratewallet.</source>
         <translation type="unfinished">El monedero se cargó correctamente. El tipo de monedero "legacy" se está descontinuando, por lo que la asistencia para crear y abrir estos monederos se eliminará en el futuro. Los monederos tipo "legacy" se pueden migrar a un monedero basado en descriptores con "migratewallet".</translation>
-    </message>
-    <message>
-        <source>Wallet loaded successfully. The legacy wallet type is being deprecated and support for creating and opening legacy wallets will be removed in the future. Legacy wallets can be migrated to a descriptor wallet with migratewallet.</source>
-        <translation type="unfinished">Monedero correctamente cargado. El tipo de billetero heredado está siendo obsoleto y mantenimiento para creación de monederos heredados serán eliminados en el futuro. Los monederos heredados pueden ser migrados a un descriptor de monedero con migratewallet.</translation>
     </message>
     <message>
         <source>Warning: Dumpfile wallet format "%s" does not match command line specified format "%s".</source>
@@ -4360,7 +4277,7 @@ Ve a "Archivo &gt; Abrir monedero" para cargar uno.
     </message>
     <message>
         <source>%s is set very high! Fees this large could be paid on a single transaction.</source>
-        <translation type="unfinished">La configuración de %s es demasiado alta. Las comisiones tan grandes se podrían pagar en una sola transacción.</translation>
+        <translation type="unfinished">El valor de %s es demasiado alto. Las comisiones tan grandes se podrían pagar en una sola transacción.</translation>
     </message>
     <message>
         <source>Cannot provide specific connections and have addrman find outgoing connections at the same time.</source>
@@ -4368,7 +4285,7 @@ Ve a "Archivo &gt; Abrir monedero" para cargar uno.
     </message>
     <message>
         <source>Error loading %s: External signer wallet being loaded without external signer support compiled</source>
-        <translation type="unfinished">Error al cargar %s: Se está cargando el monedero del firmante externo sin que se haya compilado la compatibilidad del firmante externo.</translation>
+        <translation type="unfinished">Error al cargar %s: Se está cargando el monedero del firmante externo sin que se haya compilado la compatibilidad del firmante externo</translation>
     </message>
     <message>
         <source>Error reading %s! All keys read correctly, but transaction data or address metadata may be missing or incorrect.</source>
@@ -4391,16 +4308,12 @@ Ve a "Archivo &gt; Abrir monedero" para cargar uno.
         <translation type="unfinished">No se pudo calcular la comisión de incremento porque las UTXO sin confirmar dependen de un grupo enorme de transacciones no confirmadas.</translation>
     </message>
     <message>
-        <source>Failed to calculate bump fees, because unconfirmed UTXOs depend on enormous cluster of unconfirmed transactions.</source>
-        <translation type="unfinished">No se pudo calcular la comisión de incremento porque las UTXO sin confirmar dependen de un grupo enorme de transacciones no confirmadas.</translation>
-    </message>
-    <message>
         <source>Failed to rename invalid peers.dat file. Please move or delete it and try again.</source>
         <translation type="unfinished">No se pudo cambiar el nombre del archivo peers.dat inválido. Muévelo o elimínalo, e intenta de nuevo.</translation>
     </message>
     <message>
         <source>Fee estimation failed. Fallbackfee is disabled. Wait a few blocks or enable %s.</source>
-        <translation type="unfinished">Error al calcular la comisión. La opción «fallbackfee» está desactivada. Espera algunos bloques o activa %s.</translation>
+        <translation type="unfinished">Error al calcular la comisión. La opción fallbackfee está desactivada. Espera algunos bloques o activa %s.</translation>
     </message>
     <message>
         <source>Incompatible options: -dnsseed=1 was explicitly specified, but -onlynet forbids connections to IPv4/IPv6</source>
@@ -4408,11 +4321,11 @@ Ve a "Archivo &gt; Abrir monedero" para cargar uno.
     </message>
     <message>
         <source>Invalid amount for %s=&lt;amount&gt;: '%s' (must be at least the minrelay fee of %s to prevent stuck transactions)</source>
-        <translation type="unfinished">Importe inválido para %s=&lt;amount&gt;: "%s" (debe ser al menos la comisión mínima de retransmisión de %s para evitar transacciones atascadas)</translation>
+        <translation type="unfinished">Importe inválido para %s=&lt;amount&gt;: "%s" (debe ser al menos la comisión mínima de retransmisión de %s para evitar transacciones atascadas).</translation>
     </message>
     <message>
         <source>Outbound connections restricted to CJDNS (-onlynet=cjdns) but -cjdnsreachable is not provided</source>
-        <translation type="unfinished">Las conexiones salientes están restringidas a CJDNS (-onlynet=cjdns), pero no se proporciona -cjdnsreachable.</translation>
+        <translation type="unfinished">Las conexiones salientes están restringidas a CJDNS (-onlynet=cjdns), pero no se proporciona -cjdnsreachable</translation>
     </message>
     <message>
         <source>Outbound connections restricted to Tor (-onlynet=onion) but the proxy for reaching the Tor network is explicitly forbidden: -onion=0</source>
@@ -4436,7 +4349,7 @@ Ve a "Archivo &gt; Abrir monedero" para cargar uno.
     </message>
     <message>
         <source>Transaction requires one destination of non-0 value, a non-0 feerate, or a pre-selected input</source>
-        <translation type="unfinished">La transacción requiere un destino de valor distinto de cero, una tasa de comisión distinta de cero, o una entrada preseleccionada.</translation>
+        <translation type="unfinished">La transacción requiere un destino de valor distinto de 0, una tasa de comisión distinta de 0, o una entrada preseleccionada.</translation>
     </message>
     <message>
         <source>UTXO snapshot failed to validate. Restart to resume normal initial block download, or try loading a different snapshot.</source>
@@ -4482,7 +4395,7 @@ No se puede restaurar la copia de seguridad del monedero.</translation>
     </message>
     <message>
         <source>Block verification was interrupted</source>
-        <translation type="unfinished">La verificación del bloque fue interrumpida</translation>
+        <translation type="unfinished">Se interrumpió la verificación de bloques</translation>
     </message>
     <message>
         <source>Config setting for %s only applied on %s network when in [%s] section.</source>
@@ -4506,7 +4419,7 @@ No se puede restaurar la copia de seguridad del monedero.</translation>
     </message>
     <message>
         <source>Disk space is too low!</source>
-        <translation type="unfinished">¡El espacio en el disco es demasiado pequeño!</translation>
+        <translation type="unfinished">¡El espacio en disco es demasiado pequeño!</translation>
     </message>
     <message>
         <source>Do you want to rebuild the block database now?</source>
@@ -4521,10 +4434,6 @@ No se puede restaurar la copia de seguridad del monedero.</translation>
         <translation type="unfinished">El archivo de volcado %s no existe.</translation>
     </message>
     <message>
-        <source>Error committing db txn for wallet transactions removal</source>
-        <translation type="unfinished">Error al confirmar transacción de la base de datos para eliminar transacciones del monedero</translation>
-    </message>
-    <message>
         <source>Error creating %s</source>
         <translation type="unfinished">Error al crear %s</translation>
     </message>
@@ -4534,7 +4443,7 @@ No se puede restaurar la copia de seguridad del monedero.</translation>
     </message>
     <message>
         <source>Error initializing wallet database environment %s!</source>
-        <translation type="unfinished">Error al inicializar el entorno de la base de datos del monedero  %s</translation>
+        <translation type="unfinished">Error al inicializar el entorno de la base de datos del monedero %s</translation>
     </message>
     <message>
         <source>Error loading %s</source>
@@ -4573,12 +4482,16 @@ No se puede restaurar la copia de seguridad del monedero.</translation>
         <translation type="unfinished">Error al leer el siguiente registro de la base de datos del monedero</translation>
     </message>
     <message>
-        <source>Error starting db txn for wallet transactions removal</source>
-        <translation type="unfinished">Error al iniciar transacción de la base de datos para eliminar transacciones del monedero</translation>
-    </message>
-    <message>
         <source>Error: Cannot extract destination from the generated scriptpubkey</source>
         <translation type="unfinished">Error: No se puede extraer el destino del scriptpubkey generado</translation>
+    </message>
+    <message>
+        <source>Error: Could not add watchonly tx to watchonly wallet</source>
+        <translation type="unfinished">Error: No se puede añadir la transacción solo de observación al monedero solo de observación</translation>
+    </message>
+    <message>
+        <source>Error: Could not delete watchonly transactions</source>
+        <translation type="unfinished">Error: No se pueden eliminar las transacciones solo de observación</translation>
     </message>
     <message>
         <source>Error: Couldn't create cursor into database</source>
@@ -4594,7 +4507,7 @@ No se puede restaurar la copia de seguridad del monedero.</translation>
     </message>
     <message>
         <source>Error: Failed to create new watchonly wallet</source>
-        <translation type="unfinished">Error: No se puede crear un monedero solo de observación</translation>
+        <translation type="unfinished">Error: No se pudo crear un monedero solo de observación</translation>
     </message>
     <message>
         <source>Error: Got key that was not hex: %s</source>
@@ -4614,7 +4527,11 @@ No se puede restaurar la copia de seguridad del monedero.</translation>
     </message>
     <message>
         <source>Error: No %s addresses available.</source>
-        <translation type="unfinished">Error: No hay direcciones %s disponibles .</translation>
+        <translation type="unfinished">Error: No hay direcciones %s disponibles.</translation>
+    </message>
+    <message>
+        <source>Error: Not all watchonly txs could be deleted</source>
+        <translation type="unfinished">Error: No se pueden eliminar todas las transacciones solo de observación</translation>
     </message>
     <message>
         <source>Error: This wallet already uses SQLite</source>
@@ -4641,36 +4558,16 @@ No se puede restaurar la copia de seguridad del monedero.</translation>
         <translation type="unfinished">Error: No es posible leer todos los registros en la base de datos</translation>
     </message>
     <message>
-        <source>Error: Unable to read wallet's best block locator record</source>
-        <translation type="unfinished">Error: No se ha podido leer el registro del mejor localizador de bloques del monedero</translation>
-    </message>
-    <message>
         <source>Error: Unable to remove watchonly address book data</source>
         <translation type="unfinished">Error: No es posible eliminar los datos de la libreta de direcciones solo de observación</translation>
     </message>
     <message>
         <source>Error: Unable to write record to new wallet</source>
-        <translation type="unfinished">Error: No se puede escribir el registro en el nuevo monedero</translation>
-    </message>
-    <message>
-        <source>Error: Unable to write solvable wallet best block locator record</source>
-        <translation type="unfinished">Error: No se ha podido escribir el registro del mejor localizador de bloques del monedero solucionable</translation>
-    </message>
-    <message>
-        <source>Error: Unable to write watchonly wallet best block locator record</source>
-        <translation type="unfinished">Error: No se ha podido escribir el registro del mejor localizador de bloques del monedero solo de observación</translation>
-    </message>
-    <message>
-        <source>Error: address book copy failed for wallet %s</source>
-        <translation type="unfinished">Error: falló copia de la libreta de direcciones para el monedero %s</translation>
-    </message>
-    <message>
-        <source>Error: database transaction cannot be executed for wallet %s</source>
-        <translation type="unfinished">Error: la transacción de la base de datos no se puede ejecutar para el monedero %s</translation>
+        <translation type="unfinished">Error: No se pudo escribir el registro en el nuevo monedero</translation>
     </message>
     <message>
         <source>Failed to listen on any port. Use -listen=0 if you want this.</source>
-        <translation type="unfinished">Fallo al escuchar en todos los puertos. Usa -listen=0 si quieres hacerlo.</translation>
+        <translation type="unfinished">Error de escucha en todos los puertos. Usa -listen=0 si quieres hacerlo.</translation>
     </message>
     <message>
         <source>Failed to rescan the wallet during initialization</source>
@@ -4678,15 +4575,11 @@ No se puede restaurar la copia de seguridad del monedero.</translation>
     </message>
     <message>
         <source>Failed to start indexes, shutting down..</source>
-        <translation type="unfinished">Error al iniciar índices, cerrando...</translation>
+        <translation type="unfinished">Error al iniciar los índices, cerrando...</translation>
     </message>
     <message>
         <source>Failed to verify database</source>
-        <translation type="unfinished">Fallo al verificar la base de datos</translation>
-    </message>
-    <message>
-        <source>Failure removing transaction: %s</source>
-        <translation type="unfinished">Error al eliminar la transacción: %s</translation>
+        <translation type="unfinished">No se ha podido verificar la base de datos</translation>
     </message>
     <message>
         <source>Fee rate (%s) is lower than the minimum fee rate setting (%s)</source>
@@ -4710,7 +4603,7 @@ No se puede restaurar la copia de seguridad del monedero.</translation>
     </message>
     <message>
         <source>Input not found or already spent</source>
-        <translation type="unfinished">Entrada no encontrada o ya gastada</translation>
+        <translation type="unfinished">La entrada no se encontró o ya se gastó</translation>
     </message>
     <message>
         <source>Insufficient dbcache for block verification</source>
@@ -4738,15 +4631,15 @@ No se puede restaurar la copia de seguridad del monedero.</translation>
     </message>
     <message>
         <source>Invalid amount for %s=&lt;amount&gt;: '%s' (must be at least %s)</source>
-        <translation type="unfinished">Importe inválido para %s=&lt;amount&gt;: '%s' (debe ser por lo menos %s)</translation>
+        <translation type="unfinished">Importe inválido para %s=&lt;amount&gt;: "%s" (debe ser por lo menos %s)</translation>
     </message>
     <message>
         <source>Invalid amount for %s=&lt;amount&gt;: '%s'</source>
-        <translation type="unfinished">Importe inválido para %s=&lt;amount&gt;: '%s'</translation>
+        <translation type="unfinished">Importe inválido para %s=&lt;amount&gt;: "%s"</translation>
     </message>
     <message>
         <source>Invalid amount for -%s=&lt;amount&gt;: '%s'</source>
-        <translation type="unfinished">Importe inválido para -%s=&lt;amount&gt;: "%s"</translation>
+        <translation type="unfinished">Importe inválido para -%s=&lt;amount&gt;: '%s'</translation>
     </message>
     <message>
         <source>Invalid netmask specified in -whitelist: '%s'</source>
@@ -4754,15 +4647,15 @@ No se puede restaurar la copia de seguridad del monedero.</translation>
     </message>
     <message>
         <source>Invalid port specified in %s: '%s'</source>
-        <translation type="unfinished">Puerto no válido especificado en %s: "%s"</translation>
+        <translation type="unfinished">Puerto inválido especificado en %s: "%s"</translation>
     </message>
     <message>
         <source>Invalid pre-selected input %s</source>
-        <translation type="unfinished">La entrada preseleccionada no es válida %s</translation>
+        <translation type="unfinished">Entrada preseleccionada inválida: %s</translation>
     </message>
     <message>
         <source>Listening for incoming connections failed (listen returned error %s)</source>
-        <translation type="unfinished">Fallo en la escucha para conexiones entrantes (la escucha devolvió el error %s)</translation>
+        <translation type="unfinished">Fallo en la escucha de conexiones entrantes (la escucha devolvió el error %s)</translation>
     </message>
     <message>
         <source>Loading P2P addresses…</source>
@@ -4774,7 +4667,7 @@ No se puede restaurar la copia de seguridad del monedero.</translation>
     </message>
     <message>
         <source>Loading block index…</source>
-        <translation type="unfinished">Cargando índice de bloques...</translation>
+        <translation type="unfinished">Cargando el índice de bloques...</translation>
     </message>
     <message>
         <source>Loading wallet…</source>
@@ -4782,7 +4675,7 @@ No se puede restaurar la copia de seguridad del monedero.</translation>
     </message>
     <message>
         <source>Missing amount</source>
-        <translation type="unfinished">Falta el importe</translation>
+        <translation type="unfinished">Importe faltante</translation>
     </message>
     <message>
         <source>Missing solving data for estimating transaction size</source>
@@ -4834,7 +4727,7 @@ No se puede restaurar la copia de seguridad del monedero.</translation>
     </message>
     <message>
         <source>SQLiteDatabase: Failed to execute statement to verify database: %s</source>
-        <translation type="unfinished">SQLiteDatabase: Fallo al ejecutar la instrucción para verificar la base de datos: %s</translation>
+        <translation type="unfinished">SQLiteDatabase: Fallo al ejecutar la instrucción para verificar la base de datos (%s)</translation>
     </message>
     <message>
         <source>SQLiteDatabase: Failed to prepare statement to verify database: %s</source>
@@ -4854,7 +4747,7 @@ No se puede restaurar la copia de seguridad del monedero.</translation>
     </message>
     <message>
         <source>Signing transaction failed</source>
-        <translation type="unfinished">Fallo al firmar la transacción</translation>
+        <translation type="unfinished">Error al firmar la transacción</translation>
     </message>
     <message>
         <source>Specified -walletdir "%s" does not exist</source>
@@ -4874,7 +4767,7 @@ No se puede restaurar la copia de seguridad del monedero.</translation>
     </message>
     <message>
         <source>Specified data directory "%s" does not exist.</source>
-        <translation type="unfinished">El directorio de datos especificado «%s» no existe.</translation>
+        <translation type="unfinished">El directorio de datos especificado "%s" no existe.</translation>
     </message>
     <message>
         <source>Starting network threads…</source>
@@ -4890,7 +4783,7 @@ No se puede restaurar la copia de seguridad del monedero.</translation>
     </message>
     <message>
         <source>The transaction amount is too small to pay the fee</source>
-        <translation type="unfinished">El importe de la transacción es muy pequeño para pagar la comisión</translation>
+        <translation type="unfinished">El importe de la transacción es demasiado pequeño para pagar la comisión</translation>
     </message>
     <message>
         <source>The wallet will avoid paying less than the minimum relay fee.</source>
@@ -4909,24 +4802,24 @@ No se puede restaurar la copia de seguridad del monedero.</translation>
         <translation type="unfinished">Esta es la comisión que pagarás si envías una transacción.</translation>
     </message>
     <message>
-        <source>Transaction %s does not belong to this wallet</source>
-        <translation type="unfinished">La transacción %s no pertenece a este monedero</translation>
-    </message>
-    <message>
         <source>Transaction amount too small</source>
         <translation type="unfinished">El importe de la transacción es demasiado pequeño</translation>
     </message>
     <message>
         <source>Transaction amounts must not be negative</source>
-        <translation type="unfinished">Los importes de la transacción no pueden ser negativos</translation>
+        <translation type="unfinished">Los importes de la transacción no deben ser negativos</translation>
     </message>
     <message>
         <source>Transaction change output index out of range</source>
         <translation type="unfinished">El índice de salidas de cambio de transacciones está fuera de alcance</translation>
     </message>
     <message>
+        <source>Transaction has too long of a mempool chain</source>
+        <translation type="unfinished">La transacción tiene una cadena demasiado larga de la mempool</translation>
+    </message>
+    <message>
         <source>Transaction must have at least one recipient</source>
-        <translation type="unfinished">La transacción debe incluir al menos un destinatario</translation>
+        <translation type="unfinished">La transacción debe tener al menos un destinatario</translation>
     </message>
     <message>
         <source>Transaction needs a change address, but we can't generate it.</source>
@@ -4938,7 +4831,7 @@ No se puede restaurar la copia de seguridad del monedero.</translation>
     </message>
     <message>
         <source>Unable to allocate memory for -maxsigcachesize: '%s' MiB</source>
-        <translation type="unfinished">No se puede asignar memoria para -maxsigcachesize: "%s" MiB</translation>
+        <translation type="unfinished">No se ha podido asignar memoria para -maxsigcachesize: "%s" MiB</translation>
     </message>
     <message>
         <source>Unable to bind to %s on this computer (bind returned error %s)</source>
@@ -4970,11 +4863,11 @@ No se puede restaurar la copia de seguridad del monedero.</translation>
     </message>
     <message>
         <source>Unable to parse -maxuploadtarget: '%s'</source>
-        <translation type="unfinished">No se ha podido analizar -maxuploadtarget: "%s"</translation>
+        <translation type="unfinished">No se puede analizar -maxuploadtarget: "%s"</translation>
     </message>
     <message>
         <source>Unable to start HTTP server. See debug log for details.</source>
-        <translation type="unfinished">No se ha podido iniciar el servidor HTTP. Ver registro de depuración para obtener detalles.</translation>
+        <translation type="unfinished">No puede iniciar el servidor HTTP. Consulta el registro de depuración para obtener información.</translation>
     </message>
     <message>
         <source>Unable to unload the wallet before migrating</source>
@@ -5005,24 +4898,12 @@ No se puede restaurar la copia de seguridad del monedero.</translation>
         <translation type="unfinished">El nivel de registro global %s=%s no es compatible. Valores válidos: %s.</translation>
     </message>
     <message>
-        <source>Wallet file creation failed: %s</source>
-        <translation type="unfinished">Error al crear el archivo del monedero: %s</translation>
-    </message>
-    <message>
         <source>acceptstalefeeestimates is not supported on %s chain.</source>
-        <translation type="unfinished">acceptstalefeeestimates no se admite en la cadena %s.</translation>
+        <translation type="unfinished">No se admite acceptstalefeeestimates en la cadena %s.</translation>
     </message>
     <message>
         <source>Unsupported logging category %s=%s.</source>
         <translation type="unfinished">La categoría de registro no es compatible %s=%s. </translation>
-    </message>
-    <message>
-        <source>Error: Could not add watchonly tx %s to watchonly wallet</source>
-        <translation type="unfinished">Error: No se puede añadir la transacción solo de observación %s al monedero solo de observación</translation>
-    </message>
-    <message>
-        <source>Error: Could not delete watchonly transactions. </source>
-        <translation type="unfinished">Error: No se pueden eliminar las transacciones solo de observación</translation>
     </message>
     <message>
         <source>User Agent comment (%s) contains unsafe characters.</source>
@@ -5030,7 +4911,7 @@ No se puede restaurar la copia de seguridad del monedero.</translation>
     </message>
     <message>
         <source>Verifying blocks…</source>
-        <translation type="unfinished">Verificando bloques…</translation>
+        <translation type="unfinished">Verificando bloques...</translation>
     </message>
     <message>
         <source>Verifying wallet(s)…</source>
@@ -5042,11 +4923,11 @@ No se puede restaurar la copia de seguridad del monedero.</translation>
     </message>
     <message>
         <source>Settings file could not be read</source>
-        <translation type="unfinished">El archivo de configuración no puede leerse</translation>
+        <translation type="unfinished">El archivo de configuración no pudo leerse</translation>
     </message>
     <message>
         <source>Settings file could not be written</source>
-        <translation type="unfinished">El archivo de configuración no puede escribirse</translation>
+        <translation type="unfinished">El archivo de configuración no pudo escribirse</translation>
     </message>
 </context>
 </TS>

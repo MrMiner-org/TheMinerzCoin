@@ -117,7 +117,7 @@ MINISKETCH_API void minisketch_deserialize(minisketch* sketch, const unsigned ch
 /** Add an element to a sketch.
  * 
  * If the element to be added is too large for the sketch, the most significant
- * bits of the element are dropped.  precisely, if the element size of
+ * bits of the element are dropped. More precisely, if the element size of
  * `sketch` is b bits, then this function adds the unsigned integer represented
  * by the b least significant bits of `element` to `sketch`.
  * 

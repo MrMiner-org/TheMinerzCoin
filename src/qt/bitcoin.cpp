@@ -219,7 +219,7 @@ void DebugMessageHandler(QtMsgType type, const QMessageLogContext& context, cons
 }
 
 static int qt_argc = 1;
-static const char* qt_argv = "theminerzcoin-qt";
+static const char* qt_argv = "blackmore-qt";
 
 BitcoinApplication::BitcoinApplication()
     : QApplication(qt_argc, const_cast<char**>(&qt_argv))
@@ -368,11 +368,6 @@ void BitcoinApplication::requestShutdown()
     // Request node shutdown, which can interrupt long operations, like
     // rescanning a wallet.
     node().startShutdown();
-    // Prior to unsetting the client model, stop listening backend signals
-    if (clientModel) {
-        clientModel->stop();
-    }
-
     // Unsetting the client model can cause the current thread to wait for node
     // to complete an operation, like wait for a RPC execution to complete.
     window->setClientModel(nullptr);
@@ -433,7 +428,7 @@ void BitcoinApplication::initializeResult(bool success, interfaces::BlockAndHead
 
 #ifdef ENABLE_WALLET
         // Now that initialization/startup is done, process any command-line
-        // theminerzcoin: URIs or payment requests:
+        // blackcoin: URIs or payment requests:
         if (paymentServer) {
             connect(paymentServer, &PaymentServer::receivedPaymentRequest, window, &BitcoinGUI::handlePaymentRequest);
             connect(window, &BitcoinGUI::receivedURI, paymentServer, &PaymentServer::handleURIOrFile);
@@ -548,42 +543,14 @@ int GuiMain(int argc, char* argv[])
         return EXIT_FAILURE;
     }
 
-    // Error out when loose non-argument tokens are encountered on command line
-    // However, allow BIP-21 URIs only if no options follow
-    bool payment_server_token_seen = false;
-    for (int i = 1; i < argc; i++) {
-        QString arg(argv[i]);
-        bool invalid_token = !arg.startsWith("-");
-#ifdef ENABLE_WALLET
-        if (arg.startsWith(BITCOIN_IPC_PREFIX, Qt::CaseInsensitive)) {
-            invalid_token &= false;
-            payment_server_token_seen = true;
-        }
-#endif
-        if (payment_server_token_seen && arg.startsWith("-")) {
-            InitError(Untranslated(strprintf("Options ('%s') cannot follow a BIP-21 payment URI", argv[i])));
-            QMessageBox::critical(nullptr, PACKAGE_NAME,
-                                  // message cannot be translated because translations have not been initialized
-                                  QString::fromStdString("Options ('%1') cannot follow a BIP-21 payment URI").arg(QString::fromStdString(argv[i])));
-            return EXIT_FAILURE;
-        }
-        if (invalid_token) {
-            InitError(Untranslated(strprintf("Command line contains unexpected token '%s', see bitcoin-qt -h for a list of options.", argv[i])));
-            QMessageBox::critical(nullptr, PACKAGE_NAME,
-                                  // message cannot be translated because translations have not been initialized
-                                  QString::fromStdString("Command line contains unexpected token '%1', see bitcoin-qt -h for a list of options.").arg(QString::fromStdString(argv[i])));
-            return EXIT_FAILURE;
-        }
-    }
-
     // Now that the QApplication is setup and we have parsed our parameters, we can set the platform style
     app.setupPlatformStyle();
 
     /// 3. Application identification
     // must be set before OptionsModel is initialized or translations are loaded,
     // as it is used to locate QSettings
-    QApplication::setOrganizationName(QAPP_ORG_NAME);
-    QApplication::setOrganizationDomain(QAPP_ORG_DOMAIN);
+    QApplication::setOrganizationName("TheMinerzCoin");
+    QApplication::setOrganizationDomain("TheMinerzCoin-Qt");
     QApplication::setApplicationName(QAPP_APP_NAME_DEFAULT);
 
     /// 4. Initialization of translations, so that intro dialog is in user's language
@@ -650,7 +617,7 @@ int GuiMain(int argc, char* argv[])
         exit(EXIT_SUCCESS);
 
     // Start up the payment server early, too, so impatient users that click on
-    // theminerzcoin: links repeatedly have their payment requests routed to this process:
+    // blackcoin: links repeatedly have their payment requests routed to this process:
     if (WalletModel::isWalletEnabled()) {
         app.createPaymentServer();
     }
@@ -661,10 +628,7 @@ int GuiMain(int argc, char* argv[])
     app.installEventFilter(new GUIUtil::LabelOutOfFocusEventFilter(&app));
 #if defined(Q_OS_WIN)
     // Install global event filter for processing Windows session related Windows messages (WM_QUERYENDSESSION and WM_ENDSESSION)
-    // Note: it is safe to call app.node() in the lambda below despite the fact
-    // that app.createNode() hasn't been called yet, because native events will
-    // not be processed until the Qt event loop is executed.
-    qApp->installNativeEventFilter(new WinShutdownMonitor([&app] { app.node().startShutdown(); }));
+    qApp->installNativeEventFilter(new WinShutdownMonitor());
 #endif
     // Install qDebug() message handler to route to debug.log
     qInstallMessageHandler(DebugMessageHandler);

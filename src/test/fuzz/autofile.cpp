@@ -2,28 +2,24 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <span.h>
 #include <streams.h>
 #include <test/fuzz/FuzzedDataProvider.h>
 #include <test/fuzz/fuzz.h>
 #include <test/fuzz/util.h>
 
 #include <array>
-#include <cstddef>
-#include <cstdio>
+#include <cstdint>
 #include <iostream>
+#include <optional>
+#include <string>
 #include <vector>
 
 FUZZ_TARGET(autofile)
 {
     FuzzedDataProvider fuzzed_data_provider{buffer.data(), buffer.size()};
-    FuzzedFileProvider fuzzed_file_provider{fuzzed_data_provider};
-    AutoFile auto_file{
-        fuzzed_file_provider.open(),
-        ConsumeRandomLengthByteVector<std::byte>(fuzzed_data_provider),
-    };
-    LIMITED_WHILE(fuzzed_data_provider.ConsumeBool(), 100)
-    {
+    FuzzedAutoFileProvider fuzzed_auto_file_provider = ConsumeAutoFile(fuzzed_data_provider);
+    AutoFile auto_file{fuzzed_auto_file_provider.open()};
+    LIMITED_WHILE(fuzzed_data_provider.ConsumeBool(), 10000) {
         CallOneOf(
             fuzzed_data_provider,
             [&] {

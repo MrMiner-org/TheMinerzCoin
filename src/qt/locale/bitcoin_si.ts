@@ -503,7 +503,7 @@
     </message>
     <message>
         <source>Click for more actions.</source>
-        <extracomment>A substring of the tooltip. " actions" are available via the context menu.</extracomment>
+        <extracomment>A substring of the tooltip. "More actions" are available via the context menu.</extracomment>
         <translation type="unfinished">තව ක්‍රියාමාර්ග සඳහා ඔබන්න.</translation>
     </message>
     <message>
@@ -873,6 +873,10 @@
     <message>
         <source>User Interface &amp;language:</source>
         <translation type="unfinished">අතරු මුහුණතේ &amp;භාෂාව:</translation>
+    </message>
+    <message>
+        <source>embedded "%1"</source>
+        <translation type="unfinished">එබ්බවූ "%1"</translation>
     </message>
     <message>
         <source>&amp;OK</source>

@@ -138,7 +138,7 @@ iterators or call Get on the same database without any external synchronization
 (the leveldb implementation will automatically do the required synchronization).
 However other objects (like Iterator and `WriteBatch`) may require external
 synchronization. If two threads share such an object, they must protect access
-to it using their own locking protocol.  details are available in the public
+to it using their own locking protocol. More details are available in the public
 header files.
 
 ## Iteration
