@@ -1655,7 +1655,7 @@ CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams, b
 }
 
 // Blackcoin
-CAmount GetProofOfWorkSubsidy()
+CAmount GetProofOfWorkSubsidy(int nHeight, const Consensus::Params& consensusParams)
 {
     // Block-Belohnung für PoW ab Block 11.500
     if (nHeight >= 11500) {
@@ -1664,7 +1664,8 @@ CAmount GetProofOfWorkSubsidy()
     if (nHeight < 11500) {
         return 50 * COIN;  // Alte PoW Belohnung: 50 Coins
     }
-CAmount GetProofOfStakeSubsidy()
+}
+CAmount GetProofOfStakeSubsidy(int nHeight, const Consensus::Params& consensusParams)
 {
     if (nHeight >= 11500 && IsProofOfStake()) {
         return 25 * COIN;  // Neue PoS Belohnung: 25 Coins
