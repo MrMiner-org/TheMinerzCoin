@@ -550,7 +550,7 @@ public:
     }
 };
  */
-std::unique_ptr<const CChainParams> CChainParams::SigNet(const SigNetOptions& options)
+/*std::unique_ptr<const CChainParams> CChainParams::SigNet(const SigNetOptions& options)
 {
     return std::make_unique<const SigNetParams>(options);
 }
@@ -558,7 +558,7 @@ std::unique_ptr<const CChainParams> CChainParams::SigNet(const SigNetOptions& op
 std::unique_ptr<const CChainParams> CChainParams::RegTest(const RegTestOptions& options)
 {
     return std::make_unique<const CRegTestParams>(options);
-}
+} */
 
 std::unique_ptr<const CChainParams> CChainParams::Main()
 {
