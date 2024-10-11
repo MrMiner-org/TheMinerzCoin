@@ -2063,7 +2063,7 @@ bool CheckTxInputs(const CTransaction& tx, CValidationState& state, const CCoins
             return state.DoS(100, error("CheckInputs(): nFees out of range"),
                                 REJECT_INVALID, "bad-txns-fee-outofrange");
 
-        // Blackcoin: Minimum fee check
+        // theminerzcoin: Minimum fee check
         if (params.IsProtocolV3_1(nTimeTx) && nFees < GetMinFee(tx, nTimeTx))
             return state.DoS(100, error("CheckInputs(): nFees below minimum"),
                                 REJECT_INVALID, "bad-txns-fee-not-enough");

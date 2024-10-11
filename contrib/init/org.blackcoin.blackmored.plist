@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Label</key>
-	<string>org.blackcoin.blackmored</string>
+	<string>org.theminerzcoin.blackmored</string>
 	<key>ProgramArguments</key>
 	<array>
 		<string>/usr/local/bin/blackmored</string>

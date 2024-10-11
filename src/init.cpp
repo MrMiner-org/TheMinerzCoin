@@ -501,9 +501,9 @@ std::string LicenseInfo()
     // return FormatParagraph(strprintf(_("Copyright (C) %i-%i %s"), 2009, COPYRIGHT_YEAR, CopyrightHolders())) + "\n" +
     return FormatParagraph(strprintf("Copyright (C) %i-%i The Bitcoin Core Developers", 2009, COPYRIGHT_YEAR)) + "\n" +
            "\n" +
-           FormatParagraph(strprintf("Copyright (C) %i-%i The Blackcoin Developers", 2014, 2018)) + "\n" +
+           FormatParagraph(strprintf("Copyright (C) %i-%i The theminerzcoin Developers", 2014, 2018)) + "\n" +
            "\n" +
-           FormatParagraph(strprintf("Copyright (C) %i-%i The Blackcoin More Developers", 2018, COPYRIGHT_YEAR)) + "\n" +
+           FormatParagraph(strprintf("Copyright (C) %i-%i The theminerzcoin More Developers", 2018, COPYRIGHT_YEAR)) + "\n" +
            "\n" +
            FormatParagraph(strprintf("Copyright (C) %i The TheMinerzCoin Developers", 2023)) + "\n" +
            "\n" +
