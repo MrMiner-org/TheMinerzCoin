@@ -1,6 +1,0 @@
-all:
-	$(MAKE) -C ../../ test_theminerzcoin_qt
-clean:
-	$(MAKE) -C ../../ test_theminerzcoin_qt_clean
-check:
-	$(MAKE) -C ../../ test_theminerzcoin_qt_check
