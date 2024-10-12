@@ -1756,12 +1756,12 @@ bool ReadBlockFromDisk(CBlock& block, const CBlockIndex* pindex, const Consensus
 
 CAmount GetProofOfWorkSubsidy()
 {
-    return 50 * COIN;
+    return 10 * COIN;
 }
 
 CAmount GetProofOfStakeSubsidy()
 {
-    return COIN * 2;
+    return COIN * 25;
 }
 
 bool IsInitialBlockDownload()
