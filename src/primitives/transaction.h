@@ -241,19 +241,10 @@ private:
     /** Memory only. */
     const uint256 hash;
     void UpdateHash() const;
-<<<<<<< Updated upstream
-	
-public:
-    std::string tokenType = "DEFAULT_TOKEN";  // BRC-20 Token-Standard (Standardwert)
-    uint64_t amount = 0;                      // Menge des Tokens (Standardwert)
-    CTxDestination recipient;                 // Empfänger des Tokens
-
-    CTransaction() : tokenType("DEFAULT_TOKEN"), amount(0), recipient() {}
-=======
 
 public:
     // Default transaction version.
-    static const int32_t CURRENT_VERSION=2;
+    static const int32_t CURRENT_VERSION=1;
 
     // Changing the default transaction version requires a two step process: first
     // adapting relay policy by bumping MAX_STANDARD_VERSION, and then later date
@@ -279,26 +270,6 @@ public:
     CTransaction(const CMutableTransaction &tx);
 
     CTransaction& operator=(const CTransaction& tx);
->>>>>>> Stashed changes
-
-    ADD_SERIALIZE_METHODS;
-
-    template <typename Stream, typename Operation>
-<<<<<<< Updated upstream
-    inline void SerializationOp(Stream& s, Operation ser_action) {
-        READWRITE(tokenType);
-        READWRITE(amount);
-        READWRITE(recipient);
-    }
-
-
-    /** Construct a CTransaction that qualifies as IsNull() */
-    CTransaction();
-
-    /** Convert a CMutableTransaction into a CTransaction. */
-    CTransaction(const CMutableTransaction &tx);
-
-    CTransaction& operator=(const CTransaction& tx);
 
     ADD_SERIALIZE_METHODS;
 
@@ -310,15 +281,6 @@ public:
         }
     }
 
-=======
-    inline void SerializationOp(Stream& s, Operation ser_action, int nType, int nVersion) {
-        SerializeTransaction(*this, s, ser_action, nType, nVersion);
-        if (ser_action.ForRead()) {
-            UpdateHash();
-        }
-    }
-
->>>>>>> Stashed changes
     bool IsNull() const {
         return vin.empty() && vout.empty();
     }

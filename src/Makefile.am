@@ -188,10 +188,6 @@ BITCOIN_CORE_H = \
   utilmoneystr.h \
   utilstrencodings.h \
   utiltime.h \
-<<<<<<< Updated upstream
-  validation.cpp \
-=======
->>>>>>> Stashed changes
   validationinterface.h \
   version.h \
   versionbits.h \
@@ -254,7 +250,6 @@ libbitcoin_server_a_SOURCES = \
   ui_interface.cpp \
   validationinterface.cpp \
   versionbits.cpp \
-  consensus/consensus.cpp \
   $(BITCOIN_CORE_H)
 
 if ENABLE_ZMQ

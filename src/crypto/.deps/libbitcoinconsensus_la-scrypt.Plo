@@ -56,10 +56,10 @@ crypto/libbitcoinconsensus_la-scrypt.lo: crypto/scrypt.cpp \
  /usr/include/strings.h \
  /usr/include/x86_64-linux-gnu/bits/strings_fortified.h \
  /usr/include/x86_64-linux-gnu/bits/string_fortified.h \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/openssl/sha.h \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/openssl/e_os2.h \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/openssl/opensslconf.h \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/openssl/opensslv.h
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/openssl/sha.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/openssl/e_os2.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/openssl/opensslconf.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/openssl/opensslv.h
 /usr/include/stdc-predef.h:
 crypto/scrypt.h:
 /usr/include/c++/11/stdlib.h:
@@ -124,7 +124,7 @@ crypto/scrypt.h:
 /usr/include/strings.h:
 /usr/include/x86_64-linux-gnu/bits/strings_fortified.h:
 /usr/include/x86_64-linux-gnu/bits/string_fortified.h:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/openssl/sha.h:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/openssl/e_os2.h:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/openssl/opensslconf.h:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/openssl/opensslv.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/openssl/sha.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/openssl/e_os2.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/openssl/opensslconf.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/openssl/opensslv.h:

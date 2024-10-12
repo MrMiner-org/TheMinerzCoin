@@ -29,7 +29,7 @@ Build TheMinerzCoin
 
 1. Clone the theminerzcoin source code and cd into `theminerzcoin`
 
-        git clone https://github.com/MrMiner-org/TheMinerzCoin/
+        git clone https://github.com/TheMinerzCoin/TheMinerzCoin/
         cd theminerzcoin
 
 2.  Build theminerzcoin:

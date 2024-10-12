@@ -130,9 +130,9 @@ qt/libbitcoinqt_a-paymentrequest.pb.o: qt/paymentrequest.pb.cc \
  /usr/include/c++/11/bits/functional_hash.h \
  /usr/include/c++/11/bits/hash_bytes.h \
  /usr/include/c++/11/bits/basic_string.tcc \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/port_def.inc \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/port_undef.inc \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/io/coded_stream.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/port_def.inc \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/port_undef.inc \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/io/coded_stream.h \
  /usr/include/assert.h /usr/include/c++/11/atomic \
  /usr/include/c++/11/bits/atomic_base.h \
  /usr/include/c++/11/bits/atomic_lockfree_defines.h \
@@ -149,7 +149,7 @@ qt/libbitcoinqt_a-paymentrequest.pb.o: qt/paymentrequest.pb.cc \
  /usr/include/x86_64-linux-gnu/bits/strings_fortified.h \
  /usr/include/x86_64-linux-gnu/bits/string_fortified.h \
  /usr/include/c++/11/utility /usr/include/c++/11/bits/stl_relops.h \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/common.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/common.h \
  /usr/include/c++/11/algorithm /usr/include/c++/11/bits/stl_algo.h \
  /usr/include/c++/11/bits/algorithmfwd.h \
  /usr/include/c++/11/bits/stl_heap.h \
@@ -198,64 +198,64 @@ qt/libbitcoinqt_a-paymentrequest.pb.o: qt/paymentrequest.pb.cc \
  /usr/include/c++/11/bits/stl_vector.h \
  /usr/include/c++/11/bits/stl_bvector.h \
  /usr/include/c++/11/bits/vector.tcc \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/macros.h \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/platform_macros.h \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/port.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/macros.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/platform_macros.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/port.h \
  /usr/include/c++/11/stdlib.h /usr/include/byteswap.h \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/stringpiece.h \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/hash.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/stringpiece.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/hash.h \
  /usr/include/c++/11/unordered_map /usr/include/c++/11/bits/hashtable.h \
  /usr/include/c++/11/bits/hashtable_policy.h \
  /usr/include/c++/11/bits/enable_special_members.h \
  /usr/include/c++/11/bits/unordered_map.h \
  /usr/include/c++/11/unordered_set \
  /usr/include/c++/11/bits/unordered_set.h \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/logging.h \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/status.h \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/strutil.h \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/port.h \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/arena.h \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/arena_impl.h \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/arenaz_sampler.h \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/arenastring.h \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/explicitly_constructed.h \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/generated_message_util.h \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/once.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/logging.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/status.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/strutil.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/port.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/arena.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/arena_impl.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/arenaz_sampler.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/arenastring.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/explicitly_constructed.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/generated_message_util.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/once.h \
  /usr/include/c++/11/mutex /usr/include/c++/11/chrono \
  /usr/include/c++/11/ratio /usr/include/c++/11/ctime \
  /usr/include/c++/11/bits/parse_numbers.h \
  /usr/include/c++/11/bits/std_mutex.h \
  /usr/include/c++/11/bits/unique_lock.h \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/any.h \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/message_lite.h \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/metadata_lite.h \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/has_bits.h \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/implicit_weak_message.h \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/repeated_field.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/any.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/message_lite.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/metadata_lite.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/has_bits.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/implicit_weak_message.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/repeated_field.h \
  /usr/include/c++/11/iterator /usr/include/c++/11/bits/stream_iterator.h \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/repeated_ptr_field.h \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/wire_format_lite.h \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/casts.h \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/generated_message_reflection.h \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/descriptor.h \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/mutex.h \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/generated_enum_reflection.h \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/generated_enum_util.h \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/unknown_field_set.h \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/io/zero_copy_stream_impl_lite.h \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/callback.h \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/io/zero_copy_stream.h \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/stl_util.h \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/parse_context.h \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/inlined_string_field.h \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/message.h \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/map.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/repeated_ptr_field.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/wire_format_lite.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/casts.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/generated_message_reflection.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/descriptor.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/mutex.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/generated_enum_reflection.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/generated_enum_util.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/unknown_field_set.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/io/zero_copy_stream_impl_lite.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/callback.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/io/zero_copy_stream.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/stl_util.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/parse_context.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/inlined_string_field.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/message.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/map.h \
  /usr/include/c++/11/functional /usr/include/c++/11/bits/std_function.h \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/map_type_handler.h \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/extension_set.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/map_type_handler.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/extension_set.h \
  /usr/include/c++/11/cassert \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/reflection_ops.h \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/wire_format.h
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/reflection_ops.h \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/wire_format.h
 /usr/include/stdc-predef.h:
 qt/paymentrequest.pb.h:
 /usr/include/c++/11/limits:
@@ -411,9 +411,9 @@ qt/paymentrequest.pb.h:
 /usr/include/c++/11/bits/functional_hash.h:
 /usr/include/c++/11/bits/hash_bytes.h:
 /usr/include/c++/11/bits/basic_string.tcc:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/port_def.inc:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/port_undef.inc:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/io/coded_stream.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/port_def.inc:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/port_undef.inc:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/io/coded_stream.h:
 /usr/include/assert.h:
 /usr/include/c++/11/atomic:
 /usr/include/c++/11/bits/atomic_base.h:
@@ -436,7 +436,7 @@ qt/paymentrequest.pb.h:
 /usr/include/x86_64-linux-gnu/bits/string_fortified.h:
 /usr/include/c++/11/utility:
 /usr/include/c++/11/bits/stl_relops.h:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/common.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/common.h:
 /usr/include/c++/11/algorithm:
 /usr/include/c++/11/bits/stl_algo.h:
 /usr/include/c++/11/bits/algorithmfwd.h:
@@ -502,13 +502,13 @@ qt/paymentrequest.pb.h:
 /usr/include/c++/11/bits/stl_vector.h:
 /usr/include/c++/11/bits/stl_bvector.h:
 /usr/include/c++/11/bits/vector.tcc:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/macros.h:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/platform_macros.h:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/port.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/macros.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/platform_macros.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/port.h:
 /usr/include/c++/11/stdlib.h:
 /usr/include/byteswap.h:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/stringpiece.h:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/hash.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/stringpiece.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/hash.h:
 /usr/include/c++/11/unordered_map:
 /usr/include/c++/11/bits/hashtable.h:
 /usr/include/c++/11/bits/hashtable_policy.h:
@@ -516,17 +516,17 @@ qt/paymentrequest.pb.h:
 /usr/include/c++/11/bits/unordered_map.h:
 /usr/include/c++/11/unordered_set:
 /usr/include/c++/11/bits/unordered_set.h:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/logging.h:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/status.h:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/strutil.h:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/port.h:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/arena.h:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/arena_impl.h:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/arenaz_sampler.h:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/arenastring.h:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/explicitly_constructed.h:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/generated_message_util.h:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/once.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/logging.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/status.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/strutil.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/port.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/arena.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/arena_impl.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/arenaz_sampler.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/arenastring.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/explicitly_constructed.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/generated_message_util.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/once.h:
 /usr/include/c++/11/mutex:
 /usr/include/c++/11/chrono:
 /usr/include/c++/11/ratio:
@@ -534,35 +534,35 @@ qt/paymentrequest.pb.h:
 /usr/include/c++/11/bits/parse_numbers.h:
 /usr/include/c++/11/bits/std_mutex.h:
 /usr/include/c++/11/bits/unique_lock.h:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/any.h:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/message_lite.h:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/metadata_lite.h:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/has_bits.h:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/implicit_weak_message.h:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/repeated_field.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/any.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/message_lite.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/metadata_lite.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/has_bits.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/implicit_weak_message.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/repeated_field.h:
 /usr/include/c++/11/iterator:
 /usr/include/c++/11/bits/stream_iterator.h:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/repeated_ptr_field.h:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/wire_format_lite.h:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/casts.h:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/generated_message_reflection.h:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/descriptor.h:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/mutex.h:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/generated_enum_reflection.h:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/generated_enum_util.h:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/unknown_field_set.h:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/io/zero_copy_stream_impl_lite.h:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/callback.h:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/io/zero_copy_stream.h:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/stl_util.h:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/parse_context.h:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/inlined_string_field.h:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/message.h:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/map.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/repeated_ptr_field.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/wire_format_lite.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/casts.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/generated_message_reflection.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/descriptor.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/mutex.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/generated_enum_reflection.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/generated_enum_util.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/unknown_field_set.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/io/zero_copy_stream_impl_lite.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/callback.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/io/zero_copy_stream.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/stubs/stl_util.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/parse_context.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/inlined_string_field.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/message.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/map.h:
 /usr/include/c++/11/functional:
 /usr/include/c++/11/bits/std_function.h:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/map_type_handler.h:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/extension_set.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/map_type_handler.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/extension_set.h:
 /usr/include/c++/11/cassert:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/reflection_ops.h:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/google/protobuf/wire_format.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/reflection_ops.h:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/google/protobuf/wire_format.h:

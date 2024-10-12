@@ -1226,11 +1226,6 @@ bool AcceptToMemoryPoolWorker(CTxMemPool& pool, CValidationState& state, const C
             return state.DoS(0, false, REJECT_INVALID, "too many dust vouts");
     }
 
-   // TheMinerzCoin: in v2 transactions use GetAdjustedTime() as nTimeTx
-    int64_t nTimeTx = (int64_t)tx.nTime;
-    if (!nTimeTx && tx.nVersion >= 2)
-        nTimeTx = GetAdjustedTime();
-	
     if (!CheckTransaction(tx, state))
         return false; // state filled in by CheckTransaction
 
@@ -1241,6 +1236,14 @@ bool AcceptToMemoryPoolWorker(CTxMemPool& pool, CValidationState& state, const C
     // Coinstake is also only valid in a block, not as a loose transaction
     if (tx.IsCoinStake())
         return state.DoS(100, false, REJECT_INVALID, "coinstake");
+
+    // Don't relay version 2 transactions until CSV is active, and we can be
+    // sure that such transactions will be mined (unless we're on
+    // -testnet/-regtest).
+    const CChainParams& chainparams = Params();
+    if (fRequireStandard && tx.nVersion >= 2 && !chainparams.GetConsensus().IsProtocolV3_1(tx.nTime ? tx.nTime : GetAdjustedTime())) {
+        return state.DoS(0, false, REJECT_NONSTANDARD, "premature-version2-tx");
+    }
 
     // Rather not work on nonstandard transactions (unless -testnet/-regtest)
     string reason;
@@ -1254,7 +1257,7 @@ bool AcceptToMemoryPoolWorker(CTxMemPool& pool, CValidationState& state, const C
         return state.DoS(0, false, REJECT_NONSTANDARD, "non-final");
 
     // For the same reasons as in the case with non-final transactions
-    if (nTimeTx > FutureDrift(GetAdjustedTime())) {
+    if ((tx.nTime ? tx.nTime : GetAdjustedTime()) > FutureDrift(GetAdjustedTime())) {
         return state.DoS(0, false, REJECT_NONSTANDARD, "time-too-new");
     }
 
@@ -1340,7 +1343,7 @@ bool AcceptToMemoryPoolWorker(CTxMemPool& pool, CValidationState& state, const C
         CAmount nFees = nValueIn-nValueOut;
 
         // TheMinerzCoin: Minimum fee check
-        if (Params().GetConsensus().IsProtocolV3_1(nTimeTx) && nFees < GetMinFee(tx, nTimeTx))
+        if (chainparams.GetConsensus().IsProtocolV3_1(tx.nTime ? tx.nTime : GetAdjustedTime()) && nFees < GetMinFee(tx, tx.nTime ? tx.nTime : GetAdjustedTime()))
             return state.Invalid(false, REJECT_INSUFFICIENTFEE, "fee is below minimum");
 
         // nModifiedFees includes any fee deltas from PrioritiseTransaction
@@ -1754,28 +1757,14 @@ bool ReadBlockFromDisk(CBlock& block, const CBlockIndex* pindex, const Consensus
     return true;
 }
 
-CAmount GetProofOfWorkSubsidy(unsigned int nHeight)
+CAmount GetProofOfWorkSubsidy()
 {
-    const CChainParams& chainParams = Params();
-
-    if (nHeight < chainParams.GetConsensus().nForkheightRewardChange) {
-        return COIN * 50;
-    }
-    else {
-        return COIN * 10;
-    }
+    return 50 * COIN;
 }
 
-CAmount GetProofOfStakeSubsidy(unsigned int nHeight)
+CAmount GetProofOfStakeSubsidy()
 {
-    const CChainParams& chainParams = Params();
-
-    if (nHeight < chainParams.GetConsensus().nForkheightRewardChange) {
-        return COIN * 2;
-    }
-    else {
-        return COIN * 25;
-    }
+    return COIN * 2;
 }
 
 bool IsInitialBlockDownload()
@@ -2006,68 +1995,63 @@ int GetSpendHeight(const CCoinsViewCache& inputs)
 
 namespace Consensus {
 struct Params;
-bool CheckTxInputs(const CTransaction& tx, CValidationState& state, const CCoinsViewCache& inputs, int nSpendHeight, const Consensus::Params& params)
+bool CheckTxInputs(const CTransaction& tx, CValidationState& state, const CCoinsViewCache& inputs, int nSpendHeight, const Consensus::Params& params, unsigned int nTimeTx)
 {
-    // This doesn't trigger the DoS code on purpose; if it did, it would make it easier
-    // for an attacker to attempt to split the network.
-    if (!inputs.HaveInputs(tx))
-        return state.Invalid(false, 0, "", "Inputs unavailable");
+        // This doesn't trigger the DoS code on purpose; if it did, it would make it easier
+        // for an attacker to attempt to split the network.
+        if (!inputs.HaveInputs(tx))
+            return state.Invalid(false, 0, "", "Inputs unavailable");
 
-     // TheMinerzCoin: in v2 transactions use GetAdjustedTime() as nTimeTx
-    int64_t nTimeTx = tx.nTime;
-    if (!nTimeTx && tx.nVersion >= 2)
-        nTimeTx = GetAdjustedTime();
+        CAmount nValueIn = 0;
+        CAmount nFees = 0;
+        for (unsigned int i = 0; i < tx.vin.size(); i++)
+        {
+            const COutPoint &prevout = tx.vin[i].prevout;
+            const CCoins *coins = inputs.AccessCoins(prevout.hash);
+            assert(coins);
 
-    CAmount nValueIn = 0;
-    CAmount nFees = 0;
-    for (unsigned int i = 0; i < tx.vin.size(); i++)
-    {
-        const COutPoint &prevout = tx.vin[i].prevout;
-        const CCoins *coins = inputs.AccessCoins(prevout.hash);
-        assert(coins);
+            // If prev is coinbase or coinstake, check that it's matured
+            if (coins->IsCoinBase() || coins->IsCoinStake()) {
+                if (nSpendHeight - coins->nHeight < (params.IsProtocolV3_1(nTimeTx) ? params.nCoinbaseMaturity : Params().nCoinbaseMaturity))
+                    return state.Invalid(
+                        error("CheckInputs(): tried to spend %s at depth %d", coins->IsCoinBase() ? "coinbase" : "coinstake", nSpendHeight - coins->nHeight),
+                        REJECT_INVALID, "bad-txns-premature-spend-of-coinbase");
+            }
 
-        // If prev is coinbase or coinstake, check that it's matured
-        if (coins->IsCoinBase() || coins->IsCoinStake()) {
-            if (nSpendHeight - coins->nHeight < (params.IsProtocolV3_1(nTimeTx) ? params.nCoinbaseMaturity : Params().nCoinbaseMaturity))
-                return state.Invalid(
-                    error("CheckInputs(): tried to spend %s at depth %d", coins->IsCoinBase() ? "coinbase" : "coinstake", nSpendHeight - coins->nHeight),
-                    REJECT_INVALID, "bad-txns-premature-spend-of-coinbase");
+            // Check transaction timestamp
+            if (coins->nTime > (tx.nTime ? tx.nTime : GetAdjustedTime()))
+                return state.DoS(100, error("CheckInputs() : transaction timestamp earlier than input transaction"),
+                            REJECT_INVALID, "bad-txns-time-earlier-than-input");
+
+            // Check for negative or overflow input values
+            nValueIn += coins->vout[prevout.n].nValue;
+            if (!MoneyRange(coins->vout[prevout.n].nValue) || !MoneyRange(nValueIn))
+                return state.DoS(100, false, REJECT_INVALID, "bad-txns-inputvalues-outofrange");
+
         }
 
-        // Check transaction timestamp
-        if (coins->nTime > nTimeTx)
-            return state.DoS(100, error("CheckInputs() : transaction timestamp earlier than input transaction"),
-                        REJECT_INVALID, "bad-txns-time-earlier-than-input");
+        if (!tx.IsCoinStake())
+        {
+            if (nValueIn < tx.GetValueOut())
+                return state.DoS(100, error("CheckInputs(): %s value in (%s) < value out (%s)",
+                                            tx.GetHash().ToString(), FormatMoney(nValueIn), FormatMoney(tx.GetValueOut())),
+                                    REJECT_INVALID, "bad-txns-in-belowout");
 
-        // Check for negative or overflow input values
-        nValueIn += coins->vout[prevout.n].nValue;
-        if (!MoneyRange(coins->vout[prevout.n].nValue) || !MoneyRange(nValueIn))
-            return state.DoS(100, false, REJECT_INVALID, "bad-txns-inputvalues-outofrange");
+            // Tally transaction fees
+            CAmount nTxFee = nValueIn - tx.GetValueOut();
+            if (nTxFee < 0)
+                return state.DoS(100, error("CheckInputs(): %s nTxFee < 0", tx.GetHash().ToString()),
+                                    REJECT_INVALID, "bad-txns-fee-negative");
+            nFees += nTxFee;
+            if (!MoneyRange(nFees))
+                return state.DoS(100, error("CheckInputs(): nFees out of range"),
+                                    REJECT_INVALID, "bad-txns-fee-outofrange");
 
-    }
-
-    if (!tx.IsCoinStake())
-    {
-        if (nValueIn < tx.GetValueOut())
-            return state.DoS(100, error("CheckInputs(): %s value in (%s) < value out (%s)",
-                                        tx.GetHash().ToString(), FormatMoney(nValueIn), FormatMoney(tx.GetValueOut())),
-                                REJECT_INVALID, "bad-txns-in-belowout");
-
-        // Tally transaction fees
-        CAmount nTxFee = nValueIn - tx.GetValueOut();
-        if (nTxFee < 0)
-            return state.DoS(100, error("CheckInputs(): %s nTxFee < 0", tx.GetHash().ToString()),
-                                REJECT_INVALID, "bad-txns-fee-negative");
-        nFees += nTxFee;
-        if (!MoneyRange(nFees))
-            return state.DoS(100, error("CheckInputs(): nFees out of range"),
-                                REJECT_INVALID, "bad-txns-fee-outofrange");
-
-        // theminerzcoin: Minimum fee check
-        if (params.IsProtocolV3_1(nTimeTx) && nFees < GetMinFee(tx, nTimeTx))
-            return state.DoS(100, error("CheckInputs(): nFees below minimum"),
-                                REJECT_INVALID, "bad-txns-fee-not-enough");
-    }
+            // TheMinerzCoin: Minimum fee check
+            if (params.IsProtocolV3_1(nTimeTx) && nFees < GetMinFee(tx, nTimeTx))
+                return state.DoS(100, error("CheckInputs(): nFees below minimum"),
+                                    REJECT_INVALID, "bad-txns-fee-not-enough");
+        }
     return true;
 }
 }// namespace Consensus
@@ -2076,7 +2060,7 @@ bool CheckInputs(const CTransaction& tx, CValidationState &state, const CCoinsVi
 {
     if (!tx.IsCoinBase())
     {
-        if (!Consensus::CheckTxInputs(tx, state, inputs, GetSpendHeight(inputs), Params().GetConsensus()))
+        if (!Consensus::CheckTxInputs(tx, state, inputs, GetSpendHeight(inputs), Params().GetConsensus(), tx.nTime ? tx.nTime : GetAdjustedTime()))
             return false;
 
         if (pvChecks)
@@ -2593,7 +2577,7 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     LogPrint("bench", "      - Connect %u transactions: %.2fms (%.3fms/tx, %.3fms/txin) [%.2fs]\n", (unsigned)block.vtx.size(), 0.001 * (nTime3 - nTime2), 0.001 * (nTime3 - nTime2) / block.vtx.size(), nInputs <= 1 ? 0 : 0.001 * (nTime3 - nTime2) / (nInputs-1), nTimeConnect * 0.000001);
 
     if (block.IsProofOfWork()) {
-            CAmount blockReward = nFees + GetProofOfWorkSubsidy(pindex->nHeight);
+            CAmount blockReward = nFees + GetProofOfWorkSubsidy();
             if (block.vtx[0].GetValueOut() > blockReward)
                 return state.DoS(100,
                                  error("ConnectBlock(): coinbase pays too much (actual=%d vs limit=%d)",
@@ -2602,7 +2586,7 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     }
 
     if (block.IsProofOfStake() && chainparams.GetConsensus().IsProtocolV3(block.GetBlockTime())) {
-            CAmount blockReward = nFees + GetProofOfStakeSubsidy(pindex->nHeight);
+            CAmount blockReward = nFees + GetProofOfStakeSubsidy();
             if (nActualStakeReward > blockReward)
                 return state.DoS(100,
                                  error("ConnectBlock(): coinstake pays too much (actual=%d vs limit=%d)",
@@ -3823,16 +3807,13 @@ CAmount GetMinFee(const CTransaction& tx, unsigned int nTimeTx)
 CAmount GetMinFee(size_t nBytes, uint32_t nTime)
 {
     CAmount nMinFee;
-	CFeeRate nMinFeeRate;
-	
+
     if (Params().GetConsensus().IsProtocolV3_1(nTime))
-    {
-        nMinFeeRate = CFeeRate(TX_FEE_PER_KB);
-        nMinFee = (nBytes <= 100) ? MIN_TX_FEE : nMinFeeRate.GetFee(nBytes);
-    }
+        nMinFee = (1 + (CAmount)nBytes / 1000) * MIN_TX_FEE_PER_KB;
     else {
-        nMinFeeRate = CFeeRate(DEFAULT_MIN_RELAY_TX_FEE);
-        nMinFee = nMinFeeRate.GetFee(nBytes);
+        nMinFee = ::minRelayTxFee.GetFee(nBytes);
+        if (nMinFee < DEFAULT_TRANSACTION_FEE)
+    	    nMinFee = DEFAULT_TRANSACTION_FEE;
     }
 
     if (!MoneyRange(nMinFee))
@@ -5173,7 +5154,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
             return false;
         }
 
-        if (pfrom->nVersion < MIN_PEER_PROTO_VERSION)
+        if (pfrom->nVersion < (chainparams.GetConsensus().IsProtocolV3_1(GetAdjustedTime()) ? PROTOCOL_VERSION : MIN_PEER_PROTO_VERSION))
         {
             // disconnect from peers older than this proto version
             LogPrintf("peer=%d using obsolete version %i; disconnecting\n", pfrom->id, pfrom->nVersion);
@@ -7139,21 +7120,6 @@ ThresholdState VersionBitsTipState(const Consensus::Params& params, Consensus::D
     return VersionBitsState(chainActive.Tip(), params, pos, versionbitscache);
 }
 
-<<<<<<< Updated upstream
-bool CheckProofOfWork(const CBlockHeader& block, const Consensus::Params& params) {
-    uint256 hash = block.GetHash();
-    unsigned int nBits = GetNextWorkRequired(chainActive.Tip(), &block);
-
-    arith_uint256 bnTarget;
-    bnTarget.SetCompact(nBits);
-
-    if (UintToArith256(hash) > bnTarget) {
-        return error("CheckProofOfWork(): hash doesn't match nBits");
-    }
-    return true;
-}
-=======
->>>>>>> Stashed changes
 class CMainCleanup
 {
 public:
@@ -7170,28 +7136,3 @@ public:
         mapOrphanTransactionsByPrev.clear();
     }
 } instance_of_cmaincleanup;
-<<<<<<< Updated upstream
-=======
-bool CheckTransaction(const CTransaction& tx, CValidationState& state, int nHeight)
-{
-    if (nHeight >= 75000 && tx.nVersion == 1) {
-        return state.DoS(100, false, REJECT_INVALID, "bad-txns-v1");
-    }
-
-    // Existing transaction validation code...
-    return true;
-}
- 
-bool CheckProofOfWork(const CBlockHeader& block, const Consensus::Params& params) {
-    uint256 hash = block.GetHash();
-    unsigned int nBits = GetNextWorkRequired(chainActive.Tip(), &block);
-
-    arith_uint256 bnTarget;
-    bnTarget.SetCompact(nBits);
-
-    if (UintToArith256(hash) > bnTarget) {
-        return error("CheckProofOfWork(): hash doesn't match nBits");
-    }
-    return true;
-}
->>>>>>> Stashed changes

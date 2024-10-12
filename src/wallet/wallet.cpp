@@ -671,7 +671,7 @@ bool CWallet::SelectCoinsForStaking(CAmount& nTargetValue, std::set<std::pair<co
 
 bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int64_t nSearchInterval, CAmount& nFees, CMutableTransaction& tx, CKey& key)
 {
-    CBlockIndex* pindexPrev = chainActive.Tip();
+    CBlockIndex* pindexPrev = pindexBestHeader;
     arith_uint256 bnTargetPerCoinDay;
     bnTargetPerCoinDay.SetCompact(nBits);
 
@@ -821,18 +821,18 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
     }
 
     // TheMinerzCoin: Donate to dev fund (or not)
-    if (nDonationPercentage > 0 && !Params().GetDevFundAddress().empty()) {
+    if (nDonationPercentage > 0) {
 
         CAmount nDevCredit = 0;
         CAmount nMinerCredit = 0;
 
         // Calculate reward
         {
-            int64_t nReward = nFees + GetProofOfStakeSubsidy(pindexPrev->nHeight + 1);
+            int64_t nReward = nFees + GetProofOfStakeSubsidy();
             if (nReward < 0)
                 return false;
 
-            nDevCredit = (GetProofOfStakeSubsidy(pindexPrev->nHeight + 1) * nDonationPercentage) / 100;
+            nDevCredit = (GetProofOfStakeSubsidy() * nDonationPercentage) / 100;
             nMinerCredit = nReward - nDevCredit;
             nCredit += nMinerCredit;
         }
@@ -859,7 +859,7 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
     else {
         // Calculate reward
         {
-            int64_t nReward = nFees + GetProofOfStakeSubsidy(pindexPrev->nHeight + 1);
+            int64_t nReward = nFees + GetProofOfStakeSubsidy();
             if (nReward < 0)
                 return false;
 
@@ -2621,7 +2621,7 @@ bool CWallet::CreateTransaction(const vector<CRecipient>& vecSend, CWalletTx& wt
             std::vector<COutput> vAvailableCoins;
             AvailableCoins(vAvailableCoins, true, coinControl);
 
-            nFeeRet = MIN_TX_FEE;
+            nFeeRet = Params().GetConsensus().IsProtocolV3_1(txNew.nTime) ? MIN_TX_FEE_PER_KB : 0;
             // Start with no fee and loop until there is enough fee
             while (true)
             {
@@ -3711,7 +3711,7 @@ std::string CWallet::GetWalletHelpString(bool showDebug)
     strUsage += HelpMessageOpt("-salvagewallet", _("Attempt to recover private keys from a corrupt wallet on startup"));
     strUsage += HelpMessageOpt("-spendzeroconfchange", strprintf(_("Spend unconfirmed change when sending transactions (default: %u)"), DEFAULT_SPEND_ZEROCONF_CHANGE));
     strUsage += HelpMessageOpt("-txconfirmtarget=<n>", strprintf(_("If paytxfee is not set, include enough fee so transactions begin confirmation on average within n blocks (default: %u)"), DEFAULT_TX_CONFIRM_TARGET));
-    strUsage += HelpMessageOpt("-txversion=<n>", _("Set default transaction version")  + " " + _("(default: 2)"));
+    strUsage += HelpMessageOpt("-txversion=<n>", _("Set default transaction version")  + " " + _("(default: 1)"));
     strUsage += HelpMessageOpt("-usehd", _("Use hierarchical deterministic key generation (HD) after BIP32. Only has effect during wallet creation/first start") + " " + strprintf(_("(default: %u)"), DEFAULT_USE_HD_WALLET));
     strUsage += HelpMessageOpt("-upgradewallet", _("Upgrade wallet to latest format on startup"));
     strUsage += HelpMessageOpt("-wallet=<file>", _("Specify wallet file (within data directory)") + " " + strprintf(_("(default: %s)"), DEFAULT_WALLET_DAT));

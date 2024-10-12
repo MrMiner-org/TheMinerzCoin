@@ -1,11 +1,11 @@
 libbitcoin_common_a-config.o: config.cpp /usr/include/stdc-predef.h \
  config.h \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/boost/noncopyable.hpp \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/boost/core/noncopyable.hpp \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/boost/config.hpp \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/boost/config/user.hpp \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/boost/config/detail/select_compiler_config.hpp \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/boost/config/compiler/gcc.hpp \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/boost/noncopyable.hpp \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/boost/core/noncopyable.hpp \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/boost/config.hpp \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/boost/config/user.hpp \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/boost/config/detail/select_compiler_config.hpp \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/boost/config/compiler/gcc.hpp \
  /usr/include/c++/11/cstddef \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
@@ -18,9 +18,9 @@ libbitcoin_common_a-config.o: config.cpp /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/cpu_defines.h \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/boost/config/detail/select_stdlib_config.hpp \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/boost/config/detail/select_stdlib_config.hpp \
  /usr/include/c++/11/version \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/boost/config/stdlib/libstdcpp3.hpp \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/boost/config/stdlib/libstdcpp3.hpp \
  /usr/include/unistd.h /usr/include/x86_64-linux-gnu/bits/posix_opt.h \
  /usr/include/x86_64-linux-gnu/bits/environments.h \
  /usr/include/x86_64-linux-gnu/bits/types.h \
@@ -32,8 +32,8 @@ libbitcoin_common_a-config.o: config.cpp /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/unistd.h \
  /usr/include/x86_64-linux-gnu/bits/unistd_ext.h \
  /usr/include/linux/close_range.h \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/boost/config/detail/select_platform_config.hpp \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/boost/config/platform/linux.hpp \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/boost/config/detail/select_platform_config.hpp \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/boost/config/platform/linux.hpp \
  /usr/include/c++/11/cstdlib /usr/include/stdlib.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
  /usr/include/x86_64-linux-gnu/bits/waitflags.h \
@@ -69,10 +69,10 @@ libbitcoin_common_a-config.o: config.cpp /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
  /usr/include/x86_64-linux-gnu/bits/stdlib.h \
  /usr/include/c++/11/bits/std_abs.h \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/boost/config/detail/posix_features.hpp \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/boost/config/detail/suffix.hpp \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/boost/config/helper_macros.hpp \
- /home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/boost/config/detail/cxx_composite.hpp \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/boost/config/detail/posix_features.hpp \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/boost/config/detail/suffix.hpp \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/boost/config/helper_macros.hpp \
+ /home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/boost/config/detail/cxx_composite.hpp \
  /usr/include/c++/11/cstdint \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h /usr/include/stdint.h \
  /usr/include/x86_64-linux-gnu/bits/wchar.h \
@@ -247,12 +247,12 @@ libbitcoin_common_a-config.o: config.cpp /usr/include/stdc-predef.h \
  version.h consensus/consensus.h
 /usr/include/stdc-predef.h:
 config.h:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/boost/noncopyable.hpp:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/boost/core/noncopyable.hpp:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/boost/config.hpp:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/boost/config/user.hpp:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/boost/config/detail/select_compiler_config.hpp:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/boost/config/compiler/gcc.hpp:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/boost/noncopyable.hpp:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/boost/core/noncopyable.hpp:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/boost/config.hpp:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/boost/config/user.hpp:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/boost/config/detail/select_compiler_config.hpp:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/boost/config/compiler/gcc.hpp:
 /usr/include/c++/11/cstddef:
 /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h:
 /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h:
@@ -266,9 +266,9 @@ config.h:
 /usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
 /usr/include/x86_64-linux-gnu/c++/11/bits/cpu_defines.h:
 /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/boost/config/detail/select_stdlib_config.hpp:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/boost/config/detail/select_stdlib_config.hpp:
 /usr/include/c++/11/version:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/boost/config/stdlib/libstdcpp3.hpp:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/boost/config/stdlib/libstdcpp3.hpp:
 /usr/include/unistd.h:
 /usr/include/x86_64-linux-gnu/bits/posix_opt.h:
 /usr/include/x86_64-linux-gnu/bits/environments.h:
@@ -281,8 +281,8 @@ config.h:
 /usr/include/x86_64-linux-gnu/bits/unistd.h:
 /usr/include/x86_64-linux-gnu/bits/unistd_ext.h:
 /usr/include/linux/close_range.h:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/boost/config/detail/select_platform_config.hpp:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/boost/config/platform/linux.hpp:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/boost/config/detail/select_platform_config.hpp:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/boost/config/platform/linux.hpp:
 /usr/include/c++/11/cstdlib:
 /usr/include/stdlib.h:
 /usr/include/x86_64-linux-gnu/bits/libc-header-start.h:
@@ -321,10 +321,10 @@ config.h:
 /usr/include/x86_64-linux-gnu/bits/stdlib-float.h:
 /usr/include/x86_64-linux-gnu/bits/stdlib.h:
 /usr/include/c++/11/bits/std_abs.h:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/boost/config/detail/posix_features.hpp:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/boost/config/detail/suffix.hpp:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/boost/config/helper_macros.hpp:
-/home/administrator/walletbuilders/build_environment/theminerzcoin/1.0.2/depends/x86_64-pc-linux-gnu/include/boost/config/detail/cxx_composite.hpp:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/boost/config/detail/posix_features.hpp:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/boost/config/detail/suffix.hpp:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/boost/config/helper_macros.hpp:
+/home/administrator/walletbuilders/build_environment/blackcoin/13.2.0/depends/x86_64-pc-linux-gnu/include/boost/config/detail/cxx_composite.hpp:
 /usr/include/c++/11/cstdint:
 /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h:
 /usr/include/stdint.h:
