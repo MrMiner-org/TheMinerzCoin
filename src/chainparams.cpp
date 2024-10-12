@@ -428,7 +428,7 @@ void UpdateRegtestBIP9Parameters(Consensus::DeploymentPos d, int64_t nStartTime,
 // TheMinerzCoin: Donations to dev fund 
 std::string CChainParams::GetDevFundAddress() const
 {
-    return vDevFundAddress[0];
+    return !vDevFundAddress.empty() ? vDevFundAddress[0] : "";
 }
 
 CScript CChainParams::GetDevRewardScript() const
