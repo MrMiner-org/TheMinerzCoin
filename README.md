@@ -7,7 +7,7 @@ https://theminerzcoin.eu/
 What is TheMinerzCoin?
 ----------------
 
-TheMinerzCoin is a decentralised digital currency with near-instant transaction speeds and negligible transaction fees built upon Proof of Stake 3.0 (PoSV3, BPoS) as
+TheMinerzCoin is a decentralised digital currency with near-instant transaction speeds and negligible transaction fees built upon Proof of Stake 3.1 (PoSV3, BPoS) as
 introduced by the TheMinerzCoin development team.
 
 For more information about TheMinerzCoin itself, see https://theminerzcoin.eu.
