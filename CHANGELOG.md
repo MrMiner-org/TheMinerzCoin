@@ -1,5 +1,10 @@
 # Changelog
 
+## v2.0.1 (2024-10-12)
+- Code clean up
+- Transaction Hotfix: Displays correct Timestamp
+- Preparations for integration on the Poligon network
+
 ## v2.0.0 (2024-07-27)
 
 - Bann V1 tansctions from network on block 75000
