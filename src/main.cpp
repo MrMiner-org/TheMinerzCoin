@@ -1340,7 +1340,7 @@ bool AcceptToMemoryPoolWorker(CTxMemPool& pool, CValidationState& state, const C
         CAmount nFees = nValueIn-nValueOut;
 
         // TheMinerzCoin: Minimum fee check
-        if (chainparams.GetConsensus().IsProtocolV3_1(nTimeTx) && nFees < GetMinFee(tx, nTimeTx))
+        if (Params().GetConsensus().IsProtocolV3_1(nTimeTx) && nFees < GetMinFee(tx, nTimeTx))
             return state.Invalid(false, REJECT_INSUFFICIENTFEE, "fee is below minimum");
 
         // nModifiedFees includes any fee deltas from PrioritiseTransaction
@@ -5172,7 +5172,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
             return false;
         }
 
-        if (pfrom->nVersion < (chainparams.GetConsensus().IsProtocolV3_1(GetAdjustedTime()) ? PROTOCOL_VERSION : MIN_PEER_PROTO_VERSION))
+        if (pfrom->nVersion < MIN_PEER_PROTO_VERSION)
         {
             // disconnect from peers older than this proto version
             LogPrintf("peer=%d using obsolete version %i; disconnecting\n", pfrom->id, pfrom->nVersion);
