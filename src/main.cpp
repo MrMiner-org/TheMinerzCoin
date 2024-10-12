@@ -1226,6 +1226,11 @@ bool AcceptToMemoryPoolWorker(CTxMemPool& pool, CValidationState& state, const C
             return state.DoS(0, false, REJECT_INVALID, "too many dust vouts");
     }
 
+    // TheMinerzCoin: in v2 transactions use GetAdjustedTime() as TxTime
+    int64_t nTimeTx = (int64_t)tx.nTime;
+    if (!nTimeTx && tx.nVersion >= CTransaction::MAX_STANDARD_VERSION)
+        nTimeTx = GetAdjustedTime();
+
     if (!CheckTransaction(tx, state))
         return false; // state filled in by CheckTransaction
 
