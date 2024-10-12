@@ -333,7 +333,7 @@ public:
         consensus.nProtocolV1RetargetingFixedTime = 1693994590;
         consensus.nProtocolV2Time = 1693994591;
         consensus.nProtocolV3Time = 1693994592;
-        consensus.nProtocolV3_1Time = 4102437600;
+        consensus.nProtocolV3_1Time = 1713938400;
         consensus.nLastPOWBlock = 1000;
         consensus.nStakeTimestampMask = 0xf;
         consensus.nCoinbaseMaturity = 10;
