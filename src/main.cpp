@@ -1226,11 +1226,11 @@ bool AcceptToMemoryPoolWorker(CTxMemPool& pool, CValidationState& state, const C
             return state.DoS(0, false, REJECT_INVALID, "too many dust vouts");
     }
 
-    // TheMinerzCoin: in v2 transactions use GetAdjustedTime() as nTimeTx
+   // Blackcoin: in v2 transactions use GetAdjustedTime() as TxTime
     int64_t nTimeTx = (int64_t)tx.nTime;
-    if (!nTimeTx && tx.nVersion >= 2)
+    if (!nTimeTx && tx.nVersion >= CTransaction::MAX_STANDARD_VERSION)
         nTimeTx = GetAdjustedTime();
-
+	
     if (!CheckTransaction(tx, state))
         return false; // state filled in by CheckTransaction
 
@@ -1241,6 +1241,14 @@ bool AcceptToMemoryPoolWorker(CTxMemPool& pool, CValidationState& state, const C
     // Coinstake is also only valid in a block, not as a loose transaction
     if (tx.IsCoinStake())
         return state.DoS(100, false, REJECT_INVALID, "coinstake");
+
+    // Don't relay version 2 transactions until CSV is active, and we can be
+    // sure that such transactions will be mined (unless we're on
+    // -testnet/-regtest).
+    const CChainParams& chainparams = Params();
+    if (fRequireStandard && tx.nVersion >= CTransaction::MAX_STANDARD_VERSION && !chainparams.GetConsensus().IsProtocolV3_1(nTimeTx)) {
+        return state.DoS(0, false, REJECT_NONSTANDARD, "premature-version2-tx");
+    }
 
     // Rather not work on nonstandard transactions (unless -testnet/-regtest)
     string reason;
@@ -1340,7 +1348,7 @@ bool AcceptToMemoryPoolWorker(CTxMemPool& pool, CValidationState& state, const C
         CAmount nFees = nValueIn-nValueOut;
 
         // TheMinerzCoin: Minimum fee check
-        if (Params().GetConsensus().IsProtocolV3_1(nTimeTx) && nFees < GetMinFee(tx, nTimeTx))
+        if (chainparams.GetConsensus().IsProtocolV3_1(nTimeTx) && nFees < GetMinFee(tx, nTimeTx))
             return state.Invalid(false, REJECT_INSUFFICIENTFEE, "fee is below minimum");
 
         // nModifiedFees includes any fee deltas from PrioritiseTransaction
@@ -1754,14 +1762,28 @@ bool ReadBlockFromDisk(CBlock& block, const CBlockIndex* pindex, const Consensus
     return true;
 }
 
-CAmount GetProofOfWorkSubsidy()
+CAmount GetProofOfWorkSubsidy(unsigned int nHeight)
 {
-    return 10 * COIN;
+    const CChainParams& chainParams = Params();
+
+    if (nHeight < chainParams.GetConsensus().nForkheightRewardChange) {
+        return COIN * 50;
+    }
+    else {
+        return COIN * 10;
+    }
 }
 
-CAmount GetProofOfStakeSubsidy()
+CAmount GetProofOfStakeSubsidy(unsigned int nHeight)
 {
-    return COIN * 25;
+    const CChainParams& chainParams = Params();
+
+    if (nHeight < chainParams.GetConsensus().nForkheightRewardChange) {
+        return COIN * 2;
+    }
+    else {
+        return COIN * 25;
+    }
 }
 
 bool IsInitialBlockDownload()
@@ -1999,9 +2021,9 @@ bool CheckTxInputs(const CTransaction& tx, CValidationState& state, const CCoins
     if (!inputs.HaveInputs(tx))
         return state.Invalid(false, 0, "", "Inputs unavailable");
 
-    // TheMinerzCoin: in v2 transactions use GetAdjustedTime() as nTimeTx
+    // Blackcoin: in v2 transactions use GetAdjustedTime() as TxTime
     int64_t nTimeTx = tx.nTime;
-    if (!nTimeTx && tx.nVersion >= 2)
+    if (!nTimeTx && tx.nVersion >= CTransaction::MAX_STANDARD_VERSION)
         nTimeTx = GetAdjustedTime();
 
     CAmount nValueIn = 0;
@@ -2011,7 +2033,7 @@ bool CheckTxInputs(const CTransaction& tx, CValidationState& state, const CCoins
         const COutPoint &prevout = tx.vin[i].prevout;
         const CCoins *coins = inputs.AccessCoins(prevout.hash);
         assert(coins);
-		
+
         // If prev is coinbase or coinstake, check that it's matured
         if (coins->IsCoinBase() || coins->IsCoinStake()) {
             if (nSpendHeight - coins->nHeight < (params.IsProtocolV3_1(nTimeTx) ? params.nCoinbaseMaturity : Params().nCoinbaseMaturity))
@@ -2579,7 +2601,7 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     LogPrint("bench", "      - Connect %u transactions: %.2fms (%.3fms/tx, %.3fms/txin) [%.2fs]\n", (unsigned)block.vtx.size(), 0.001 * (nTime3 - nTime2), 0.001 * (nTime3 - nTime2) / block.vtx.size(), nInputs <= 1 ? 0 : 0.001 * (nTime3 - nTime2) / (nInputs-1), nTimeConnect * 0.000001);
 
     if (block.IsProofOfWork()) {
-            CAmount blockReward = nFees + GetProofOfWorkSubsidy();
+            CAmount blockReward = nFees + GetProofOfWorkSubsidy(pindex->nHeight);
             if (block.vtx[0].GetValueOut() > blockReward)
                 return state.DoS(100,
                                  error("ConnectBlock(): coinbase pays too much (actual=%d vs limit=%d)",
@@ -2588,7 +2610,7 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     }
 
     if (block.IsProofOfStake() && chainparams.GetConsensus().IsProtocolV3(block.GetBlockTime())) {
-            CAmount blockReward = nFees + GetProofOfStakeSubsidy();
+            CAmount blockReward = nFees + GetProofOfStakeSubsidy(pindex->nHeight);
             if (nActualStakeReward > blockReward)
                 return state.DoS(100,
                                  error("ConnectBlock(): coinstake pays too much (actual=%d vs limit=%d)",
@@ -3802,7 +3824,7 @@ bool SignBlock(CBlock& block, CWallet& wallet, int64_t& nFees)
 // TheMinerzCoin: GetMinFee
 CAmount GetMinFee(const CTransaction& tx, unsigned int nTimeTx)
 {
-    size_t nBytes = GetVirtualTransactionSize(tx);
+    size_t nBytes = ::GetSerializeSize(tx, SER_NETWORK, PROTOCOL_VERSION);
     return GetMinFee(nBytes, nTimeTx);
 }
 
@@ -3812,7 +3834,7 @@ CAmount GetMinFee(size_t nBytes, uint32_t nTime)
 	CFeeRate nMinFeeRate;
 	
     if (Params().GetConsensus().IsProtocolV3_1(nTime))
-            {
+    {
         nMinFeeRate = CFeeRate(TX_FEE_PER_KB);
         nMinFee = (nBytes <= 100) ? MIN_TX_FEE : nMinFeeRate.GetFee(nBytes);
     }
@@ -3825,19 +3847,6 @@ CAmount GetMinFee(size_t nBytes, uint32_t nTime)
         nMinFee = MAX_MONEY;
     return nMinFee;
 }
-
-unsigned int nBytesPerSigOp = DEFAULT_BYTES_PER_SIGOP;
-
-int64_t GetVirtualTransactionSize(int64_t nWeight, int64_t nSigOpCost)
-{
-    return (std::max(nWeight, nSigOpCost * nBytesPerSigOp) + WITNESS_SCALE_FACTOR - 1) / WITNESS_SCALE_FACTOR;
-}
-
-int64_t GetVirtualTransactionSize(const CTransaction& tx, int64_t nSigOpCost)
-{
-    return GetVirtualTransactionSize(GetTransactionWeight(tx), nSigOpCost);
-}
-
 
 static bool AcceptBlockHeader(const CBlockHeader& block, CValidationState& state, const CChainParams& chainparams, CBlockIndex** ppindex=NULL, bool fProofOfStake=true)
 {
@@ -5172,7 +5181,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
             return false;
         }
 
-        if (pfrom->nVersion < MIN_PEER_PROTO_VERSION)
+        if (pfrom->nVersion < (chainparams.GetConsensus().IsProtocolV3_1(GetAdjustedTime()) ? PROTOCOL_VERSION : MIN_PEER_PROTO_VERSION))
         {
             // disconnect from peers older than this proto version
             LogPrintf("peer=%d using obsolete version %i; disconnecting\n", pfrom->id, pfrom->nVersion);

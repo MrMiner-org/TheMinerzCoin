@@ -137,7 +137,11 @@ CBlockTemplate* BlockAssembler::CreateNewBlock(const CScript& scriptPubKeyIn, in
         pblock->nVersion = GetArg("-blockversion", pblock->nVersion);
 
     pblock->nTime = GetAdjustedTime();
-    nLockTimeCutoff = pindexPrev->GetPastTimeLimit();
+    const int64_t nMedianTimePast = pindexPrev->GetPastTimeLimit();
+
+    nLockTimeCutoff = (STANDARD_LOCKTIME_VERIFY_FLAGS & LOCKTIME_MEDIAN_TIME_PAST)
+                       ? nMedianTimePast
+                       : pblock->GetBlockTime();
 
     addPriorityTxs(pblock->GetBlockTime(), fProofOfStake);
     addPackageTxs();
@@ -156,7 +160,7 @@ CBlockTemplate* BlockAssembler::CreateNewBlock(const CScript& scriptPubKeyIn, in
     }
     else {
         coinbaseTx.vout[0].scriptPubKey = scriptPubKeyIn;
-        coinbaseTx.vout[0].nValue = nFees + GetProofOfWorkSubsidy();
+        coinbaseTx.vout[0].nValue = nFees + GetProofOfWorkSubsidy(nHeight);
     }
     coinbaseTx.vin[0].scriptSig = CScript() << nHeight << OP_0;
     pblock->vtx[0] = coinbaseTx;

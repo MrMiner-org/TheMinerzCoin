@@ -113,7 +113,8 @@ public:
         consensus.nProtocolV2Time = 1693994591;
         consensus.nProtocolV3Time = 1693994592;
         consensus.nProtocolV3_1Time = 1713938400;
-        consensus.nLastPOWBlock = 360000000;
+        consensus.nLastPOWBlock = 360000;
+        consensus.nForkheightRewardChange = 11500;
         consensus.nStakeTimestampMask = 0xf; // 15
         consensus.nCoinbaseMaturity = 20;
 
@@ -158,10 +159,10 @@ public:
         assert(consensus.hashGenesisBlock == uint256S("0x0000060b614d1629e0ada5da36d52ad994c9c994166d88b90fada164e586b9ba"));
         assert(genesis.hashMerkleRoot == uint256S("0x4a2a58ff4f0c1403fb51b65338980a0ff84e08103bd1019a868b7885562c0e1c"));
 
-        vSeeds.push_back(CDNSSeedData("184.174.34.86", "184.174.34.86"));
-        vSeeds.push_back(CDNSSeedData("161.97.132.124", "161.97.132.124"));
-		vSeeds.push_back(CDNSSeedData("84.247.184.164", "84.247.184.164"));
-        vSeeds.push_back(CDNSSeedData("75.119.136.103", "75.119.136.103"));
+        vSeeds.push_back(CDNSSeedData("149.202.81.13", "149.202.81.13"));
+        vSeeds.push_back(CDNSSeedData("193.34.77.70", "193.34.77.70"));
+		vSeeds.push_back(CDNSSeedData("23.92.30.164", "23.92.30.164"));
+        vSeeds.push_back(CDNSSeedData("85.10.148.5", "85.10.148.5"));
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,65);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,66);
@@ -333,7 +334,7 @@ public:
         consensus.nProtocolV1RetargetingFixedTime = 1693994590;
         consensus.nProtocolV2Time = 1693994591;
         consensus.nProtocolV3Time = 1693994592;
-        consensus.nProtocolV3_1Time = 1713938400;
+        consensus.nProtocolV3_1Time = 4102437600;
         consensus.nLastPOWBlock = 1000;
         consensus.nStakeTimestampMask = 0xf;
         consensus.nCoinbaseMaturity = 10;

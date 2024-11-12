@@ -73,6 +73,7 @@ struct Params {
     bool IsProtocolV3_1(int64_t nTime) const { return nTime > nProtocolV3_1Time && nTime != 1713938400; }
     unsigned int GetTargetSpacing(int nHeight) { return IsProtocolV2(nHeight) ? 300 : 300; }
     int nLastPOWBlock;
+    int nForkheightRewardChange;
     int nStakeTimestampMask;
     int nCoinbaseMaturity;
     uint256 nMinimumChainWork;

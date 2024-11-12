@@ -820,7 +820,7 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
         }
     }
 
-    // theminerzcoin: Donate to dev fund (or not)
+    // Blackcoin: Donate to dev fund (or not)
     if (nDonationPercentage > 0) {
 
         CAmount nDevCredit = 0;
@@ -4065,38 +4065,3 @@ bool CMerkleTx::AcceptToMemoryPool(bool fLimitFree, CAmount nAbsurdFee, CValidat
 {
     return ::AcceptToMemoryPool(mempool, state, *this, fLimitFree, NULL, false, nAbsurdFee);
 }
-<<<<<<< Updated upstream
-
-bool CBRC20Token::DeployToken(std::string tokenType, uint64_t initialSupply, CWallet* pwallet)
-{
-    // Erstellen einer neuen Token-Transaktion
-    CBRC20Transaction tx;
-    tx.tokenType = tokenType;
-    tx.amount = initialSupply;
-    tx.recipient = pwallet->GetPrimaryAddress();
-
-    // Senden der Transaktion zur Blockchain
-    return pwallet->SendBRC20Transaction(tx);
-}
-
-bool CBRC20Token::MintToken(std::string tokenType, uint64_t amount, CWallet* pwallet)
-{
-    CBRC20Transaction tx;
-    tx.tokenType = tokenType;
-    tx.amount = amount;
-    tx.recipient = pwallet->GetPrimaryAddress();
-
-    return pwallet->SendBRC20Transaction(tx);
-}
-
-bool CBRC20Token::TransferToken(std::string tokenType, uint64_t amount, CTxDestination recipient, CWallet* pwallet)
-{
-    CBRC20Transaction tx;
-    tx.tokenType = tokenType;
-    tx.amount = amount;
-    tx.recipient = recipient;
-
-    return pwallet->SendBRC20Transaction(tx);
-}
-=======
->>>>>>> Stashed changes

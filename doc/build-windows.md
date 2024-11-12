@@ -72,7 +72,7 @@ If you want to build the windows installer with `make deploy` you need [NSIS](ht
 
 Acquire the source in the usual way:
 
-    https://github.com/TheMinerzCoin/TheMinerzCoin.git
+    https://github.com/MrMiner-org/TheMinerzCoin.git
     cd theminerzcoin
 
 ## Building for 64-bit Windows
