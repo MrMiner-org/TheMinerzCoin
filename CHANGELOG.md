@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.0.2 (2024-11-12)
+- Working Transaction Hotfix: Displays correct Timestamp in Explorer
+
+
 ## v2.0.1 (2024-10-12)
 - Code clean up
 - Transaction Hotfix: Displays correct Timestamp
