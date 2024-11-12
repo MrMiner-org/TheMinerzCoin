@@ -57,14 +57,14 @@ CRCCheck force
 XPStyle on
 BrandingText " "
 ShowInstDetails show
-VIProductVersion 1.0.2.0
+VIProductVersion 2.0.2.0
 VIAddVersionKey ProductName "TheMinerzCoin"
-VIAddVersionKey ProductVersion "1.0.2"
+VIAddVersionKey ProductVersion "2.0.2"
 VIAddVersionKey CompanyName "${COMPANY}"
 VIAddVersionKey CompanyWebsite "${URL}"
-VIAddVersionKey FileVersion "1.0.2"
+VIAddVersionKey FileVersion "2.0.2"
 VIAddVersionKey FileDescription "Installer for TheMinerzCoin"
-VIAddVersionKey LegalCopyright "Copyright (C) 2009-2022 The TheMinerzCoin developers"
+VIAddVersionKey LegalCopyright "Copyright (C) 2022-2024 The TheMinerzCoin developers"
 InstallDirRegKey HKCU "${REGKEY}" Path
 ShowUninstDetails show
 
