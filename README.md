@@ -19,6 +19,11 @@ Bitcoin Core 0.13.2 with some patches from newer Bitcoin Core versions to offer 
 
 For more information, as well as an immediately useable, binary version of the TheMinerzCoin software, see https://theminerzcoin.eu/.
 
+World-first Features
+--------------------
+
+TheMinerzCoin project thrives on new ideas. Highlights include Proof of Stake 3.0, near‑instant transactions and automatic block-time and reward adjustments. See [doc/innovation.md](doc/innovation.md) for details.
+
 License
 -------
 
