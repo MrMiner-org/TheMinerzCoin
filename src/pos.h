@@ -42,7 +42,7 @@ bool CheckKernel(CBlockIndex* pindexPrev, unsigned int nBits, uint32_t nTime, co
 bool CheckKernel(CBlockIndex* pindexPrev, unsigned int nBits, uint32_t nTime, const COutPoint& prevout, const std::map<COutPoint, CStakeCache>& cache);
 bool CheckStakeKernelHash(const CBlockIndex* pindexPrev, unsigned int nBits, uint32_t blockFromTime, CAmount prevoutValue, const COutPoint& prevout, unsigned int nTimeTx, bool fPrintProofOfStake = false);
 bool CheckProofOfStake(CBlockIndex* pindexPrev, const CTransaction& tx, unsigned int nBits, CValidationState& state, unsigned int nTimeTx);
-bls::Signature AggregateStaking(const std::vector<bls::Signature>& sigs);
+std::optional<bls::Signature> AggregateStaking(const std::vector<bls::Signature>& sigs);
 void CacheKernel(std::map<COutPoint, CStakeCache>& cache, const COutPoint& prevout, CBlockIndex* pindexPrev);
 bool VerifySignature(const CTransaction& txFrom, const CTransaction& txTo, unsigned int nIn, unsigned int flags, int nHashType);
 #endif // THEMINERZCOIN_POS_H
