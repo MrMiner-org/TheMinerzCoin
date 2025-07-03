@@ -1,5 +1,6 @@
 TheMinerzCoin
 =====================================
+[![CI](https://github.com/MrMiner-org/TheMinerzCoin/actions/workflows/ci/build.yml/badge.svg)](https://github.com/MrMiner-org/TheMinerzCoin/actions/workflows/ci/build.yml)
 
 What is TheMinerzCoin?
 ----------------
@@ -57,7 +58,7 @@ There are also [regression and integration tests](/qa) of the RPC interface, wri
 in Python, that are run automatically on the build server.
 These tests can be run (if the [test dependencies](/qa) are installed) with: `qa/pull-tester/rpc-tests.py`
 
-The Travis CI system makes sure that every pull request is built for Windows, Linux, and OS X, and that unit/sanity tests are run automatically.
+GitHub Actions build every pull request on Linux, macOS and Windows and run the unit and sanity tests automatically. The workflow can be executed locally using [act](https://github.com/nektos/act) with `act -j build`.
 
 ### Manual Quality Assurance (QA) Testing
 
