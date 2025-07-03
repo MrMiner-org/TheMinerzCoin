@@ -3,8 +3,12 @@
 #include <span>
 
 namespace p2p {
+struct HandshakeResult {
+    std::array<unsigned char,32> session_key;
+};
+
 class Handshake {
 public:
-    std::array<unsigned char, 32> Initiate(std::span<const unsigned char> peer_pubkey);
+    HandshakeResult Initiate(std::span<const unsigned char> peer_pubkey);
 };
 }

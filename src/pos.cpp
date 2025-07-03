@@ -237,3 +237,9 @@ void CacheKernel(std::map<COutPoint, CStakeCache>& cache, const COutPoint& prevo
     CStakeCache c((txPrev.nTime ? txPrev.nTime : pblockindex->GetBlockTime()), txPrev.vout[prevout.n].nValue);
     cache.insert({prevout, c});
 }
+
+bls::Signature AggregateStaking(const std::vector<bls::Signature>& sigs)
+{
+    return bls::Aggregate(sigs);
+}
+

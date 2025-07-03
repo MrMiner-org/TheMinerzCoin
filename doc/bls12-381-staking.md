@@ -1,6 +1,6 @@
 # BLS12-381 Staking
 
-Staking pools in TheMinerzCoin 3.0 use BLS12-381 aggregate signatures. This allows pool members to combine their staking weight while producing a single signature on the block.
+Staking pools in TheMinerzCoin 3.0 use BLS12-381 aggregate signatures. The core library now exposes utilities in `crypto/bls_aggregate` for combining signatures. This allows pool members to combine their staking weight while producing a single signature on the block.
 
 ## Enabling staking
 
