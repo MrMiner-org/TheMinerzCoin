@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.25)
 project(TheMinerzCoin VERSION 3.0.0 LANGUAGES C CXX)
 
 find_package(Qt5 COMPONENTS Widgets Gui Network REQUIRED)

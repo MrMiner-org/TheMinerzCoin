@@ -18,6 +18,7 @@ add_subdirectory(compat)
 add_subdirectory(bench)
 add_subdirectory(zmq)
 add_subdirectory(qt)
+add_subdirectory(p2p)
 add_subdirectory(univalue)
 add_subdirectory(secp256k1)
 

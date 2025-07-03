@@ -402,7 +402,7 @@
 #define PACKAGE_URL ""
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "1.1.1"
+#define PACKAGE_VERSION "3.0.0"
 
 /* Define to necessary symbol if this constant uses a non-standard name on
    your system. */

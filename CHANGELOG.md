@@ -1,5 +1,10 @@
 # Changelog
 
+## v3.0.0 (2025-07-03)
+- Taproot and Schnorr activated
+- Encrypted P2P transport (BIP324)
+- BLS aggregate staking
+
 ## v2.0.2 (2024-11-12)
 - Working Transaction Hotfix: Displays correct Timestamp in Explorer
 

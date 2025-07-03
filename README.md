@@ -24,6 +24,12 @@ World-first Features
 
 TheMinerzCoin project thrives on new ideas. Highlights include Proof of Stake 3.0, near‑instant transactions and automatic block-time and reward adjustments. See [doc/innovation.md](doc/innovation.md) for details.
 
+Version 3.0 introduces:
+
+- Schnorr/Taproot support (BIP340-342)
+- Encrypted P2P transport (BIP324)
+- BLS aggregate signatures for staking pools
+
 License
 -------
 

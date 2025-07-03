@@ -1,0 +1,12 @@
+schema {
+  query: Query
+}
+
+type Query {
+  block(height: Int!): Block
+}
+
+type Block {
+  hash: String!
+  height: Int!
+}

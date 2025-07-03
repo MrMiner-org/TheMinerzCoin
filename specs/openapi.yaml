@@ -1,0 +1,11 @@
+openapi: 3.1.0
+info:
+  title: TheMinerzCoin RPC API
+  version: "3.0.0"
+paths:
+  /getblockchaininfo:
+    get:
+      summary: Get blockchain info
+      responses:
+        '200':
+          description: blockchain info

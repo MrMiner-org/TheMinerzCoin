@@ -1,0 +1,10 @@
+@startuml
+node "Wallet" {
+}
+node "Core" {
+}
+node "P2P" {
+}
+Wallet --> Core
+Core --> P2P
+@enduml
