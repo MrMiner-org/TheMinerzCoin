@@ -229,7 +229,8 @@ public:
         consensus.nProtocolV2Time = 1693994591;
         consensus.nProtocolV3Time = 1693994592;
         consensus.nProtocolV3_1Time = 1667779200;
-        consensus.nBlockTimeReductionHeight = 0;
+        // match mainnet spacing reduction height
+        consensus.nBlockTimeReductionHeight = 175000;
         consensus.nRewardHalvingStart = 0;
         consensus.nRewardHalvingInterval = 100000;
         consensus.nLastPOWBlock = 0x7fffffff;
@@ -341,7 +342,8 @@ public:
         consensus.nProtocolV2Time = 1693994591;
         consensus.nProtocolV3Time = 1693994592;
         consensus.nProtocolV3_1Time = 4102437600;
-        consensus.nBlockTimeReductionHeight = 0;
+        // match mainnet spacing reduction height
+        consensus.nBlockTimeReductionHeight = 175000;
         consensus.nRewardHalvingStart = 0;
         consensus.nRewardHalvingInterval = 100000;
         consensus.nLastPOWBlock = 1000;
