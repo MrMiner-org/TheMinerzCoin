@@ -2917,8 +2917,6 @@ UniValue burnwallet(const UniValue& params, bool fHelp)
 }
 */
 
-static std::array<unsigned char, 96> g_poolPubKey{};
-static bool g_poolRegistered = false;
 
 static UniValue registerpool(const UniValue& params, bool fHelp)
 {
@@ -2928,11 +2926,13 @@ static UniValue registerpool(const UniValue& params, bool fHelp)
             "Register aggregated pool BLS public key");
 
     std::vector<unsigned char> data = ParseHexV(params[0], "pubkey");
-    if (data.size() != g_poolPubKey.size())
+    if (data.size() != g_blsPoolPubKey.size())
         throw JSONRPCError(RPC_INVALID_PARAMETER, "invalid public key length");
 
-    std::copy(data.begin(), data.end(), g_poolPubKey.begin());
+    std::copy(data.begin(), data.end(), g_blsPoolPubKey.begin());
     g_poolRegistered = true;
+    if (pwalletMain)
+        CWalletDB(pwalletMain->strWalletFile).WritePoolPubKey(g_blsPoolPubKey);
 
     UniValue res(UniValue::VOBJ);
     res.pushKV("registered", true);

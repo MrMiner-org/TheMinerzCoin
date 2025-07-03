@@ -8,6 +8,7 @@
 #include "wallet/walletdb.h"
 
 #include "base58.h"
+#include <array>
 #include "consensus/validation.h"
 #include "main.h" // For CheckTransaction
 #include "dstencode.h"
@@ -624,6 +625,11 @@ ReadKeyValue(CWallet* pwallet, CDataStream& ssKey, CDataStream& ssValue,
                 return false;
             }
         }
+        else if (strType == "poolpubkey")
+        {
+            ssValue >> g_blsPoolPubKey;
+            g_poolRegistered = true;
+        }
     } catch (...)
     {
         return false;
@@ -1040,4 +1046,15 @@ bool CWalletDB::WriteHDChain(const CHDChain& chain)
 {
     nWalletDBUpdated++;
     return Write(std::string("hdchain"), chain);
+}
+
+bool CWalletDB::WritePoolPubKey(const std::array<unsigned char,96>& key)
+{
+    nWalletDBUpdated++;
+    return Write(std::string("poolpubkey"), key);
+}
+
+bool CWalletDB::ReadPoolPubKey(std::array<unsigned char,96>& key)
+{
+    return Read(std::string("poolpubkey"), key);
 }

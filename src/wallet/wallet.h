@@ -18,6 +18,7 @@
 #include "wallet/rpcwallet.h"
 #include "pos.h"
 
+#include <array>
 #include <algorithm>
 #include <atomic>
 #include <map>
@@ -40,6 +41,8 @@ extern unsigned int nDonationPercentage;
 extern unsigned int nTxConfirmTarget;
 extern bool bSpendZeroConfChange;
 extern bool fWalletUnlockStakingOnly;
+extern std::array<unsigned char,96> g_blsPoolPubKey;
+extern bool g_poolRegistered;
 
 static const unsigned int DEFAULT_KEYPOOL_SIZE = 100;
 //! -paytxfee default
