@@ -14,11 +14,20 @@ void AddToStemPool(const CTransaction& tx)
     g_stem_pool.push_back(tx);
 }
 
+static void BroadcastTransactionDirect(const CTransaction& tx)
+{
+    CInv inv(MSG_TX, tx.GetHash());
+    LOCK(cs_vNodes);
+    for (CNode* pnode : vNodes) {
+        pnode->PushInventory(inv);
+    }
+}
+
 void FlushStemPool()
 {
     LOCK(cs_stem);
     while (!g_stem_pool.empty()) {
-        RelayTransaction(g_stem_pool.front());
+        BroadcastTransactionDirect(g_stem_pool.front());
         g_stem_pool.pop_front();
     }
 }
