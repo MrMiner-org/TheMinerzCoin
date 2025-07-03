@@ -29,6 +29,9 @@
 #include <boost/filesystem/path.hpp>
 #include <boost/foreach.hpp>
 #include <boost/signals2/signal.hpp>
+#include <array>
+#include <vector>
+#include <p2p/handshake.h>
 
 class CAddrMan;
 class CScheduler;
@@ -315,6 +318,19 @@ public:
     CBloomFilter* pfilter;
     int nRefCount;
     NodeId id;
+
+    // Encryption state
+    bool fEncrypt;
+    std::array<unsigned char,32> send_key;
+    std::array<unsigned char,32> recv_key;
+    std::vector<unsigned char> enc_len_buf;
+    unsigned int enc_iv_pos;
+    unsigned int enc_tag_pos;
+    unsigned int enc_expected_len;
+    std::array<unsigned char,12> enc_iv;
+    std::array<unsigned char,16> enc_tag;
+    std::vector<unsigned char> enc_cipher;
+    p2p::Handshake handshake;
 
     const uint64_t nKeyedNetGroup;
 protected:
