@@ -1,14 +1,33 @@
 #include "bls_aggregate.h"
+#include <blst.h>
+
 #include <cstring>
 
 namespace bls {
-Signature Aggregate(const std::vector<Signature>& sigs)
+std::optional<Signature> Aggregate(const std::vector<Signature>& sigs)
 {
-    Signature out{};
+    blst_p2 agg;
+    bool first = true;
+
     for (const auto& s : sigs) {
-        for (size_t i = 0; i < out.data.size(); ++i) {
-            out.data[i] ^= s.data[i];
+        blst_p2_affine sig_aff;
+        if (BLST_SUCCESS != blst_p2_uncompress(&sig_aff, s.data.data())) {
+            return std::nullopt;
         }
+
+        if (first) {
+            blst_p2_from_affine(&agg, &sig_aff);
+            first = false;
+        } else {
+            blst_p2_add_or_double_affine(&agg, &agg, &sig_aff);
+        }
+    }
+
+    Signature out{};
+    if (!first) {
+        blst_p2_affine out_aff;
+        blst_p2_to_affine(&out_aff, &agg);
+        blst_p2_affine_compress(out.data.data(), &out_aff);
     }
     return out;
 }

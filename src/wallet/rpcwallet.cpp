@@ -2954,7 +2954,11 @@ static UniValue combineblssigs(const UniValue& params, bool fHelp)
         std::copy(vec.begin(), vec.end(), sigs.back().data.begin());
     }
 
-    bls::Signature out = bls::Aggregate(sigs);
+    auto agg = bls::Aggregate(sigs);
+    if (!agg) {
+        throw JSONRPCError(RPC_INVALID_PARAMETER, "invalid signature");
+    }
+    bls::Signature out = *agg;
     return HexStr(out.data.begin(), out.data.end());
 }
 

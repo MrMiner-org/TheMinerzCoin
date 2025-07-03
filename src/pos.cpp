@@ -238,7 +238,7 @@ void CacheKernel(std::map<COutPoint, CStakeCache>& cache, const COutPoint& prevo
     cache.insert({prevout, c});
 }
 
-bls::Signature AggregateStaking(const std::vector<bls::Signature>& sigs)
+std::optional<bls::Signature> AggregateStaking(const std::vector<bls::Signature>& sigs)
 {
     return bls::Aggregate(sigs);
 }
