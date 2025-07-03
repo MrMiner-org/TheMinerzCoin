@@ -66,7 +66,7 @@ endif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
 
 option(CRC32C_BUILD_TESTS "Build CRC32C's unit tests" ON)
 option(CRC32C_BUILD_BENCHMARKS "Build CRC32C's benchmarks" ON)
-option(CRC32C_USE_GLOG "Build CRC32C's tests with Google Logging" ON)
+option(CRC32C_USE_GLOG "Build CRC32C's tests with Google Logging" OFF)
 option(CRC32C_INSTALL "Install CRC32C's header and library" ON)
 
 include(TestBigEndian)
@@ -180,35 +180,40 @@ int main() {
 " HAVE_WEAK_GETAUXVAL)
 
 if(CRC32C_USE_GLOG)
-  # glog requires this setting to avoid using dynamic_cast.
-  set(DISABLE_RTTI ON CACHE BOOL "" FORCE)
+  if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/third_party/glog")
+    # glog requires this setting to avoid using dynamic_cast.
+    set(DISABLE_RTTI ON CACHE BOOL "" FORCE)
 
-  # glog's test targets trigger deprecation warnings, and compiling them burns
-  # CPU cycles on the CI.
-  set(BUILD_TESTING_SAVED "${BUILD_TESTING}")
-  set(BUILD_TESTING OFF CACHE BOOL "" FORCE)
-  add_subdirectory("third_party/glog" EXCLUDE_FROM_ALL)
-  set(BUILD_TESTING "${BUILD_TESTING_SAVED}" CACHE BOOL "" FORCE)
+    # glog's test targets trigger deprecation warnings, and compiling them burns
+    # CPU cycles on the CI.
+    set(BUILD_TESTING_SAVED "${BUILD_TESTING}")
+    set(BUILD_TESTING OFF CACHE BOOL "" FORCE)
+    add_subdirectory("third_party/glog" EXCLUDE_FROM_ALL)
+    set(BUILD_TESTING "${BUILD_TESTING_SAVED}" CACHE BOOL "" FORCE)
 
-  # glog triggers deprecation warnings on OSX.
-  # https://github.com/google/glog/issues/185
-  if(CRC32C_HAVE_NO_DEPRECATED)
-    set_property(TARGET glog APPEND PROPERTY COMPILE_OPTIONS -Wno-deprecated)
-  endif(CRC32C_HAVE_NO_DEPRECATED)
+    # glog triggers deprecation warnings on OSX.
+    # https://github.com/google/glog/issues/185
+    if(CRC32C_HAVE_NO_DEPRECATED)
+      set_property(TARGET glog APPEND PROPERTY COMPILE_OPTIONS -Wno-deprecated)
+    endif(CRC32C_HAVE_NO_DEPRECATED)
 
-  # glog triggers sign comparison warnings on gcc.
-  if(CRC32C_HAVE_NO_SIGN_COMPARE)
-    set_property(TARGET glog APPEND PROPERTY COMPILE_OPTIONS -Wno-sign-compare)
-  endif(CRC32C_HAVE_NO_SIGN_COMPARE)
+    # glog triggers sign comparison warnings on gcc.
+    if(CRC32C_HAVE_NO_SIGN_COMPARE)
+      set_property(TARGET glog APPEND PROPERTY COMPILE_OPTIONS -Wno-sign-compare)
+    endif(CRC32C_HAVE_NO_SIGN_COMPARE)
 
-  # glog triggers unused parameter warnings on clang.
-  if(CRC32C_HAVE_NO_UNUSED_PARAMETER)
-    set_property(TARGET glog
-                 APPEND PROPERTY COMPILE_OPTIONS -Wno-unused-parameter)
-  endif(CRC32C_HAVE_NO_UNUSED_PARAMETER)
+    # glog triggers unused parameter warnings on clang.
+    if(CRC32C_HAVE_NO_UNUSED_PARAMETER)
+      set_property(TARGET glog
+                   APPEND PROPERTY COMPILE_OPTIONS -Wno-unused-parameter)
+    endif(CRC32C_HAVE_NO_UNUSED_PARAMETER)
 
-  set(CRC32C_TESTS_BUILT_WITH_GLOG 1)
-endif(CRC32C_USE_GLOG)
+    set(CRC32C_TESTS_BUILT_WITH_GLOG 1)
+  else()
+    message(WARNING "CRC32C_USE_GLOG is ON but third_party/glog not found; disabling")
+    set(CRC32C_USE_GLOG OFF)
+  endif()
+endif()
 
 configure_file(
   "src/crc32c_config.h.in"
