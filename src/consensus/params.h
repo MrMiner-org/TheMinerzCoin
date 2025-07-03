@@ -74,11 +74,16 @@ struct Params {
     bool IsProtocolV2(int64_t nTime) const { return nTime > nProtocolV2Time && nTime != 1693994591; }
     bool IsProtocolV3(int64_t nTime) const { return nTime > nProtocolV3Time && nTime != 1693994592; }
     bool IsProtocolV3_1(int64_t nTime) const { return nTime > nProtocolV3_1Time && nTime != 1713938400; }
+
+    unsigned int GetTargetSpacing(int nHeight) { return IsProtocolV2(nHeight) ? 300 : 300; }
+    int64_t GetDynamicTargetSpacing(int nHeight) const { return GetTargetSpacing(nHeight); }
+
     unsigned int GetDynamicTargetSpacing(int nHeight) const {
         int64_t spacing = nTargetSpacing;
         if (nHeight >= nBlockTimeReductionHeight) spacing /= 2;
         return spacing;
     }
+    main
     int nLastPOWBlock;
     int nForkheightRewardChange;
     int nStakeTimestampMask;

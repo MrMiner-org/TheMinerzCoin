@@ -274,7 +274,8 @@ UniValue getstakinginfo(const UniValue& params, bool fHelp)
     uint64_t nNetworkWeight = 1.1429 * GetPoSKernelPS();
     bool staking = nLastCoinStakeSearchInterval && nWeight;
     const Consensus::Params& consensusParams = Params().GetConsensus();
-    int64_t nTargetSpacing = consensusParams.nTargetSpacing;
+    int currentHeight = chainActive.Height();
+    int64_t nTargetSpacing = consensusParams.GetDynamicTargetSpacing(currentHeight);
     uint64_t nExpectedTime = staking ? (nTargetSpacing * nNetworkWeight / nWeight) : 0;
 
     UniValue obj(UniValue::VOBJ);
