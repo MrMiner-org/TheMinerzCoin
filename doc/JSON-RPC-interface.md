@@ -5,8 +5,10 @@ The headless daemon `theminerzcoind` has the JSON-RPC API enabled by default, th
 option. In the GUI it is possible to execute RPC methods in the Debug Console
 Dialog.
 
-An experimental OpenAPI specification covering these RPC calls is
-available at [../specs/openapi.yaml](../specs/openapi.yaml).
+An experimental OpenAPI specification covering these RPC calls, including wallet
+management and staking endpoints, is available at
+[../specs/openapi.yaml](../specs/openapi.yaml). A prototype GraphQL schema is
+maintained alongside it at [../specs/schema.graphql](../specs/schema.graphql).
 
 ## Versioning
 

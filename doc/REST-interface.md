@@ -6,8 +6,10 @@ The REST API can be enabled with the `-rest` option.
 The interface runs on the same port as the JSON-RPC interface, by default port 13947 for mainnet, port 23947 for testnet,
 and port 35715 for regtest.
 
-An OpenAPI description of the available endpoints is maintained in
-[../specs/openapi.yaml](../specs/openapi.yaml).
+An OpenAPI description of the available endpoints, including wallet and staking
+operations, is maintained in [../specs/openapi.yaml](../specs/openapi.yaml).
+The evolving GraphQL schema can be found at
+[../specs/schema.graphql](../specs/schema.graphql).
 
 REST Interface consistency guarantees
 -------------------------------------

@@ -7,10 +7,14 @@ type Query {
   block(height: Int!): Block
   transaction(txid: String!): Transaction
   mempool: [Transaction!]!
+  wallet(name: String!): Wallet
+  networkStats: NetworkStats!
 }
 
 type Mutation {
   sendRawTransaction(hex: String!): SendResult
+  createWallet(name: String!): Wallet
+  delegateStake(address: String!, amount: Float!): SendResult
 }
 
 type Block {
@@ -25,4 +29,15 @@ type Transaction {
 
 type SendResult {
   txid: String!
+}
+
+type Wallet {
+  name: String!
+  balance: Float!
+}
+
+type NetworkStats {
+  blocks: Int!
+  difficulty: Float!
+  stakeWeight: Float!
 }

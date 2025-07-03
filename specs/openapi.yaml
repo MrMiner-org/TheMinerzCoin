@@ -38,3 +38,59 @@ paths:
       responses:
         '200':
           description: transaction id
+  /wallet/create:
+    post:
+      summary: Create a new wallet
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+      responses:
+        '200':
+          description: wallet created
+  /wallet/{name}/balance:
+    get:
+      summary: Get wallet balance
+      parameters:
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: wallet balance
+  /staking/delegate:
+    post:
+      summary: Delegate stake
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                address:
+                  type: string
+                amount:
+                  type: number
+      responses:
+        '200':
+          description: delegation tx id
+  /staking/status:
+    get:
+      summary: Get staking status
+      responses:
+        '200':
+          description: staking status
+  /network/stats:
+    get:
+      summary: Get network statistics
+      responses:
+        '200':
+          description: network statistics
