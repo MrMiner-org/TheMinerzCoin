@@ -5,6 +5,9 @@ The headless daemon `theminerzcoind` has the JSON-RPC API enabled by default, th
 option. In the GUI it is possible to execute RPC methods in the Debug Console
 Dialog.
 
+An experimental OpenAPI specification covering these RPC calls is
+available at [../specs/openapi.yaml](../specs/openapi.yaml).
+
 ## Versioning
 
 The RPC interface might change from one major version of TheMinerzCoin to the

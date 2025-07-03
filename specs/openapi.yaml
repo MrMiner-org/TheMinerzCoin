@@ -9,3 +9,32 @@ paths:
       responses:
         '200':
           description: blockchain info
+  /getblock/{hash}:
+    get:
+      summary: Get block details
+      parameters:
+        - name: hash
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: block data
+  /sendtoaddress:
+    post:
+      summary: Send coins to address
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                address:
+                  type: string
+                amount:
+                  type: number
+      responses:
+        '200':
+          description: transaction id

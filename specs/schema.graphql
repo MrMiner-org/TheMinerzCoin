@@ -1,12 +1,28 @@
 schema {
   query: Query
+  mutation: Mutation
 }
 
 type Query {
   block(height: Int!): Block
+  transaction(txid: String!): Transaction
+  mempool: [Transaction!]!
+}
+
+type Mutation {
+  sendRawTransaction(hex: String!): SendResult
 }
 
 type Block {
   hash: String!
   height: Int!
+}
+
+type Transaction {
+  txid: String!
+  hex: String
+}
+
+type SendResult {
+  txid: String!
 }

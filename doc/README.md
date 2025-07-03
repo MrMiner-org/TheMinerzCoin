@@ -58,6 +58,8 @@ The TheMinerzCoin repo's [root README](/README.md) contains relevant information
 - [Translation Strings Policy](translation_strings_policy.md)
 - [Unit Tests](unit-tests.md)
 - [Unauthenticated REST Interface](REST-interface.md)
+- [RPC/REST OpenAPI Specification](../specs/openapi.yaml)
+- [GraphQL Schema](../specs/schema.graphql)
 - [Shared Libraries](shared-libraries.md)
 - [BIPS](bips.md)
 - [Dnsseed Policy](dnsseed-policy.md)
