@@ -103,9 +103,8 @@ Build using:
     cd depends
     make HOST=x86_64-w64-mingw32
     cd ..
-    ./autogen.sh
-    CONFIG_SITE=$PWD/depends/x86_64-w64-mingw32/share/config.site ./configure --prefix=/
-    make
+    ./generate_build.sh -DCMAKE_TOOLCHAIN_FILE=$PWD/depends/x86_64-w64-mingw32/share/toolchain.cmake -DCMAKE_INSTALL_PREFIX=/
+    ./build.sh
     sudo bash -c "echo 1 > /proc/sys/fs/binfmt_misc/status" # Enable WSL support for Win32 applications.
 
 ## Depends system

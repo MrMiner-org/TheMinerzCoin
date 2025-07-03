@@ -10,15 +10,14 @@ Before building from source make sure the basic build tools are available. On
 most Linux systems these can be installed from the package manager:
 
 ```
-sudo apt-get install build-essential autoconf automake libtool pkg-config \
-    libssl-dev libevent-dev
+sudo apt-get install build-essential cmake libssl-dev libevent-dev pkg-config
 ```
 
 Build Steps
 -----------
-Run the autotools scripts to generate the build system before invoking `make`:
+Generate the build system using CMake and then build:
 
 ```
-./autogen.sh && ./configure
-make
+./generate_build.sh
+./build.sh
 ```

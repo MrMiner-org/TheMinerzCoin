@@ -45,16 +45,16 @@ Note: base_dir is required for ccache to share cached compiles of the same file 
 
 You _must not_ set base_dir to "/", or anywhere that contains system headers (according to the ccache docs).
 
-### Disable features with `./configure`
+### Configure features with CMake
 
-After running `./autogen.sh`, which generates the `./configure` file, use `./configure --help` to identify features that you can disable to save on compilation time. A few common flags:
+After generating build files using `./generate_build.sh`, you can pass options to CMake to disable components:
 
 ```sh
---without-miniupnpc
---without-natpmp
---disable-bench
---disable-wallet
---without-gui
+-DWITH_MINIUPNPC=OFF
+-DWITH_NATPMP=OFF
+-DBUILD_BENCH=OFF
+-DWITH_WALLET=OFF
+-DWITH_GUI=OFF
 ```
 
 If you do need the wallet enabled, it is common for devs to add `--with-incompatible-bdb`. This uses your system bdb version for the wallet, so you don't have to find a copy of bdb 4.8. Wallets from such a build will be incompatible with any release binary (and vice versa), so use with caution on mainnet.

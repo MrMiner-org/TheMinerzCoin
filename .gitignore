@@ -183,3 +183,4 @@ src/qt/theminerzcoin-qt.creator
 src/qt/theminerzcoin-qt.creator.user
 src/qt/theminerzcoin-qt.files
 src/qt/theminerzcoin-qt.includes
+build/
