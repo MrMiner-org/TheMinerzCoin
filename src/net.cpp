@@ -38,6 +38,7 @@
 
 #include <boost/filesystem.hpp>
 #include <boost/thread.hpp>
+#include <span>
 
 #include <math.h>
 
@@ -386,6 +387,26 @@ CNode* FindNode(const NodeId nodeid)
     return NULL;
 }
 
+static bool TransportHandshake(SOCKET sock, p2p::Handshake& hs,
+                               std::array<unsigned char,32>& send_key,
+                               std::array<unsigned char,32>& recv_key)
+{
+    unsigned char peer_pub[32];
+    const auto& pub = hs.GetPublicKey();
+    if (send(sock, (const char*)pub.data(), pub.size(), MSG_NOSIGNAL) != (int)pub.size()) return false;
+    size_t recvd = 0;
+    while (recvd < sizeof(peer_pub)) {
+        int n = recv(sock, (char*)peer_pub + recvd, sizeof(peer_pub) - recvd, MSG_WAITALL);
+        if (n <= 0) return false;
+        recvd += n;
+    }
+    auto res = hs.Initiate(std::span<const unsigned char>(peer_pub, 32));
+    if (!res.encryption_enabled) return false;
+    send_key = res.send_key;
+    recv_key = res.recv_key;
+    return true;
+}
+
 CNode* ConnectNode(CAddress addrConnect, const char *pszDest, bool fCountFailure)
 {
     if (pszDest == NULL) {
@@ -418,6 +439,13 @@ CNode* ConnectNode(CAddress addrConnect, const char *pszDest, bool fCountFailure
             return NULL;
         }
 
+        p2p::Handshake hs;
+        std::array<unsigned char,32> sendk, recvk;
+        if (!TransportHandshake(hSocket, hs, sendk, recvk)) {
+            CloseSocket(hSocket);
+            return NULL;
+        }
+
         if (pszDest && addrConnect.IsValid()) {
             // It is possible that we already have a connection to the IP/port pszDest resolved to.
             // In that case, drop the connection that was just created, and return the existing CNode instead.
@@ -442,6 +470,10 @@ CNode* ConnectNode(CAddress addrConnect, const char *pszDest, bool fCountFailure
 
         // Add node
         CNode* pnode = new CNode(hSocket, addrConnect, pszDest ? pszDest : "", false);
+        pnode->fEncrypt = true;
+        pnode->send_key = sendk;
+        pnode->recv_key = recvk;
+        pnode->handshake = hs;
         pnode->AddRef();
 
         {
@@ -729,6 +761,52 @@ void CNode::copyStats(CNodeStats &stats)
 // requires LOCK(cs_vRecvMsg)
 bool CNode::ReceiveMsgBytes(const char *pch, unsigned int nBytes)
 {
+    if (fEncrypt) {
+        while (nBytes > 0) {
+            if (enc_len_buf.size() < 4) {
+                unsigned int need = 4 - enc_len_buf.size();
+                unsigned int nCopy = std::min(need, nBytes);
+                enc_len_buf.insert(enc_len_buf.end(), pch, pch + nCopy);
+                pch += nCopy; nBytes -= nCopy;
+                if (enc_len_buf.size() == 4) {
+                    enc_expected_len = ReadLE32(enc_len_buf.data());
+                }
+                continue;
+            }
+            if (enc_iv_pos < enc_iv.size()) {
+                unsigned int need = enc_iv.size() - enc_iv_pos;
+                unsigned int nCopy = std::min(need, nBytes);
+                memcpy(enc_iv.data() + enc_iv_pos, pch, nCopy);
+                enc_iv_pos += nCopy; pch += nCopy; nBytes -= nCopy;
+                continue;
+            }
+            if (enc_tag_pos < enc_tag.size()) {
+                unsigned int need = enc_tag.size() - enc_tag_pos;
+                unsigned int nCopy = std::min(need, nBytes);
+                memcpy(enc_tag.data() + enc_tag_pos, pch, nCopy);
+                enc_tag_pos += nCopy; pch += nCopy; nBytes -= nCopy;
+                continue;
+            }
+            unsigned int remain = enc_expected_len - enc_cipher.size();
+            unsigned int nCopy = std::min(remain, nBytes);
+            enc_cipher.insert(enc_cipher.end(), pch, pch + nCopy);
+            pch += nCopy; nBytes -= nCopy;
+            if (enc_cipher.size() == enc_expected_len) {
+                auto plain = p2p::Handshake::Decrypt(std::span<const unsigned char>(enc_cipher.data(), enc_cipher.size()), recv_key, enc_iv, enc_tag);
+                enc_len_buf.clear();
+                enc_iv_pos = enc_tag_pos = 0;
+                enc_cipher.clear();
+                enc_expected_len = 0;
+                if (plain.empty()) return false;
+                bool prev = fEncrypt;
+                fEncrypt = false;
+                bool ok = ReceiveMsgBytes((const char*)plain.data(), plain.size());
+                fEncrypt = prev;
+                if (!ok) return false;
+            }
+        }
+        return true;
+    }
     while (nBytes > 0) {
 
         // get current incomplete message, or create a new one
@@ -1080,10 +1158,20 @@ static void AcceptConnection(const ListenSocket& hListenSocket) {
             return;
         }
     }
+    p2p::Handshake hs;
+    std::array<unsigned char,32> sendk, recvk;
+    if (!TransportHandshake(hSocket, hs, sendk, recvk)) {
+        CloseSocket(hSocket);
+        return;
+    }
 
     CNode* pnode = new CNode(hSocket, addr, "", true);
     pnode->AddRef();
     pnode->fWhitelisted = whitelisted;
+    pnode->fEncrypt = true;
+    pnode->send_key = sendk;
+    pnode->recv_key = recvk;
+    pnode->handshake = hs;
 
     LogPrint("net", "connection from %s accepted\n", addr.ToString());
 
@@ -2429,6 +2517,15 @@ CNode::CNode(SOCKET hSocketIn, const CAddress& addrIn, const std::string& addrNa
     lastSentFeeFilter = 0;
     nextSendTimeFeeFilter = 0;
 
+    fEncrypt = false;
+    send_key.fill(0);
+    recv_key.fill(0);
+    enc_iv_pos = 0;
+    enc_tag_pos = 0;
+    enc_expected_len = 0;
+    enc_len_buf.clear();
+    enc_cipher.clear();
+
     BOOST_FOREACH(const std::string &msg, getAllNetMessageTypes())
         mapRecvBytesPerMsgCmd[msg] = 0;
     mapRecvBytesPerMsgCmd[NET_MESSAGE_COMMAND_OTHER] = 0;
@@ -2546,9 +2643,22 @@ void CNode::EndMessage(const char* pszCommand) UNLOCK_FUNCTION(cs_vSend)
 
     LogPrint("net", "(%d bytes) peer=%d\n", nSize, id);
 
-    std::deque<CSerializeData>::iterator it = vSendMsg.insert(vSendMsg.end(), CSerializeData());
-    ssSend.GetAndClear(*it);
-    nSendSize += (*it).size();
+    CSerializeData data;
+    ssSend.GetAndClear(data);
+    if (fEncrypt) {
+        std::array<unsigned char,12> iv;
+        std::array<unsigned char,16> tag;
+        std::vector<unsigned char> cipher = p2p::Handshake::Encrypt(std::span<const unsigned char>(reinterpret_cast<unsigned char*>(data.data()), data.size()), send_key, iv, tag);
+        CSerializeData enc;
+        enc.resize(4);
+        WriteLE32((uint8_t*)&enc[0], data.size());
+        enc.insert(enc.end(), iv.begin(), iv.end());
+        enc.insert(enc.end(), tag.begin(), tag.end());
+        enc.insert(enc.end(), cipher.begin(), cipher.end());
+        data.swap(enc);
+    }
+    std::deque<CSerializeData>::iterator it = vSendMsg.insert(vSendMsg.end(), data);
+    nSendSize += data.size();
 
     // If write queue empty, attempt "optimistic write"
     if (it == vSendMsg.begin())
