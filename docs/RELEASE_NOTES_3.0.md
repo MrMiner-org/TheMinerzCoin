@@ -14,6 +14,7 @@ will perform a one-time reindex.
 * Taproot and Schnorr support activate automatically once the network reaches the defined signalling threshold. No configuration is necessary. Wallets may generate Taproot receiving addresses using `getnewaddress "" "bech32"`.
 * The encrypted P2P handshake (BIP324) is on by default. Use `-p2pnoencrypt` if you must disable it for testing.
 * BLS12-381 staking uses the existing `-staking` option. Join a pool by registering its aggregate public key with your wallet software.
+* Dandelion++ transaction relay is enabled by default. Use `-dandelion=0` to disable it if desired.
 
 ### Upgrade considerations
 
