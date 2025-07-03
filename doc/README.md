@@ -62,6 +62,9 @@ The TheMinerzCoin repo's [root README](/README.md) contains relevant information
 - [GraphQL Schema](../specs/schema.graphql)
 - [Shared Libraries](shared-libraries.md)
 - [BIPS](bips.md)
+- [Taproot and Schnorr](taproot_schnorr.md)
+- [Encrypted P2P Transport](encrypted_p2p_handshake.md)
+- [BLS12-381 Staking](bls12-381-staking.md)
 - [Dnsseed Policy](dnsseed-policy.md)
 - [Benchmarking](benchmarking.md)
 
