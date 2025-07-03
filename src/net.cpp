@@ -17,6 +17,7 @@
 #include "crypto/sha256.h"
 #include "hash.h"
 #include "primitives/transaction.h"
+#include <p2p/dandelion.h>
 #include "netbase.h"
 #include "scheduler.h"
 #include "ui_interface.h"
@@ -86,6 +87,8 @@ bool fDiscover = true;
 bool fListen = true;
 ServiceFlags nLocalServices = NODE_NETWORK;
 bool fRelayTxes = true;
+// Enable experimental Dandelion++ transaction relay
+bool fDandelion = true;
 CCriticalSection cs_mapLocalHost;
 std::map<CNetAddr, LocalServiceInfo> mapLocalHost;
 static bool vfLimited[NET_MAX] = {};
@@ -1913,6 +1916,10 @@ void ThreadMessageHandler()
                 pnode->Release();
         }
 
+        if (fDandelion) {
+            p2p::FlushStemPool();
+        }
+
         if (fSleep)
             messageHandlerCondition.timed_wait(lock, boost::posix_time::microsec_clock::universal_time() + boost::posix_time::milliseconds(100));
     }
@@ -2209,6 +2216,11 @@ instance_of_cnetcleanup;
 
 void RelayTransaction(const CTransaction& tx)
 {
+    if (fDandelion) {
+        p2p::AddToStemPool(tx);
+        return;
+    }
+
     CInv inv(MSG_TX, tx.GetHash());
     LOCK(cs_vNodes);
     BOOST_FOREACH(CNode* pnode, vNodes)
