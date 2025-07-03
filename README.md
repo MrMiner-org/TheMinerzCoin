@@ -1,6 +1,6 @@
 TheMinerzCoin
 =====================================
-[![CI](https://github.com/MrMiner-org/TheMinerzCoin/actions/workflows/ci/build.yml/badge.svg)](https://github.com/MrMiner-org/TheMinerzCoin/actions/workflows/ci/build.yml)
+[![build](https://github.com/MrMiner-org/TheMinerzCoin/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/MrMiner-org/TheMinerzCoin/actions/workflows/build.yml)
 
 What is TheMinerzCoin?
 ----------------
