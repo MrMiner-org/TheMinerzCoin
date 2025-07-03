@@ -1,10 +1,16 @@
 @startuml
-node "Wallet" {
-}
-node "Core" {
-}
-node "P2P" {
-}
-Wallet --> Core
-Core --> P2P
+skinparam componentStyle rectangle
+
+component "Wallet" as wallet
+component "RPC" as rpc
+component "Consensus" as consensus
+component "P2P Network" as p2p
+component "BLS Staking" as bls
+
+wallet --> rpc : JSON-RPC calls
+rpc --> consensus : validate & submit
+rpc --> p2p : broadcast TXs
+consensus --> p2p : propagate blocks
+consensus --> bls : stake processing
+
 @enduml
