@@ -598,7 +598,8 @@ void MaybeSetPeerAsAnnouncingHeaderAndIDs(const CNodeState* nodestate, CNode* pf
 // Requires cs_main
 bool CanDirectFetch(const Consensus::Params &consensusParams)
 {
-    return chainActive.Tip()->GetBlockTime() > GetAdjustedTime() - consensusParams.nTargetSpacing * 20;
+    int nextHeight = chainActive.Tip()->nHeight + 1;
+    return chainActive.Tip()->GetBlockTime() > GetAdjustedTime() - consensusParams.GetDynamicTargetSpacing(nextHeight) * 20;
 }
 
 // Requires cs_main
@@ -1765,25 +1766,25 @@ bool ReadBlockFromDisk(CBlock& block, const CBlockIndex* pindex, const Consensus
 CAmount GetProofOfWorkSubsidy(unsigned int nHeight)
 {
     const CChainParams& chainParams = Params();
-
-    if (nHeight < chainParams.GetConsensus().nForkheightRewardChange) {
-        return COIN * 50;
+    CAmount reward = (nHeight < chainParams.GetConsensus().nForkheightRewardChange) ? COIN * 50 : COIN * 10;
+    if (nHeight >= chainParams.GetConsensus().nRewardHalvingStart && chainParams.GetConsensus().nRewardHalvingInterval > 0) {
+        unsigned int halvings = (nHeight - chainParams.GetConsensus().nRewardHalvingStart) / chainParams.GetConsensus().nRewardHalvingInterval + 1;
+        if (halvings < 64) reward >>= halvings;
+        else reward = 0;
     }
-    else {
-        return COIN * 10;
-    }
+    return reward;
 }
 
 CAmount GetProofOfStakeSubsidy(unsigned int nHeight)
 {
     const CChainParams& chainParams = Params();
-
-    if (nHeight < chainParams.GetConsensus().nForkheightRewardChange) {
-        return COIN * 2;
+    CAmount reward = (nHeight < chainParams.GetConsensus().nForkheightRewardChange) ? COIN * 2 : COIN * 25;
+    if (nHeight >= chainParams.GetConsensus().nRewardHalvingStart && chainParams.GetConsensus().nRewardHalvingInterval > 0) {
+        unsigned int halvings = (nHeight - chainParams.GetConsensus().nRewardHalvingStart) / chainParams.GetConsensus().nRewardHalvingInterval + 1;
+        if (halvings < 64) reward >>= halvings;
+        else reward = 0;
     }
-    else {
-        return COIN * 25;
-    }
+    return reward;
 }
 
 bool IsInitialBlockDownload()
@@ -5541,7 +5542,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
             }
             // If pruning, don't inv blocks unless we have on disk and are likely to still have
             // for some reasonable time window (1 hour) that block relay might require.
-            const int nPrunedBlocksLikelyToHave = MIN_BLOCKS_TO_KEEP - 3600 / chainparams.GetConsensus().nTargetSpacing;
+            const int nPrunedBlocksLikelyToHave = MIN_BLOCKS_TO_KEEP - 3600 / chainparams.GetConsensus().GetDynamicTargetSpacing(chainActive.Tip()->nHeight + 1);
             if (fPruneMode && (!(pindex->nStatus & BLOCK_HAVE_DATA) || pindex->nHeight <= chainActive.Tip()->nHeight - nPrunedBlocksLikelyToHave))
             {
                 LogPrint("net", " getblocks stopping, pruned or too old block at %d %s\n", pindex->nHeight, pindex->GetBlockHash().ToString());
@@ -7057,7 +7058,7 @@ bool SendMessages(CNode* pto)
         if (!pto->fDisconnect && state.vBlocksInFlight.size() > 0) {
             QueuedBlock &queuedBlock = state.vBlocksInFlight.front();
             int nOtherPeersWithValidatedDownloads = nPeersWithValidatedDownloads - (state.nBlocksInFlightValidHeaders > 0);
-            if (nNow > state.nDownloadingSince + consensusParams.nTargetSpacing * (BLOCK_DOWNLOAD_TIMEOUT_BASE + BLOCK_DOWNLOAD_TIMEOUT_PER_PEER * nOtherPeersWithValidatedDownloads)) {
+            if (nNow > state.nDownloadingSince + consensusParams.GetDynamicTargetSpacing(chainActive.Tip()->nHeight + 1) * (BLOCK_DOWNLOAD_TIMEOUT_BASE + BLOCK_DOWNLOAD_TIMEOUT_PER_PEER * nOtherPeersWithValidatedDownloads)) {
                 LogPrintf("Timeout downloading block %s from peer=%d, disconnecting\n", queuedBlock.hash.ToString(), pto->id);
                 pto->fDisconnect = true;
             }

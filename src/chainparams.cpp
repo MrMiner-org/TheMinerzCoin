@@ -113,7 +113,10 @@ public:
         consensus.nProtocolV2Time = 1693994591;
         consensus.nProtocolV3Time = 1693994592;
         consensus.nProtocolV3_1Time = 1713938400;
-        consensus.nLastPOWBlock = 360000;
+        consensus.nBlockTimeReductionHeight = 175000;
+        consensus.nRewardHalvingStart = 200000;
+        consensus.nRewardHalvingInterval = 100000;
+        consensus.nLastPOWBlock = 755359744;
         consensus.nForkheightRewardChange = 11500;
         consensus.nStakeTimestampMask = 0xf; // 15
         consensus.nCoinbaseMaturity = 20;
@@ -226,6 +229,9 @@ public:
         consensus.nProtocolV2Time = 1693994591;
         consensus.nProtocolV3Time = 1693994592;
         consensus.nProtocolV3_1Time = 1667779200;
+        consensus.nBlockTimeReductionHeight = 0;
+        consensus.nRewardHalvingStart = 0;
+        consensus.nRewardHalvingInterval = 100000;
         consensus.nLastPOWBlock = 0x7fffffff;
         consensus.nStakeTimestampMask = 0xf;
         consensus.nCoinbaseMaturity = 10;
@@ -335,6 +341,9 @@ public:
         consensus.nProtocolV2Time = 1693994591;
         consensus.nProtocolV3Time = 1693994592;
         consensus.nProtocolV3_1Time = 4102437600;
+        consensus.nBlockTimeReductionHeight = 0;
+        consensus.nRewardHalvingStart = 0;
+        consensus.nRewardHalvingInterval = 100000;
         consensus.nLastPOWBlock = 1000;
         consensus.nStakeTimestampMask = 0xf;
         consensus.nCoinbaseMaturity = 10;
