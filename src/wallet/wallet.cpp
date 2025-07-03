@@ -4068,18 +4068,24 @@ bool CMerkleTx::AcceptToMemoryPool(bool fLimitFree, CAmount nAbsurdFee, CValidat
     return ::AcceptToMemoryPool(mempool, state, *this, fLimitFree, NULL, false, nAbsurdFee);
 }
 
-bool CWallet::SignTransactionSchnorr(CMutableTransaction& tx)
+bool CWallet::SignTransactionSchnorr(CMutableTransaction& tx, const CKey& key)
 {
-    unsigned char msg[32]{};
-    std::array<unsigned char,64> sig = crypto::SchnorrSign(std::span<const unsigned char,32>(msg,32), std::span<const unsigned char,32>(msg,32));
-    (void)sig;
+    uint256 hash = tx.GetHash();
+    std::array<unsigned char,64> sig = crypto::SchnorrSign(
+        std::span<const unsigned char,32>(hash.begin(), 32),
+        std::span<const unsigned char,32>(key.begin(), 32));
+    if (tx.vin.empty()) return false;
+    tx.vin[0].scriptSig = CScript() << std::vector<unsigned char>(sig.begin(), sig.end());
     return true;
 }
 
 bool CWallet::CreateTaprootOutput(const CKey& internalKey, CTxOut& out)
 {
     out.nValue = 0;
-    out.scriptPubKey = CScript() << std::vector<unsigned char>(32,0);
+    CPubKey pub = internalKey.GetPubKey();
+    if (pub.size() != 33) return false;
+    std::vector<unsigned char> xonly(pub.begin() + 1, pub.begin() + 33);
+    out.scriptPubKey = CScript() << OP_1 << xonly;
     return true;
 }
 

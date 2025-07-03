@@ -97,6 +97,7 @@ BITCOIN_TESTS =\
   test/util_tests.cpp \
   test/handshake_tests.cpp \
   test/schnorr_tests.cpp \
+  test/taproot_tests.cpp \
   test/bls_tests.cpp
 
 if ENABLE_WALLET
