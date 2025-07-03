@@ -105,7 +105,7 @@ To build without GUI pass `--without-gui`.
 
 To build with Qt 5 (recommended) you need the following:
 
-    sudo apt-get install libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools libprotobuf-dev protobuf-compiler
+    sudo apt-get install qtbase5-dev qt5-qmake libqt5widgets5 libqt5network5 libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools libprotobuf-dev protobuf-compiler
 
 Alternatively, to build with Qt 4 you need the following:
 
