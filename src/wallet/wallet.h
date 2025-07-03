@@ -1005,4 +1005,7 @@ public:
     }
 };
 
+    bool SignTransactionSchnorr(CMutableTransaction& tx);
+    bool CreateTaprootOutput(const CKey& internalKey, CTxOut& out);
+
 #endif // BITCOIN_WALLET_WALLET_H

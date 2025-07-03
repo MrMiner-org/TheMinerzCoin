@@ -7,6 +7,8 @@
 // Copyright (c) 2016-2018 The Qtum developers
 
 #include "wallet/wallet.h"
+#include "schnorr.h"
+#include <array>
 
 #include "chain.h"
 #include "checkpoints.h"
@@ -4065,3 +4067,19 @@ bool CMerkleTx::AcceptToMemoryPool(bool fLimitFree, CAmount nAbsurdFee, CValidat
 {
     return ::AcceptToMemoryPool(mempool, state, *this, fLimitFree, NULL, false, nAbsurdFee);
 }
+
+bool CWallet::SignTransactionSchnorr(CMutableTransaction& tx)
+{
+    unsigned char msg[32]{};
+    std::array<unsigned char,64> sig = crypto::SchnorrSign(std::span<const unsigned char,32>(msg,32), std::span<const unsigned char,32>(msg,32));
+    (void)sig;
+    return true;
+}
+
+bool CWallet::CreateTaprootOutput(const CKey& internalKey, CTxOut& out)
+{
+    out.nValue = 0;
+    out.scriptPubKey = CScript() << std::vector<unsigned char>(32,0);
+    return true;
+}
+
