@@ -182,6 +182,9 @@ public:
     //! write the hdchain model (external chain child index counter)
     bool WriteHDChain(const CHDChain& chain);
 
+    bool WritePoolPubKey(const std::array<unsigned char,96>& key);
+    bool ReadPoolPubKey(std::array<unsigned char,96>& key);
+
 private:
     CWalletDB(const CWalletDB&);
     void operator=(const CWalletDB&);
