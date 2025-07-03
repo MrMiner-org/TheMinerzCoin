@@ -20,6 +20,7 @@
 #include "utilmoneystr.h"
 #include "wallet.h"
 #include "walletdb.h"
+#include "crypto/bls_aggregate.h"
 
 #include <stdint.h>
 
@@ -2916,6 +2917,47 @@ UniValue burnwallet(const UniValue& params, bool fHelp)
 }
 */
 
+static std::array<unsigned char, 96> g_poolPubKey{};
+static bool g_poolRegistered = false;
+
+static UniValue registerpool(const UniValue& params, bool fHelp)
+{
+    if (fHelp || params.size() != 1)
+        throw runtime_error(
+            "registerpool <hex pubkey>\n"
+            "Register aggregated pool BLS public key");
+
+    std::vector<unsigned char> data = ParseHexV(params[0], "pubkey");
+    if (data.size() != g_poolPubKey.size())
+        throw JSONRPCError(RPC_INVALID_PARAMETER, "invalid public key length");
+
+    std::copy(data.begin(), data.end(), g_poolPubKey.begin());
+    g_poolRegistered = true;
+
+    UniValue res(UniValue::VOBJ);
+    res.pushKV("registered", true);
+    return res;
+}
+
+static UniValue combineblssigs(const UniValue& params, bool fHelp)
+{
+    if (fHelp || params.size() < 1)
+        throw runtime_error(
+            "combineblssigs [sig ...]\n"
+            "Combine multiple BLS signatures");
+
+    std::vector<bls::Signature> sigs;
+    for (size_t i = 0; i < params.size(); ++i) {
+        std::vector<unsigned char> vec = ParseHexV(params[i], "signature");
+        if (vec.size() != sigs.emplace_back().data.size())
+            throw JSONRPCError(RPC_INVALID_PARAMETER, "invalid signature length");
+        std::copy(vec.begin(), vec.end(), sigs.back().data.begin());
+    }
+
+    bls::Signature out = bls::Aggregate(sigs);
+    return HexStr(out.data.begin(), out.data.end());
+}
+
 extern UniValue abortrescan(const UniValue& params, bool fHelp); // in rpcdump.cpp
 extern UniValue dumpprivkey(const UniValue& params, bool fHelp); // in rpcdump.cpp
 extern UniValue importprivkey(const UniValue& params, bool fHelp);
@@ -2978,6 +3020,8 @@ static const CRPCCommand commands[] =
     { "wallet",             "walletpassphrase",         &walletpassphrase,         true  },
     { "wallet",             "removeprunedfunds",        &removeprunedfunds,        true  },
     { "wallet",             "burn",                     &burn,                     false },
+    { "wallet",             "registerpool",             &registerpool,    true  },
+    { "wallet",             "combineblssigs",           &combineblssigs,  true  },
     // ToDo: fix burnwallet
     // { "wallet",             "burnwallet",               &burnwallet,               false },
 };
