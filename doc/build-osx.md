@@ -36,19 +36,18 @@ Build TheMinerzCoin
 
     Configure and build the headless theminerzcoin binaries as well as the GUI (if Qt is found).
 
-    You can disable the GUI build by passing `--without-gui` to configure.
+    You can disable the GUI build by passing `-DWITH_GUI=OFF` to CMake.
 
-        ./autogen.sh
-        ./configure
-        make
+        ./generate_build.sh
+        ./build.sh
 
 3.  It is recommended to build and run the unit tests:
 
-        make check
+        cmake --build build --target check
 
 4.  You can also create a .dmg that contains the .app bundle (optional):
 
-        make deploy
+        cmake --build build --target deploy
 
 Running
 -------
@@ -81,7 +80,7 @@ Download and install the community edition of [Qt Creator](https://www.qt.io/dow
 Uncheck everything except Qt Creator during the installation process.
 
 1. Make sure you installed everything through Homebrew mentioned above
-2. Do a proper ./configure --enable-debug
+2. Generate build files with `./generate_build.sh -DCMAKE_BUILD_TYPE=Debug`
 3. In Qt Creator do "New Project" -> Import Project -> Import Existing Project
 4. Enter "theminerzcoin-qt" as project name, enter src/qt as location
 5. Leave the file selection as it is

@@ -52,8 +52,8 @@ lots of money.
 ### Automated Testing
 
 Developers are strongly encouraged to write [unit tests](/doc/unit-tests.md) for new code, and to
-submit new unit tests for old code. Unit tests can be compiled and run
-(assuming they weren't disabled in configure) with: `make check`
+submit new unit tests for old code. Unit tests can be built after running `./generate_build.sh`
+and executed with: `cmake --build build --target check`
 
 There are also [regression and integration tests](/qa) of the RPC interface, written
 in Python, that are run automatically on the build server.

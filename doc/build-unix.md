@@ -18,10 +18,9 @@ To Build
 ---------------------
 
 ```bash
-./autogen.sh
-./configure
-make
-make install # optional
+./generate_build.sh
+./build.sh
+./install.sh # optional
 ```
 
 This will build theminerzcoin-qt as well if the dependencies are met.
@@ -180,8 +179,7 @@ make install
 
 # Configure TheMinerzCoin to use our own-built instance of BDB
 cd $BITCOIN_ROOT
-./autogen.sh
-./configure LDFLAGS="-L${BDB_PREFIX}/lib/" CPPFLAGS="-I${BDB_PREFIX}/include/" # (other args...)
+./generate_build.sh -DCMAKE_INSTALL_PREFIX=$BDB_PREFIX -DCMAKE_C_FLAGS="-I${BDB_PREFIX}/include" -DCMAKE_EXE_LINKER_FLAGS="-L${BDB_PREFIX}/lib" # (other args...)
 ```
 
 **Note**: You only need Berkeley DB if the wallet is enabled (see the section *Disable-Wallet mode* below).
@@ -270,9 +268,8 @@ This example lists the steps necessary to setup and build a command line only, n
     pacman -S git base-devel boost libevent python
     git clone https://github.com/MrMiner-org/TheMinerzCoin.git
     cd theminerzcoin/
-    ./autogen.sh
-    ./configure --disable-wallet --without-gui --without-miniupnpc
-    make check
+    ./generate_build.sh -DWITH_WALLET=OFF -DWITH_GUI=OFF -DWITH_MINIUPNPC=OFF
+    cmake --build build --target check
 
 Note:
 Enabling wallet support requires either compiling against a Berkeley DB newer than 6.2 (package `db`) using `--with-incompatible-bdb`,
@@ -327,9 +324,8 @@ with 4.8-built Bitcoin Core is needed follow the steps under "Berkeley DB" above
 
 Then build using:
 
-    ./autogen.sh
-    ./configure --with-incompatible-bdb BDB_CFLAGS="-I/usr/local/include/db5" BDB_LIBS="-L/usr/local/lib -ldb_cxx-5"
-    make
+    ./generate_build.sh -DWITH_INCOMPATIBLE_BDB=ON -DBDB_CFLAGS="-I/usr/local/include/db5" -DBDB_LIBS="-L/usr/local/lib -ldb_cxx-5"
+    ./build.sh
 
 *Note on debugging*: The version of `gdb` installed by default is [ancient and considered harmful](https://wiki.freebsd.org/GdbRetirement).
 It is not suitable for debugging a multi-threaded C++ program, not even for getting backtraces. Please install the package `gdb` and
