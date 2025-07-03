@@ -1,0 +1,7 @@
+find_package(Qt5 COMPONENTS Widgets Gui Network REQUIRED)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTOUIC ON)
+file(GLOB QT_SOURCES *.cpp)
+add_executable(theminerzcoin-qt ${QT_SOURCES})
+target_include_directories(theminerzcoin-qt PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/..)
+target_link_libraries(theminerzcoin-qt PRIVATE wallet consensus core Qt5::Widgets Qt5::Gui Qt5::Network)
