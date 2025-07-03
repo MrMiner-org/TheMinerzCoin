@@ -88,7 +88,7 @@ bool fListen = true;
 ServiceFlags nLocalServices = NODE_NETWORK;
 bool fRelayTxes = true;
 // Enable experimental Dandelion++ transaction relay
-bool fDandelion = true;
+bool fDandelion = DEFAULT_DANDELION;
 CCriticalSection cs_mapLocalHost;
 std::map<CNetAddr, LocalServiceInfo> mapLocalHost;
 static bool vfLimited[NET_MAX] = {};
