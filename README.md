@@ -65,3 +65,8 @@ Changes should be tested by somebody other than the developer who wrote the
 code. This is especially important for large or high-risk changes. It is useful
 to add a test plan to the pull request description if testing the changes is
 not straightforward.
+
+### API specifications
+
+The RPC/REST API is documented in [specs/openapi.yaml](specs/openapi.yaml).
+A prototype GraphQL schema lives in [specs/schema.graphql](specs/schema.graphql).

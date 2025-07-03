@@ -6,6 +6,9 @@ The REST API can be enabled with the `-rest` option.
 The interface runs on the same port as the JSON-RPC interface, by default port 13947 for mainnet, port 23947 for testnet,
 and port 35715 for regtest.
 
+An OpenAPI description of the available endpoints is maintained in
+[../specs/openapi.yaml](../specs/openapi.yaml).
+
 REST Interface consistency guarantees
 -------------------------------------
 
