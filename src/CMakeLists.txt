@@ -22,3 +22,4 @@ add_subdirectory(p2p)
 add_subdirectory(univalue)
 add_subdirectory(secp256k1)
 
+add_subdirectory(test)

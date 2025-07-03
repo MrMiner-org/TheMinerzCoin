@@ -5,8 +5,20 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
+        sanitizer: [none]
+        include:
+          - os: ubuntu-latest
+            sanitizer: address
+          - os: ubuntu-latest
+            sanitizer: undefined
     runs-on: ${{ matrix.os }}
     steps:
+    - if: matrix.sanitizer != 'none'
+      name: Set sanitizer flags
+      run: |
+        echo "CFLAGS=-fsanitize=${{ matrix.sanitizer }}" >> $GITHUB_ENV
+        echo "CXXFLAGS=-fsanitize=${{ matrix.sanitizer }}" >> $GITHUB_ENV
+        echo "LDFLAGS=-fsanitize=${{ matrix.sanitizer }}" >> $GITHUB_ENV
     - uses: actions/checkout@v3
     - name: Configure
       run: cmake -S . -B build
