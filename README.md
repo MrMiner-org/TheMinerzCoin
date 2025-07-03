@@ -22,6 +22,7 @@ Version 3.0 introduces:
 - Schnorr/Taproot support (BIP340-342)
 - Encrypted P2P transport (BIP324)
 - BLS aggregate signatures for staking pools
+- Dandelion++ transaction relay for improved privacy
 Architecture
 ------------
 A high-level architecture diagram is provided in [docs/architecture.puml](docs/architecture.puml) illustrating the wallet, RPC, consensus and P2P layers as well as the new BLS staking module.

@@ -6,10 +6,12 @@ component "RPC" as rpc
 component "Consensus" as consensus
 component "P2P Network" as p2p
 component "BLS Staking" as bls
+component "Dandelion++" as dandelion
 
 wallet --> rpc : JSON-RPC calls
 rpc --> consensus : validate & submit
 rpc --> p2p : broadcast TXs
+p2p --> dandelion : stem relay
 consensus --> p2p : propagate blocks
 consensus --> bls : stake processing
 

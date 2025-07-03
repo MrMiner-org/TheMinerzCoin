@@ -161,6 +161,7 @@ extern bool fListen;
 extern ServiceFlags nLocalServices;
 extern ServiceFlags nRelevantServices;
 extern bool fRelayTxes;
+extern bool fDandelion;
 extern uint64_t nLocalHostNonce;
 extern CAddrMan addrman;
 
