@@ -1,0 +1,5 @@
+file(GLOB P2P_SOURCES *.cpp)
+add_library(p2p STATIC ${P2P_SOURCES})
+find_package(OpenSSL REQUIRED)
+target_link_libraries(p2p PUBLIC OpenSSL::Crypto)
+target_include_directories(p2p PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/..)
