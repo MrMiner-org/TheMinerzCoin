@@ -86,7 +86,7 @@ checkconfig()
 		eerror "notified of problems:"
 		eerror ""
 		eerror "ie: alertnotify=echo %%s | mail -s \"TheMinerzCoin Alert\"" \
-			"team@theminerzcoin.org"
+                        "team@theminerzcoin.eu"
 		eerror ""
 		return 1
 	fi

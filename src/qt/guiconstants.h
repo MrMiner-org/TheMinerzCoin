@@ -49,7 +49,7 @@ static const int MAX_URI_LENGTH = 255;
 #define SPINNER_FRAMES 36
 
 #define QAPP_ORG_NAME "TheMinerzCoin"
-#define QAPP_ORG_DOMAIN "theminerzcoinmore.org"
+#define QAPP_ORG_DOMAIN "theminerzcoin.eu"
 #define QAPP_APP_NAME_DEFAULT "TheMinerzCoin-Qt"
 #define QAPP_APP_NAME_TESTNET "TheMinerzCoin-Qt-testnet"
 

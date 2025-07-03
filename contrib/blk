@@ -26,8 +26,8 @@ stake )
 ;;
 
 latest )
-	latest=$($blkc  getblockcount) && \
-	    blacksight=$(curl -s https://node.theminerzcoin.io/insight-api/block-index/$latest? |  cut -d '"' -f4) && \
+        latest=$($blkc  getblockcount) && \
+            blacksight=$(curl -s https://node.theminerzcoin.eu/insight-api/block-index/$latest? |  cut -d '"' -f4) && \
 	    theminerzcoin=$($blkc  getblockhash $latest) && \
 	    diff -sy --label Local <(echo $theminerzcoin) --label Explorer <(echo $blacksight)
 ;;
