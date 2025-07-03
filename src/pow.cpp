@@ -56,7 +56,9 @@ unsigned int CalculateNextTargetRequired(const CBlockIndex* pindexLast, int64_t 
             return pindexLast->nBits;
     }
 
-    int64_t nTargetSpacing = params.IsProtocolV2(pindexLast->GetBlockTime()) ? params.nTargetSpacing : params.nTargetSpacingV1;
+    int heightNext = pindexLast->nHeight + 1;
+    int64_t baseSpacing = params.IsProtocolV2(pindexLast->GetBlockTime()) ? params.nTargetSpacing : params.nTargetSpacingV1;
+    int64_t nTargetSpacing = (heightNext >= params.nBlockTimeReductionHeight) ? baseSpacing / 2 : baseSpacing;
     int64_t nActualSpacing = pindexLast->GetBlockTime() - nFirstBlockTime;
 
     // Limit adjustment step
