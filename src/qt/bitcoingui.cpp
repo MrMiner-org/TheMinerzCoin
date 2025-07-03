@@ -1137,7 +1137,8 @@ void BitcoinGUI::updateStakingIcon()
     	uint64_t nNetworkWeight = GetPoSKernelPS();
     bool staking = nLastCoinStakeSearchInterval && nWeight;
     const Consensus::Params& consensusParams = Params().GetConsensus();
-    int64_t nTargetSpacing = consensusParams.nTargetSpacing;
+    int currentHeight = clientModel ? clientModel->getNumBlocks() : 0;
+    int64_t nTargetSpacing = consensusParams.GetDynamicTargetSpacing(currentHeight);
     uint64_t nEstimateTime = staking ? (nTargetSpacing * nNetworkWeight / nWeight) : 0;
 
         QString text;
