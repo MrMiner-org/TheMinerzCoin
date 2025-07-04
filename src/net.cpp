@@ -2005,6 +2005,7 @@ void ThreadMessageHandler()
         }
 
         if (fDandelion) {
+            // Periodically flush expired Dandelion stem transactions
             p2p::FlushStemPool();
         }
 
@@ -2305,6 +2306,7 @@ instance_of_cnetcleanup;
 void RelayTransaction(const CTransaction& tx)
 {
     if (fDandelion) {
+        // Relay via Dandelion++ stem phase first
         p2p::AddToStemPool(tx);
         return;
     }
