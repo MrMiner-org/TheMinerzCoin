@@ -53,6 +53,18 @@ paths:
       responses:
         '200':
           description: wallet created
+  /wallet/importdescriptors:
+    post:
+      summary: Import descriptors
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+      responses:
+        '200':
+          description: import result
   /wallet/{name}/balance:
     get:
       summary: Get wallet balance
@@ -65,6 +77,18 @@ paths:
       responses:
         '200':
           description: wallet balance
+  /walletcreatefundedpsbt:
+    post:
+      summary: Create and fund PSBT v2
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: funded PSBT
   /staking/delegate:
     post:
       summary: Delegate stake
