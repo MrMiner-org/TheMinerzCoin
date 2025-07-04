@@ -6,6 +6,17 @@
 - BLS aggregate staking
 - Dandelion++ transaction relay
 - Descriptor key management and PSBTv2 support
+- Compact Block v2 and assume-utxo
+- Lightning channel pilot via LND
+- Experimental zk-rollups sidechain
+- CMake build with C++20 modules
+- Fuzzing targets and sanitizer CI
+- Rust secp256k1 bindings
+- Hardware wallet interface
+- GraphQL/gRPC/WebSocket APIs
+- Neutrino SPV light client
+- Docker release images and Prometheus metrics
+- OpenAPI 3.1 specification
 
 ## v2.0.2 (2024-11-12)
 - Working Transaction Hotfix: Displays correct Timestamp in Explorer
