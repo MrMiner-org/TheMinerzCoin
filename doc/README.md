@@ -65,6 +65,7 @@ The TheMinerzCoin repo's [root README](/README.md) contains relevant information
 - [WebSocket Event Server](websockets.md)
 - [Prometheus Metrics](prometheus-metrics.md)
 - [Node gRPC Service](grpc-node-service.md)
+- [Fuzzing](fuzzing.md)
 - [Shared Libraries](shared-libraries.md)
 - [BIPS](bips.md)
 - [Taproot and Schnorr](taproot_schnorr.md)
