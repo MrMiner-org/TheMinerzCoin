@@ -72,6 +72,7 @@ The TheMinerzCoin repo's [root README](/README.md) contains relevant information
 - [Encrypted P2P Transport](encrypted_p2p_handshake.md)
 - [BLS12-381 Staking](bls12-381-staking.md)
 - [Dandelion++ Transaction Relay](dandelion.md)
+- [Descriptor Wallets and PSBTv2](descriptor-wallets.md)
 - [Dnsseed Policy](dnsseed-policy.md)
 - [Benchmarking](benchmarking.md)
 
