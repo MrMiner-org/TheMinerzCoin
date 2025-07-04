@@ -65,6 +65,7 @@ The TheMinerzCoin repo's [root README](/README.md) contains relevant information
 - [Taproot and Schnorr](taproot_schnorr.md)
 - [Encrypted P2P Transport](encrypted_p2p_handshake.md)
 - [BLS12-381 Staking](bls12-381-staking.md)
+- [Dandelion++ Transaction Relay](dandelion.md)
 - [Dnsseed Policy](dnsseed-policy.md)
 - [Benchmarking](benchmarking.md)
 

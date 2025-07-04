@@ -367,7 +367,7 @@ std::string HelpMessage(HelpMessageMode mode)
     strUsage += HelpMessageOpt("-onlynet=<net>", _("Only connect to nodes in network <net> (ipv4, ipv6 or onion)"));
     strUsage += HelpMessageOpt("-permitbaremultisig", strprintf(_("Relay non-P2SH multisig (default: %u)"), DEFAULT_PERMIT_BAREMULTISIG));
     strUsage += HelpMessageOpt("-peerbloomfilters", strprintf(_("Support filtering of blocks and transaction with bloom filters (default: %u)"), DEFAULT_PEERBLOOMFILTERS));
-    strUsage += HelpMessageOpt("-dandelion", strprintf(_("Enable Dandelion++ transaction relay (default: %u)"), DEFAULT_DANDELION));
+    strUsage += HelpMessageOpt("-dandelion=<n>", strprintf(_("Enable or disable Dandelion++ transaction relay (0-1, default: %u)"), DEFAULT_DANDELION));
     strUsage += HelpMessageOpt("-p2pnoencrypt", _("Disable BIP324 encrypted transport"));
     strUsage += HelpMessageOpt("-port=<port>", strprintf(_("Listen for connections on <port> (default: %u or testnet: %u)"), Params(CBaseChainParams::MAIN).GetDefaultPort(), Params(CBaseChainParams::TESTNET).GetDefaultPort()));
     strUsage += HelpMessageOpt("-proxy=<ip:port>", _("Connect through SOCKS5 proxy"));
