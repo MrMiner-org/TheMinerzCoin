@@ -88,7 +88,7 @@ bool fDiscover = true;
 bool fListen = true;
 ServiceFlags nLocalServices = NODE_NETWORK;
 bool fRelayTxes = true;
-// Enable experimental Dandelion++ transaction relay
+// Enable Dandelion++ transaction relay (controlled via -dandelion)
 bool fDandelion = DEFAULT_DANDELION;
 // Use BIP324 encrypted transport if enabled
 bool fBIP324 = DEFAULT_P2P_ENCRYPT;
