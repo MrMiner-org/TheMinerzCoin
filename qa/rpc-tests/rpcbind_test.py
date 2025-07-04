@@ -20,10 +20,12 @@ class RPCBindTest(BitcoinTestFramework):
         self.num_nodes = 1
 
     def setup_network(self):
-        pass
+        self.nodes = self.setup_nodes()
+        self.is_network_split = False
 
     def setup_nodes(self):
-        pass
+        args = [['-disablewallet', '-nolisten', '-rpcallowip=127.0.0.1', '-rpcbind=127.0.0.1']]
+        return start_nodes(self.num_nodes, self.options.tmpdir, args)
 
     def run_bind_test(self, allow_ips, connect_to, addresses, expected):
         '''
@@ -36,12 +38,12 @@ class RPCBindTest(BitcoinTestFramework):
         if allow_ips:
             base_args += ['-rpcallowip=' + x for x in allow_ips]
         binds = ['-rpcbind='+addr for addr in addresses]
+        # restart node with the passed rpc arguments
+        stop_nodes(self.nodes)
         self.nodes = start_nodes(self.num_nodes, self.options.tmpdir, [base_args + binds], connect_to)
-        try:
-            pid = bitcoind_processes[0].pid
-            assert_equal(set(get_bind_addrs(pid)), set(expected))
-        finally:
-            stop_nodes(self.nodes)
+        pid = bitcoind_processes[0].pid
+        assert_equal(set(get_bind_addrs(pid)), set(expected))
+        stop_nodes(self.nodes)
 
     def run_allowip_test(self, allow_ips, rpchost, rpcport):
         '''
