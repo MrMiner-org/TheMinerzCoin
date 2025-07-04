@@ -1,4 +1,4 @@
-// Copyright (c) 2011-2015 The Bitcoin Core developers
+// Copyright (c) 2022-2024 The TheMinerzCoin developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -45,11 +45,7 @@ SplashScreen::SplashScreen(Qt::WindowFlags f, const NetworkStyle *networkStyle) 
     QString titleText       = tr(PACKAGE_NAME);
     QString versionText     = QString("Version %1").arg(QString::fromStdString(FormatFullVersion()));
 
-    QString copyrightTextBitcoin     = QChar(0xA9)+QString(" %1-%2 ").arg(2009).arg(COPYRIGHT_YEAR) + QString("The Bitcoin Core developers");
-    QString copyrightTextBlackcoin   = QChar(0xA9)+QString(" %1-%2 ").arg(2014).arg(2018) + QString("The Blackcoin developers");
-    QString copyrightTextBlackmore   = QChar(0xA9)+QString(" %1-%2 ").arg(2018).arg(COPYRIGHT_YEAR) + QString("The Blackcoin More developers");
-    QString copyrightTextTheMinerzCoin   = QChar(0xA9)+QString(" %1 ").arg(2023) + QString("The TheMinerzCoin developers");
-    // QString copyrightText   = QChar(0xA9)+QString(" %1-%2 ").arg(2009).arg(COPYRIGHT_YEAR) + QString::fromStdString(CopyrightHolders());
+    QString copyrightText   = QChar(0xA9) + QString(" %1-%2 ").arg(2022).arg(COPYRIGHT_YEAR) + QString("The TheMinerzCoin developers");
 
     QString titleAddText    = networkStyle->getTitleAddText();
 
@@ -111,10 +107,7 @@ SplashScreen::SplashScreen(Qt::WindowFlags f, const NetworkStyle *networkStyle) 
         pixPaint.setFont(QFont(font, 10*fontFactor));
         const int x = pixmap.width()/devicePixelRatio-titleTextWidth-paddingRight;
         const int y = paddingTop+titleCopyrightVSpace;
-        pixPaint.drawText(x,y,copyrightTextBitcoin);
-        pixPaint.drawText(x,y+10,copyrightTextBlackcoin);
-        pixPaint.drawText(x,y+20,copyrightTextBlackmore);
-        pixPaint.drawText(x,y+30,copyrightTextTheMinerzCoin);
+        pixPaint.drawText(x, y, copyrightText);
     }
 
     // draw additional text if special network
