@@ -92,3 +92,5 @@ GraphQL schema describing the same functionality lives in
 [specs/schema.graphql](specs/schema.graphql).
 A lightweight WebSocket event server is also available; see
 [doc/websockets.md](doc/websockets.md).
+A simple gRPC node service can also be started; see
+[doc/grpc-node-service.md](doc/grpc-node-service.md).
