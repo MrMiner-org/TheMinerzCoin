@@ -76,6 +76,8 @@ static const bool DEFAULT_BLOCKSONLY = false;
 
 /** Default for Dandelion++ transaction relay */
 static const bool DEFAULT_DANDELION = true;
+/** Default for encrypted transport (BIP324) */
+static const bool DEFAULT_P2P_ENCRYPT = true;
 
 static const bool DEFAULT_FORCEDNSSEED = false;
 static const size_t DEFAULT_MAXRECEIVEBUFFER = 5 * 1000;
@@ -168,6 +170,7 @@ extern ServiceFlags nLocalServices;
 extern ServiceFlags nRelevantServices;
 extern bool fRelayTxes;
 extern bool fDandelion;
+extern bool fBIP324;
 extern uint64_t nLocalHostNonce;
 extern CAddrMan addrman;
 
@@ -216,6 +219,7 @@ public:
     uint64_t nRecvBytes;
     mapMsgCmdSize mapRecvBytesPerMsgCmd;
     bool fWhitelisted;
+    bool bip324;
     double dPingTime;
     double dPingWait;
     double dPingMin;

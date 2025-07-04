@@ -368,6 +368,7 @@ std::string HelpMessage(HelpMessageMode mode)
     strUsage += HelpMessageOpt("-permitbaremultisig", strprintf(_("Relay non-P2SH multisig (default: %u)"), DEFAULT_PERMIT_BAREMULTISIG));
     strUsage += HelpMessageOpt("-peerbloomfilters", strprintf(_("Support filtering of blocks and transaction with bloom filters (default: %u)"), DEFAULT_PEERBLOOMFILTERS));
     strUsage += HelpMessageOpt("-dandelion", strprintf(_("Enable Dandelion++ transaction relay (default: %u)"), DEFAULT_DANDELION));
+    strUsage += HelpMessageOpt("-p2pnoencrypt", _("Disable BIP324 encrypted transport"));
     strUsage += HelpMessageOpt("-port=<port>", strprintf(_("Listen for connections on <port> (default: %u or testnet: %u)"), Params(CBaseChainParams::MAIN).GetDefaultPort(), Params(CBaseChainParams::TESTNET).GetDefaultPort()));
     strUsage += HelpMessageOpt("-proxy=<ip:port>", _("Connect through SOCKS5 proxy"));
     strUsage += HelpMessageOpt("-proxyrandomize", strprintf(_("Randomize credentials for every proxy connection. This enables Tor stream isolation (default: %u)"), DEFAULT_PROXYRANDOMIZE));
@@ -1208,6 +1209,7 @@ bool AppInit2(Config& config, boost::thread_group& threadGroup, CScheduler& sche
     fNameLookup = GetBoolArg("-dns", DEFAULT_NAME_LOOKUP);
     fRelayTxes = !GetBoolArg("-blocksonly", DEFAULT_BLOCKSONLY);
     fDandelion = GetBoolArg("-dandelion", DEFAULT_DANDELION);
+    fBIP324 = !GetBoolArg("-p2pnoencrypt", false);
 
     bool fBound = false;
     if (fListen) {
