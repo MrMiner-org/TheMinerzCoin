@@ -23,6 +23,7 @@ Version 3.0 introduces:
 - Encrypted P2P transport (BIP324)
 - BLS aggregate signatures for staking pools
 - Dandelion++ transaction relay for improved privacy
+- Lightweight slashing to penalise equivocation and offline validators ([doc/slashing.md](doc/slashing.md))
 
 Usage
 -----
@@ -36,6 +37,7 @@ theminerzd -assumeutxodat=/path/to/utxo-snapshot.dat
 When peers communicate over the default BIP324 encrypted transport, block relay
 uses compact block **v2** automatically. Disable encryption with `-p2pnoencrypt`
 to fall back to version 1 if needed.
+The RPC interface can control USB hardware wallets; see [doc/hardware-wallets.md](doc/hardware-wallets.md).
 Architecture
 ------------
 A high-level architecture diagram is provided in [docs/architecture.puml](docs/architecture.puml) illustrating the wallet, RPC, consensus and P2P layers as well as the new BLS staking module.
