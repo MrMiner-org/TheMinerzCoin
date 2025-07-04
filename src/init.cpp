@@ -31,6 +31,7 @@
 #include "grpc/node_service.h"
 #include "websockets/events.h"
 #include "script/standard.h"
+#include "rpc/metrics.h"
 #include "script/sigcache.h"
 #include "scheduler.h"
 #include "txdb.h"
@@ -204,6 +205,7 @@ void Shutdown()
     StopGraphQLServer();
     StopNodeGrpcServer();
     StopWebSocketServer();
+    StopMetricsServer();
     StopRPC();
     StopHTTPServer();
 #ifdef ENABLE_WALLET
@@ -712,6 +714,7 @@ bool AppInitServers(boost::thread_group& threadGroup)
     StartGraphQLServer();
     StartNodeGrpcServer("0.0.0.0:50051");
     StartWebSocketServer(12345);
+    StartMetricsServer();
     if (!StartHTTPServer())
         return false;
     return true;
