@@ -33,6 +33,11 @@
 #include <stdint.h>
 #include <string.h>
 #include <openssl/sha.h>
+#ifdef HAVE_STD_SIMD
+#include <experimental/simd>
+using uint32_simd = std::experimental::native_simd<uint32_t>;
+using byte_simd = std::experimental::native_simd<uint8_t>;
+#endif
 
 #if defined(USE_SSE2) && !defined(USE_SSE2_ALWAYS)
 #ifdef _MSC_VER
@@ -164,16 +169,32 @@ PBKDF2_SHA256(const uint8_t *passwd, size_t passwdlen, const uint8_t *salt,
 		/* T_i = U_1 ... */
 		memcpy(T, U, 32);
 
-		for (j = 2; j <= c; j++) {
-			/* Compute U_j. */
-			HMAC_SHA256_Init(&hctx, passwd, passwdlen);
-			HMAC_SHA256_Update(&hctx, U, 32);
-			HMAC_SHA256_Final(U, &hctx);
+                for (j = 2; j <= c; j++) {
+                        /* Compute U_j. */
+                        HMAC_SHA256_Init(&hctx, passwd, passwdlen);
+                        HMAC_SHA256_Update(&hctx, U, 32);
+                        HMAC_SHA256_Final(U, &hctx);
 
-			/* ... xor U_j ... */
-			for (k = 0; k < 32; k++)
-				T[k] ^= U[k];
-		}
+                        /* ... xor U_j ... */
+#ifdef HAVE_STD_SIMD
+                        {
+                                size_t simd_len = byte_simd::size();
+                                size_t idx = 0;
+                                for (; idx + simd_len <= 32; idx += simd_len) {
+                                        byte_simd t(&T[idx], std::experimental::vector_aligned);
+                                        byte_simd u(&U[idx], std::experimental::vector_aligned);
+                                        t ^= u;
+                                        t.copy_to(&T[idx], std::experimental::vector_aligned);
+                                }
+                                for (; idx < 32; ++idx) {
+                                        T[idx] ^= U[idx];
+                                }
+                        }
+#else
+                        for (k = 0; k < 32; k++)
+                                T[k] ^= U[k];
+#endif
+                }
 
 		/* Copy as many bytes as necessary into buf. */
 		clen = dkLen - i * 32;
@@ -274,13 +295,22 @@ void scrypt_1024_1_1_256_sp_generic(const char *input, char *output, char *scrat
 		xor_salsa8(&X[0], &X[16]);
 		xor_salsa8(&X[16], &X[0]);
 	}
-	for (i = 0; i < 1024; i++) {
-		j = 32 * (X[16] & 1023);
-		for (k = 0; k < 32; k++)
-			X[k] ^= V[j + k];
-		xor_salsa8(&X[0], &X[16]);
-		xor_salsa8(&X[16], &X[0]);
-	}
+        for (i = 0; i < 1024; i++) {
+                j = 32 * (X[16] & 1023);
+#ifdef HAVE_STD_SIMD
+                for (k = 0; k < 32; k += uint32_simd::size()) {
+                        uint32_simd x(&X[k], std::experimental::vector_aligned);
+                        uint32_simd v(&V[j + k], std::experimental::vector_aligned);
+                        x ^= v;
+                        x.copy_to(&X[k], std::experimental::vector_aligned);
+                }
+#else
+                for (k = 0; k < 32; k++)
+                        X[k] ^= V[j + k];
+#endif
+                xor_salsa8(&X[0], &X[16]);
+                xor_salsa8(&X[16], &X[0]);
+        }
 
 	for (k = 0; k < 32; k++)
 		le32enc(&B[4 * k], X[k]);

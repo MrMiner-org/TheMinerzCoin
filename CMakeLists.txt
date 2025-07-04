@@ -9,6 +9,16 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+include(CheckCXXSourceCompiles)
+check_cxx_source_compiles(
+"#include <experimental/simd>
+using floatv = std::experimental::native_simd<float>;
+int main(){floatv v(1.0f); return v.size();}"
+HAVE_STD_SIMD)
+if(HAVE_STD_SIMD)
+    add_compile_definitions(HAVE_STD_SIMD)
+endif()
+
 option(ENABLE_ZK_ROLLUP "Enable zk rollup support" OFF)
 if(ENABLE_ZK_ROLLUP)
     add_definitions(-DENABLE_ZK_ROLLUP)
