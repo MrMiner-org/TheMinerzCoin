@@ -64,6 +64,7 @@ The TheMinerzCoin repo's [root README](/README.md) contains relevant information
 - [GraphQL Server](graphql-server.md)
 - [WebSocket Event Server](websockets.md)
 - [Prometheus Metrics](prometheus-metrics.md)
+- [Node gRPC Service](grpc-node-service.md)
 - [Shared Libraries](shared-libraries.md)
 - [BIPS](bips.md)
 - [Taproot and Schnorr](taproot_schnorr.md)
