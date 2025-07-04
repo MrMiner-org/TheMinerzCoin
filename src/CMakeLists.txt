@@ -22,6 +22,7 @@ add_subdirectory(websockets)
 add_subdirectory(grpc)
 add_subdirectory(qt)
 add_subdirectory(p2p)
+add_subdirectory(neutrino)
 add_subdirectory(univalue)
 add_subdirectory(secp256k1)
 

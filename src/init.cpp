@@ -378,6 +378,7 @@ std::string HelpMessage(HelpMessageMode mode)
     strUsage += HelpMessageOpt("-peerbloomfilters", strprintf(_("Support filtering of blocks and transaction with bloom filters (default: %u)"), DEFAULT_PEERBLOOMFILTERS));
     strUsage += HelpMessageOpt("-dandelion=<n>", strprintf(_("Enable or disable Dandelion++ transaction relay (0-1, default: %u)"), DEFAULT_DANDELION));
     strUsage += HelpMessageOpt("-p2pnoencrypt", _("Disable BIP324 encrypted transport"));
+    strUsage += HelpMessageOpt("-spvmode", _("Start in Neutrino light client mode"));
     strUsage += HelpMessageOpt("-port=<port>", strprintf(_("Listen for connections on <port> (default: %u or testnet: %u)"), Params(CBaseChainParams::MAIN).GetDefaultPort(), Params(CBaseChainParams::TESTNET).GetDefaultPort()));
     strUsage += HelpMessageOpt("-proxy=<ip:port>", _("Connect through SOCKS5 proxy"));
     strUsage += HelpMessageOpt("-proxyrandomize", strprintf(_("Randomize credentials for every proxy connection. This enables Tor stream isolation (default: %u)"), DEFAULT_PROXYRANDOMIZE));
@@ -1236,6 +1237,7 @@ bool AppInit2(Config& config, boost::thread_group& threadGroup, CScheduler& sche
     fRelayTxes = !GetBoolArg("-blocksonly", DEFAULT_BLOCKSONLY);
     fDandelion = GetBoolArg("-dandelion", DEFAULT_DANDELION);
     fBIP324 = !GetBoolArg("-p2pnoencrypt", false);
+    fSpvMode = GetBoolArg("-spvmode", DEFAULT_SPV_MODE);
 
     bool fBound = false;
     if (fListen) {
