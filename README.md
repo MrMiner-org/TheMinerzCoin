@@ -54,6 +54,22 @@ Architecture
 ------------
 A high-level architecture diagram is provided in [docs/architecture.puml](docs/architecture.puml) illustrating the wallet, RPC, consensus and P2P layers as well as the new BLS staking module.
 
+Deterministic dependencies
+--------------------------
+Build pinned versions of all required libraries with the depends system:
+
+```bash
+make -C depends HOST=x86_64-linux-gnu
+```
+
+Then point CMake at the generated prefix when configuring:
+
+```bash
+./generate_build.sh -DCMAKE_PREFIX_PATH=$(pwd)/depends/x86_64-linux-gnu
+```
+
+See [depends/README.md](depends/README.md) for more advanced options and cross-compilation details.
+
 License
 -------
 
