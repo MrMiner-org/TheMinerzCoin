@@ -1,7 +1,7 @@
 # WebSocket Event Server
 
 The node exposes a lightweight WebSocket endpoint broadcasting block and transaction events.
-It starts automatically when `theminerzd` runs and binds to port `12345` by default.
+It starts automatically when `theminerzcoind` runs and binds to port `12345` by default.
 
 ## Running
 

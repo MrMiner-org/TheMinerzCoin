@@ -43,7 +43,7 @@ Bootstrap a node from a UTXO snapshot by supplying the `-assumeutxodat` flag on
 startup:
 
 ```
-theminerzd -assumeutxodat=/path/to/utxo-snapshot.dat
+theminerzcoind -assumeutxodat=/path/to/utxo-snapshot.dat
 ```
 
 When peers communicate over the default BIP324 encrypted transport, block relay
