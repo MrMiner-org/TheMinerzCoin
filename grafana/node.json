@@ -1,0 +1,22 @@
+{
+  "title": "TheMinerzCoin Node",
+  "panels": [
+    {
+      "type": "graph",
+      "title": "Chain Height",
+      "targets": [{"expr": "node_chain_height", "legendFormat": "height"}]
+    },
+    {
+      "type": "graph",
+      "title": "Peer Count",
+      "targets": [{"expr": "node_peer_count", "legendFormat": "peers"}]
+    },
+    {
+      "type": "graph",
+      "title": "Mempool Transactions",
+      "targets": [{"expr": "node_mempool_tx", "legendFormat": "tx"}]
+    }
+  ],
+  "schemaVersion": 16,
+  "version": 1
+}
