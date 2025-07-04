@@ -78,6 +78,8 @@ static const bool DEFAULT_BLOCKSONLY = false;
 static const bool DEFAULT_DANDELION = true;
 /** Default for encrypted transport (BIP324) */
 static const bool DEFAULT_P2P_ENCRYPT = true;
+/** Default for Neutrino light client mode */
+static const bool DEFAULT_SPV_MODE = false;
 
 static const bool DEFAULT_FORCEDNSSEED = false;
 static const size_t DEFAULT_MAXRECEIVEBUFFER = 5 * 1000;
@@ -171,6 +173,7 @@ extern ServiceFlags nRelevantServices;
 extern bool fRelayTxes;
 extern bool fDandelion;
 extern bool fBIP324;
+extern bool fSpvMode;
 extern uint64_t nLocalHostNonce;
 extern CAddrMan addrman;
 

@@ -92,6 +92,8 @@ bool fRelayTxes = true;
 bool fDandelion = DEFAULT_DANDELION;
 // Use BIP324 encrypted transport if enabled
 bool fBIP324 = DEFAULT_P2P_ENCRYPT;
+// Light client mode based on compact filters
+bool fSpvMode = DEFAULT_SPV_MODE;
 CCriticalSection cs_mapLocalHost;
 std::map<CNetAddr, LocalServiceInfo> mapLocalHost;
 static bool vfLimited[NET_MAX] = {};
