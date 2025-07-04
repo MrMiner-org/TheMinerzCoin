@@ -119,6 +119,7 @@ UniValue getpeerinfo(const UniValue& params, bool fHelp)
             "       \"addr\": n,             (numeric) The total bytes received aggregated by message type\n"
             "       ...\n"
             "    }\n"
+            "    \"bip324\": true|false     (boolean) Whether encrypted transport was negotiated\n"
             "  }\n"
             "  ,...\n"
             "]\n"
@@ -174,6 +175,7 @@ UniValue getpeerinfo(const UniValue& params, bool fHelp)
             obj.push_back(Pair("inflight", heights));
         }
         obj.push_back(Pair("whitelisted", stats.fWhitelisted));
+        obj.push_back(Pair("bip324", stats.bip324));
 
         UniValue sendPerMsgCmd(UniValue::VOBJ);
         BOOST_FOREACH(const mapMsgCmdSize::value_type &i, stats.mapSendBytesPerMsgCmd) {

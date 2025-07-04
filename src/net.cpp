@@ -90,6 +90,8 @@ ServiceFlags nLocalServices = NODE_NETWORK;
 bool fRelayTxes = true;
 // Enable experimental Dandelion++ transaction relay
 bool fDandelion = DEFAULT_DANDELION;
+// Use BIP324 encrypted transport if enabled
+bool fBIP324 = DEFAULT_P2P_ENCRYPT;
 CCriticalSection cs_mapLocalHost;
 std::map<CNetAddr, LocalServiceInfo> mapLocalHost;
 static bool vfLimited[NET_MAX] = {};
@@ -441,9 +443,11 @@ CNode* ConnectNode(CAddress addrConnect, const char *pszDest, bool fCountFailure
 
         p2p::Handshake hs;
         std::array<unsigned char,32> sendk, recvk;
-        if (!TransportHandshake(hSocket, hs, sendk, recvk)) {
-            CloseSocket(hSocket);
-            return NULL;
+        if (fBIP324) {
+            if (!TransportHandshake(hSocket, hs, sendk, recvk)) {
+                CloseSocket(hSocket);
+                return NULL;
+            }
         }
 
         if (pszDest && addrConnect.IsValid()) {
@@ -470,10 +474,12 @@ CNode* ConnectNode(CAddress addrConnect, const char *pszDest, bool fCountFailure
 
         // Add node
         CNode* pnode = new CNode(hSocket, addrConnect, pszDest ? pszDest : "", false);
-        pnode->fEncrypt = true;
-        pnode->send_key = sendk;
-        pnode->recv_key = recvk;
-        pnode->handshake = hs;
+        if (fBIP324) {
+            pnode->fEncrypt = true;
+            pnode->send_key = sendk;
+            pnode->recv_key = recvk;
+            pnode->handshake = hs;
+        }
         pnode->AddRef();
 
         {
@@ -736,6 +742,7 @@ void CNode::copyStats(CNodeStats &stats)
     X(nRecvBytes);
     X(mapRecvBytesPerMsgCmd);
     X(fWhitelisted);
+    stats.bip324 = fEncrypt;
 
     // It is common for nodes with good ping times to suddenly become lagged,
     // due to a new block arriving or other large transfer.
@@ -1160,18 +1167,22 @@ static void AcceptConnection(const ListenSocket& hListenSocket) {
     }
     p2p::Handshake hs;
     std::array<unsigned char,32> sendk, recvk;
-    if (!TransportHandshake(hSocket, hs, sendk, recvk)) {
-        CloseSocket(hSocket);
-        return;
+    if (fBIP324) {
+        if (!TransportHandshake(hSocket, hs, sendk, recvk)) {
+            CloseSocket(hSocket);
+            return;
+        }
     }
 
     CNode* pnode = new CNode(hSocket, addr, "", true);
     pnode->AddRef();
     pnode->fWhitelisted = whitelisted;
-    pnode->fEncrypt = true;
-    pnode->send_key = sendk;
-    pnode->recv_key = recvk;
-    pnode->handshake = hs;
+    if (fBIP324) {
+        pnode->fEncrypt = true;
+        pnode->send_key = sendk;
+        pnode->recv_key = recvk;
+        pnode->handshake = hs;
+    }
 
     LogPrint("net", "connection from %s accepted\n", addr.ToString());
 
