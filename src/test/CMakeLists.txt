@@ -1,1 +1,6 @@
 add_subdirectory(fuzz)
+file(GLOB TEST_SOURCES *.cpp)
+add_executable(theminerzcoin_test ${TEST_SOURCES})
+target_link_libraries(theminerzcoin_test PUBLIC core node)
+enable_testing()
+add_test(NAME assumeutxo COMMAND theminerzcoin_test)

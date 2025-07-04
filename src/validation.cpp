@@ -86,10 +86,29 @@ using node::CBlockIndexHeightOnlyComparator;
 using node::CBlockIndexWorkComparator;
 using node::SnapshotMetadata;
 
+static std::unique_ptr<SnapshotMetadata> g_loaded_snapshot;
+
 bool LoadAssumeutxoSnapshot(const std::string& path)
 {
-    LogPrintf("[snapshot] assumeutxodat not yet supported (%s)\n", path);
-    return false;
+    FILE* file = fopen(path.c_str(), "rb");
+    if (file == nullptr) {
+        LogPrintf("[snapshot] failed to open snapshot file %s\n", path);
+        return false;
+    }
+
+    AutoFile afile{file, SER_DISK, CLIENT_VERSION};
+    SnapshotMetadata metadata{Params().MessageStart()};
+    try {
+        afile >> metadata;
+    } catch (const std::exception& e) {
+        LogPrintf("[snapshot] failed to read snapshot metadata %s: %s\n", path, e.what());
+        return false;
+    }
+
+    g_loaded_snapshot = std::make_unique<SnapshotMetadata>(metadata);
+    LogPrintf("[snapshot] loaded snapshot base block %s containing %u coins\n",
+              metadata.m_base_blockhash.ToString(), metadata.m_coins_count);
+    return true;
 }
 bool ValidateBRC20Transaction(const CBRC20Transaction& tx)
 {
