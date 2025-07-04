@@ -1,0 +1,14 @@
+[package]
+name = "theminerz_rust"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["staticlib"]
+
+[dependencies]
+cxx = "1.0"
+secp256k1 = "0.31"
+
+[build-dependencies]
+cxx-build = "1.0"

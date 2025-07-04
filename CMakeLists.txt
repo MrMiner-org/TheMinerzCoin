@@ -26,6 +26,7 @@ endif()
 
 add_subdirectory(src/leveldb)
 add_subdirectory(src/crc32c)
+add_subdirectory(rust)
 add_subdirectory(src)
 
 # install documentation
