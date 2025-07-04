@@ -62,6 +62,7 @@ The TheMinerzCoin repo's [root README](/README.md) contains relevant information
 - [GraphQL Schema](../specs/schema.graphql)
 - [GraphQL API](../docs/graphql.md)
 - [GraphQL Server](graphql-server.md)
+- [WebSocket Event Server](websockets.md)
 - [Prometheus Metrics](prometheus-metrics.md)
 - [Shared Libraries](shared-libraries.md)
 - [BIPS](bips.md)
