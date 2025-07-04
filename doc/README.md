@@ -61,6 +61,8 @@ The TheMinerzCoin repo's [root README](/README.md) contains relevant information
 - [RPC/REST OpenAPI Specification](../specs/openapi.yaml)
 - [GraphQL Schema](../specs/schema.graphql)
 - [GraphQL API](../docs/graphql.md)
+- [GraphQL Server](graphql-server.md)
+- [Prometheus Metrics](prometheus-metrics.md)
 - [Shared Libraries](shared-libraries.md)
 - [BIPS](bips.md)
 - [Taproot and Schnorr](taproot_schnorr.md)
