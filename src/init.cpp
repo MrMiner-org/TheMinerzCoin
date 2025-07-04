@@ -775,6 +775,8 @@ void InitParameterInteraction()
         if (SoftSetBoolArg("-walletbroadcast", false))
             LogPrintf("%s: parameter interaction: -blocksonly=1 -> setting -walletbroadcast=0\n", __func__);
 #endif
+        if (SoftSetBoolArg("-dandelion", false))
+            LogPrintf("%s: parameter interaction: -blocksonly=1 -> setting -dandelion=0\n", __func__);
     }
 
     // Forcing relay from whitelisted hosts implies we will accept relays from them in the first place.

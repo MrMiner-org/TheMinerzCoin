@@ -2016,7 +2016,7 @@ void ThreadMessageHandler()
         }
 
         if (fDandelion) {
-            // Periodically flush expired Dandelion stem transactions
+            // Periodic maintenance of Dandelion++ epochs and transactions
             p2p::FlushStemPool();
         }
 
