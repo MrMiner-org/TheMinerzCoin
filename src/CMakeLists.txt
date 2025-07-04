@@ -27,4 +27,8 @@ if(WITH_LIGHTNING)
     add_subdirectory(lightning)
 endif()
 
+if(ENABLE_ZK_ROLLUP)
+    add_subdirectory(rollup)
+endif()
+
 add_subdirectory(test)
