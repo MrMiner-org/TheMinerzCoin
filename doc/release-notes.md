@@ -45,6 +45,10 @@ Notable changes
 P2P and network changes
 -----------------------
 
+- Compact block **v2** is now negotiated when peers communicate over the
+  encrypted BIP324 transport. This reduces bandwidth compared to version 1
+  while maintaining compatibility with unencrypted peers.
+
 New and Updated RPCs
 --------------------
 
@@ -56,6 +60,10 @@ Files
 
 New settings
 ------------
+
+- `-assumeutxodat=<file>` can be used to bootstrap from a UTXO snapshot at
+  startup. This option loads the specified snapshot as the initial chainstate
+  and significantly shortens the time required for first synchronization.
 
 Updated settings
 ----------------
