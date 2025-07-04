@@ -90,3 +90,5 @@ The RPC/REST API—covering wallet management, staking operations and network
 statistics—is documented in [specs/openapi.yaml](specs/openapi.yaml). A prototype
 GraphQL schema describing the same functionality lives in
 [specs/schema.graphql](specs/schema.graphql).
+A lightweight WebSocket event server is also available; see
+[doc/websockets.md](doc/websockets.md).
