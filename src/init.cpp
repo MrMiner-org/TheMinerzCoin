@@ -38,6 +38,8 @@
 #include "utilmoneystr.h"
 #include "utilstrencodings.h"
 #include "validationinterface.h"
+
+bool LoadAssumeutxoSnapshot(const std::string& path);
 #ifdef ENABLE_WALLET
 #include "wallet/wallet.h"
 #endif
@@ -328,6 +330,7 @@ std::string HelpMessage(HelpMessageMode mode)
     if (showDebug)
         strUsage += HelpMessageOpt("-feefilter", strprintf("Tell other nodes to filter invs to us by our mempool min fee (default: %u)", DEFAULT_FEEFILTER));
     strUsage += HelpMessageOpt("-loadblock=<file>", _("Imports blocks from external blk000??.dat file on startup"));
+    strUsage += HelpMessageOpt("-assumeutxodat=<file>", _("Load UTXO snapshot from <file> on startup"));
     strUsage += HelpMessageOpt("-maxorphantx=<n>", strprintf(_("Keep at most <n> unconnectable transactions in memory (default: %u)"), DEFAULT_MAX_ORPHAN_TRANSACTIONS));
     strUsage += HelpMessageOpt("-maxmempool=<n>", strprintf(_("Keep the transaction memory pool below <n> megabytes (default: %u)"), DEFAULT_MAX_MEMPOOL_SIZE));
     strUsage += HelpMessageOpt("-mempoolexpiry=<n>", strprintf(_("Do not keep transactions in the mempool longer than <n> hours (default: %u)"), DEFAULT_MEMPOOL_EXPIRY));
@@ -1043,11 +1046,23 @@ bool AppInit2(Config& config, boost::thread_group& threadGroup, CScheduler& sche
                     break;
                 }
             }
-            if (!found) {
-                return InitError(strprintf("Invalid deployment (%s)", vDeploymentParams[0]));
-            }
+    if (!found) {
+        return InitError(strprintf("Invalid deployment (%s)", vDeploymentParams[0]));
+    }
+}
+    }
+
+    if (mapArgs.count("-assumeutxodat")) {
+        boost::filesystem::path snapshot_path = boost::filesystem::absolute(GetArg("-assumeutxodat", ""));
+        if (!boost::filesystem::exists(snapshot_path)) {
+            return InitError(strprintf(_("Specified -assumeutxodat file '%s' does not exist"), snapshot_path.string()));
+        }
+        if (!LoadAssumeutxoSnapshot(snapshot_path.string())) {
+            return InitError(_("Failed to load assumeutxo snapshot"));
         }
     }
+
+    // ********************************************************* Step 4: application initialization: dir lock, daemonize, pidfile, debug log
 
     // ********************************************************* Step 4: application initialization: dir lock, daemonize, pidfile, debug log
 

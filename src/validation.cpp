@@ -85,6 +85,12 @@ using node::BlockMap;
 using node::CBlockIndexHeightOnlyComparator;
 using node::CBlockIndexWorkComparator;
 using node::SnapshotMetadata;
+
+bool LoadAssumeutxoSnapshot(const std::string& path)
+{
+    LogPrintf("[snapshot] assumeutxodat not yet supported (%s)\n", path);
+    return false;
+}
 bool ValidateBRC20Transaction(const CBRC20Transaction& tx)
 {
     if (tx.amount <= 0) {
