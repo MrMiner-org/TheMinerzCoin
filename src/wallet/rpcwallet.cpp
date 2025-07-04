@@ -14,6 +14,7 @@
 #include "main.h"
 #include "net.h"
 #include "pos.h"
+#include "consensus/slashing.h"
 #include "rpc/server.h"
 #include "timedata.h"
 #include "util.h"
@@ -2962,6 +2963,17 @@ static UniValue combineblssigs(const UniValue& params, bool fHelp)
     return HexStr(out.data.begin(), out.data.end());
 }
 
+static UniValue getslashinginfo(const UniValue& params, bool fHelp)
+{
+    if (fHelp || params.size() != 0)
+        throw runtime_error(
+            "getslashinginfo\n"
+            "Return information about slashed validators.\n");
+
+    LOCK(cs_main);
+    return Consensus::GetSlashingInfo();
+}
+
 extern UniValue abortrescan(const UniValue& params, bool fHelp); // in rpcdump.cpp
 extern UniValue dumpprivkey(const UniValue& params, bool fHelp); // in rpcdump.cpp
 extern UniValue importprivkey(const UniValue& params, bool fHelp);
@@ -3024,6 +3036,7 @@ static const CRPCCommand commands[] =
     { "wallet",             "walletpassphrase",         &walletpassphrase,         true  },
     { "wallet",             "removeprunedfunds",        &removeprunedfunds,        true  },
     { "wallet",             "burn",                     &burn,                     false },
+    { "wallet",             "getslashinginfo",          &getslashinginfo,   false },
     { "wallet",             "registerpool",             &registerpool,    true  },
     { "wallet",             "combineblssigs",           &combineblssigs,  true  },
     // ToDo: fix burnwallet
