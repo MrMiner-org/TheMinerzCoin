@@ -60,6 +60,7 @@ The TheMinerzCoin repo's [root README](/README.md) contains relevant information
 - [Unauthenticated REST Interface](REST-interface.md)
 - [RPC/REST OpenAPI Specification](../specs/openapi.yaml)
 - [GraphQL Schema](../specs/schema.graphql)
+- [GraphQL API](../docs/graphql.md)
 - [Shared Libraries](shared-libraries.md)
 - [BIPS](bips.md)
 - [Taproot and Schnorr](taproot_schnorr.md)
