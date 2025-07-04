@@ -5,12 +5,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        sanitizer: [none]
-        include:
-          - os: ubuntu-latest
-            sanitizer: address
-          - os: ubuntu-latest
-            sanitizer: undefined
+        sanitizer: [none, address, undefined]
     runs-on: ${{ matrix.os }}
     steps:
     - if: matrix.sanitizer != 'none'
@@ -26,3 +21,20 @@ jobs:
       run: cmake --build build -j2
     - name: Test
       run: cmake --build build --target check
+
+  fuzz:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+    - uses: actions/checkout@v3
+    - name: Configure fuzzers
+      run: cmake -S . -B fuzz_build -DCMAKE_CXX_FLAGS="-fsanitize=fuzzer,address" -DCMAKE_C_FLAGS="-fsanitize=fuzzer,address"
+    - name: Build fuzzers
+      run: cmake --build fuzz_build -j2 --target tx_deser_fuzz block_deser_fuzz script_interpreter_fuzz
+    - name: Run fuzzers
+      run: |
+        ./fuzz_build/src/test/fuzz/tx_deser_fuzz -runs=1
+        ./fuzz_build/src/test/fuzz/block_deser_fuzz -runs=1
+        ./fuzz_build/src/test/fuzz/script_interpreter_fuzz -runs=1
