@@ -6,7 +6,7 @@ namespace p2p {
 /** Queue a transaction for Dandelion++ stem relay. */
 void AddToStemPool(const CTransaction& tx);
 
-/** Flush all queued transactions by relaying them. */
+/** Check embargo timers and fluff expired transactions. */
 void FlushStemPool();
 
 }
