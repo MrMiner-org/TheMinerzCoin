@@ -25,11 +25,11 @@
 ## v2.0.1 (2024-10-12)
 - Code clean up
 - Transaction Hotfix: Displays correct Timestamp
-- Preparations for integration on the Poligon network
+- Preparations for integration on the Polygon network
 
 ## v2.0.0 (2024-07-27)
 
-- Bann V1 tansctions from network on block 75000
+- Ban V1 transactions from network on block 75000
 - Difficulty Adjustment Algorithm (Dark Gravity Wave)
 - change max blocks to 755359744
 
@@ -66,7 +66,7 @@
 - Fixed a segfault issue occurring during the initial sync
  
 ## v1.0.2 (2023-09-11)
-- Fixed Windows Wallet not close in Systemtray
+- Fixed Windows Wallet not close in system tray
 - Fixed Windows Wallet only runs as Background service when close
 - Added Pictures for Qt Wallets
 
