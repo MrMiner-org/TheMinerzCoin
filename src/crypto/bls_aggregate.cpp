@@ -6,6 +6,10 @@
 namespace bls {
 std::optional<Signature> Aggregate(const std::vector<Signature>& sigs)
 {
+    if (sigs.empty()) {
+        return std::nullopt;
+    }
+
     blst_p2 agg;
     bool first = true;
 
