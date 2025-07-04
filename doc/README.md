@@ -30,7 +30,7 @@ Drag TheMinerzCoin-More.app to your applications folder, and then run TheMinerzC
 
 * See the documentation at the [Bitcoin Wiki](https://en.bitcoin.it/wiki/Main_Page)
 for help and more information.
-* Ask for help on [#theminerzcoin](http://webchat.freenode.net?channels=theminerzcoin) on Freenode. If you don't have an IRC client use [webchat here](http://webchat.freenode.net?channels=theminerzcoin).
+* Ask for help in [TheMinerzCoin Discord server](https://discord.gg/hjNUgWD).
 * Ask for help in [TheMinerzCoin room](https://gitter.im/TheMinerzCoin_Hub) on Gitter.
 * Ask for help in [/r/theminerzcoin/](https://nm.reddit.com/r/theminerzcoin/) on Reddit.
 * Ask for help on the [BitcoinTalk](https://bitcointalk.org/) forums, in the [TheMinerzCoin topic](https://bitcointalk.org/index.php?topic=3017838.new#new).
