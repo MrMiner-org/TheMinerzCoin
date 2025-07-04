@@ -64,8 +64,8 @@ else(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-rtti")
 endif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
 
-option(CRC32C_BUILD_TESTS "Build CRC32C's unit tests" ON)
-option(CRC32C_BUILD_BENCHMARKS "Build CRC32C's benchmarks" ON)
+option(CRC32C_BUILD_TESTS "Build CRC32C's unit tests" OFF)
+option(CRC32C_BUILD_BENCHMARKS "Build CRC32C's benchmarks" OFF)
 option(CRC32C_USE_GLOG "Build CRC32C's tests with Google Logging" OFF)
 option(CRC32C_INSTALL "Install CRC32C's header and library" ON)
 

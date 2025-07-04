@@ -15,6 +15,13 @@ jobs:
         echo "CXXFLAGS=-fsanitize=${{ matrix.sanitizer }}" >> $GITHUB_ENV
         echo "LDFLAGS=-fsanitize=${{ matrix.sanitizer }}" >> $GITHUB_ENV
     - uses: actions/checkout@v3
+    - uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+    - name: Install lint dependencies
+      run: pip install ruff
+    - name: Lint Python files
+      run: ruff check contrib/**/*.py
     - name: Configure
       run: cmake -S . -B build
     - name: Build

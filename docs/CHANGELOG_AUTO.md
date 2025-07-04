@@ -1,0 +1,3 @@
+- Fehler: Build brach ab, da gtest Unterverzeichnis fehlte
+- Fix: CRC32C Tests und Benchmarks standardmäßig deaktiviert
+- Feature: IPv6-Adressen nach ASN filtern
