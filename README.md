@@ -24,6 +24,18 @@ Version 3.0 introduces:
 - BLS aggregate signatures for staking pools
 - Dandelion++ transaction relay for improved privacy
 - Lightweight slashing to penalise equivocation and offline validators ([doc/slashing.md](doc/slashing.md))
+- Compact Block **v2** and assume-utxo snapshots for faster syncing
+- Optional Lightning channels via an LND bridge ([doc/lightning.md](doc/lightning.md))
+- Experimental zk-rollup sidechain ([docs/rollup_design.md](docs/rollup_design.md))
+- Modularised CMake build using C++20 features (`std::span`, `std::simd`)
+- Fuzz targets and sanitizer-based CI ([doc/fuzzing.md](doc/fuzzing.md))
+- Rust bindings for critical crypto routines under `rust/`
+- Descriptor wallets and PSBTv2 support ([doc/descriptor-wallets.md](doc/descriptor-wallets.md))
+- Native hardware wallet interface ([doc/hardware-wallets.md](doc/hardware-wallets.md))
+- GraphQL/gRPC APIs and WebSocket event streams
+- Neutrino SPV light client mode ([doc/neutrino.md](doc/neutrino.md))
+- Docker release images and Prometheus metrics ([docs/metrics.md](docs/metrics.md))
+- OpenAPI 3.1 specification for RPC/REST ([specs/openapi.yaml](specs/openapi.yaml))
 
 Usage
 -----
