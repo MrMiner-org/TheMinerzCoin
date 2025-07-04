@@ -94,3 +94,5 @@ A lightweight WebSocket event server is also available; see
 [doc/websockets.md](doc/websockets.md).
 A simple gRPC node service can also be started; see
 [doc/grpc-node-service.md](doc/grpc-node-service.md).
+More information on descriptor wallets and PSBTv2 is provided in
+[doc/descriptor-wallets.md](doc/descriptor-wallets.md).
