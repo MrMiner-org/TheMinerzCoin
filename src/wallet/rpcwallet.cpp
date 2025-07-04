@@ -23,6 +23,7 @@
 #include "wallet.h"
 #include "wallet/psbt.h"
 #include "walletdb.h"
+#include "hw_wallet/hw_wallet.h"
 #ifdef ENABLE_LIGHTNING
 #include "lightning/lightning_client.h"
 #endif
@@ -2878,6 +2879,47 @@ static UniValue getslashinginfo(const UniValue& params, bool fHelp)
     return Consensus::GetSlashingInfo();
 }
 
+static UniValue enumeratehw(const UniValue& params, bool fHelp)
+{
+    if (fHelp || params.size() != 0)
+        throw runtime_error(
+            "enumeratehw\n"
+            "List connected hardware wallets.\n");
+
+    UniValue res(UniValue::VARR);
+    for (const auto& dev : EnumerateHardwareWallets()) {
+        UniValue obj(UniValue::VOBJ);
+        obj.pushKV("path", dev.path);
+        obj.pushKV("vendor", strprintf("0x%04x", dev.vendor_id));
+        obj.pushKV("product", strprintf("0x%04x", dev.product_id));
+        if (!dev.manufacturer.empty())
+            obj.pushKV("manufacturer", dev.manufacturer);
+        if (!dev.product.empty())
+            obj.pushKV("product_name", dev.product);
+        if (!dev.serial.empty())
+            obj.pushKV("serial", dev.serial);
+        res.push_back(obj);
+    }
+    return res;
+}
+
+static UniValue sendtohw(const UniValue& params, bool fHelp)
+{
+    if (fHelp || params.size() != 2)
+        throw runtime_error(
+            "sendtohw \"path\" hex\n"
+            "Send raw hex data to a hardware wallet.\n");
+
+    std::string path = params[0].get_str();
+    std::vector<unsigned char> data(ParseHex(params[1].get_str()));
+    std::string err;
+    if (!SendToHardwareWallet(path, data, err))
+        throw JSONRPCError(RPC_MISC_ERROR, err);
+    UniValue res(UniValue::VOBJ);
+    res.pushKV("sent", true);
+    return res;
+}
+
 #ifdef ENABLE_LIGHTNING
 static LightningClient& GetLightningClient()
 {
@@ -3005,6 +3047,8 @@ static const CRPCCommand commands[] =
         {"wallet", "getslashinginfo", &getslashinginfo, false},
         {"wallet", "registerpool", &registerpool, true},
         {"wallet", "combineblssigs", &combineblssigs, true},
+        {"wallet", "enumeratehw", &enumeratehw, false},
+        {"wallet", "sendtohw", &sendtohw, false},
 #ifdef ENABLE_LIGHTNING
         {"wallet", "openchannel", &openchannel, false},
         {"wallet", "closechannel", &closechannel, false},
