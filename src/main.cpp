@@ -391,6 +391,8 @@ struct CNodeState {
     bool fPreferHeaderAndIDs;
     //! Whether this peer will send us cmpctblocks if we request them
     bool fProvidesHeaderAndIDs;
+    //! Version of compact blocks this peer requested
+    int nCmpctBlockVersion;
     CNodeHeaders headers;
 
     CNodeState() {
@@ -411,6 +413,7 @@ struct CNodeState {
         fPreferHeaders = false;
         fPreferHeaderAndIDs = false;
         fProvidesHeaderAndIDs = false;
+        nCmpctBlockVersion = 1;
     }
 };
 
@@ -579,7 +582,8 @@ void MaybeSetPeerAsAnnouncingHeaderAndIDs(const CNodeState* nodestate, CNode* pf
             }
         }
         bool fAnnounceUsingCMPCTBLOCK = false;
-        uint64_t nCMPCTBLOCKVersion = 1;
+        uint64_t nCMPCTBLOCKVersion = pfrom->fEncrypt ? 2 : 1;
+        State(pfrom->GetId())->nCmpctBlockVersion = nCMPCTBLOCKVersion;
         if (lNodesAnnouncingHeaderAndIDs.size() >= 3) {
             // As per BIP152, we only get 3 of our peers to announce
             // blocks using compact encodings.
@@ -5056,7 +5060,8 @@ void static ProcessGetData(CNode* pfrom, const Consensus::Params& consensusParam
                         // and we don't feel like constructing the object for them, so
                         // instead we respond with the full, non-compact block.
                         if (CanDirectFetch(consensusParams) && mi->second->nHeight >= chainActive.Height() - MAX_BLOCKTXN_DEPTH) {
-                            CBlockHeaderAndShortTxIDs cmpctblock(block);
+                            int ver = State(pfrom->GetId())->nCmpctBlockVersion;
+                            CBlockHeaderAndShortTxIDs cmpctblock(block, ver >= 2);
                             pfrom->PushMessage(NetMsgType::CMPCTBLOCK, cmpctblock);
                         } else
                             pfrom->PushMessage(NetMsgType::BLOCK, block);
@@ -5313,13 +5318,14 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
             pfrom->PushMessage(NetMsgType::SENDHEADERS);
         }
         if (pfrom->nVersion >= SHORT_IDS_BLOCKS_VERSION) {
-            // Tell our peer we are willing to provide version 1 cmpctblocks
+            // Tell our peer we are willing to provide cmpctblocks
             // However, we do not request new block announcements using
             // cmpctblock messages.
             // We send this to non-NODE NETWORK peers as well, because
             // they may wish to request compact blocks from us
             bool fAnnounceUsingCMPCTBLOCK = false;
-            uint64_t nCMPCTBLOCKVersion = 1;
+            uint64_t nCMPCTBLOCKVersion = pfrom->fEncrypt ? 2 : 1;
+            State(pfrom->GetId())->nCmpctBlockVersion = nCMPCTBLOCKVersion;
             pfrom->PushMessage(NetMsgType::SENDCMPCT, fAnnounceUsingCMPCTBLOCK, nCMPCTBLOCKVersion);
         }
     }
@@ -5401,7 +5407,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
         bool fAnnounceUsingCMPCTBLOCK = false;
         uint64_t nCMPCTBLOCKVersion = 0;
         vRecv >> fAnnounceUsingCMPCTBLOCK >> nCMPCTBLOCKVersion;
-        if (nCMPCTBLOCKVersion == 1) {
+        if (nCMPCTBLOCKVersion == 1 || nCMPCTBLOCKVersion == 2) {
             LOCK(cs_main);
             // fProvidesHeaderAndIDs is used to "lock in" version of compact blocks we send
             if (!State(pfrom->GetId())->fProvidesHeaderAndIDs) {
@@ -5409,6 +5415,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
             }
 
             State(pfrom->GetId())->fPreferHeaderAndIDs = fAnnounceUsingCMPCTBLOCK;
+            State(pfrom->GetId())->nCmpctBlockVersion = nCMPCTBLOCKVersion;
             if (!State(pfrom->GetId())->fProvidesHeaderAndIDs) {
                 State(pfrom->GetId())->fProvidesHeaderAndIDs = true;
             }
@@ -5827,6 +5834,10 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
     {
         CBlockHeaderAndShortTxIDs cmpctblock;
         vRecv >> cmpctblock;
+        {
+            LOCK(cs_main);
+            if (State(pfrom->GetId())->nCmpctBlockVersion >= 2) cmpctblock.SetUseWTXID(true);
+        }
 
         // Keep a CBlock for "optimistic" compactblock reconstructions (see
         // below)
@@ -5899,7 +5910,8 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
                 }
 
                 PartiallyDownloadedBlock& partialBlock = *(*queuedBlockIt)->partialBlock;
-                ReadStatus status = partialBlock.InitData(cmpctblock);
+                int ver = State(pfrom->GetId())->nCmpctBlockVersion;
+                ReadStatus status = partialBlock.InitData(cmpctblock, ver >= 2);
                 if (status == READ_STATUS_INVALID) {
                     MarkBlockAsReceived(pindex->GetBlockHash()); // Reset in-flight state in case of whitelist
                     Misbehaving(pfrom->GetId(), 100);
@@ -5942,7 +5954,8 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
                 // Optimistically try to reconstruct anyway since we might be
                 // able to without any round trips.
                 PartiallyDownloadedBlock tempBlock(&mempool);
-                ReadStatus status = tempBlock.InitData(cmpctblock);
+                int ver_tmp = State(pfrom->GetId())->nCmpctBlockVersion;
+                ReadStatus status = tempBlock.InitData(cmpctblock, ver_tmp >= 2);
                 if (status != READ_STATUS_OK) {
                     // TODO: don't ignore failures
                     return true;
@@ -6860,7 +6873,8 @@ bool SendMessages(CNode* pto)
                     //TODO: Shouldn't need to reload block from disk, but requires refactor
                     CBlock block;
                     assert(ReadBlockFromDisk(block, pBestIndex, consensusParams));
-                    CBlockHeaderAndShortTxIDs cmpctblock(block);
+                    int ver = State(pto->GetId())->nCmpctBlockVersion;
+                    CBlockHeaderAndShortTxIDs cmpctblock(block, ver >= 2);
                     pto->PushMessage(NetMsgType::CMPCTBLOCK, cmpctblock);
                     state.pindexBestHeaderSent = pBestIndex;
                 } else if (state.fPreferHeaders) {

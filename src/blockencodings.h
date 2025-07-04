@@ -132,6 +132,7 @@ class CBlockHeaderAndShortTxIDs {
 private:
     mutable uint64_t shorttxidk0, shorttxidk1;
     uint64_t nonce;
+    bool use_wtxid;
 
     void FillShortTxIDSelector() const;
 
@@ -147,9 +148,11 @@ public:
     std::vector<unsigned char> vchBlockSig;
 
     // Dummy for deserialization
-    CBlockHeaderAndShortTxIDs() {}
+    CBlockHeaderAndShortTxIDs() : use_wtxid(false) {}
 
-    CBlockHeaderAndShortTxIDs(const CBlock& block);
+    CBlockHeaderAndShortTxIDs(const CBlock& block, bool use_wtxid_in = false);
+
+    void SetUseWTXID(bool flag) { use_wtxid = flag; }
 
     uint64_t GetShortID(const uint256& txhash) const;
 
@@ -202,7 +205,7 @@ public:
     std::vector<unsigned char> vchBlockSig;
     PartiallyDownloadedBlock(CTxMemPool* poolIn) : pool(poolIn) {}
 
-    ReadStatus InitData(const CBlockHeaderAndShortTxIDs& cmpctblock);
+    ReadStatus InitData(const CBlockHeaderAndShortTxIDs& cmpctblock, bool use_wtxid = false);
     bool IsTxAvailable(size_t index) const;
     ReadStatus FillBlock(CBlock& block, const std::vector<CTransaction>& vtx_missing) const;
 };
