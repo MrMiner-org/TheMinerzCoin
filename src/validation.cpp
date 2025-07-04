@@ -39,6 +39,7 @@
 #include <pow.h>
 #include <primitives/block.h>
 #include <primitives/transaction.h>
+#include <primitives/brc20transaction.h>
 #include <random.h>
 #include <script/script.h>
 #include <script/sigcache.h>
@@ -121,10 +122,11 @@ bool ValidateBRC20Transaction(const CBRC20Transaction& tx)
 
 bool ValidateTransaction(const CTransaction& tx)
 {
-    if (!tx.tokenType.empty()) {
-        return ValidateBRC20Transaction(static_cast<const CBRC20Transaction&>(tx));
+    const CBRC20Transaction* brc20 = dynamic_cast<const CBRC20Transaction*>(&tx);
+    if (brc20 && !brc20->tokenType.empty()) {
+        return ValidateBRC20Transaction(*brc20);
     }
-    // Standard-Transaktionsvalidierung
+    // Standard transaction validation (placeholder)
     return true;
 }
 /** Time to wait between writing blocks/block index to disk. */
