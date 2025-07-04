@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "rpc/server.h"
 #include "rpc/client.h"
+#include "rpc/server.h"
 
 #include "base58.h"
 #include "dstencode.h"
@@ -78,11 +78,11 @@ BOOST_AUTO_TEST_CASE(rpc_wallet)
         demoAddress = CTxDestination(demoPubkey.GetID());
         string strPurpose = "receive";
         BOOST_CHECK_NO_THROW({ /*Initialize Wallet with an account */
-            CWalletDB walletdb(pwalletMain->strWalletFile);
-            CAccount account;
-            account.vchPubKey = demoPubkey;
-            pwalletMain->SetAddressBook(account.vchPubKey.GetID(), strAccount, strPurpose);
-            walletdb.WriteAccount(strAccount, account);
+                               CWalletDB walletdb(pwalletMain->strWalletFile);
+                               CAccount account;
+                               account.vchPubKey = demoPubkey;
+                               pwalletMain->SetAddressBook(account.vchPubKey.GetID(), strAccount, strPurpose);
+                               walletdb.WriteAccount(strAccount, account);
         });
 
         CPubKey setaccountDemoPubkey = pwalletMain->GenerateNewKey();
@@ -224,6 +224,12 @@ BOOST_AUTO_TEST_CASE(rpc_wallet)
      *********************************/
     BOOST_CHECK_THROW(CallRPC("fundrawtransaction 28z"), runtime_error);
     BOOST_CHECK_THROW(CallRPC("fundrawtransaction 01000000000180969800000000001976a91450ce0a4b0ee0ddeb633da85199728b940ac3fe9488ac00000000"), runtime_error);
+
+    /*********************************
+     *       walletcreatefundedpsbt and importdescriptors
+     *********************************/
+    BOOST_CHECK_NO_THROW(CallRPC("importdescriptors []"));
+    BOOST_CHECK_NO_THROW(CallRPC("walletcreatefundedpsbt [] {}"));
 }
 
 BOOST_AUTO_TEST_SUITE_END()
