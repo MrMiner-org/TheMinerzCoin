@@ -118,3 +118,42 @@ paths:
       responses:
         '200':
           description: network statistics
+  /getslashinginfo:
+    get:
+      summary: Get slashed validator information
+      responses:
+        '200':
+          description: slashing info
+  /enumeratehw:
+    get:
+      summary: List connected hardware wallets
+      responses:
+        '200':
+          description: hardware wallets
+  /sendtohw:
+    post:
+      summary: Send raw APDU to hardware wallet
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                path:
+                  type: string
+                data:
+                  type: string
+      responses:
+        '200':
+          description: send result
+  /metrics:
+    get:
+      summary: Prometheus metrics
+      responses:
+        '200':
+          description: metrics output
+          content:
+            text/plain:
+              schema:
+                type: string
