@@ -22,6 +22,9 @@
 #include "wallet.h"
 #include "walletdb.h"
 #include "crypto/bls_aggregate.h"
+#ifdef ENABLE_LIGHTNING
+#include "lightning/lightning_client.h"
+#endif
 
 #include <stdint.h>
 
@@ -2974,6 +2977,63 @@ static UniValue getslashinginfo(const UniValue& params, bool fHelp)
     return Consensus::GetSlashingInfo();
 }
 
+#ifdef ENABLE_LIGHTNING
+static LightningClient& GetLightningClient()
+{
+    static std::unique_ptr<LightningClient> client;
+    if (!client) {
+        client = std::make_unique<LightningClient>(GetArg("-lndconnect", "localhost:10009"));
+    }
+    return *client;
+}
+
+static UniValue openchannel(const UniValue& params, bool fHelp)
+{
+    if (fHelp || params.size() != 2)
+        throw runtime_error(
+            "openchannel \"node_pubkey\" amount\n"
+            "Open a Lightning channel via connected LND instance.");
+
+    std::string err;
+    if (!GetLightningClient().openChannel(params[0].get_str(), AmountFromValue(params[1]), err))
+        throw JSONRPCError(RPC_MISC_ERROR, err);
+    UniValue res(UniValue::VOBJ);
+    res.pushKV("opened", true);
+    return res;
+}
+
+static UniValue closechannel(const UniValue& params, bool fHelp)
+{
+    if (fHelp || params.size() != 1)
+        throw runtime_error(
+            "closechannel \"txid:index\"\n"
+            "Close a Lightning channel.");
+
+    std::string err;
+    if (!GetLightningClient().closeChannel(params[0].get_str(), err))
+        throw JSONRPCError(RPC_MISC_ERROR, err);
+    UniValue res(UniValue::VOBJ);
+    res.pushKV("closed", true);
+    return res;
+}
+
+static UniValue fundchannel(const UniValue& params, bool fHelp)
+{
+    if (fHelp || params.size() != 2)
+        throw runtime_error(
+            "fundchannel \"node_pubkey\" amount\n"
+            "Prepare channel funding via LND.");
+
+    std::string err;
+    std::string txid;
+    if (!GetLightningClient().fundChannel(params[0].get_str(), AmountFromValue(params[1]), txid, err))
+        throw JSONRPCError(RPC_MISC_ERROR, err);
+    UniValue res(UniValue::VOBJ);
+    res.pushKV("txid", txid);
+    return res;
+}
+#endif
+
 extern UniValue abortrescan(const UniValue& params, bool fHelp); // in rpcdump.cpp
 extern UniValue dumpprivkey(const UniValue& params, bool fHelp); // in rpcdump.cpp
 extern UniValue importprivkey(const UniValue& params, bool fHelp);
@@ -3039,6 +3099,11 @@ static const CRPCCommand commands[] =
     { "wallet",             "getslashinginfo",          &getslashinginfo,   false },
     { "wallet",             "registerpool",             &registerpool,    true  },
     { "wallet",             "combineblssigs",           &combineblssigs,  true  },
+#ifdef ENABLE_LIGHTNING
+    { "wallet",             "openchannel",             &openchannel,     false },
+    { "wallet",             "closechannel",            &closechannel,    false },
+    { "wallet",             "fundchannel",             &fundchannel,     false },
+#endif
     // ToDo: fix burnwallet
     // { "wallet",             "burnwallet",               &burnwallet,               false },
 };

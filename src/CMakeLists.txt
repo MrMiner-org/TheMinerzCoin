@@ -22,4 +22,9 @@ add_subdirectory(p2p)
 add_subdirectory(univalue)
 add_subdirectory(secp256k1)
 
+option(WITH_LIGHTNING "Build with Lightning support" OFF)
+if(WITH_LIGHTNING)
+    add_subdirectory(lightning)
+endif()
+
 add_subdirectory(test)
