@@ -9,6 +9,11 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+option(ENABLE_ZK_ROLLUP "Enable zk rollup support" OFF)
+if(ENABLE_ZK_ROLLUP)
+    add_definitions(-DENABLE_ZK_ROLLUP)
+endif()
+
 add_subdirectory(src/leveldb)
 add_subdirectory(src/crc32c)
 add_subdirectory(src)
