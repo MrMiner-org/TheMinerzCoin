@@ -1,0 +1,26 @@
+syntax = "proto3";
+package theminerzcoin;
+
+service Node {
+  rpc GetBlock (BlockRequest) returns (BlockReply);
+  rpc BroadcastTransaction (RawTransaction) returns (BroadcastReply);
+}
+
+message BlockRequest {
+  int32 height = 1;
+}
+
+message BlockReply {
+  string hash = 1;
+  int32 height = 2;
+}
+
+message RawTransaction {
+  string hex = 1;
+}
+
+message BroadcastReply {
+  string txid = 1;
+  bool success = 2;
+  string error = 3;
+}

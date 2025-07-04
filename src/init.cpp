@@ -27,6 +27,9 @@
 #include "policy/policy.h"
 #include "rpc/server.h"
 #include "rpc/register.h"
+#include "rpc/graphql.h"
+#include "grpc/node_service.h"
+#include "websockets/events.h"
 #include "script/standard.h"
 #include "script/sigcache.h"
 #include "scheduler.h"
@@ -198,6 +201,9 @@ void Shutdown()
 
     StopHTTPRPC();
     StopREST();
+    StopGraphQLServer();
+    StopNodeGrpcServer();
+    StopWebSocketServer();
     StopRPC();
     StopHTTPServer();
 #ifdef ENABLE_WALLET
@@ -702,6 +708,9 @@ bool AppInitServers(boost::thread_group& threadGroup)
         return false;
     if (GetBoolArg("-rest", DEFAULT_REST_ENABLE) && !StartREST())
         return false;
+    StartGraphQLServer();
+    StartNodeGrpcServer("0.0.0.0:50051");
+    StartWebSocketServer(12345);
     if (!StartHTTPServer())
         return false;
     return true;
