@@ -2,6 +2,12 @@
 file(GLOB CORE_SOURCES
     "*.cpp"
 )
+# Remove the standalone executables from the core library sources
+list(REMOVE_ITEM CORE_SOURCES
+    ${CMAKE_CURRENT_SOURCE_DIR}/bitcoind.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/bitcoin-cli.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/bitcoin-tx.cpp
+)
 add_library(core STATIC ${CORE_SOURCES})
 target_include_directories(core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
@@ -39,3 +45,11 @@ if(ENABLE_ZK_ROLLUP)
 endif()
 
 add_subdirectory(test)
+
+# Daemon executable
+add_executable(theminerzcoind bitcoind.cpp)
+target_link_libraries(theminerzcoind PRIVATE
+    core wallet consensus crypto policy primitives rpc script_lib node support
+    hw_wallet compat bench zmq_lib websockets grpc_services p2p neutrino
+    univalue secp256k1
+)

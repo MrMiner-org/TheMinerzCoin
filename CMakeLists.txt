@@ -63,7 +63,13 @@ add_subdirectory(src)
 
 include(GNUInstallDirs)
 install(DIRECTORY doc DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/theminerzcoin)
-install(TARGETS theminerzcoind theminerzcoin-qt libbitcoinconsensus
+
+set(INSTALL_TARGETS theminerzcoind)
+if(WITH_GUI)
+    list(APPEND INSTALL_TARGETS theminerzcoin-qt)
+endif()
+
+install(TARGETS ${INSTALL_TARGETS}
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
