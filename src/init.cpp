@@ -42,6 +42,7 @@
 #include "utilmoneystr.h"
 #include "utilstrencodings.h"
 #include "validationinterface.h"
+#include <boost/signals2/connection.hpp>
 
 bool LoadAssumeutxoSnapshot(const std::string& path);
 #ifdef ENABLE_WALLET
@@ -1543,8 +1544,9 @@ bool AppInit2(Config& config, boost::thread_group& threadGroup, CScheduler& sche
 
     // Either install a handler to notify us when genesis activates, or set fHaveGenesis directly.
     // No locking, as this happens before any background thread is started.
+    boost::signals2::scoped_connection genesisWaitConnection;
     if (chainActive.Tip() == NULL) {
-        uiInterface.NotifyBlockTip.connect(BlockNotifyGenesisWait);
+        genesisWaitConnection = uiInterface.NotifyBlockTip.connect(BlockNotifyGenesisWait);
     } else {
         fHaveGenesis = true;
     }
@@ -1567,7 +1569,7 @@ bool AppInit2(Config& config, boost::thread_group& threadGroup, CScheduler& sche
         while (!fHaveGenesis) {
             condvar_GenesisWait.wait(lock);
         }
-        uiInterface.NotifyBlockTip.disconnect(BlockNotifyGenesisWait);
+        genesisWaitConnection.disconnect();
     }
 
     // ********************************************************* Step 11: start node
