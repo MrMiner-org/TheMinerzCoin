@@ -8,7 +8,7 @@ What is TheMinerzCoin?
 TheMinerzCoin is a decentralised digital currency with near-instant transaction speeds and negligible transaction fees built upon Proof of Stake 3.0 (PoSV3, BPoS) as
 introduced by the TheMinerzCoin development team.
 TheMinerzCoin is the name of open source software which enables the use of this currency. It takes TheMinerzCoin to the next level by building upon
-Bitcoin Core 0.13.2 with some patches from newer Bitcoin Core versions to offer performance enhancements, wider compatibility with third party services and a more advanced base.
+Bitcoin Core 25.x with some patches from newer Bitcoin Core versions to offer performance enhancements, wider compatibility with third party services and a more advanced base.
 
 For more information and downloadable binaries, see https://theminerzcoin.eu/
 
