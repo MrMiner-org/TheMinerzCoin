@@ -521,7 +521,7 @@ void ClearDatadirCache()
 boost::filesystem::path GetConfigFile()
 {
     boost::filesystem::path pathConfigFile(GetArg("-conf", BITCOIN_CONF_FILENAME));
-    if (!pathConfigFile.is_complete())
+    if (!pathConfigFile.is_absolute())
         pathConfigFile = GetDataDir(false) / pathConfigFile;
 
     return pathConfigFile;
@@ -555,7 +555,7 @@ void ReadConfigFile(map<string, string>& mapSettingsRet,
 boost::filesystem::path GetPidFile()
 {
     boost::filesystem::path pathPidFile(GetArg("-pid", BITCOIN_PID_FILENAME));
-    if (!pathPidFile.is_complete()) pathPidFile = GetDataDir() / pathPidFile;
+    if (!pathPidFile.is_absolute()) pathPidFile = GetDataDir() / pathPidFile;
     return pathPidFile;
 }
 
@@ -816,7 +816,7 @@ std::string CopyrightHolders(const std::string& strPrefix)
     std::string strCopyrightHolders =
         strPrefix + "The Bitcoin Core developers" +
         "\n" + strPrefix + "The Blackcoin developers" +
-        "\n" + strPrefix + "The Blackcoin More developers";
+        "\n" + strPrefix + "The Blackcoin More developers" +
         "\n" + strPrefix + "TheMinerzCoin developers";
 
     return strCopyrightHolders;

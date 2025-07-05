@@ -5,20 +5,16 @@
 
 #include <config/bitcoin-config.h> // IWYU pragma: keep
 
-#include <validation.h>
 
 #include <arith_uint256.h>
 #include <chain.h>
 #include <checkqueue.h>
 #include <clientversion.h>
-#include <consensus/amount.h>
+#include <amount.h>
 #include <consensus/consensus.h>
 #include <consensus/merkle.h>
-#include <consensus/tx_check.h>
-#include <consensus/tx_verify.h>
 #include <consensus/validation.h>
 #include <cuckoocache.h>
-#include <flatfile.h>
 #include <hash.h>
 #include <kernel/chain.h>
 #include <kernel/chainparams.h>
