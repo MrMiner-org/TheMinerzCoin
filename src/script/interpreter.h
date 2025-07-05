@@ -91,6 +91,9 @@ enum
     // See BIP112 for details
     SCRIPT_VERIFY_CHECKSEQUENCEVERIFY = (1U << 11),
 
+    // Enable segwit (BIP141) behavior
+    SCRIPT_VERIFY_WITNESS = (1U << 12),
+
     // Require the argument of OP_IF/NOTIF to be exactly 0x01 or empty vector
     //
     SCRIPT_VERIFY_MINIMALIF = (1U << 13),
@@ -98,6 +101,9 @@ enum
     // Signature(s) must be empty vector if an CHECK(MULTI)SIG operation failed
     //
     SCRIPT_VERIFY_NULLFAIL = (1U << 14),
+
+    // Enable tapscript validation rules
+    SCRIPT_VERIFY_TAPROOT = (1U << 15),
 };
 
 bool CheckSignatureEncoding(const std::vector<unsigned char> &vchSig, unsigned int flags, ScriptError* serror);
