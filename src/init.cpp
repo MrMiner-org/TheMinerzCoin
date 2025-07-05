@@ -28,7 +28,9 @@
 #include "rpc/server.h"
 #include "rpc/register.h"
 #include "rpc/graphql.h"
+#ifdef WITH_GRPC
 #include "grpc/node_service.h"
+#endif
 #include "websockets/events.h"
 #include "script/standard.h"
 #include "rpc/metrics.h"
@@ -42,6 +44,7 @@
 #include "utilmoneystr.h"
 #include "utilstrencodings.h"
 #include "validationinterface.h"
+#include <boost/signals2/connection.hpp>
 
 bool LoadAssumeutxoSnapshot(const std::string& path);
 #ifdef ENABLE_WALLET
@@ -203,7 +206,9 @@ void Shutdown()
     StopHTTPRPC();
     StopREST();
     StopGraphQLServer();
+#ifdef WITH_GRPC
     StopNodeGrpcServer();
+#endif
     StopWebSocketServer();
     StopMetricsServer();
     StopRPC();
@@ -714,7 +719,9 @@ bool AppInitServers(boost::thread_group& threadGroup)
     if (GetBoolArg("-rest", DEFAULT_REST_ENABLE) && !StartREST())
         return false;
     StartGraphQLServer();
+#ifdef WITH_GRPC
     StartNodeGrpcServer("0.0.0.0:50051");
+#endif
     StartWebSocketServer(12345);
     StartMetricsServer();
     if (!StartHTTPServer())
@@ -1543,8 +1550,9 @@ bool AppInit2(Config& config, boost::thread_group& threadGroup, CScheduler& sche
 
     // Either install a handler to notify us when genesis activates, or set fHaveGenesis directly.
     // No locking, as this happens before any background thread is started.
+    boost::signals2::scoped_connection genesisWaitConnection;
     if (chainActive.Tip() == NULL) {
-        uiInterface.NotifyBlockTip.connect(BlockNotifyGenesisWait);
+        genesisWaitConnection = uiInterface.NotifyBlockTip.connect(BlockNotifyGenesisWait);
     } else {
         fHaveGenesis = true;
     }
@@ -1567,7 +1575,7 @@ bool AppInit2(Config& config, boost::thread_group& threadGroup, CScheduler& sche
         while (!fHaveGenesis) {
             condvar_GenesisWait.wait(lock);
         }
-        uiInterface.NotifyBlockTip.disconnect(BlockNotifyGenesisWait);
+        genesisWaitConnection.disconnect();
     }
 
     // ********************************************************* Step 11: start node

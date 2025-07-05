@@ -103,7 +103,7 @@ FeeFilterRounder filterRounder(::minRelayTxFee);
 struct IteratorComparator
 {
     template<typename I>
-    bool operator()(const I& a, const I& b)
+    bool operator()(const I& a, const I& b) const
     {
         return &(*a) < &(*b);
     }
