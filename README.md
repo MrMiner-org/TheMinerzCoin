@@ -70,6 +70,14 @@ Then point CMake at the generated prefix when configuring:
 
 See [depends/README.md](depends/README.md) for more advanced options and cross-compilation details.
 
+To build everything in one go using Conan and CMake:
+
+```bash
+mkdir build && cd build && conan install .. --output-folder=. --build=missing
+cmake .. -DWITH_GUI=OFF -DWITH_RUST=OFF
+cmake --build . --target package -j$(nproc)
+```
+
 License
 -------
 

@@ -34,9 +34,9 @@
 #include <string.h>
 #include <openssl/sha.h>
 #ifdef HAVE_STD_SIMD
-#include <experimental/simd>
-using uint32_simd = std::experimental::native_simd<uint32_t>;
-using byte_simd = std::experimental::native_simd<uint8_t>;
+#include "simd_fallback.h"
+using uint32_simd = tmc::native_simd<uint32_t>;
+using byte_simd = tmc::native_simd<uint8_t>;
 #endif
 
 #if defined(USE_SSE2) && !defined(USE_SSE2_ALWAYS)
