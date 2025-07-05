@@ -39,9 +39,10 @@ jobs:
     - name: Configure fuzzers
       run: cmake -S . -B fuzz_build -DCMAKE_CXX_FLAGS="-fsanitize=fuzzer,address" -DCMAKE_C_FLAGS="-fsanitize=fuzzer,address"
     - name: Build fuzzers
-      run: cmake --build fuzz_build -j2 --target tx_deser_fuzz block_deser_fuzz script_interpreter_fuzz
+      run: cmake --build fuzz_build -j2 --target tx_deser_fuzz block_deser_fuzz script_interpreter_fuzz slashing_fuzz
     - name: Run fuzzers
       run: |
         ./fuzz_build/src/test/fuzz/tx_deser_fuzz -runs=1
         ./fuzz_build/src/test/fuzz/block_deser_fuzz -runs=1
         ./fuzz_build/src/test/fuzz/script_interpreter_fuzz -runs=1
+        ./fuzz_build/src/test/fuzz/slashing_fuzz -runs=1
