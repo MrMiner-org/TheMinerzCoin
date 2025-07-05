@@ -6,3 +6,6 @@ target_include_directories(block_deser_fuzz PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/
 
 add_executable(script_interpreter_fuzz script_interpreter.cpp)
 target_include_directories(script_interpreter_fuzz PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../)
+
+add_executable(slashing_fuzz slashing_fuzz.cpp)
+target_include_directories(slashing_fuzz PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../)
