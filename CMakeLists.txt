@@ -1,9 +1,11 @@
 cmake_minimum_required(VERSION 3.18)
 project(TheMinerzCoin LANGUAGES C CXX)
+find_package(Boost REQUIRED COMPONENTS filesystem system)
 
 option(WITH_GUI "Build GUI" ON)
 option(WITH_RUST "Build Rust components" OFF)
 option(STRICT "Treat warnings as errors" OFF)
+option(WITH_GRPC "Build with gRPC support" OFF)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -21,6 +23,10 @@ endif()
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 if(STRICT)
     add_compile_options(-Werror)
+endif()
+
+if(WITH_GRPC)
+    add_compile_definitions(WITH_GRPC)
 endif()
 
 include(FetchContent)

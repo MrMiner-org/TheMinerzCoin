@@ -28,7 +28,9 @@
 #include "rpc/server.h"
 #include "rpc/register.h"
 #include "rpc/graphql.h"
+#ifdef WITH_GRPC
 #include "grpc/node_service.h"
+#endif
 #include "websockets/events.h"
 #include "script/standard.h"
 #include "rpc/metrics.h"
@@ -204,7 +206,9 @@ void Shutdown()
     StopHTTPRPC();
     StopREST();
     StopGraphQLServer();
+#ifdef WITH_GRPC
     StopNodeGrpcServer();
+#endif
     StopWebSocketServer();
     StopMetricsServer();
     StopRPC();
@@ -715,7 +719,9 @@ bool AppInitServers(boost::thread_group& threadGroup)
     if (GetBoolArg("-rest", DEFAULT_REST_ENABLE) && !StartREST())
         return false;
     StartGraphQLServer();
+#ifdef WITH_GRPC
     StartNodeGrpcServer("0.0.0.0:50051");
+#endif
     StartWebSocketServer(12345);
     StartMetricsServer();
     if (!StartHTTPServer())
