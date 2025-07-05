@@ -90,6 +90,10 @@ ServiceFlags nLocalServices = NODE_NETWORK;
 bool fRelayTxes = true;
 // Enable Dandelion++ transaction relay (controlled via -dandelion)
 bool fDandelion = DEFAULT_DANDELION;
+int64_t nDandelionEmbargoMin = DEFAULT_DANDELION_EMBARGO_MIN;
+int64_t nDandelionEmbargoMax = DEFAULT_DANDELION_EMBARGO_MAX;
+int64_t nDandelionEpochMin = DEFAULT_DANDELION_EPOCH_MIN;
+int64_t nDandelionEpochMax = DEFAULT_DANDELION_EPOCH_MAX;
 // Use BIP324 encrypted transport if enabled
 bool fBIP324 = DEFAULT_P2P_ENCRYPT;
 // Light client mode based on compact filters
@@ -391,24 +395,24 @@ CNode* FindNode(const NodeId nodeid)
     return NULL;
 }
 
-static bool TransportHandshake(SOCKET sock, p2p::Handshake& hs,
-                               std::array<unsigned char,32>& send_key,
-                               std::array<unsigned char,32>& recv_key)
+static int TransportHandshake(SOCKET sock, p2p::Handshake& hs,
+                              std::array<unsigned char,32>& send_key,
+                              std::array<unsigned char,32>& recv_key)
 {
     unsigned char peer_pub[32];
     const auto& pub = hs.GetPublicKey();
-    if (send(sock, (const char*)pub.data(), pub.size(), MSG_NOSIGNAL) != (int)pub.size()) return false;
+    if (send(sock, (const char*)pub.data(), pub.size(), MSG_NOSIGNAL) != (int)pub.size()) return -1;
     size_t recvd = 0;
     while (recvd < sizeof(peer_pub)) {
         int n = recv(sock, (char*)peer_pub + recvd, sizeof(peer_pub) - recvd, MSG_WAITALL);
-        if (n <= 0) return false;
+        if (n <= 0) return -1;
         recvd += n;
     }
     auto res = hs.Initiate(std::span<const unsigned char>(peer_pub, 32));
-    if (!res.encryption_enabled) return false;
+    if (!res.encryption_enabled) return 0;
     send_key = res.send_key;
     recv_key = res.recv_key;
-    return true;
+    return 1;
 }
 
 CNode* ConnectNode(CAddress addrConnect, const char *pszDest, bool fCountFailure)
@@ -445,11 +449,14 @@ CNode* ConnectNode(CAddress addrConnect, const char *pszDest, bool fCountFailure
 
         p2p::Handshake hs;
         std::array<unsigned char,32> sendk, recvk;
+        bool use_encryption = false;
         if (fBIP324) {
-            if (!TransportHandshake(hSocket, hs, sendk, recvk)) {
+            int res = TransportHandshake(hSocket, hs, sendk, recvk);
+            if (res < 0) {
                 CloseSocket(hSocket);
                 return NULL;
             }
+            use_encryption = (res > 0);
         }
 
         if (pszDest && addrConnect.IsValid()) {
@@ -476,7 +483,7 @@ CNode* ConnectNode(CAddress addrConnect, const char *pszDest, bool fCountFailure
 
         // Add node
         CNode* pnode = new CNode(hSocket, addrConnect, pszDest ? pszDest : "", false);
-        if (fBIP324) {
+        if (fBIP324 && use_encryption) {
             pnode->fEncrypt = true;
             pnode->send_key = sendk;
             pnode->recv_key = recvk;
@@ -1169,17 +1176,20 @@ static void AcceptConnection(const ListenSocket& hListenSocket) {
     }
     p2p::Handshake hs;
     std::array<unsigned char,32> sendk, recvk;
+    bool use_encryption = false;
     if (fBIP324) {
-        if (!TransportHandshake(hSocket, hs, sendk, recvk)) {
+        int res = TransportHandshake(hSocket, hs, sendk, recvk);
+        if (res < 0) {
             CloseSocket(hSocket);
             return;
         }
+        use_encryption = (res > 0);
     }
 
     CNode* pnode = new CNode(hSocket, addr, "", true);
     pnode->AddRef();
     pnode->fWhitelisted = whitelisted;
-    if (fBIP324) {
+    if (fBIP324 && use_encryption) {
         pnode->fEncrypt = true;
         pnode->send_key = sendk;
         pnode->recv_key = recvk;

@@ -379,6 +379,8 @@ std::string HelpMessage(HelpMessageMode mode)
     strUsage += HelpMessageOpt("-permitbaremultisig", strprintf(_("Relay non-P2SH multisig (default: %u)"), DEFAULT_PERMIT_BAREMULTISIG));
     strUsage += HelpMessageOpt("-peerbloomfilters", strprintf(_("Support filtering of blocks and transaction with bloom filters (default: %u)"), DEFAULT_PEERBLOOMFILTERS));
     strUsage += HelpMessageOpt("-dandelion=<n>", strprintf(_("Enable or disable Dandelion++ transaction relay (0-1, default: %u)"), DEFAULT_DANDELION));
+    strUsage += HelpMessageOpt("-dandelionembargo=<min,max>", _("Embargo timeout range for Dandelion++ stem phase in seconds (default: 10,30)"));
+    strUsage += HelpMessageOpt("-dandelionepoch=<min,max>", _("Epoch duration range for Dandelion++ in seconds (default: 60,120)"));
     strUsage += HelpMessageOpt("-p2pnoencrypt", _("Disable BIP324 encrypted transport"));
     strUsage += HelpMessageOpt("-spvmode", _("Start in Neutrino light client mode"));
     strUsage += HelpMessageOpt("-port=<port>", strprintf(_("Listen for connections on <port> (default: %u or testnet: %u)"), Params(CBaseChainParams::MAIN).GetDefaultPort(), Params(CBaseChainParams::TESTNET).GetDefaultPort()));
@@ -1239,6 +1241,17 @@ bool AppInit2(Config& config, boost::thread_group& threadGroup, CScheduler& sche
     fNameLookup = GetBoolArg("-dns", DEFAULT_NAME_LOOKUP);
     fRelayTxes = !GetBoolArg("-blocksonly", DEFAULT_BLOCKSONLY);
     fDandelion = GetBoolArg("-dandelion", DEFAULT_DANDELION);
+    auto parse_range = [](const std::string& arg, int64_t& min_out, int64_t& max_out) {
+        size_t pos = arg.find(',');
+        if (pos != std::string::npos) {
+            min_out = atoi64(arg.substr(0, pos));
+            max_out = atoi64(arg.substr(pos + 1));
+        } else {
+            min_out = max_out = atoi64(arg);
+        }
+    };
+    parse_range(GetArg("-dandelionembargo", "10,30"), nDandelionEmbargoMin, nDandelionEmbargoMax);
+    parse_range(GetArg("-dandelionepoch", "60,120"), nDandelionEpochMin, nDandelionEpochMax);
     fBIP324 = !GetBoolArg("-p2pnoencrypt", false);
     fSpvMode = GetBoolArg("-spvmode", DEFAULT_SPV_MODE);
 

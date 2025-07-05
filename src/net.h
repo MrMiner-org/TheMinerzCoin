@@ -76,6 +76,10 @@ static const bool DEFAULT_BLOCKSONLY = false;
 
 /** Default for Dandelion++ transaction relay */
 static const bool DEFAULT_DANDELION = true;
+static const int64_t DEFAULT_DANDELION_EMBARGO_MIN = 10;
+static const int64_t DEFAULT_DANDELION_EMBARGO_MAX = 30;
+static const int64_t DEFAULT_DANDELION_EPOCH_MIN = 60;
+static const int64_t DEFAULT_DANDELION_EPOCH_MAX = 120;
 /** Default for encrypted transport (BIP324) */
 static const bool DEFAULT_P2P_ENCRYPT = true;
 /** Default for Neutrino light client mode */
@@ -172,6 +176,10 @@ extern ServiceFlags nLocalServices;
 extern ServiceFlags nRelevantServices;
 extern bool fRelayTxes;
 extern bool fDandelion;
+extern int64_t nDandelionEmbargoMin;
+extern int64_t nDandelionEmbargoMax;
+extern int64_t nDandelionEpochMin;
+extern int64_t nDandelionEpochMax;
 extern bool fBIP324;
 extern bool fSpvMode;
 extern uint64_t nLocalHostNonce;
