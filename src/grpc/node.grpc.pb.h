@@ -4,7 +4,7 @@
 #ifndef GRPC_specs_2fnode_2eproto__INCLUDED
 #define GRPC_specs_2fnode_2eproto__INCLUDED
 
-#include "specs/node.pb.h"
+#include "node.pb.h"
 
 #include <functional>
 #include <grpcpp/generic/async_generic_service.h>

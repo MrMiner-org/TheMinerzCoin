@@ -9,7 +9,12 @@ list(REMOVE_ITEM CORE_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/bitcoin-tx.cpp
 )
 add_library(core STATIC ${CORE_SOURCES})
-target_include_directories(core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(core PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/univalue/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/leveldb/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/leveldb/helpers/memenv
+)
 
 # Modules
 add_subdirectory(consensus)

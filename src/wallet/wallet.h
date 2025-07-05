@@ -112,7 +112,7 @@ public:
 };
 
 /** Return a descriptor string for the given public key */
-std::string DescriptorForKey(const CPubKey& key) const;
+std::string DescriptorForKey(const CPubKey& key);
 
 /** Address book data */
 class CAddressBookData
