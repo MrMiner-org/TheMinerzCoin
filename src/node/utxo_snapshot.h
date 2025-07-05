@@ -4,7 +4,7 @@
 #include <chainparams.h>
 #include <serialize.h>
 #include <uint256.h>
-#include <util/fs.h>
+#include <fs.h>
 #include <util/chaintype.h>
 #include <set>
 #include <optional>
