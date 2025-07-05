@@ -6,15 +6,22 @@
 #include <vector>
 #include "random.h"
 #include "utiltime.h"
+#include <random>
 
 namespace p2p {
 
-/** Time in seconds a transaction stays embargoed in the stem phase. */
-static const int64_t EMBARGO_MIN = 10;
-static const int64_t EMBARGO_MAX = 30;
-/** Duration of a Dandelion++ epoch. */
-static const int64_t EPOCH_MIN = 60;
-static const int64_t EPOCH_MAX = 120;
+/** Draw a random number from an exponential distribution within [min,max]. */
+static int64_t ExpDuration(int64_t min, int64_t max)
+{
+    if (max <= min) return min;
+    thread_local std::mt19937_64 gen(FastRandomContext().rand64());
+    std::exponential_distribution<double> dist(1.0 / ((max - min) / 2.0));
+    double v;
+    do {
+        v = dist(gen);
+    } while (v > (max - min));
+    return min + int64_t(v);
+}
 
 struct PendingTx {
     CTransaction tx;
@@ -55,7 +62,7 @@ static void BroadcastTransactionDirect(const CTransaction& tx)
 
 static void StartEpoch()
 {
-    g_epoch_expiry = GetTime() + EPOCH_MIN + GetRandInt(EPOCH_MAX - EPOCH_MIN);
+    g_epoch_expiry = GetTime() + ExpDuration(nDandelionEpochMin, nDandelionEpochMax);
     g_phase = STEM;
     g_stem_peer = SelectStemPeer();
     if (!g_stem_peer) {
@@ -73,7 +80,7 @@ void AddToStemPool(const CTransaction& tx)
     if (g_phase == STEM && g_stem_peer) {
         CInv inv(MSG_TX, tx.GetHash());
         g_stem_peer->PushInventory(inv);
-        PendingTx entry{tx, now + EMBARGO_MIN + GetRandInt(EMBARGO_MAX - EMBARGO_MIN)};
+        PendingTx entry{tx, now + ExpDuration(nDandelionEmbargoMin, nDandelionEmbargoMax)};
         g_stem_pool[tx.GetHash()] = entry;
     } else {
         BroadcastTransactionDirect(tx);
