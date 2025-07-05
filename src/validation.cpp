@@ -16,14 +16,7 @@
 #include <consensus/validation.h>
 #include <cuckoocache.h>
 #include <hash.h>
-#include <kernel/chain.h>
-#include <kernel/chainparams.h>
-#include <kernel/coinstats.h>
-#include <kernel/disconnected_transactions.h>
-#include <kernel/mempool_entry.h>
-#include <kernel/messagestartchars.h>
-#include <kernel/notifications_interface.h>
-#include <kernel/warning.h>
+#include "kernel_stub.h"
 #include <logging.h>
 #include <logging/timer.h>
 #include <node/blockstorage.h>
