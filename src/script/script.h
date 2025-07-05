@@ -20,6 +20,8 @@
 
 // Maximum number of bytes pushable to the stack
 static const unsigned int MAX_SCRIPT_ELEMENT_SIZE = 520;
+// Maximum number of bytes pushable when executing tapscript
+static const unsigned int MAX_TAPROOT_SCRIPT_ELEMENT_SIZE = 10000;
 
 // Maximum number of non-push operations per script
 static const int MAX_OPS_PER_SCRIPT = 201;

@@ -282,7 +282,10 @@ bool EvalScript(vector<vector<unsigned char> >& stack, const CScript& script, un
             //
             if (!script.GetOp(pc, opcode, vchPushValue))
                 return set_error(serror, SCRIPT_ERR_BAD_OPCODE);
-            if (vchPushValue.size() > MAX_SCRIPT_ELEMENT_SIZE)
+            unsigned int push_limit = (flags & SCRIPT_VERIFY_TAPROOT) ?
+                                       MAX_TAPROOT_SCRIPT_ELEMENT_SIZE :
+                                       MAX_SCRIPT_ELEMENT_SIZE;
+            if (vchPushValue.size() > push_limit)
                 return set_error(serror, SCRIPT_ERR_PUSH_SIZE);
 
             // Note how OP_RESERVED does not count towards the opcode limit.

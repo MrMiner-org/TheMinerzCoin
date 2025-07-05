@@ -10,12 +10,12 @@ bool VerifyTaprootSpend(const CTransaction& tx)
     if (tx.vin.empty() || tx.vout.empty()) return false;
 
     const CTxIn& in = tx.vin[0];
-    if (in.scriptSig.size() != 64) return false;
+    if (in.scriptSig.size() > MAX_TAPROOT_SCRIPT_ELEMENT_SIZE || in.scriptSig.size() != 64) return false;
     std::array<unsigned char,64> sig;
     std::copy(in.scriptSig.begin(), in.scriptSig.end(), sig.begin());
 
     const CScript& spk = tx.vout[0].scriptPubKey;
-    if (spk.size() != 34 || spk[0] != OP_1) return false;
+    if (spk.size() > MAX_TAPROOT_SCRIPT_ELEMENT_SIZE || spk.size() != 34 || spk[0] != OP_1) return false;
     unsigned char pk[32];
     memcpy(pk, &spk[1], 32);
 
