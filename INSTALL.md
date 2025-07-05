@@ -14,7 +14,7 @@ sudo apt-get update
 sudo apt-get install build-essential cmake libssl-dev libevent-dev pkg-config \
     qtbase5-dev qt5-qmake qttools5-dev qttools5-dev-tools libqt5widgets5 \
     libqt5network5 libqt5gui5 libqt5core5a libqt5dbus5 libprotobuf-dev \
-    protobuf-compiler
+    protobuf-compiler libdb++-dev libdb5.3++-dev
 ```
 
 These packages provide OpenSSL, libevent, the Qt5 toolkit and Protocol Buffers
