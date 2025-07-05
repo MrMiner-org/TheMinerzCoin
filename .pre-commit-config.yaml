@@ -4,3 +4,17 @@ repos:
     hooks:
       - id: clang-format
         files: '\.(cpp|h)$'
+
+  - repo: local
+    hooks:
+      - id: rustfmt
+        name: rustfmt
+        entry: rustfmt
+        language: system
+        types: [rust]
+      - id: cargo-fmt-check
+        name: cargo fmt --check
+        entry: cargo fmt --manifest-path rust/Cargo.toml -- --check
+        language: system
+        pass_filenames: false
+        files: '^rust/'

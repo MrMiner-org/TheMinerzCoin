@@ -30,6 +30,19 @@ Please refer to the [Git manual](https://git-scm.com/doc) for more information a
   - Push changes to your fork
   - Create pull request
 
+Pre-commit Hooks
+----------------
+This repository uses [pre-commit](https://pre-commit.com/) to automatically
+format code. Install the hooks after cloning:
+
+```
+pip install pre-commit
+pre-commit install
+```
+
+Running the hooks will apply `clang-format` to C++ sources, `rustfmt` to Rust
+files, and execute `cargo fmt --check` for the crate in `rust/`.
+
 The title of the pull request should be prefixed by the component or area that the pull request affects. Examples:
 
     Consensus: Add new opcode for BIP-XXXX OP_CHECKAWESOMESIG

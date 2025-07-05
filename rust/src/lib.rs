@@ -1,5 +1,5 @@
-use secp256k1::{Secp256k1, Message, PublicKey};
 use secp256k1::ecdsa::Signature;
+use secp256k1::{Message, PublicKey, Secp256k1};
 
 #[cxx::bridge]
 mod ffi {
