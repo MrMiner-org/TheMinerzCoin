@@ -27,7 +27,7 @@ include(FetchContent)
 
 FetchContent_Declare(
   boost
-  URL https://boostorg.jfrog.io/artifactory/main/release/1.85.0/source/boost_1_85_0.tar.gz
+  URL https://downloads.sourceforge.net/project/boost/boost/1.85.0/boost_1_85_0.tar.gz
 )
 FetchContent_MakeAvailable(boost)
 
