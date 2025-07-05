@@ -5,6 +5,7 @@
 #include <sqlite3.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctime>
 
 #include "util/histogram.h"
 #include "util/random.h"
