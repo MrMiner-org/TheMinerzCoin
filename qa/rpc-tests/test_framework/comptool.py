@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
+"""Comparison test utilities for running multiple daemons."""
+
 # Copyright (c) 2015-2016 The Bitcoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-from .mininode import *
 from .blockstore import BlockStore, TxStore
+from .mininode import *
 from .util import p2p_port
 
 '''
@@ -55,8 +57,8 @@ class TestNode(NodeConnCB):
 
         # When the pingmap is non-empty we're waiting for 
         # a response
-        self.pingMap = {} 
-        self.lastInv = []
+        self.ping_map = {}
+        self.last_inv = []
         self.closed = False
 
     def on_close(self, conn):
@@ -87,11 +89,11 @@ class TestNode(NodeConnCB):
                 self.block_request_map[i.hash] = True
 
     def on_inv(self, conn, message):
-        self.lastInv = [x.hash for x in message.inv]
+        self.last_inv = [x.hash for x in message.inv]
 
     def on_pong(self, conn, message):
         try:
-            del self.pingMap[message.nonce]
+            del self.ping_map[message.nonce]
         except KeyError:
             raise AssertionError("Got pong for unknown ping [%s]" % repr(message))
 
@@ -113,14 +115,14 @@ class TestNode(NodeConnCB):
 
     # This assumes BIP31
     def send_ping(self, nonce):
-        self.pingMap[nonce] = True
+        self.ping_map[nonce] = True
         self.conn.send_message(msg_ping(nonce))
 
     def received_ping_response(self, nonce):
-        return nonce not in self.pingMap
+        return nonce not in self.ping_map
 
     def send_mempool(self):
-        self.lastInv = []
+        self.last_inv = []
         self.conn.send_message(msg_mempool())
 
 # TestInstance:
@@ -244,7 +246,7 @@ class TestManager(object):
 
         # Sort inv responses from each node
         with mininode_lock:
-            [ c.cb.lastInv.sort() for c in self.connections ]
+            [c.cb.last_inv.sort() for c in self.connections]
 
     # Verify that the tip of each connection all agree with each other, and
     # with the expected outcome (if given)
@@ -279,11 +281,11 @@ class TestManager(object):
             for c in self.connections:
                 if outcome is None:
                     # Make sure the mempools agree with each other
-                    if c.cb.lastInv != self.connections[0].cb.lastInv:
+                    if c.cb.last_inv != self.connections[0].cb.last_inv:
                         # print c.rpc.getrawmempool()
                         return False
                 elif isinstance(outcome, RejectResult): # Check that tx was rejected w/ code
-                    if txhash in c.cb.lastInv:
+                    if txhash in c.cb.last_inv:
                         return False
                     if txhash not in c.cb.tx_reject_map:
                         print('Tx not in reject map: %064x' % (txhash))
@@ -291,8 +293,8 @@ class TestManager(object):
                     if not outcome.match(c.cb.tx_reject_map[txhash]):
                         print('Tx rejected with %s instead of expected %s: %064x' % (c.cb.tx_reject_map[txhash], outcome, txhash))
                         return False
-                elif ((txhash in c.cb.lastInv) != outcome):
-                    # print c.rpc.getrawmempool(), c.cb.lastInv
+                elif ((txhash in c.cb.last_inv) != outcome):
+                    # print c.rpc.getrawmempool(), c.cb.last_inv
                     return False
             return True
 

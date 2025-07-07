@@ -1,33 +1,37 @@
 #!/usr/bin/env python3
+"""In-memory storage helpers for blocks and transactions."""
+
 # Copyright (c) 2015-2016 The Bitcoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 # BlockStore: a helper class that keeps a map of blocks and implements
 #             helper functions for responding to getheaders and getdata,
 #             and for constructing a getheaders message
-#
+
+
+import dbm.dumb as dbmd
+from io import BytesIO
 
 from .mininode import *
-from io import BytesIO
-import dbm.dumb as dbmd
+
 
 class BlockStore(object):
     def __init__(self, datadir):
-        self.blockDB = dbmd.open(datadir + "/blocks", 'c')
-        self.currentBlock = 0
+        self.block_db = dbmd.open(datadir + "/blocks", 'c')
+        self.current_block = 0
         self.headers_map = dict()
 
     def close(self):
-        self.blockDB.close()
+        self.block_db.close()
 
     def erase(self, blockhash):
-        del self.blockDB[repr(blockhash)]
+        del self.block_db[repr(blockhash)]
 
     # lookup an entry and return the item as raw bytes
     def get(self, blockhash):
         value = None
         try:
-            value = self.blockDB[repr(blockhash)]
+            value = self.block_db[repr(blockhash)]
         except KeyError:
             return None
         return value
@@ -54,36 +58,36 @@ class BlockStore(object):
     # to avoid this overhead.
     def headers_for(self, locator, hash_stop, current_tip=None):
         if current_tip is None:
-            current_tip = self.currentBlock
+            current_tip = self.current_block
         current_block_header = self.get_header(current_tip)
         if current_block_header is None:
             return None
 
         response = msg_headers()
-        headersList = [ current_block_header ]
+        headers_list = [current_block_header]
         maxheaders = 2000
-        while (headersList[0].sha256 not in locator.vHave):
-            prevBlockHash = headersList[0].hashPrevBlock
-            prevBlockHeader = self.get_header(prevBlockHash)
-            if prevBlockHeader is not None:
-                headersList.insert(0, prevBlockHeader)
+        while headers_list[0].sha256 not in locator.vHave:
+            prev_block_hash = headers_list[0].hashPrevBlock
+            prev_block_header = self.get_header(prev_block_hash)
+            if prev_block_header is not None:
+                headers_list.insert(0, prev_block_header)
             else:
                 break
-        headersList = headersList[:maxheaders] # truncate if we have too many
-        hashList = [x.sha256 for x in headersList]
-        index = len(headersList)
-        if (hash_stop in hashList):
-            index = hashList.index(hash_stop)+1
-        response.headers = headersList[:index]
+        headers_list = headers_list[:maxheaders]  # truncate if we have too many
+        hash_list = [x.sha256 for x in headers_list]
+        index = len(headers_list)
+        if hash_stop in hash_list:
+            index = hash_list.index(hash_stop) + 1
+        response.headers = headers_list[:index]
         return response
 
     def add_block(self, block):
         block.calc_sha256()
         try:
-            self.blockDB[repr(block.sha256)] = bytes(block.serialize())
+            self.block_db[repr(block.sha256)] = bytes(block.serialize())
         except TypeError as e:
             print("Unexpected error: ", sys.exc_info()[0], e.args)
-        self.currentBlock = block.sha256
+        self.current_block = block.sha256
         self.headers_map[block.sha256] = CBlockHeader(block)
 
     def add_header(self, header):
@@ -103,16 +107,16 @@ class BlockStore(object):
 
     def get_locator(self, current_tip=None):
         if current_tip is None:
-            current_tip = self.currentBlock
+            current_tip = self.current_block
         r = []
         counter = 0
         step = 1
-        lastBlock = self.get_block(current_tip)
-        while lastBlock is not None:
-            r.append(lastBlock.hashPrevBlock)
+        last_block = self.get_block(current_tip)
+        while last_block is not None:
+            r.append(last_block.hashPrevBlock)
             for i in range(step):
-                lastBlock = self.get_block(lastBlock.hashPrevBlock)
-                if lastBlock is None:
+                last_block = self.get_block(last_block.hashPrevBlock)
+                if last_block is None:
                     break
             counter += 1
             if counter > 10:
@@ -123,16 +127,16 @@ class BlockStore(object):
 
 class TxStore(object):
     def __init__(self, datadir):
-        self.txDB = dbmd.open(datadir + "/transactions", 'c')
+        self.tx_db = dbmd.open(datadir + "/transactions", 'c')
 
     def close(self):
-        self.txDB.close()
+        self.tx_db.close()
 
     # lookup an entry and return the item as raw bytes
     def get(self, txhash):
         value = None
         try:
-            value = self.txDB[repr(txhash)]
+            value = self.tx_db[repr(txhash)]
         except KeyError:
             return None
         return value
@@ -150,7 +154,7 @@ class TxStore(object):
     def add_transaction(self, tx):
         tx.calc_sha256()
         try:
-            self.txDB[repr(tx.sha256)] = bytes(tx.serialize())
+            self.tx_db[repr(tx.sha256)] = bytes(tx.serialize())
         except TypeError as e:
             print("Unexpected error: ", sys.exc_info()[0], e.args)
 

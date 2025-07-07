@@ -1,17 +1,19 @@
 #!/usr/bin/env python3
+"""Linux network utility helpers."""
+
 # Copyright (c) 2014-2016 The Bitcoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 # Linux network utilities
 
-import sys
-import socket
-import fcntl
-import struct
 import array
+import fcntl
 import os
-from binascii import unhexlify, hexlify
+import socket
+import struct
+import sys
+from binascii import hexlify, unhexlify
 
 # Roughly based on http://voorloopnul.com/blog/a-python-netstat-in-less-than-100-lines-of-code/ by Ricardo Pascal
 STATE_ESTABLISHED = '01'
