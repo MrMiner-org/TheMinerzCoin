@@ -1,3 +1,11 @@
+// Copyright (c) 2018-2022 The TheMinerzCoin developers
+// Copyright (c) 2014-2018 The TheMinerzCoin Developers
+// Copyright (c) 2013-2014 The NovaCoin Developers
+// Copyright (c) 2011-2013 The PPCoin Developers
+// Copyright (c) 2009-2016 The Bitcoin Core developers
+// Distributed under the MIT software license, see the accompanying
+// file COPYING or http://www.opensource.org/licenses/mit-license.php.
+
 #pragma once
 #include <array>
 #include <cassert>
