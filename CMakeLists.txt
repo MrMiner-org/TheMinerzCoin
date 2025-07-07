@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.18)
 project(TheMinerzCoin LANGUAGES C CXX)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 find_package(Boost REQUIRED COMPONENTS filesystem system)
 
 option(WITH_GUI "Build GUI" ON)
