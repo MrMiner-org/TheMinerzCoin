@@ -17,5 +17,19 @@ fn main() {
         .join("src")
         .join("rust_bindings");
     fs::create_dir_all(&dest).unwrap();
-    fs::copy(header, dest.join("secp256k1.h")).unwrap();
+    let dest_file = dest.join("secp256k1.h");
+    fs::copy(&header, &dest_file).unwrap();
+
+    const MIT_HEADER: &str = concat!(
+        "// Copyright (c) 2018-2022 The TheMinerzCoin developers\n",
+        "// Copyright (c) 2014-2018 The TheMinerzCoin Developers\n",
+        "// Copyright (c) 2013-2014 The NovaCoin Developers\n",
+        "// Copyright (c) 2011-2013 The PPCoin Developers\n",
+        "// Copyright (c) 2009-2016 The Bitcoin Core developers\n",
+        "// Distributed under the MIT software license, see the accompanying\n",
+        "// file COPYING or http://www.opensource.org/licenses/mit-license.php.\n\n",
+    );
+
+    let contents = fs::read_to_string(&dest_file).unwrap();
+    fs::write(&dest_file, format!("{}{}", MIT_HEADER, contents)).unwrap();
 }
