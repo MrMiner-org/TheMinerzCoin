@@ -1,5 +1,7 @@
 use secp256k1::ecdsa::Signature;
 use secp256k1::{Message, PublicKey, Secp256k1};
+use bitcoin_hashes::{sha256, Hash};
+use core::convert::TryInto;
 
 #[cxx::bridge]
 mod ffi {
@@ -10,10 +12,15 @@ mod ffi {
 
 pub fn verify_ecdsa(msg: &[u8], sig: &[u8], pubkey: &[u8]) -> bool {
     let secp = Secp256k1::verification_only();
-    let msg = match Message::from_slice(msg) {
-        Ok(m) => m,
-        Err(_) => return false,
+    let digest: [u8; 32] = if msg.len() == 32 {
+        match msg.try_into() {
+            Ok(arr) => arr,
+            Err(_) => return false,
+        }
+    } else {
+        sha256::Hash::hash(msg).to_byte_array()
     };
+    let msg = Message::from_digest(digest);
     let sig = match Signature::from_der(sig) {
         Ok(s) => s,
         Err(_) => return false,
