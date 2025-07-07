@@ -64,6 +64,17 @@
 #include <tuple>
 #include <utility>
 
+// Fallback definitions for missing witness serialization helpers
+#ifndef TX_NO_WITNESS
+#define TX_NO_WITNESS(tx) (tx)
+#endif
+#ifndef NO_WITNESS_COMMITMENT
+static constexpr int NO_WITNESS_COMMITMENT = -1;
+#endif
+#ifndef MIN_BLOCKS_TO_KEEP
+static constexpr unsigned int MIN_BLOCKS_TO_KEEP = 500;
+#endif
+
 using kernel::CCoinsStats;
 using kernel::CoinStatsHashType;
 using kernel::ComputeUTXOStats;
