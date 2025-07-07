@@ -280,8 +280,9 @@ void CRollingBloomFilter::insert(const std::vector<unsigned char>& vKey)
 
 void CRollingBloomFilter::insert(const uint256& hash)
 {
-    vector<unsigned char> data(hash.begin(), hash.end());
-    insert(data);
+    // REVIEW: avoid shadowing member variable 'data'
+    std::vector<unsigned char> hashBytes(hash.begin(), hash.end());
+    insert(hashBytes);
 }
 
 bool CRollingBloomFilter::contains(const std::vector<unsigned char>& vKey) const
@@ -300,8 +301,9 @@ bool CRollingBloomFilter::contains(const std::vector<unsigned char>& vKey) const
 
 bool CRollingBloomFilter::contains(const uint256& hash) const
 {
-    vector<unsigned char> data(hash.begin(), hash.end());
-    return contains(data);
+    // REVIEW: avoid shadowing member variable 'data'
+    std::vector<unsigned char> hashBytes(hash.begin(), hash.end());
+    return contains(hashBytes);
 }
 
 void CRollingBloomFilter::reset()
@@ -309,7 +311,7 @@ void CRollingBloomFilter::reset()
     nTweak = GetRand(std::numeric_limits<unsigned int>::max());
     nEntriesThisGeneration = 0;
     nGeneration = 1;
-    for (std::vector<uint64_t>::iterator it = data.begin(); it != data.end(); it++) {
-        *it = 0;
+    for (uint64_t& v : data) {
+        v = 0;
     }
 }

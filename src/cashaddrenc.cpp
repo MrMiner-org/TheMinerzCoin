@@ -68,7 +68,8 @@ std::vector<uint8_t> PackAddrData(const T &id, uint8_t type)
 class CashAddrEncoder : public boost::static_visitor<std::string>
 {
 public:
-    CashAddrEncoder(const CChainParams &p) : params(p) {}
+    // REVIEW: avoid implicit conversions by marking constructor explicit
+    explicit CashAddrEncoder(const CChainParams &p) : params(p) {}
     std::string operator()(const CKeyID &id) const
     {
         std::vector<uint8_t> data = PackAddrData(id, PUBKEY_TYPE);
