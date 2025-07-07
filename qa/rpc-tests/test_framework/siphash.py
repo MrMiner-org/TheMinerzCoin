@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+"""Specialized SipHash-2-4 implementations used in tests."""
+
 # Copyright (c) 2016 The Bitcoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.

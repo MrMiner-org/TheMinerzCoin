@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+"""Bitcoin P2P network "half-node" implementation used for testing."""
+
 # Copyright (c) 2010 ArtForz -- public domain half-a-node
 # Copyright (c) 2012 Jeff Garzik
 # Copyright (c) 2010-2016 The Bitcoin Core developers
@@ -22,21 +24,22 @@
 # ser_*, deser_*: functions that handle serialization/deserialization
 
 
-import struct
-import socket
 import asyncore
-import time
-import sys
-import random
-from .util import hex_str_to_bytes, bytes_to_hex_str
-from io import BytesIO
-from codecs import encode
-import hashlib
-from threading import RLock
-from threading import Thread
-import logging
 import copy
+import hashlib
+import logging
+import random
+import socket
+import struct
+import sys
+import time
+from codecs import encode
+from io import BytesIO
+from threading import RLock, Thread
+
 from test_framework.siphash import siphash256
+
+from .util import bytes_to_hex_str, hex_str_to_bytes
 
 BIP0031_VERSION = 60000
 MY_VERSION = 70014  # past bip-31 for ping/pong
@@ -203,12 +206,12 @@ def ser_int_vector(l):
     return r
 
 # Deserialize from a hex string representation (eg from RPC)
-def FromHex(obj, hex_string):
+def from_hex(obj, hex_string):
     obj.deserialize(BytesIO(hex_str_to_bytes(hex_string)))
     return obj
 
 # Convert a binary-serializable object to hex (eg for submission via RPC)
-def ToHex(obj):
+def to_hex(obj):
     return bytes_to_hex_str(obj.serialize())
 
 # Objects that map to bitcoind objects, which can be serialized/deserialized

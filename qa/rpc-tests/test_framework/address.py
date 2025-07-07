@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
+"""Utilities for encoding and decoding Base58 addresses.
+
+This module provides helpers to work with Base58 P2PKH and P2SH addresses.
+"""
+
 # Copyright (c) 2016 The Bitcoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#
-# address.py
-#
-# This file encodes and decodes BASE58 P2PKH and P2SH addresses
-#
 
 from .script import CScript, hash160, hash256
 from .util import bytes_to_hex_str, hex_str_to_bytes
 
-chars = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
+CHARS = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
 
 
 def byte_to_base58(b, version):
@@ -23,10 +23,10 @@ def byte_to_base58(b, version):
     str += checksum[:8]
     value = int("0x" + str, 0)
     while value > 0:
-        result = chars[value % 58] + result
+        result = CHARS[value % 58] + result
         value //= 58
     while str[:2] == "00":
-        result = chars[0] + result
+        result = CHARS[0] + result
         str = str[2:]
     return result
 
@@ -42,7 +42,7 @@ def base58_decode(s):
     value = 0
     for c in s:
         value *= 58
-        idx = chars.find(c)
+        idx = CHARS.find(c)
         assert idx != -1
         value += idx
 
@@ -51,7 +51,7 @@ def base58_decode(s):
         hex_str = "0" + hex_str
 
     for c in s:
-        if c == chars[0]:
+        if c == CHARS[0]:
             hex_str = "00" + hex_str
         else:
             break

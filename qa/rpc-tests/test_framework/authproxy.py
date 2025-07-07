@@ -43,6 +43,7 @@ import decimal
 import json
 import logging
 import socket
+
 try:
     import urllib.parse as urlparse
 except ImportError:
@@ -60,7 +61,7 @@ class JSONRPCException(Exception):
         self.error = rpc_error
 
 
-def EncodeDecimal(o):
+def encode_decimal(o):
     if isinstance(o, decimal.Decimal):
         return str(o)
     raise TypeError(repr(o) + " is not JSON serializable")
@@ -138,11 +139,11 @@ class AuthServiceProxy(object):
         AuthServiceProxy.__id_count += 1
 
         log.debug("-%s-> %s %s"%(AuthServiceProxy.__id_count, self._service_name,
-                                 json.dumps(args, default=EncodeDecimal, ensure_ascii=self.ensure_ascii)))
+                                 json.dumps(args, default=encode_decimal, ensure_ascii=self.ensure_ascii)))
         postdata = json.dumps({'version': '1.1',
                                'method': self._service_name,
                                'params': args,
-                               'id': AuthServiceProxy.__id_count}, default=EncodeDecimal, ensure_ascii=self.ensure_ascii)
+                               'id': AuthServiceProxy.__id_count}, default=encode_decimal, ensure_ascii=self.ensure_ascii)
         response = self._request('POST', self.__url.path, postdata.encode('utf-8'))
         if response['error'] is not None:
             raise JSONRPCException(response['error'])
@@ -153,14 +154,14 @@ class AuthServiceProxy(object):
             return response['result']
 
     def _batch(self, rpc_call_list):
-        postdata = json.dumps(list(rpc_call_list), default=EncodeDecimal, ensure_ascii=self.ensure_ascii)
+        postdata = json.dumps(list(rpc_call_list), default=encode_decimal, ensure_ascii=self.ensure_ascii)
         log.debug("--> "+postdata)
         return self._request('POST', self.__url.path, postdata.encode('utf-8'))
 
     def _get_response(self):
         try:
             http_response = self.__conn.getresponse()
-        except socket.timeout as e:
+        except socket.timeout:
             raise JSONRPCException({
                 'code': -344,
                 'message': '%r RPC took longer than %f seconds. Consider '
@@ -179,7 +180,7 @@ class AuthServiceProxy(object):
         responsedata = http_response.read().decode('utf8')
         response = json.loads(responsedata, parse_float=decimal.Decimal)
         if "error" in response and response["error"] is None:
-            log.debug("<-%s- %s"%(response["id"], json.dumps(response["result"], default=EncodeDecimal, ensure_ascii=self.ensure_ascii)))
+            log.debug("<-%s- %s" % (response["id"], json.dumps(response["result"], default=encode_decimal, ensure_ascii=self.ensure_ascii)))
         else:
             log.debug("<-- "+responsedata)
         return response
