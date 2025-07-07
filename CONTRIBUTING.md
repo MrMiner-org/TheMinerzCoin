@@ -43,6 +43,12 @@ pre-commit install
 Running the hooks will apply `clang-format` to C++ sources, `rustfmt` to Rust
 files, and execute `cargo fmt --check` for the crate in `rust/`.
 
+Compilation Database
+--------------------
+The CMake configuration writes a `compile_commands.json` file to the
+`build/` directory. Regenerate it whenever you change CMake options by
+rerunning `./generate_build.sh`.
+
 The title of the pull request should be prefixed by the component or area that the pull request affects. Examples:
 
     Consensus: Add new opcode for BIP-XXXX OP_CHECKAWESOMESIG
