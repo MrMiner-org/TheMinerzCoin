@@ -364,6 +364,7 @@ dependencies = [
 name = "theminerz_rust"
 version = "0.1.0"
 dependencies = [
+ "bitcoin_hashes",
  "cxx",
  "cxx-build",
  "secp256k1",
