@@ -10,7 +10,7 @@
 
 #include <assert.h>
 #include <stdint.h>
-#include <string.h>
+#include <cstring>
 #include <vector>
 #include <string>
 #include <boost/variant/apply_visitor.hpp>
@@ -154,15 +154,18 @@ CBase58Data::CBase58Data()
 
 void CBase58Data::SetData(const std::vector<unsigned char>& vchVersionIn, const void* pdata, size_t nSize)
 {
+    // REVIEW: use data() and avoid C-style casts for clarity and type safety
     vchVersion = vchVersionIn;
     vchData.resize(nSize);
-    if (!vchData.empty())
-        memcpy(&vchData[0], pdata, nSize);
+    if (!vchData.empty()) {
+        std::memcpy(vchData.data(), pdata, nSize);
+    }
 }
 
 void CBase58Data::SetData(const std::vector<unsigned char>& vchVersionIn, const unsigned char* pbegin, const unsigned char* pend)
 {
-    SetData(vchVersionIn, (void*)pbegin, pend - pbegin);
+    // REVIEW: avoid C-style cast when forwarding to the void* overload
+    SetData(vchVersionIn, reinterpret_cast<const void*>(pbegin), pend - pbegin);
 }
 
 bool CBase58Data::SetString(const char* psz, unsigned int nVersionBytes)

@@ -14,7 +14,7 @@ jobs:
         echo "CFLAGS=-fsanitize=${{ matrix.sanitizer }}" >> $GITHUB_ENV
         echo "CXXFLAGS=-fsanitize=${{ matrix.sanitizer }}" >> $GITHUB_ENV
         echo "LDFLAGS=-fsanitize=${{ matrix.sanitizer }}" >> $GITHUB_ENV
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Install Clang 18
       if: runner.os == 'Linux'
       run: |
@@ -64,7 +64,7 @@ jobs:
         os: [ubuntu-24.04, macos-14, windows-2025]
     runs-on: ${{ matrix.os }}
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Configure fuzzers
       run: cmake -S . -B fuzz_build -DCMAKE_CXX_FLAGS="-fsanitize=fuzzer,address" -DCMAKE_C_FLAGS="-fsanitize=fuzzer,address"
     - name: Build fuzzers
