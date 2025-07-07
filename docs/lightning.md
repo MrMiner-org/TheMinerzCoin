@@ -19,6 +19,20 @@ make
 
 Use the `-lndconnect` option to specify the gRPC address of your LND
 node. By default the client connects to `localhost:10009`.
+TLS credentials can be supplied via three additional options:
+
+* `-lndcacert=<file>` – path to the server CA certificate
+* `-lndcert=<file>` – path to your client certificate
+* `-lndkey=<file>` – path to the corresponding private key
+
+Example:
+
+```
+theminerzcoind -lndconnect=127.0.0.1:10009 \
+               -lndcacert=/path/to/ca.crt \
+               -lndcert=/path/to/client.crt \
+               -lndkey=/path/to/client.key
+```
 
 ```
 theminerzcoind -lndconnect=127.0.0.1:10009
