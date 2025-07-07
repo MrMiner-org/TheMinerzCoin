@@ -15,7 +15,7 @@ For more information and downloadable binaries, see https://theminerzcoin.eu/
 World-first Features
 --------------------
 
-TheMinerzCoin project thrives on new ideas. Highlights include Proof of Stake 3.0, near‑instant transactions and automatic block-time and reward adjustments. See [doc/innovation.md](doc/innovation.md) for details.
+TheMinerzCoin project thrives on new ideas. Highlights include Proof of Stake 3.0, near‑instant transactions and automatic block-time and reward adjustments. See [docs/innovation.md](docs/innovation.md) for details.
 
 Version 3.0 introduces:
 
@@ -23,17 +23,17 @@ Version 3.0 introduces:
 - Encrypted P2P transport (BIP324)
 - BLS aggregate signatures for staking pools
 - Dandelion++ transaction relay for improved privacy
-- Lightweight slashing to penalise equivocation and offline validators ([doc/slashing.md](doc/slashing.md))
+- Lightweight slashing to penalise equivocation and offline validators ([docs/slashing.md](docs/slashing.md))
 - Compact Block **v2** and assume-utxo snapshots for faster syncing
-- Optional Lightning channels via an LND bridge ([doc/lightning.md](doc/lightning.md))
+- Optional Lightning channels via an LND bridge ([docs/lightning.md](docs/lightning.md))
 - Experimental zk-rollup sidechain ([docs/rollup_design.md](docs/rollup_design.md))
 - Modularised CMake build using C++20 features (`std::span`, `std::simd`)
-- Fuzz targets and sanitizer-based CI ([doc/fuzzing.md](doc/fuzzing.md))
+- Fuzz targets and sanitizer-based CI ([docs/fuzzing.md](docs/fuzzing.md))
 - Rust bindings for critical crypto routines under `rust/`
-- Descriptor wallets and PSBTv2 support ([doc/descriptor-wallets.md](doc/descriptor-wallets.md))
-- Native hardware wallet interface ([doc/hardware-wallets.md](doc/hardware-wallets.md))
+- Descriptor wallets and PSBTv2 support ([docs/descriptor-wallets.md](docs/descriptor-wallets.md))
+- Native hardware wallet interface ([docs/hardware-wallets.md](docs/hardware-wallets.md))
 - GraphQL/gRPC APIs and WebSocket event streams
-- Neutrino SPV light client mode ([doc/neutrino.md](doc/neutrino.md))
+- Neutrino SPV light client mode ([docs/neutrino.md](docs/neutrino.md))
 - Docker release images and Prometheus metrics ([docs/metrics.md](docs/metrics.md))
 - OpenAPI 3.1 specification for RPC/REST ([specs/openapi.yaml](specs/openapi.yaml))
 
@@ -49,7 +49,7 @@ theminerzcoind -assumeutxodat=/path/to/utxo-snapshot.dat
 When peers communicate over the default BIP324 encrypted transport, block relay
 uses compact block **v2** automatically. Disable encryption with `-p2pnoencrypt`
 to fall back to version 1 if needed.
-The RPC interface can control USB hardware wallets; see [doc/hardware-wallets.md](doc/hardware-wallets.md).
+The RPC interface can control USB hardware wallets; see [docs/hardware-wallets.md](docs/hardware-wallets.md).
 Architecture
 ------------
 A high-level architecture diagram is provided in [docs/architecture.puml](docs/architecture.puml) illustrating the wallet, RPC, consensus and P2P layers as well as the new BLS staking module.
@@ -105,7 +105,7 @@ lots of money.
 
 ### Automated Testing
 
-Developers are strongly encouraged to write [unit tests](/doc/unit-tests.md) for new code, and to
+Developers are strongly encouraged to write [unit tests](/docs/unit-tests.md) for new code, and to
 submit new unit tests for old code. Unit tests can be built after running `./generate_build.sh`
 and executed with: `cmake --build build --target check`
 
@@ -129,8 +129,8 @@ statistics—is documented in [specs/openapi.yaml](specs/openapi.yaml). A protot
 GraphQL schema describing the same functionality lives in
 [specs/schema.graphql](specs/schema.graphql).
 A lightweight WebSocket event server is also available; see
-[doc/websockets.md](doc/websockets.md).
+[docs/websockets.md](docs/websockets.md).
 A simple gRPC node service can also be started; see
-[doc/grpc-node-service.md](doc/grpc-node-service.md).
+[docs/grpc-node-service.md](docs/grpc-node-service.md).
 More information on descriptor wallets and PSBTv2 is provided in
-[doc/descriptor-wallets.md](doc/descriptor-wallets.md).
+[docs/descriptor-wallets.md](docs/descriptor-wallets.md).
