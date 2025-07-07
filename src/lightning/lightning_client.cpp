@@ -7,10 +7,36 @@
 #ifdef ENABLE_LIGHTNING
 #include <grpcpp/create_channel.h>
 #include <grpcpp/client_context.h>
+#include <grpcpp/security/credentials.h>
+#include "util.h"
+#include <fstream>
+#include <sstream>
 #include <lnrpc/lightning.pb.h>
 
 LightningClient::LightningClient(const std::string& uri)
-    : m_stub(lnrpc::Lightning::NewStub(grpc::CreateChannel(uri, grpc::InsecureChannelCredentials()))) {}
+{
+    grpc::SslCredentialsOptions opts;
+    std::string ca_path = GetArg("-lndcacert", "");
+    std::string cert_path = GetArg("-lndcert", "");
+    std::string key_path = GetArg("-lndkey", "");
+
+    auto read_file = [](const std::string& path) {
+        std::ifstream f(path, std::ios::in | std::ios::binary);
+        if (!f.is_open()) return std::string();
+        std::ostringstream ss; ss << f.rdbuf();
+        return ss.str();
+    };
+
+    if (!ca_path.empty()) opts.pem_root_certs = read_file(ca_path);
+    if (!cert_path.empty()) opts.pem_cert_chain = read_file(cert_path);
+    if (!key_path.empty()) opts.pem_private_key = read_file(key_path);
+
+    auto creds = grpc::SslCredentials(opts);
+    m_stub = lnrpc::Lightning::NewStub(grpc::CreateChannel(uri, creds));
+#else
+    (void)uri;
+#endif
+}
 
 bool LightningClient::openChannel(const std::string& pubkey, uint64_t amount, std::string& error)
 {
