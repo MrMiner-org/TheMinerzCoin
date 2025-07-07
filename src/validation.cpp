@@ -16,6 +16,7 @@
 #include <consensus/validation.h>
 #include <cuckoocache.h>
 #include <hash.h>
+#include <validation.h>
 #include "kernel_stub.h"
 #include <logging.h>
 #include <logging/timer.h>
