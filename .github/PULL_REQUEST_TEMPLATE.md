@@ -4,7 +4,7 @@
 Pull requests without a rationale and clear improvement may be closed
 immediately.
 
-first. See CONTRIBUTING.md
+first. See docs/CONTRIBUTING.md
 -->
 
 <!--

@@ -91,9 +91,9 @@ The `master` branch is regularly built and tested, but is not guaranteed to be
 completely stable. [Tags](https://github.com/MrMiner-org/TheMinerzCoin/tags) are created
 regularly to indicate new official, stable release versions of TheMinerzCoin.
 
-Change log can be found in [CHANGELOG.md](CHANGELOG.md).
+Change log can be found in [CHANGELOG.md](docs/CHANGELOG.md).
 
-The contribution workflow is described in [CONTRIBUTING.md](CONTRIBUTING.md).
+The contribution workflow is described in [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 
 
 Testing
