@@ -127,7 +127,7 @@ static void run_test(bench_data* data, size_t count, int includes_g, int num_ite
     }
 
     /* Run the benchmark. */
-    sprintf(str, includes_g ? "ecmult_%ig" : "ecmult_%i", (int)count);
+    snprintf(str, sizeof(str), includes_g ? "ecmult_%ig" : "ecmult_%i", (int)count);
     run_benchmark(str, bench_ecmult, bench_ecmult_setup, bench_ecmult_teardown, data, 10, count * iters);
 }
 
