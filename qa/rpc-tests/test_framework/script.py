@@ -687,8 +687,17 @@ class CScript(bytes):
             raise TypeError('Can not add a %r instance to a CScript' % other.__class__)
 
     def join(self, iterable):
-        # join makes no sense for a CScript()
-        raise NotImplementedError
+        """Return a new ``CScript`` joining ``iterable`` with ``self`` as
+        delimiter.
+
+        ``iterable`` elements are first coerced via ``__coerce_instance`` so
+        that integers or ``CScriptOp`` objects can be joined directly.  The
+        behaviour mirrors ``bytes.join`` but preserves the ``CScript``
+        subclass."""
+
+        coerced = [self.__coerce_instance(elem) for elem in iterable]
+        joined = bytes(self).join(coerced)
+        return CScript(joined)
 
     def __new__(cls, value=b''):
         if isinstance(value, bytes) or isinstance(value, bytearray):
