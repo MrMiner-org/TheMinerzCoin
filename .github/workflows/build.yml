@@ -4,7 +4,7 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [ubuntu-24.04, macos-14, windows-2025]
+        os: [ubuntu-22.04, macos-13, windows-2022]
         sanitizer: [none, address, undefined]
     runs-on: ${{ matrix.os }}
     steps:
@@ -61,7 +61,7 @@ jobs:
   fuzz:
     strategy:
       matrix:
-        os: [ubuntu-24.04, macos-14, windows-2025]
+        os: [ubuntu-22.04, macos-13, windows-2022]
     runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v4

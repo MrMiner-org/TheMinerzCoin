@@ -3,10 +3,10 @@ on: [push]
 jobs:
   test:
     name: Build and Push Docker
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4.1.7
+        uses: actions/checkout@v4
       - name: Set environment variables
         run: echo "GIT_CURRENT_BRANCH=${GITHUB_REF##*/}" >> $GITHUB_ENV
       - name: Login to DockerHub Registry
