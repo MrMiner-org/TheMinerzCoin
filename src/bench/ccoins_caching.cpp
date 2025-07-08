@@ -5,47 +5,11 @@
 #include <bench/bench.h>
 #include <coins.h>
 #include <policy/policy.h>
+#include <test/dummyinput_helper.h>
 #include <wallet/crypter.h>
 
 #include <vector>
 
-// FIXME: Dedup with SetupDummyInputs in test/transaction_tests.cpp.
-//
-// Helper: create two dummy transactions, each with
-// two outputs.  The first has 11 and 50 CENT outputs
-// paid to a TX_PUBKEY, the second 21 and 22 CENT outputs
-// paid to a TX_PUBKEYHASH.
-//
-static std::vector<CMutableTransaction>
-SetupDummyInputs(CBasicKeyStore& keystoreRet, CCoinsViewCache& coinsRet)
-{
-    std::vector<CMutableTransaction> dummyTransactions;
-    dummyTransactions.resize(2);
-
-    // Add some keys to the keystore:
-    CKey key[4];
-    for (int i = 0; i < 4; i++) {
-        key[i].MakeNewKey(i % 2);
-        keystoreRet.AddKey(key[i]);
-    }
-
-    // Create some dummy input transactions
-    dummyTransactions[0].vout.resize(2);
-    dummyTransactions[0].vout[0].nValue = 11 * CENT;
-    dummyTransactions[0].vout[0].scriptPubKey << ToByteVector(key[0].GetPubKey()) << OP_CHECKSIG;
-    dummyTransactions[0].vout[1].nValue = 50 * CENT;
-    dummyTransactions[0].vout[1].scriptPubKey << ToByteVector(key[1].GetPubKey()) << OP_CHECKSIG;
-    coinsRet.ModifyCoins(dummyTransactions[0].GetHash())->FromTx(dummyTransactions[0], 0);
-
-    dummyTransactions[1].vout.resize(2);
-    dummyTransactions[1].vout[0].nValue = 21 * CENT;
-    dummyTransactions[1].vout[0].scriptPubKey = GetScriptForDestination(key[2].GetPubKey().GetID());
-    dummyTransactions[1].vout[1].nValue = 22 * CENT;
-    dummyTransactions[1].vout[1].scriptPubKey = GetScriptForDestination(key[3].GetPubKey().GetID());
-    coinsRet.ModifyCoins(dummyTransactions[1].GetHash())->FromTx(dummyTransactions[1], 0);
-
-    return dummyTransactions;
-}
 
 // Microbenchmark for simple accesses to a CCoinsViewCache database. Note from
 // laanwj, "replicating the actual usage patterns of the client is hard though,
