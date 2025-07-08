@@ -19,7 +19,7 @@ jobs:
       if: runner.os == 'Linux'
       run: |
         sudo apt-get update
-        sudo apt-get install -y clang-18 lld-18
+        sudo apt-get install -y clang-18 clang-tidy-18 clang-tools-18 lld-18
         echo "CC=clang-18" >> $GITHUB_ENV
         echo "CXX=clang++-18" >> $GITHUB_ENV
         echo "CFLAGS=$CFLAGS -flto -fprofile-generate" >> $GITHUB_ENV
@@ -55,6 +55,16 @@ jobs:
       run: cmake -S . -B build
     - name: Build
       run: cmake --build build -j2
+    - name: Run clang-tidy
+      shell: bash
+      run: |
+        CLANG_TIDY=clang-tidy
+        if [[ "$RUNNER_OS" == "Linux" ]]; then
+          CLANG_TIDY=clang-tidy-18
+        elif [[ "$RUNNER_OS" == "macOS" ]]; then
+          CLANG_TIDY="$(brew --prefix llvm@18)/bin/clang-tidy"
+        fi
+        git ls-files '*.cpp' | xargs -n 1 $CLANG_TIDY -p build
     - name: Test
       run: cmake --build build --target check
 

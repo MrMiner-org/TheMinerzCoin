@@ -1,4 +1,4 @@
-Checks: '-*,modernize-*'
-WarningsAsErrors: ''
+Checks: '-*,modernize-*,bugprone-*,performance-*'
+WarningsAsErrors: '*'
 HeaderFilterRegex: '.*'
 FormatStyle: none
