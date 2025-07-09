@@ -1,4 +1,10 @@
-#Changelog
+# Changelog
+
+## Unreleased
+### Deutsch
+- Shebang der Buildskripte auf Bash umgestellt, damit `pipefail` funktioniert
+### English
+- Switched build script shebangs to Bash for proper `pipefail` support
 
 ## v3.0.0 (2025-07-03)
 - Taproot and Schnorr activated

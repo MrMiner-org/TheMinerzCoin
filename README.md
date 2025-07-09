@@ -68,6 +68,9 @@ Then point CMake at the generated prefix when configuring:
 ./generate_build.sh -DCMAKE_PREFIX_PATH=$(pwd)/depends/x86_64-linux-gnu
 ```
 
+Note: These helper scripts rely on Bash. If `/bin/sh` is not Bash on your
+system, invoke them explicitly with `bash ./generate_build.sh`.
+
 See [depends/README.md](depends/README.md) for more advanced options and cross-compilation details.
 
 To build everything in one go using Conan and CMake:
