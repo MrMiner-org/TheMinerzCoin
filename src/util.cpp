@@ -77,6 +77,7 @@
 #include <boost/program_options/detail/config_file.hpp>
 #include <boost/program_options/parsers.hpp>
 #include <boost/thread.hpp>
+#include <boost/process.hpp>
 #include <openssl/crypto.h>
 #include <openssl/rand.h>
 #include <openssl/conf.h>
@@ -735,11 +736,35 @@ boost::filesystem::path GetSpecialFolderPath(int nFolder, bool fCreate)
 }
 #endif
 
-void runCommand(const std::string& strCommand)
+int runCommand(const std::string& strCommand)
 {
-    int nErr = ::system(strCommand.c_str());
-    if (nErr)
-        LogPrintf("runCommand error: system(%s) returned %d\n", strCommand, nErr);
+    namespace bp = boost::process;
+
+    bp::ipstream out_stream;
+    bp::ipstream err_stream;
+    int exit_code = -1;
+
+    try {
+        exit_code = bp::system(bp::shell, strCommand, bp::std_out > out_stream,
+                               bp::std_err > err_stream);
+
+        std::string line;
+        while (std::getline(out_stream, line)) {
+            LogPrintf("%s\n", line);
+        }
+        while (std::getline(err_stream, line)) {
+            LogPrintf("%s\n", line);
+        }
+    } catch (const std::exception& e) {
+        LogPrintf("runCommand exception: %s\n", e.what());
+        return -1;
+    }
+
+    if (exit_code)
+        LogPrintf("runCommand error: system(%s) returned %d\n", strCommand,
+                  exit_code);
+
+    return exit_code;
 }
 
 void RenameThread(const char* name)
