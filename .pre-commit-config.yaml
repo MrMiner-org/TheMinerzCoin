@@ -1,9 +1,16 @@
 repos:
   - repo: https://github.com/pre-commit/mirrors-clang-format
-    rev: v18.1.0
+    rev: 6b9072cd80691b1b48d80046d884409fb1d962d1  # frozen: v20.1.7
     hooks:
       - id: clang-format
         files: '\.(cpp|h)$'
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: 0b19ef1fd6ad680ed7752d6daba883ce1265a6de  # frozen: v0.12.2
+    hooks:
+      - id: ruff
+        args: ["check"]
+        files: '\.(py)$'
 
   - repo: local
     hooks:

@@ -40,8 +40,9 @@ pip install pre-commit
 pre-commit install
 ```
 
-Running the hooks will apply `clang-format` to C++ sources, `rustfmt` to Rust
-files, and execute `cargo fmt --check` for the crate in `rust/`.
+Running the hooks will apply `clang-format` to C++ sources, `ruff` to Python
+files, `rustfmt` to Rust files, and execute `cargo fmt --check` for the crate in
+`rust/`.
 
 Compilation Database
 --------------------
