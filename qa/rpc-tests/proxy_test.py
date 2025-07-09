@@ -8,7 +8,7 @@ import socket
 from test_framework.socks5 import Socks5Configuration, Socks5Command, Socks5Server, AddressType
 from test_framework.test_framework import BitcoinTestFramework
 from test_framework.util import *
-from test_framework.netutil import test_ipv6_local
+from test_framework.netutil import check_ipv6_local
 '''
 Test plan:
 - Start bitcoind's with different proxy configurations
@@ -40,7 +40,7 @@ class ProxyTest(BitcoinTestFramework):
         self.num_nodes = 4
         self.setup_clean_chain = False
 
-        self.have_ipv6 = test_ipv6_local()
+        self.have_ipv6 = check_ipv6_local()
         # Create two proxies on different ports
         # ... one unauthenticated
         self.conf1 = Socks5Configuration()
