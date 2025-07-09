@@ -41,7 +41,7 @@ over the network (```CBlock```, ```CTransaction```, etc, along with the network-
 wrappers for them, ```msg_block```, ```msg_tx```, etc).
 
 * P2P tests have two threads.  One thread handles all network communication
-with the bitcoind(s) being tested (using python's asyncore package); the other
+with the bitcoind(s) being tested (using python's asyncio package); the other
 implements the test logic.
 
 * ```NodeConn``` is the class used to connect to a bitcoind.  If you implement
