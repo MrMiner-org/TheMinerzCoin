@@ -10,8 +10,8 @@ Return value is 0 to indicate no error.
 Author: @MarcoFalke
 '''
 
-from subprocess import check_output
 import re
+from subprocess import check_output
 
 FOLDER_GREP = 'src'
 FOLDER_TEST = 'src/test/'

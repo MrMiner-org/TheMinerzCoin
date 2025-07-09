@@ -14,16 +14,19 @@
 
 # In case of a clean merge that is accepted by the user, the local branch with
 # name $BRANCH is overwritten with the merged result, and optionally pushed.
-from __future__ import division,print_function,unicode_literals
-import os,sys
-from sys import stdin,stdout,stderr
+from __future__ import division, print_function, unicode_literals
+
 import argparse
+import codecs
+import json
+import os
 import subprocess
-import json,codecs
+from sys import stderr, stdin, stdout
+
 try:
-    from urllib.request import Request,urlopen
-except:
-    from urllib2 import Request,urlopen
+    from urllib.request import Request, urlopen
+except ImportError:
+    from urllib2 import Request, urlopen
 
 # External tools (can be overridden using environment)
 GIT = os.getenv('GIT','git')
@@ -44,7 +47,7 @@ def git_config_get(option, default=None):
     '''
     try:
         return subprocess.check_output([GIT,'config','--get',option]).rstrip().decode('utf-8')
-    except subprocess.CalledProcessError as e:
+    except subprocess.CalledProcessError:
         return default
 
 def retrieve_pr_info(repo,pull):
@@ -129,27 +132,27 @@ def main():
     devnull = open(os.devnull,'w')
     try:
         subprocess.check_call([GIT,'checkout','-q',branch])
-    except subprocess.CalledProcessError as e:
+    except subprocess.CalledProcessError:
         print("ERROR: Cannot check out branch %s." % (branch), file=stderr)
         exit(3)
     try:
         subprocess.check_call([GIT,'fetch','-q',host_repo,'+refs/pull/'+pull+'/*:refs/heads/pull/'+pull+'/*'])
-    except subprocess.CalledProcessError as e:
+    except subprocess.CalledProcessError:
         print("ERROR: Cannot find pull request #%s on %s." % (pull,host_repo), file=stderr)
         exit(3)
     try:
         subprocess.check_call([GIT,'log','-q','-1','refs/heads/'+head_branch], stdout=devnull, stderr=stdout)
-    except subprocess.CalledProcessError as e:
+    except subprocess.CalledProcessError:
         print("ERROR: Cannot find head of pull request #%s on %s." % (pull,host_repo), file=stderr)
         exit(3)
     try:
         subprocess.check_call([GIT,'log','-q','-1','refs/heads/'+merge_branch], stdout=devnull, stderr=stdout)
-    except subprocess.CalledProcessError as e:
+    except subprocess.CalledProcessError:
         print("ERROR: Cannot find merge of pull request #%s on %s." % (pull,host_repo), file=stderr)
         exit(3)
     try:
         subprocess.check_call([GIT,'fetch','-q',host_repo,'+refs/heads/'+branch+':refs/heads/'+base_branch])
-    except subprocess.CalledProcessError as e:
+    except subprocess.CalledProcessError:
         print("ERROR: Cannot find branch %s on %s." % (branch,host_repo), file=stderr)
         exit(3)
     subprocess.check_call([GIT,'checkout','-q',base_branch])
@@ -166,7 +169,7 @@ def main():
         message += subprocess.check_output([GIT,'log','--no-merges','--topo-order','--pretty=format:%h %s (%an)',base_branch+'..'+head_branch]).decode('utf-8')
         try:
             subprocess.check_call([GIT,'merge','-q','--commit','--no-edit','--no-ff','-m',message.encode('utf-8'),head_branch])
-        except subprocess.CalledProcessError as e:
+        except subprocess.CalledProcessError:
             print("ERROR: Cannot be merged cleanly.",file=stderr)
             subprocess.check_call([GIT,'merge','--abort'])
             exit(4)
@@ -223,7 +226,7 @@ def main():
         if reply == 's':
             try:
                 subprocess.check_call([GIT,'commit','-q','--gpg-sign','--amend','--no-edit'])
-            except subprocess.CalledProcessError as e:
+            except subprocess.CalledProcessError:
                 print("Error signing, exiting.",file=stderr)
                 exit(1)
         else:

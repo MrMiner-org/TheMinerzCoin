@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 '''
 Run this script to update all the copyright headers of files
 that were changed this year.
@@ -12,8 +12,8 @@ it will change it to
 // Copyright (c) 2009-2015 The Bitcoin Core developers
 '''
 import os
-import time
 import re
+import time
 
 year = time.gmtime()[0]
 CMD_GIT_DATE = 'git log --format=%%ad --date=short -1 %s | cut -d"-" -f 1'
@@ -26,9 +26,9 @@ EXTENSIONS = [".cpp",".h", ".py"]
 
 def get_git_date(file_path):
   r = os.popen(CMD_GIT_DATE % file_path)
-  for l in r:
+  for line in r:
     # Result is one line, so just return
-    return l.replace("\n","")
+    return line.replace("\n", "")
   return ""
 
 n=1
@@ -41,6 +41,6 @@ for folder in FOLDERS:
         if str(year) == git_date:
           # Only update if current year is not found
           if REGEX_CURRENT.search(open(file_path, "r").read()) is None:
-            print n,"Last git edit", git_date, "-", file_path
-            os.popen(CMD_REGEX % (year,file_path))
+            print(n, "Last git edit", git_date, "-", file_path)
+            os.popen(CMD_REGEX % (year, file_path))
             n = n + 1

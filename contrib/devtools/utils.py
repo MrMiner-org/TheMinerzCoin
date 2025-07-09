@@ -5,9 +5,9 @@
 '''
 Common utility functions
 '''
+import os
 import shutil
 import sys
-import os
 from typing import List
 
 

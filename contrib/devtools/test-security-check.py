@@ -11,6 +11,7 @@ import unittest
 
 from utils import determine_wellknown_cmd
 
+
 def write_testcode(filename):
     with open(filename, 'w', encoding="utf8") as f:
         f.write('''
