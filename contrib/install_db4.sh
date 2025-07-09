@@ -1,12 +1,11 @@
 #!/bin/sh
+set -euo pipefail
+# Install libdb4.8 (Berkeley DB).
 # Copyright (c) 2017-2019 The Bitcoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-# Install libdb4.8 (Berkeley DB).
-
 export LC_ALL=C
-set -e
 
 if [ -z "${1}" ]; then
   echo "Usage: $0 <base-dir> [<extra-bdb-configure-flag> ...]"

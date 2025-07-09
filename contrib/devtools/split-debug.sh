@@ -1,5 +1,6 @@
 #!/bin/sh
-set -e
+set -euo pipefail
+# Split debugging symbols from a binary.
 if [ $# -ne 3 ];
     then echo "usage: $0 <input> <stripped-binary> <debug-binary>"
 fi

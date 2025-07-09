@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
+# Build and push Docker images for GitHub builds.
 
 IMAGE_NAME=${IMAGE_NAME:-theminerzcoin}
 TAG=${GIT_CURRENT_BRANCH:-latest}
