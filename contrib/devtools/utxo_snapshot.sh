@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
+set -euo pipefail
+# Create or verify a UTXO snapshot using bitcoin-cli.
 #
 # Copyright (c) 2019 The Bitcoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
-#
-export LC_ALL=C
 
-set -ueo pipefail
+export LC_ALL=C
 
 if (( $# < 3 )); then
   echo 'Usage: utxo_snapshot.sh <generate-at-height> <snapshot-out-path> <bitcoin-cli-call ...>'

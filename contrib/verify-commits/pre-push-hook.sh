@@ -1,4 +1,6 @@
 #!/bin/bash
+set -euo pipefail
+# Git pre-push hook to ensure commits are signed.
 # Copyright (c) 2014-2015 The Bitcoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
