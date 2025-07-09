@@ -16,7 +16,6 @@ from typing import List, Optional
 
 import lief
 import pixie
-
 from utils import determine_wellknown_cmd
 
 # Debian 8 (Jessie) EOL: 2020. https://wiki.debian.org/DebianReleases#Production_Releases
@@ -160,7 +159,7 @@ def check_version(max_versions, version, arch) -> bool:
         lib = version
         ver = '0'
     ver = tuple([int(x) for x in ver.split('.')])
-    if not lib in max_versions:
+    if lib not in max_versions:
         return False
     if isinstance(max_versions[lib], tuple):
         return ver <= max_versions[lib]

@@ -13,6 +13,7 @@ from typing import List, Optional
 import lief
 import pixie
 
+
 def check_ELF_PIE(executable) -> bool:
     '''
     Check for position independent executable (PIE), allowing for address space randomization.

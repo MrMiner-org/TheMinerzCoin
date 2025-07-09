@@ -3,8 +3,8 @@
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-import sys
 import re
+import sys
 from typing import Dict, List, Set
 
 MAPPING = {

@@ -16,11 +16,12 @@ TODO:
 - auto-add new translations to the build system according to the translation process
 '''
 from __future__ import division, print_function
-import subprocess
-import re
-import sys
-import os
+
 import io
+import os
+import re
+import subprocess
+import sys
 import xml.etree.ElementTree as ET
 
 # Name of transifex tool

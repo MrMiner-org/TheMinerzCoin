@@ -74,7 +74,6 @@ import re
 import subprocess
 import sys
 
-
 # Change this to the full path if clang-format is not on the path.
 binary = 'clang-format'
 

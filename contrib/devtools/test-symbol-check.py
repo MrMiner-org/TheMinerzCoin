@@ -7,10 +7,11 @@ Test script for symbol-check.py
 '''
 import os
 import subprocess
-from typing import List
 import unittest
+from typing import List
 
 from utils import determine_wellknown_cmd
+
 
 def call_symbol_check(cc: List[str], source, executable, options):
     subprocess.run([*cc,source,'-o',executable] + options, check=True)
