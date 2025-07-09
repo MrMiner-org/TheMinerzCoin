@@ -138,7 +138,7 @@ boost::filesystem::path GetSpecialFolderPath(int nFolder, bool fCreate = true);
 #endif
 void OpenDebugLog();
 void ShrinkDebugFile();
-void runCommand(const std::string& strCommand);
+int runCommand(const std::string& strCommand);
 
 inline bool IsSwitchChar(char c)
 {
