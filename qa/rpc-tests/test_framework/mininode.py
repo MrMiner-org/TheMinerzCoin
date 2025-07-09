@@ -24,7 +24,7 @@
 # ser_*, deser_*: functions that handle serialization/deserialization
 
 
-import asyncore
+import asyncio
 import copy
 import hashlib
 import logging
@@ -54,10 +54,8 @@ NODE_NETWORK = (1 << 0)
 NODE_GETUTXO = (1 << 1)
 NODE_BLOOM = (1 << 2)
 
-# Keep our own socket map for asyncore, so that we can track disconnects
-# ourselves (to workaround an issue with closing an asyncore socket when
-# using select)
-mininode_socket_map = dict()
+# Keep our own connection set for asyncio so that we can track disconnects.
+mininode_socket_map = set()
 
 # One lock for synchronizing all data access between the networking thread (see
 # NetworkThread below) and the thread running the test logic.  For simplicity,
@@ -1377,7 +1375,7 @@ class SingleNodeConnCB(NodeConnCB):
 
 # The actual NodeConn class
 # This class provides an interface for a p2p connection to a specified node
-class NodeConn(asyncore.dispatcher):
+class NodeConn(object):
     messagemap = {
         b"version": msg_version,
         b"verack": msg_verack,
@@ -1409,11 +1407,9 @@ class NodeConn(asyncore.dispatcher):
     }
 
     def __init__(self, dstaddr, dstport, rpc, callback, net="regtest", services=NODE_NETWORK):
-        asyncore.dispatcher.__init__(self, map=mininode_socket_map)
         self.log = logging.getLogger("NodeConn(%s:%d)" % (dstaddr, dstport))
         self.dstaddr = dstaddr
         self.dstport = dstport
-        self.create_socket(socket.AF_INET, socket.SOCK_STREAM)
         self.sendbuf = b""
         self.recvbuf = b""
         self.ver_send = 209
@@ -1424,6 +1420,13 @@ class NodeConn(asyncore.dispatcher):
         self.cb = callback
         self.disconnect = False
         self.nServices = 0
+        self.reader = None
+        self.writer = None
+        self._loop = None
+        self._read_task = None
+        self._write_task = None
+        self._connect_started = False
+        self._writable = None
 
         # stuff version msg into sendbuf
         vt = msg_version()
@@ -1433,59 +1436,95 @@ class NodeConn(asyncore.dispatcher):
         vt.addrFrom.ip = "0.0.0.0"
         vt.addrFrom.port = 0
         self.send_message(vt, True)
-        print('MiniNode: Connecting to Bitcoin Node IP # ' + dstaddr + ':' \
-            + str(dstport))
+        print('MiniNode: Connecting to Bitcoin Node IP # ' + dstaddr + ':' + str(dstport))
 
-        try:
-            self.connect((dstaddr, dstport))
-        except:
-            self.handle_close()
         self.rpc = rpc
+        mininode_socket_map.add(self)
 
     def show_debug_msg(self, msg):
         self.log.debug(msg)
+
+    def start(self, loop):
+        if self._connect_started:
+            return
+        self._connect_started = True
+        self._loop = loop
+        self._writable = asyncio.Event()
+        loop.create_task(self._connect())
+
+    async def _connect(self):
+        try:
+            self.reader, self.writer = await asyncio.open_connection(self.dstaddr, self.dstport)
+        except Exception:
+            self.handle_close()
+            return
+        self.handle_connect()
+        self._read_task = asyncio.create_task(self._read_loop())
+        self._write_task = asyncio.create_task(self._write_loop())
+        # Flush any messages queued before connection
+        self._writable.set()
 
     def handle_connect(self):
         self.show_debug_msg("MiniNode: Connected & Listening: \n")
         self.state = "connected"
 
     def handle_close(self):
+        if self.state == "closed":
+            return
         self.show_debug_msg("MiniNode: Closing Connection to %s:%d... "
                             % (self.dstaddr, self.dstport))
         self.state = "closed"
         self.recvbuf = b""
         self.sendbuf = b""
-        try:
-            self.close()
-        except:
-            pass
-        self.cb.on_close(self)
-
-    def handle_read(self):
-        try:
-            t = self.recv(8192)
-            if len(t) > 0:
-                self.recvbuf += t
-                self.got_data()
-        except:
-            pass
-
-    def readable(self):
-        return True
-
-    def writable(self):
-        with mininode_lock:
-            length = len(self.sendbuf)
-        return (length > 0)
-
-    def handle_write(self):
-        with mininode_lock:
+        if self.writer is not None:
             try:
-                sent = self.send(self.sendbuf)
-            except:
-                self.handle_close()
-                return
-            self.sendbuf = self.sendbuf[sent:]
+                self.writer.close()
+                if self._loop is not None:
+                    self._loop.create_task(self.writer.wait_closed())
+            except Exception:
+                pass
+        if self._read_task is not None:
+            self._read_task.cancel()
+        if self._write_task is not None:
+            self._write_task.cancel()
+        mininode_socket_map.discard(self)
+        try:
+            self.cb.on_close(self)
+        finally:
+            pass
+
+    async def _read_loop(self):
+        try:
+            while not self.disconnect:
+                data = await self.reader.read(8192)
+                if not data:
+                    break
+                self.recvbuf += data
+                self.got_data()
+        except Exception:
+            pass
+        self.handle_close()
+
+    async def _write_loop(self):
+        try:
+            while not self.disconnect:
+                await self._writable.wait()
+                self._writable.clear()
+                while True:
+                    with mininode_lock:
+                        if not self.sendbuf:
+                            break
+                        data = self.sendbuf
+                        self.sendbuf = b""
+                    try:
+                        self.writer.write(data)
+                        await self.writer.drain()
+                    except Exception:
+                        self.disconnect = True
+                        break
+        except asyncio.CancelledError:
+            pass
+        self.handle_close()
 
     def got_data(self):
         try:
@@ -1549,6 +1588,8 @@ class NodeConn(asyncore.dispatcher):
         with mininode_lock:
             self.sendbuf += tmsg
             self.last_sent = time.time()
+        if self._writable is not None:
+            self._writable.set()
 
     def got_message(self, message):
         if message.command == b"version":
@@ -1561,20 +1602,28 @@ class NodeConn(asyncore.dispatcher):
 
     def disconnect_node(self):
         self.disconnect = True
+        if self._loop is not None:
+            self._loop.call_soon_threadsafe(self.handle_close)
 
 
 class NetworkThread(Thread):
     def run(self):
-        while mininode_socket_map:
-            # We check for whether to disconnect outside of the asyncore
-            # loop to workaround the behavior of asyncore when using
-            # select
-            disconnected = []
-            for fd, obj in mininode_socket_map.items():
-                if obj.disconnect:
-                    disconnected.append(obj)
-            [ obj.handle_close() for obj in disconnected ]
-            asyncore.loop(0.1, use_poll=True, map=mininode_socket_map, count=1)
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+
+        async def monitor():
+            for conn in list(mininode_socket_map):
+                conn.start(loop)
+            while mininode_socket_map:
+                for conn in list(mininode_socket_map):
+                    if not conn._connect_started:
+                        conn.start(loop)
+                await asyncio.sleep(0.1)
+            loop.stop()
+
+        loop.create_task(monitor())
+        loop.run_forever()
+        loop.close()
 
 
 # An exception we can raise if we detect a potential disconnect
