@@ -6,10 +6,10 @@
 Extract _("...") strings for translation and convert to Qt stringdefs so that
 they can be picked up by Qt linguist.
 '''
-from subprocess import Popen, PIPE
 import operator
 import os
 import sys
+from subprocess import PIPE, Popen
 
 OUT_CPP="qt/bitcoinstrings.cpp"
 EMPTY=['""']
@@ -58,13 +58,13 @@ if not XGETTEXT:
     print('Cannot extract strings: xgettext utility is not installed or not configured.',file=sys.stderr)
     print('Please install package "gettext" and re-run \'./configure\'.',file=sys.stderr)
     sys.exit(1)
-child = Popen([XGETTEXT,'--output=-','--from-code=utf-8','-n','--keyword=_'] + files, stdout=PIPE)
-(out, err) = child.communicate()
+child = Popen([XGETTEXT, '--output=-', '--from-code=utf-8', '-n', '--keyword=_'] + files, stdout=PIPE)
+out, _ = child.communicate()
 
 messages = parse_po(out.decode('utf-8'))
 
-f = open(OUT_CPP, 'w', encoding="utf8")
-f.write("""
+with open(OUT_CPP, 'w', encoding="utf8") as f:
+    f.write("""
 
 #include <QtGlobal>
 
@@ -75,11 +75,10 @@ f.write("""
 #define UNUSED
 #endif
 """)
-f.write('static const char UNUSED *bitcoin_strings[] = {\n')
-f.write('QT_TRANSLATE_NOOP("bitcoin-core", "%s"),\n' % (os.getenv('COPYRIGHT_HOLDERS'),))
-messages.sort(key=operator.itemgetter(0))
-for (msgid, msgstr) in messages:
-    if msgid != EMPTY:
-        f.write('QT_TRANSLATE_NOOP("bitcoin-core", %s),\n' % ('\n'.join(msgid)))
-f.write('};\n')
-f.close()
+    f.write('static const char UNUSED *bitcoin_strings[] = {\n')
+    f.write('QT_TRANSLATE_NOOP("bitcoin-core", "%s"),\n' % (os.getenv('COPYRIGHT_HOLDERS'),))
+    messages.sort(key=operator.itemgetter(0))
+    for (msgid, msgstr) in messages:
+        if msgid != EMPTY:
+            f.write('QT_TRANSLATE_NOOP("bitcoin-core", %s),\n' % ('\n'.join(msgid)))
+    f.write('};\n')
