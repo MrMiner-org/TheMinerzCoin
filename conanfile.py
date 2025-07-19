@@ -1,6 +1,7 @@
 from conan import ConanFile
 from conan.tools.cmake import CMake, CMakeToolchain, cmake_layout
 
+
 class TheMinerzCoinConan(ConanFile):
     name = "TheMinerzCoin"
     version = "0.1"

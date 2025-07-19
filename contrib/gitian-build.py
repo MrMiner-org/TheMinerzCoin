@@ -8,6 +8,7 @@ import os
 import subprocess
 import sys
 
+
 def setup():
     global args, workdir
     programs = ['ruby', 'git', 'make', 'wget', 'curl']
