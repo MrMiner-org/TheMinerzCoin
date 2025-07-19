@@ -13,6 +13,8 @@
 #include <deque>
 #include <set>
 #include <stdlib.h>
+#include <memory>
+#include <algorithm>
 
 #include <boost/function.hpp>
 #include <boost/bind/bind.hpp>
@@ -315,21 +317,25 @@ static std::map<std::string,std::string> ParseTorReplyMapping(const std::string 
  * @param maxsize Puts a maximum size limit on the file that is read. If the file is larger than this, truncated data
  *         (with len > maxsize) will be returned.
  */
-static std::pair<bool,std::string> ReadBinaryFile(const std::string &filename, size_t maxsize=std::numeric_limits<size_t>::max())
+static std::pair<bool,std::string> ReadBinaryFile(const std::string &filename, size_t maxsize = std::numeric_limits<size_t>::max())
 {
-    FILE *f = fopen(filename.c_str(), "rb");
-    if (f == NULL)
-        return std::make_pair(false,"");
+    std::unique_ptr<FILE, decltype(&fclose)> f(fopen(filename.c_str(), "rb"), &fclose);
+    if (!f)
+        return std::make_pair(false, "");
+
     std::string retval;
     char buffer[128];
     size_t n;
-    while ((n=fread(buffer, 1, sizeof(buffer), f)) > 0) {
-        retval.append(buffer, buffer+n);
-        if (retval.size() > maxsize)
-            break;
+    bool err = false;
+    while (retval.size() < maxsize && (n = fread(buffer, 1, std::min<size_t>(sizeof(buffer), maxsize - retval.size()), f.get())) > 0) {
+        retval.append(buffer, buffer + n);
     }
-    fclose(f);
-    return std::make_pair(true,retval);
+    if (ferror(f.get()))
+        err = true;
+
+    if (err)
+        return std::make_pair(false, "");
+    return std::make_pair(true, retval);
 }
 
 /** Write contents of std::string to a file.
@@ -337,15 +343,13 @@ static std::pair<bool,std::string> ReadBinaryFile(const std::string &filename, s
  */
 static bool WriteBinaryFile(const std::string &filename, const std::string &data)
 {
-    FILE *f = fopen(filename.c_str(), "wb");
-    if (f == NULL)
+    std::unique_ptr<FILE, decltype(&fclose)> f(fopen(filename.c_str(), "wb"), &fclose);
+    if (!f)
         return false;
-    if (fwrite(data.data(), 1, data.size(), f) != data.size()) {
-        fclose(f);
-        return false;
-    }
-    fclose(f);
-    return true;
+    bool ok = fwrite(data.data(), 1, data.size(), f.get()) == data.size();
+    if (fflush(f.get()) != 0)
+        ok = false;
+    return ok;
 }
 
 /****** Bitcoin specific TorController implementation ********/
